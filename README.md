@@ -1,7 +1,7 @@
 # Projet_TER
-
 Développement d’un outil d’aide à la décision pour choisir des outils de production des données (questionnaires, entretien, traces d’activités, etc) ..
-#Membre du groupe
+
+# Membre du groupe
 Corentin ROY Pauline TEOULLE
 
 # Résumé
