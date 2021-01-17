@@ -5,10 +5,7 @@ Développement d’un outil d’aide à la décision pour choisir des outils de 
 Corentin ROY Pauline TEOULLE
 
 # Résumé
-Description du projet en français (5 à 10 lignes)
-
-# Summary
-Summary of your project in english (5 to 10 lines)
+En informatique centrée humain, les chercheurs en informatique doivent connaître les besoins des futurs utilisateurs pour proposer une solution correspondant à leurs attentes (interface adaptée, fonctionnalités, etc…). Ils doivent donc inclure l’humain en prenant en compte leur travail, leur environnement et doivent comprendre leurs besoins. Pour cela, ils doivent mobiliser des méthodes de production des données issues des Sciences Humaines Sociales (SHS) (entretiens, questionnaires). Or le plus souvent, ils manquent de formations pour choisir ces méthodes et les utiliser. Ils rencontrent donc des  difficultés pour connaître les besoins des utilisateurs. Afin de faciliter leur choix, Nadine MANDRAN et Sophie DUPUY qui travaillent au LIG (le Laboratoire d’Informatique de Grenoble) ont proposé un arbre de décision en 2018 qui s’appelle le diagramme MATUI et qui est disponible dans un article (Mandran & Dupuy-Chessa, 2018) situé en référence. Le projet consiste en la réalisation d’une application web permettant de créer et de modifier le diagramme MATUI et de l’utiliser.
 
 # Documents à rendre
 Le cahier des charges 
@@ -30,9 +27,6 @@ Le résumé en français et en anglais
 La vidéo de démonstration
 ***
 
-# Diaporama
-Votre diaporama au format suivant PDF * Soutenance intermédiaire * Soutenance Finale
-
 # Compte-rendus des réunions
 22/09/2020 : compte-rendu n°0 : 1er rendez-vous (rencontre, description du projet) 
 ***
@@ -46,6 +40,7 @@ Votre diaporama au format suivant PDF * Soutenance intermédiaire * Soutenance F
 ***
 10/12/2020 : compte-rendu n°5 : revue de la 3ème version du cahier des charges 
 ***
-
-# Vidéos
-Video de démonstration
+11/01/2021 : compte-rendu n°6 : revue de la 1ère version du cahier de recette 
+***
+14/01/2021 : compte-rendu n°7 : revue de la 2ème version du cahier de recette 
+***
