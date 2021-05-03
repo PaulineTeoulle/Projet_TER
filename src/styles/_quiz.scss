@@ -1,0 +1,7 @@
+.Quiz{
+    background-color: var(--main-color);
+
+    &>h1{
+        color: var(--secondary-color);
+    }
+}

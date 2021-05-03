@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
@@ -26,19 +26,19 @@ export class App extends React.Component {
 //   console.log(this.state.list)
 // };
 
-render(){
+  render(){
     return(
-      <Router>
-        <div className="App">
-          <Nav/>
-          <Switch>
-            <Route path="/" exact component={Home}/>
-            <Route path="/quiz" exact component={Quiz}/>
-            <Route path="/manageTree" exact component={Tree}/>
-            <Redirect to="/" /> {/* Redirect to home when invalid url */}
-          </Switch>
-        </div>
-      </Router>
+        <Router>
+          <div className="App">
+            <Nav/>
+            <Switch>
+              <Route path="/" exact component={Home}/>
+              <Route path="/quiz" exact component={Quiz}/>
+              <Route path="/manageTree" exact component={Tree}/>
+              <Redirect to="/" /> {/* Redirect to home when invalid url */}
+            </Switch>
+          </div>
+        </Router>
     )
   }
 }
