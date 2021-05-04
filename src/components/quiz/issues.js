@@ -10,27 +10,28 @@ function Issues(props) {
         props.changeData(checkbox);
     }
 
-    return (
-        <div className="Issues">
-            <h3>Label question</h3>
-            <p className="step">Question {props.data}</p>
-            <form action="#">
-                <div>
-                    <input type="radio" id="1" name="radio-group" value="1"/>
-                    <label>Choix 1</label>
-                </div>
-                <div>
-                    <input type="radio" id="2" name="radio-group" value="2"/>
-                    <label>Choix 2</label>
-                </div>
-                <div>
-                    <input type="radio" id="3" name="radio-group" value="3"/>
-                    <label>Choix 3</label>
-                </div>
-            </form>    
-            <button onClick={next}>Next<FontAwesomeIcon className="icon" icon={faChevronRight} /></button>      
-        </div>
-    );
+    if(props.issue && props.decisions){
+        return (
+            <div className="Issues">
+                <h3>{props.issue.Libelle}</h3>
+                <p className="step">Question {props.step}</p>
+                <form action="#">
+                {props.decisions.map((decision, i) => {     
+                    console.log(decision    );                 
+                    return (
+                        <div key={decision.ID_Decision}>
+                            <input type="radio" name="radio-group" value={decision.ID_Critere_sortant}/>
+                            <label>{decision.Libelle}</label>
+                        </div>
+                    ) 
+                })}
+                </form>    
+                <button onClick={next}>Next<FontAwesomeIcon className="icon" icon={faChevronRight} /></button>      
+            </div>
+        );
+    } else {
+        return <p>loading...</p>
+    }
 }
 
 export default Issues;
