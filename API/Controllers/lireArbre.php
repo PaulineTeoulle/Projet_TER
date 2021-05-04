@@ -27,42 +27,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $ressource = new Ressource($db);
     $sortie = new Sortie($db);
 
-    /*$entree->lire();
-    if($entree->id != null){
-        $entreeResults = [
-            "id" => $entree->id,
-            "date" => $entree->date,
-            "critere"=>$entree->critere
-        ];
+    $entreeResults['entree'] = $entree->lire();
+    $critereResults['criteres'] = $critere->lire();
+    $decisionResults['decisions'] = $decision->lire();
+    $methodeResults['methodes'] = $methode->lire();
+    $methodeRessourceResults['methodesRessources'] = $methodeRessource->lire();
+    $ressourceResults['ressources'] = $ressource->lire();
+    $sortieResults['sortie'] = $sortie->lire();
 
-        http_response_code(200);
-        echo json_encode($entreeResults);
-    }
-    else{
-        http_response_code(404);
-        echo json_encode(array("message" => "Entree n'existe pas"));
-    }*/
-
-    $entreeResults = $entree->lire();
-    echo json_encode($entreeResults);
-
-    $critereResults = $critere->lire();
-    echo json_encode($critereResults);
-
-    $decisionResults = $decision->lire();
-    echo json_encode($decisionResults);
-
-    $methodeResults = $methode->lire();
-    echo json_encode($methodeResults);
-
-    $methodeRessourceResults = $methodeRessource->lire();
-    echo json_encode($methodeRessourceResults);
-
-    $ressourceResults = $ressource->lire();
-    echo json_encode($ressourceResults);
-
-    $sortieResults = $sortie->lire();
-    echo json_encode($sortieResults);
+    $arrayResults = array_merge($entreeResults, $critereResults, $decisionResults, $methodeResults, $methodeRessourceResults, $ressourceResults, $sortieResults);
+    echo json_encode($arrayResults);
 
 } else {
     http_response_code(405);
