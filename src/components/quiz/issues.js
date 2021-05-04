@@ -7,7 +7,8 @@ function Issues(props) {
 
     function next(){
         let checkbox = $('input:checked').val();
-        props.changeData(checkbox);
+        let decision = props.decisions.find(decision => decision.ID_Critere_sortant === checkbox)
+        props.changeData(checkbox, decision);
     }
 
     if(props.issue && props.decisions){
@@ -17,7 +18,10 @@ function Issues(props) {
                 <p className="step">Question {props.step}</p>
                 <form action="#">
                 {props.decisions.map((decision, i) => {     
-                    console.log(decision    );                 
+                    if(decision.ID_Critere_sortant == null){
+                        // 0 == end node
+                        decision.ID_Critere_sortant = 0;
+                    }
                     return (
                         <div key={decision.ID_Decision}>
                             <input type="radio" name="radio-group" value={decision.ID_Critere_sortant}/>

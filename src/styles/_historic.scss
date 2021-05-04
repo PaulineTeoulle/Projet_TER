@@ -1,0 +1,38 @@
+.Historic{
+    box-shadow: var(--shadow);
+
+    h3{
+        margin: 0;
+        padding: 10px;
+        color: var(--main-grey);
+        background-color: var(--light-grey);
+    }
+
+    ul{
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+
+        li{
+            &:hover{
+                opacity: 1;
+                border: 1px solid var(--secondary-color);
+            }
+
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid var(--light-grey);
+            opacity: .3;
+            cursor: pointer;
+
+            p{
+                padding: 10px;
+                margin: 0;
+            }
+
+            &:last-child{
+                opacity: 1;
+            }
+        }
+    }
+}
