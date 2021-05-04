@@ -60,4 +60,16 @@ class Decision
         return false;
     }
 
+    public function supprimer()
+    {
+        $sql = " DELETE FROM a_decision WHERE ID_Decision=:idDecision";
+        $query = $this->connexion->prepare($sql);
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $query->bindParam(":idDecision", $this->id);
+        if ($query->execute()) {
+            return true;
+        }
+        return false;
+    }
+
 }
