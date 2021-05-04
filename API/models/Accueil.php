@@ -45,7 +45,7 @@ class Accueil
      *
      * @return bool
      */
-    public function creer($description)
+    public function creer()
     {
 
         // Ecriture de la requête SQL en y insérant le nom de la table
@@ -55,7 +55,7 @@ class Accueil
         $query = $this->connexion->prepare($sql);
 
         // Protection contre les injections
-        $this->description = htmlspecialchars(strip_tags($description));
+        $this->description = htmlspecialchars(strip_tags($this->description));
 
         // Ajout des données protégées
         $query->bindParam(":description", $this->description);
@@ -96,7 +96,9 @@ class Accueil
     public function modifier()
     {
         // On écrit la requête
-        $sql = "UPDATE " . $this->table . "SET Description = :description WHERE id = 1";
+
+        $sql = "INSERT INTO " . $this->table . " SET Description=:description";
+        $sql = "UPDATE" . $this->table . "SET Description = :description WHERE ID_Accueil = 1";
 
         // On prépare la requête
         $query = $this->connexion->prepare($sql);

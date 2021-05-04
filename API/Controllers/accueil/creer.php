@@ -17,15 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $donnees = json_decode(file_get_contents("php://input"));
 
-    if (!empty($donnees->description)) {
-        $accueil->description = $donnees->description;
-
-        if ($accueil->creer($accueil->description)) {
+    if (!empty($donnees->description) && !empty($donnees->id)) {
+        if ($accueil->creer()) {
+            $accueil->id = $donnees->id;
+            $accueil->description = $donnees->description;
             $prod = [
                 "id" => $accueil->id,
                 "description" => $accueil->description,
             ];
             echo json_encode($prod);
+
+
             http_response_code(200);
             echo json_encode(["message" => "L'ajout a été effectué"]);
         } else {
