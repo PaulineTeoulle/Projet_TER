@@ -88,4 +88,16 @@ class Critere
         return false;
     }
 
+    public function supprimer()
+    {
+        $sql = " DELETE FROM a_critere WHERE ID_Critere=:idCritere";
+        $query = $this->connexion->prepare($sql);
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $query->bindParam(":idCritere", $this->id);
+        if ($query->execute()) {
+            return true;
+        }
+        return false;
+    }
+
 }
