@@ -1,10 +1,20 @@
 :root {
+    // colors
     --main-color: #0D1A70;
     --secondary-color: #007ACC; 
     --text-color: #1A1A1A;
     --main-grey: #666;
     --light-grey: #E6E6E6;
+
+    // styles
+    --shadow: rgba(150, 150, 150, 0.24) 0px 3px 8px;
 }
     
 @import './styles/_quiz.scss';
+@import './styles/_issues.scss';
+
+h1,h2,h3{
+    font-size: 20px;
+    font-weight: 500;
+}
 

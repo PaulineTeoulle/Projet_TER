@@ -1,13 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import Issues from '../components/quiz/issues';
 import Historic from '../components/quiz/historic';
 
 function Quiz() {
+
+    const tree = [1,2,3,4];
+    const [CurrentIssue, setCurrentIssue] = useState(0);
+
+    function changeData(element){
+        setCurrentIssue(element);
+    }
+
     return (
         <div className="Quiz">
-            <h1>Quiz page</h1>
-            <Issues/>
+            <Issues data={CurrentIssue} changeData={changeData}/>
             <Historic/>
         </div>
     );

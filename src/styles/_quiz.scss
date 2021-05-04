@@ -1,7 +1,13 @@
 .Quiz{
-    background-color: var(--main-color);
+    display: flex;
 
-    &>h1{
-        color: var(--secondary-color);
+    &>.Issues{
+        width: 65%;
+        margin: 0 15px 0 30px;
+    }
+
+    &>.Historic{
+        width: 35%;
+        margin: 0 30px 0 15px;
     }
 }
