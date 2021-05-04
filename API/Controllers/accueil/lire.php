@@ -21,14 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             "description" => $accueil->description,
         ];
 
-        http_response_code(200);
         echo json_encode($prod);
 
     } else {
-        http_response_code(404);
         echo json_encode(array("message" => "N'existe pas."));
     }
 } else {
-    http_response_code(405);
     echo json_encode(["message" => "La méthode n'est pas autorisée"]);
 }

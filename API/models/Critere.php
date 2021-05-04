@@ -23,4 +23,36 @@ class Critere
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function creerAvecInformations()
+    {
+        $sql = "INSERT INTO a_critere SET Libelle=:libelle, Informations=:informations";
+        $query = $this->connexion->prepare($sql);
+
+        $this->libelle = htmlspecialchars(strip_tags($this->libelle));
+        $this->informations = htmlspecialchars(strip_tags($this->informations));
+
+        $query->bindParam(":libelle", $this->libelle);
+        $query->bindParam(":informations", $this->informations);
+        if ($query->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function creerSansInformations()
+    {
+        $sql = "INSERT INTO a_critere SET Libelle=:libelle";
+        $query = $this->connexion->prepare($sql);
+
+        $this->libelle = htmlspecialchars(strip_tags($this->libelle));
+        $query->bindParam(":libelle", $this->libelle);
+
+        if ($query->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+
 }
