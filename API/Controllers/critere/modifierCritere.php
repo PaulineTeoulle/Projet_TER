@@ -6,8 +6,8 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
-    include_once '../config/Database.php';
-    include_once '../models/Critere.php';
+    include_once '../../config/Database.php';
+    include_once '../../models/Critere.php';
 
     $database = new Database();
     $db = $database->getConnection();
