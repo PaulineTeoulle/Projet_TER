@@ -18,25 +18,39 @@ export class Quiz extends React.Component {
         // this.componentDidMount = this.componentDidMount.bind(this);
     }
 
-    changeData = (nextIssueId, decision = null) => {
+    changeData = (nextIssueId, decision = null, history = true) => {
         // next issue ID in element
         if(nextIssueId != 0){
             let issue = this.state.tree.criteres.find(critere => critere.ID_Critere === nextIssueId);
             let decisions =  this.state.tree.decisions.filter(decision => decision.ID_Critere_entrant === issue.ID_Critere);
-            this.setState({currentIssue: issue});
-            this.setState({currentDecisions: decisions});
-            this.setState({step: this.state.step + 1});
-
-            if(decision){
-                let historicElement = {
-                    issue: this.state.currentIssue,
-                    decision: decision
-                }
-                this.setState({historic: this.state.historic.concat(historicElement)});
-            }
+            let oldIssue = this.state.currentIssue;
+            this.setState({
+                currentIssue: issue,
+                currentDecisions: decisions,
+                step: this.state.step + 1
+            }, () => {if(history){this.manageHistoric(decision, oldIssue)}});
         }else {
             alert("fini");
         }
+    }
+
+    backOut = (issueId) => {
+        this.changeData(issueId, null, false);
+        let index =  this.state.historic.indexOf(this.state.historic.find(el => el.issue.ID_Critere === issueId));
+        this.state.historic.length = index + 1;
+        this.state.historic[index].decision = null;
+        this.setState({step: index + 1}, () =>  console.log(this.state));
+    }
+
+    manageHistoric = (decision = null, oldIssue) => {
+            let condition = this.state.historic.find(el => el.issue.ID_Critere === oldIssue.ID_Critere);
+            if(condition){condition.decision = decision;}
+            let historicElement = {
+                issue: this.state.currentIssue,
+                decision: null
+            }
+            this.setState({historic: this.state.historic.concat(historicElement)});
+        
     }
 
     componentDidMount(){
@@ -58,7 +72,9 @@ export class Quiz extends React.Component {
                     changeData={this.changeData}
                     step={this.state.step}
                 />
-                <Historic historic={this.state.historic}/>
+                <Historic historic={this.state.historic} 
+                    backOut={this.backOut}
+                />
             </div>
         );
     }
