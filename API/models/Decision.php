@@ -16,7 +16,7 @@ class Decision
 
     public function lire()
     {
-        $sql = "SELECT * FROM " . $this->table;
+        $sql = "SELECT * FROM a_decision";
         $query = $this->connexion->prepare($sql);
         $query->execute();
 
@@ -62,7 +62,7 @@ class Decision
 
     public function modifierAvecIDSortant()
     {
-        $sql = "UPDATE a_decision SET Libelle =:libelle, ID_Critere_entrant =:id_critere_entrant, ID_Critere_sortant=:id_critere_sortant WHERE ID_Decision = :idDecision";
+        $sql = "UPDATE a_decision SET Libelle =:libelle, ID_Critere_entrant =:id_critere_entrant, ID_Critere_sortant=:id_critere_sortant WHERE ID_Decision = :id_decision";
         $query = $this->connexion->prepare($sql);
 
         $this->libelle = htmlspecialchars(strip_tags($this->libelle));
@@ -73,7 +73,7 @@ class Decision
         $query->bindParam(":libelle", $this->libelle);
         $query->bindParam(":id_critere_entrant", $this->id_critere_entrant);
         $query->bindParam(":id_critere_sortant", $this->id_critere_sortant);
-        $query->bindParam(":idDecision", $this->id);
+        $query->bindParam(":id_decision", $this->id);
         if ($query->execute()) {
             return true;
         }
@@ -82,7 +82,7 @@ class Decision
 
     public function modifierSansIDSortant()
     {
-        $sql = "UPDATE a_decision SET Libelle =:libelle, ID_Critere_entrant =:id_critere_entrant WHERE ID_Decision = :idDecision";
+        $sql = "UPDATE a_decision SET Libelle =:libelle, ID_Critere_entrant =:id_critere_entrant WHERE ID_Decision = :id_decision";
         $query = $this->connexion->prepare($sql);
 
         $this->id = htmlspecialchars(strip_tags($this->id));
@@ -91,7 +91,7 @@ class Decision
 
         $query->bindParam(":libelle", $this->libelle);
         $query->bindParam(":id_critere_entrant", $this->id_critere_entrant);
-        $query->bindParam(":idDecision", $this->id);
+        $query->bindParam(":id_decision", $this->id);
         if ($query->execute()) {
             return true;
         }
@@ -100,10 +100,10 @@ class Decision
 
     public function supprimer()
     {
-        $sql = " DELETE FROM a_decision WHERE ID_Decision=:idDecision";
+        $sql = " DELETE FROM a_decision WHERE ID_Decision=:id_decision";
         $query = $this->connexion->prepare($sql);
         $this->id = htmlspecialchars(strip_tags($this->id));
-        $query->bindParam(":idDecision", $this->id);
+        $query->bindParam(":id_decision", $this->id);
         if ($query->execute()) {
             return true;
         }

@@ -15,9 +15,9 @@ class Sortie
 
     public function lire()
     {
-        $sql = "SELECT * FROM " . $this->table;
+        $sql = "SELECT * FROM a_sortie";
         $query = $this->connexion->prepare($sql);
-        $query->execute();// On retourne le résultat
+        $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }

@@ -15,7 +15,7 @@ class Entree
 
     public function lire()
     {
-        $sql = "SELECT * FROM " . $this->table;
+        $sql = "SELECT * FROM a_entree";
         $query = $this->connexion->prepare($sql);
         $query->execute();
 

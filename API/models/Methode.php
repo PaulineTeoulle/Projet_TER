@@ -21,7 +21,7 @@ class Methode
 
     public function lire()
     {
-        $sql = "SELECT * FROM " . $this->table;
+        $sql = "SELECT * FROM a_methode";
         $query = $this->connexion->prepare($sql);
         $query->execute();
 
@@ -64,10 +64,10 @@ class Methode
 
     public function supprimer()
     {
-        $sql = " DELETE FROM a_methode WHERE ID_Methode=:idMethode";
+        $sql = " DELETE FROM a_methode WHERE ID_Methode=:id_methode";
         $query = $this->connexion->prepare($sql);
         $this->id = htmlspecialchars(strip_tags($this->id));
-        $query->bindParam(":idMethode", $this->id);
+        $query->bindParam(":id_methode", $this->id);
         if ($query->execute()) {
             return true;
         }

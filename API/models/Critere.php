@@ -15,7 +15,7 @@ class Critere
 
     public function lire()
     {
-        $sql = "SELECT * FROM " . $this->table;
+        $sql = "SELECT * FROM a_critere";
         $query = $this->connexion->prepare($sql);
         $query->execute();
 
@@ -56,7 +56,7 @@ class Critere
 
     public function modifierAvecInformations()
     {
-        $sql = "UPDATE a_critere SET Libelle =:libelle, Informations =:informations WHERE ID_Critere = :idCritere";
+        $sql = "UPDATE a_critere SET Libelle =:libelle, Informations =:informations WHERE ID_Critere = :id_critere";
         $query = $this->connexion->prepare($sql);
 
         $this->libelle = htmlspecialchars(strip_tags($this->libelle));
@@ -65,7 +65,7 @@ class Critere
 
         $query->bindParam(":libelle", $this->libelle);
         $query->bindParam(":informations", $this->informations);
-        $query->bindParam(":idCritere", $this->id);
+        $query->bindParam(":id_critere", $this->id);
         if ($query->execute()) {
             return true;
         }
@@ -74,14 +74,14 @@ class Critere
 
     public function modifierSansInformations()
     {
-        $sql = "UPDATE a_critere SET Libelle =:libelle WHERE ID_Critere = :idCritere";
+        $sql = "UPDATE a_critere SET Libelle =:libelle WHERE ID_Critere = :id_critere";
         $query = $this->connexion->prepare($sql);
 
         $this->libelle = htmlspecialchars(strip_tags($this->libelle));
         $this->id = htmlspecialchars(strip_tags($this->id));
 
         $query->bindParam(":libelle", $this->libelle);
-        $query->bindParam(":idCritere", $this->id);
+        $query->bindParam(":id_critere", $this->id);
         if ($query->execute()) {
             return true;
         }
@@ -90,10 +90,10 @@ class Critere
 
     public function supprimer()
     {
-        $sql = " DELETE FROM a_critere WHERE ID_Critere=:idCritere";
+        $sql = " DELETE FROM a_critere WHERE ID_Critere=:id_critere";
         $query = $this->connexion->prepare($sql);
         $this->id = htmlspecialchars(strip_tags($this->id));
-        $query->bindParam(":idCritere", $this->id);
+        $query->bindParam(":id_critere", $this->id);
         if ($query->execute()) {
             return true;
         }

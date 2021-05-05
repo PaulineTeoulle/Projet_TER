@@ -15,10 +15,9 @@ class MethodeRessource
 
     public function lire()
     {
-        $sql = "SELECT * FROM " . $this->table;
+        $sql = "SELECT * FROM a_methoderessource";
         $query = $this->connexion->prepare($sql);
         $query->execute();
-        // On retourne le résultat
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }

@@ -17,7 +17,7 @@ class Utilisateur
 
     public function lire()
     {
-        $sql = "SELECT * FROM " . $this->table;
+        $sql = "SELECT * FROM u_utilisateur ";
         $query = $this->connexion->prepare($sql);
         $query->execute();
         return $query;
