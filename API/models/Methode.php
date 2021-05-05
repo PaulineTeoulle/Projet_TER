@@ -62,4 +62,16 @@ class Methode
         return false;
     }
 
+    public function supprimer()
+    {
+        $sql = " DELETE FROM a_methode WHERE ID_Methode=:idMethode";
+        $query = $this->connexion->prepare($sql);
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $query->bindParam(":idMethode", $this->id);
+        if ($query->execute()) {
+            return true;
+        }
+        return false;
+    }
+
 }
