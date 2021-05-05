@@ -18,15 +18,24 @@ class Entree
         $sql = "SELECT * FROM " . $this->table;
         $query = $this->connexion->prepare($sql);
         $query->execute();
-        //return $query;
-        // On retourne le résultat
 
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
-        /*$row = $query->fetch(PDO::FETCH_ASSOC);
-        $this->id = $row['ID_Entree'];
-        $this->date = $row['Date'];
-        $this->critere = $row['ID_Critere'];
-        return $this;*/
+    }
+
+    public function modifier()
+    {
+        $sql = "UPDATE a_entree SET Date =:date, ID_Critere =:id_critere WHERE ID_Entree = 1";
+        $query = $this->connexion->prepare($sql);
+
+        $this->date = htmlspecialchars(strip_tags($this->date));
+        $this->critere = htmlspecialchars(strip_tags($this->critere));
+
+        $query->bindParam(":date", $this->date);
+        $query->bindParam(":id_critere", $this->critere);
+        if ($query->execute()) {
+            return true;
+        }
+        return false;
     }
 }
