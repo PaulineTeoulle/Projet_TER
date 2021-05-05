@@ -38,4 +38,16 @@ class Sortie
         return false;
     }
 
+    public function supprimer()
+    {
+        $sql = " DELETE FROM a_sortie WHERE ID_Sortie=:id_sortie";
+        $query = $this->connexion->prepare($sql);
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $query->bindParam(":id_sortie", $this->id);
+        if ($query->execute()) {
+            return true;
+        }
+        return false;
+    }
+
 }
