@@ -23,6 +23,22 @@ class Entree
         return $result;
     }
 
+    public function creer()
+    {
+        $sql = "INSERT INTO a_entree SET Date=:date, ID_Critere =:id_critere";
+        $query = $this->connexion->prepare($sql);
+
+        $this->date = htmlspecialchars(strip_tags($this->date));
+        $this->critere = htmlspecialchars(strip_tags($this->critere));
+        $query->bindParam(":date", $this->date);
+        $query->bindParam(":id_critere", $this->critere);
+
+        if ($query->execute()) {
+            return true;
+        }
+        return false;
+    }
+
     public function modifier()
     {
         $sql = "UPDATE a_entree SET Date =:date, ID_Critere =:id_critere WHERE ID_Entree = 1";
