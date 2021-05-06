@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     $entree = new Entree($db);
 
     $donnees = json_decode(file_get_contents("php://input"));
-    echo json_encode($donnees);
 
     if (isset($donnees->date)) {
         $entree->date = $donnees->date;
