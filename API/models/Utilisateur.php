@@ -58,4 +58,20 @@ class Utilisateur
         return false;
     }
 
+    public function modifierRole()
+    {
+        $sql = "UPDATE u_utilisateur SET Role =:role WHERE ID_Utilisateur = :id_utilisateur";
+        $query = $this->connexion->prepare($sql);
+
+        $this->role = htmlspecialchars(strip_tags($this->role));
+        $this->id = htmlspecialchars(strip_tags($this->id));
+
+        $query->bindParam(":role", $this->role);
+        $query->bindParam(":id_utilisateur", $this->id);
+        if ($query->execute()) {
+            return true;
+        }
+        return false;
+    }
+
 }
