@@ -40,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         } else {
             echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
         }
-
     }
 } else {
     echo json_encode(["message" => "La méthode n'est pas autorisée"]);
