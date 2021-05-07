@@ -17,10 +17,13 @@ class Utilisateur
 
     public function lire()
     {
-        $sql = "SELECT * FROM u_utilisateur ";
+        $sql = "SELECT * FROM u_utilisateur";
         $query = $this->connexion->prepare($sql);
         $query->execute();
-        return $query;
+
+        // On retourne le résultat
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
     }
 
 
