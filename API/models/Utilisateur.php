@@ -20,8 +20,6 @@ class Utilisateur
         $sql = "SELECT * FROM u_utilisateur";
         $query = $this->connexion->prepare($sql);
         $query->execute();
-
-        // On retourne le résultat
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
@@ -29,9 +27,6 @@ class Utilisateur
 
     public function creer()
     {
-        echo $this->pseudo;
-        echo $this->mail;
-        echo $this->mot_de_passe;
         $sql = "INSERT INTO u_utilisateur SET Mail=:mail, Pseudo=:pseudo,  Mot_de_passe=:mot_de_passe, Role=:role ";
         $query = $this->connexion->prepare($sql);
 
@@ -43,6 +38,20 @@ class Utilisateur
         $query->bindParam(":pseudo", $this->pseudo);
         $query->bindParam(":mot_de_passe", $this->mot_de_passe);
         $query->bindParam(":role", $this->role);
+        if ($query->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    public function supprimer()
+    {
+        $sql = "DELETE FROM u_utilisateur WHERE ID_Utilisateur=:id_utilisateur ";
+        $query = $this->connexion->prepare($sql);
+
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $query->bindParam(":id_utilisateur", $this->id);
+
         if ($query->execute()) {
             return true;
         }
