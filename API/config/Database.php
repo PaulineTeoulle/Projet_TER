@@ -7,7 +7,7 @@ class Database
     private $host = "localhost";
     private $db_name = "api_matui";
     private $username = "root";
-    private $password = "";
+    private $password = "123456789";
 
     public function getConnection()
     {

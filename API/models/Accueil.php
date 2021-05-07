@@ -24,16 +24,9 @@ class Accueil
      */
     public function lire()
     {
-        // On écrit la requête
-        $sql = "SELECT * FROM " . $this->table . " WHERE ID_Accueil =1 ";
-
-        // On prépare la requête
+        $sql = "SELECT * FROM a_accueil WHERE ID_Accueil=1";
         $query = $this->connexion->prepare($sql);
-
-        // On exécute la requête
         $query->execute();
-
-        // On retourne le résultat
         $row = $query->fetch(PDO::FETCH_ASSOC);
         $this->description = $row['Description'];
         $this->id = $row['ID_Accueil'];
@@ -47,41 +40,12 @@ class Accueil
      */
     public function creer()
     {
-
-        // Ecriture de la requête SQL en y insérant le nom de la table
-        $sql = "INSERT INTO " . $this->table . " SET Description=:description";
-
-        // Préparation de la requête
+        $sql = "INSERT INTO a_accueil SET Description=:description";
         $query = $this->connexion->prepare($sql);
 
-        // Protection contre les injections
         $this->description = htmlspecialchars(strip_tags($this->description));
-
-        // Ajout des données protégées
         $query->bindParam(":description", $this->description);
 
-        // Exécution de la requête
-        if ($query->execute()) {
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
-     * Supprimer l'accueil
-     *
-     * @return bool
-     */
-    public function supprimer()
-    {
-        // On écrit la requête
-        $sql = "DELETE FROM " . $this->table . " WHERE ID_Accueil = 1";
-
-        // On prépare la requête
-        $query = $this->connexion->prepare($sql);
-
-        // On exécute la requête
         if ($query->execute()) {
             return true;
         }
@@ -95,25 +59,13 @@ class Accueil
      */
     public function modifier()
     {
-        // On écrit la requête
-
-        $sql = "INSERT INTO " . $this->table . " SET Description=:description";
-        $sql = "UPDATE" . $this->table . "SET Description = :description WHERE ID_Accueil = 1";
-
-        // On prépare la requête
+        $sql = "UPDATE a_accueil SET Description =:description WHERE ID_Accueil = 1";
         $query = $this->connexion->prepare($sql);
-
-        // On sécurise les données;
         $this->description = htmlspecialchars(strip_tags($this->description));
-
-        // On attache les variables
-        $query->bindParam(':description', $this->description);
-
-        // On exécute
+        $query->bindParam(":description", $this->description);
         if ($query->execute()) {
             return true;
         }
-
         return false;
     }
 }
