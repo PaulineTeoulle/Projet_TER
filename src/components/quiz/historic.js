@@ -1,28 +1,54 @@
 import React from 'react';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUndoAlt } from '@fortawesome/free-solid-svg-icons'
+
 function Historic(props) {
 
     function back(element){
-        props.backOut(element.issue.ID_Critere);
+        let ID;
+        let type;
+        if ('issue' in element) {
+            ID = element.issue.ID_Critere;
+            type = 'issue';
+        }
+        if ('method' in element) {
+            ID = element.method.ID_Methode;
+            type = 'method';
+        }
+        props.backOut(ID, type);
+    }
+
+    function undo(){
+        if(props.historic.length > 1){
+            let element = props.historic[props.historic.length - 2];
+            back(element);
+        }
     }
 
     return (
         <div className="Historic">
-            <h3>Progression</h3>
-            <ul>
-            {props.historic.map((element, i) => {   
-                console.log(props.historic)  
-                    return (
-                        <li onClick={back.bind(this, element)} key={i}>
-                                <p>{element.issue.Libelle}</p>
-                                <p>{element.decision ? element.decision.Libelle : ""}</p>
-                            
-                        </li>
-                    ) 
-                })}
-            </ul>
+            <div className="historic-header">
+                <h3>Progression</h3>
+                <FontAwesomeIcon onClick={undo} className="icon" icon={faUndoAlt} />
+            </div>
+            {props.historic ?
+                <ul>
+                {props.historic.map((element, i) => {   
+                        return (
+                            <li onClick={back.bind(this, element)} key={i}>
+                                    <p>{element.issue ? element.issue.Libelle : element.method.Libelle}</p>
+                                    <p>{element.decision ? element.decision.Libelle : ""}</p>
+                                
+                            </li>
+                        ) 
+                    })}
+                </ul>
+                : <div>Loading...</div>
+            }
         </div>
     );
 }
 
 export default Historic;
+

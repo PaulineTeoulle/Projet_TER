@@ -40,6 +40,19 @@
         background-color: transparent;
         border: none;
         cursor: pointer;
+        transition: .3s;
+
+        &:focus{
+            outline: none;
+        }
+
+        &:hover{
+            letter-spacing: .1em;
+            transition: .3s;
+            .icon{
+                color: var(--secondary-color);
+            }
+        }
 
         .icon{
             margin-left: 10px;

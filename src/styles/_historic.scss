@@ -1,11 +1,29 @@
 .Historic{
     box-shadow: var(--shadow);
 
-    h3{
-        margin: 0;
-        padding: 10px;
+    .historic-header{
         color: var(--main-grey);
         background-color: var(--light-grey);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h3, .icon{
+            margin: 0;
+            padding: 10px;
+        }
+
+        .icon{
+            cursor: pointer;
+
+            &:hover{
+                color: var(--secondary-color);
+                transform: rotate(-360deg);
+                transition: .5s;
+                animation-timing-function: ease-in-out;
+            }
+
+        }
     }
 
     ul{
@@ -21,7 +39,7 @@
 
             display: flex;
             justify-content: space-between;
-            border-top: 1px solid var(--light-grey);
+            border-bottom: 1px solid var(--light-grey);
             opacity: .3;
             cursor: pointer;
 
@@ -32,6 +50,9 @@
 
             &:last-child{
                 opacity: 1;
+                border-left: solid 3px var(--main-color);
+                border-bottom: none;
+                pointer-events: none;
             }
         }
     }

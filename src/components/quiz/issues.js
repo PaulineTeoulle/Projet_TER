@@ -6,9 +6,17 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 function Issues(props) {
 
     function next(){
-        let checkbox = $('input:checked').val();
-        let decision = props.decisions.find(decision => decision.ID_Critere_sortant === checkbox)
-        props.changeData(checkbox, decision);
+        let checkedBox = $('input:checked').val();
+        let allChoices = [];
+        $.each($("input"), function(){
+            allChoices.push($(this).val());
+        });
+        console.log(allChoices);
+
+        if(checkedBox){
+            let decision = props.decisions.find(decision => decision.ID_Critere_sortant === checkedBox)
+            props.changeData(checkedBox, decision, allChoices);
+        }
     }
 
     if(props.issue && props.decisions){
