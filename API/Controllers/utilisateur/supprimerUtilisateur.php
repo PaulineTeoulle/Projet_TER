@@ -17,7 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     if (!empty($donnees->id)) {
         $utilisateur->id = $donnees->id;
         if ($utilisateur->supprimer()) {
-            echo json_encode(["message" => "La suppression a été effectué"]);
+            $utilisateur = $utilisateur->lire();
+            echo json_encode($utilisateur);
         } else {
             echo json_encode(["message" => "La suppression n'a pas été effectué"]);
         }

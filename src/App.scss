@@ -13,9 +13,14 @@
 @import './styles/_quiz.scss';
 @import './styles/_issues.scss';
 @import './styles/_historic.scss';
+@import './styles/_users.scss';
 
-h1,h2,h3{
+h1, h2, h3 {
     font-size: 20px;
     font-weight: 500;
+}
+
+p {
+    margin: 0;
 }
 

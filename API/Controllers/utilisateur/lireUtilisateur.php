@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $utilisateur = new Utilisateur($db);
 
     $utilisateur = $utilisateur->lire();
-    echo json_encode(["utilisateur" => $utilisateur]);
+    echo json_encode($utilisateur);
 
 } else {
     http_response_code(405);

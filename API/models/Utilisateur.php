@@ -17,13 +17,12 @@ class Utilisateur
 
     public function lire()
     {
-        $sql = "SELECT * FROM u_utilisateur";
+        $sql = "SELECT ID_Utilisateur, Mail, Pseudo, Role FROM u_utilisateur";
         $query = $this->connexion->prepare($sql);
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-
 
     public function creer()
     {
