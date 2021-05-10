@@ -11,11 +11,10 @@ function Issues(props) {
         $.each($("input"), function(){
             allChoices.push($(this).val());
         });
-        console.log(allChoices);
 
         if(checkedBox){
-            let decision = props.decisions.find(decision => decision.ID_Critere_sortant === checkedBox)
-            props.changeData(checkedBox, decision, allChoices);
+            let decision = props.decisions.find(decision => decision.ID_Decision === checkedBox)
+            props.changeData(decision.ID_Critere_sortant, decision, allChoices);
         }
     }
 
@@ -26,13 +25,13 @@ function Issues(props) {
                 <p className="step">Question {props.step}</p>
                 <form action="#">
                 {props.decisions.map((decision, i) => {     
-                    if(decision.ID_Critere_sortant == null){
-                        // 0 == end node
-                        decision.ID_Critere_sortant = 0;
-                    }
+                    // if(decision.ID_Critere_sortant == null){
+                    //     // 0 == end node
+                    //     decision.ID_Critere_sortant = 0;
+                    // }
                     return (
                         <div key={decision.ID_Decision}>
-                            <input type="radio" name="radio-group" value={decision.ID_Critere_sortant}/>
+                            <input type="radio" name="radio-group" value={decision.ID_Decision}/>
                             <label>{decision.Libelle}</label>
                         </div>
                     ) 

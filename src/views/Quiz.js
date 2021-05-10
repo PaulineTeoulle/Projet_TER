@@ -23,57 +23,44 @@ export class Quiz extends React.Component {
     }
 
     // met a jour le questionnaire
+    // historic : met a jour l'historique normalement
+    // editHistoric : met a jour artificiellement quand on est sur une méthode (arret du flux)
     changeData = (nextIssueId, decision = null, allChoices = null, historic = true, editHistoric = false) => {
         // ID de la prochaine question
         this.setState({checkedDecision: decision});
+        console.log(nextIssueId);
 
         //  Vérifie si la décision renvoie une méthode
         let method = this.checkMethod(decision);
+
         if(method){
             this.manageMethod(decision, method);
         } else {
             // si ID prochaine question pas égal a 0 on récupère info
             if(nextIssueId != 0){
-                // this.checkChoices(allChoices);
                 if(allChoices){
-                    let retry = allChoices.find(element => element == 0);
-                    if(retry){
+                    // si on est sur le critère de fin et qu'on continue, on reinitialise l'historique
+                    let restart;
+                    allChoices.forEach(element => {
+                        let decision = this.state.tree.decisions.find(el => el.ID_Decision === element);
+                        if(decision.ID_Critere_sortant === null){
+                            restart = true;
+                        }
+                    });
+                    console.log(restart)
+                    if(restart){
                         this.setState({
                             historic: [],
                             step: 0,
                         }, () => {
-                            console.log("choix et 0")
                             this.manageStoreData(nextIssueId, decision, historic, editHistoric);
                         });
                     } else {
-                        console.log("choix")
                         this.manageStoreData(nextIssueId, decision, historic, editHistoric);
                     }
                 } else {
-                    console.log("pas de choix")
                     this.manageStoreData(nextIssueId, decision, historic, editHistoric);
                 }
-                // setTimeout( () => {                 
-                    // let issue = this.state.tree.criteres.find(critere => critere.ID_Critere === nextIssueId);
-                    // let decisions =  this.state.tree.decisions.filter(decision => decision.ID_Critere_entrant === issue.ID_Critere);
-                    // let oldIssue = this.state.currentIssue;
-                    // this.setState({
-                    //     currentIssue: issue,
-                    //     currentDecisions: decisions,
-                    //     step: this.state.step + 1
-                    // }, () => {
-                    //     if(historic){
-                    //         this.manageHistoric(decision, oldIssue)
-                    //     }
-                    //     if(editHistoric){
-                    //         let historicElement = {
-                    //             issue: this.state.currentIssue,
-                    //             decision: null
-                    //         }
-                    //         this.setState({historic: this.state.historic.concat(historicElement)});  
-                    //     }
-                    // });    
-                // }, 1);      
             }else {
                 alert("fini");
             }
@@ -81,6 +68,7 @@ export class Quiz extends React.Component {
     }
 
     manageStoreData = (nextIssueId, decision, historic, editHistoric) => {
+        // on va chercher la prochaine question et réponses
         let issue = this.state.tree.criteres.find(critere => critere.ID_Critere === nextIssueId);
         let decisions =  this.state.tree.decisions.filter(decision => decision.ID_Critere_entrant === issue.ID_Critere);
         let oldIssue = this.state.currentIssue;
@@ -89,6 +77,7 @@ export class Quiz extends React.Component {
             currentDecisions: decisions,
             step: this.state.step + 1
         }, () => {
+            // on met a jour l'historique
             if(historic){
                 this.manageHistoric(decision, oldIssue)
             }
@@ -102,6 +91,7 @@ export class Quiz extends React.Component {
         });    
     }
 
+    // on ajoute la méthode dans l'historique
     manageMethod = (decision, method) => {
         this.state.historic[this.state.historic.length - 1].decision = decision;
         let historicElement = {
@@ -110,6 +100,7 @@ export class Quiz extends React.Component {
         this.setState({historic: this.state.historic.concat(historicElement)}); 
     }
 
+    // on regarde si une méthode est associé a la décision prise
     checkMethod = (decision) => {
         if(decision){
             let method = this.state.tree.methodes.find(methode => methode.ID_Decision === decision.ID_Decision);
@@ -120,40 +111,31 @@ export class Quiz extends React.Component {
         }
     }
 
-    checkChoices = (choices) => {
-        if(choices){
-            choices.forEach(element => {
-                if(element == 0){
-                    this.setState({
-                        historic: [],
-                        checkedDecision: "blabla",
-                        step: 0,
-                    }, () => {
-                        console.log(this.state);
-                        return true;
-                    });
-                }
-            })
-        }
-    }
-
+    // on retourne dans l'historique 
     backOut = (ID, type) => {
+        // si on retroune a une question
         if(type == 'issue'){
+            // si au moment ou on retourne on est sur une méthode
             if(this.state.currentMethod){
                 this.setState({currentMethod: null}, () => {
-                    this.test(ID);
+                    this.backIssue(ID);
                 })
             } else {
-                this.test(ID);
+                this.backIssue(ID);
             }
         } else {
-            // let index =  this.state.historic.indexOf(this.state.historic.find(el => el.method.ID_Methode === ID));
-            console.log(this.state.historic);
-            alert("methode")
+            // si on retourne a une méthode
+            let index =  this.state.historic.indexOf(this.state.historic.find(el => el.method));
+            let method =  this.state.historic[index].method;
+            let decisionBeforeMethod = this.state.historic[index - 1].decision;
+            this.state.historic.length = index;
+            this.setState({step: index});
+            this.changeData(decisionBeforeMethod.ID_Critere_sortant, decisionBeforeMethod, null, false);
         }
     }
 
-    test = (ID) => {
+    // on rebind les bonne data en fonction de l'ID du critère sélectionné dans l'historique
+    backIssue = (ID) => {
         let index;
         this.changeData(ID, null, null, false);
         this.state.historic.forEach(element => {
@@ -169,19 +151,33 @@ export class Quiz extends React.Component {
         this.setState({step: index + 1});
     }
 
+    // on gère l'historique
     manageHistoric = (decision = null, oldIssue) => {
-        if(!this.state.currentMethod && this.state.historic){
-            let condition = this.state.historic.find(el => el.issue.ID_Critere === oldIssue.ID_Critere);
-            if(condition){condition.decision = decision;}
-            console.log(this.state)
+        // si nous ne somme aps sur une méthode
+        // if(!this.state.currentMethod && this.state.historic){
+            // on ajoute la décision prise au critère précédent
+            this.state.historic.forEach(element => {
+                if('issue' in element){
+                    if(element.issue.ID_Critere === oldIssue.ID_Critere){
+                        element.decision = decision;
+                    }
+                }
+            });
+            // console.log(decision)
+            // console.log(oldIssue)
+            // let condition = this.state.historic.find(el => el.issue.ID_Critere === oldIssue.ID_Critere);
+            // if(condition){condition.decision = decision;}
+
+            // on ajoute le nouveau critère sans décision dans l'historique
             let historicElement = {
                 issue: this.state.currentIssue,
                 decision: null
             }
-            this.setState({historic: this.state.historic.concat(historicElement)}, () => console.log(this.state));  
-        }  
+            this.setState({historic: this.state.historic.concat(historicElement)});  
+        //}  
     }
 
+    // on reprend le questionnaire la ou on en était depuis une méthode
     resumeQuiz = () => {
         this.setState({currentMethod: null}, () => {
             this.changeData(this.state.checkedDecision.ID_Critere_sortant, null, null, false, true);
