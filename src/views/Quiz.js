@@ -22,13 +22,14 @@ export class Quiz extends React.Component {
         // this.componentDidMount = this.componentDidMount.bind(this);
     }
 
+
     // met a jour le questionnaire
     // historic : met a jour l'historique normalement
     // editHistoric : met a jour artificiellement quand on est sur une méthode (arret du flux)
     changeData = (nextIssueId, decision = null, allChoices = null, historic = true, editHistoric = false) => {
         // ID de la prochaine question
         this.setState({checkedDecision: decision});
-        console.log(nextIssueId);
+        console.log(this.state.tree);
 
         //  Vérifie si la décision renvoie une méthode
         let method = this.checkMethod(decision);
