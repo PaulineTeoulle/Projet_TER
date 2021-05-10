@@ -1,0 +1,70 @@
+.Method{
+    .methodCard{
+        box-shadow: var(--shadow);
+        display: flex;
+
+        .informations{
+            padding: 15px;
+            font-size: 14px;
+
+            h3{
+                margin: 0;
+            }
+            &>div{
+                display: flex;
+
+                &>div{
+                    margin: 20px;
+                    width: 25%;
+
+                    &:first-child{
+                        margin-left: 0;
+                    }
+
+                    &:last-child{
+                        margin-right: 0;
+                    }
+
+                    .icon{
+                        color: var(--main-grey);
+                        display: block;
+                        margin: auto;
+                    }
+
+                    p{
+                        &:nth-child(2){
+                            margin: 0;
+                            font-size: 12px;
+                            text-align: center;
+                        }
+                    }
+                }
+            }
+        }
+        
+        .ressources{
+            max-width: 100px;
+            min-width: 10%;
+            background-color: var(--light-grey);
+            margin: 15px;
+
+            .icon{
+                color: var(--pdf-file);
+                font-size: 2.5em;
+                margin: 10px auto;
+                display: block;
+            }
+        }
+    }
+    .action{
+        margin-top: 10px;
+        display: flex;
+
+        :first-child{
+            margin-right: 10px;
+        }
+        :nth-child(2){
+            margin-left: 10px;
+        }
+    } 
+}

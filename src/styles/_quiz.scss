@@ -1,7 +1,7 @@
 .Quiz{
     display: flex;
 
-    &>.Issues{
+    &>.Issues, &>.Method{
         width: 65%;
         margin: 0 15px 0 30px;
         height: fit-content;
