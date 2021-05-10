@@ -20,12 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
         $utilisateur->role = $donnees->role;
 
         if ($utilisateur->modifierRole()) {
-            $utilisateurResults = [
-                "id" => $utilisateur->id,
-                "role" => $utilisateur->role
-            ];
-            echo json_encode($utilisateurResults);
-            echo json_encode(["message" => "La modification a été effectué"]);
+//            $utilisateurResults = [
+//                "id" => $utilisateur->id,
+//                "role" => $utilisateur->role
+//            ];
+            $utilisateur = $utilisateur->lire();
+            echo json_encode($utilisateur);
         } else {
             echo json_encode(["message" => "La modification n'a pas été effectué"]);
         }

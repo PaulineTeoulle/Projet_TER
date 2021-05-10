@@ -25,7 +25,12 @@
     text-align: center;
 
     svg {
-      margin: 5px;
+      margin: 0 30px 0 0;
+
+      &:hover {
+        color: var(--secondary-color);
+        cursor: pointer;
+      }
     }
 
     &:nth-child(odd) {
@@ -35,10 +40,13 @@
     &:nth-child(even) {
       background: #FFF
     }
+
   }
 
   p {
     padding: 0;
   }
+;
+
 
 }
