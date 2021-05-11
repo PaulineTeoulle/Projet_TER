@@ -43,9 +43,13 @@
             opacity: .3;
             cursor: pointer;
 
-            p{
+            p, .icon{
                 padding: 10px;
                 margin: 0;
+            }
+
+            .icon{
+                color: var(--main-grey);
             }
 
             &:last-child{

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUndoAlt } from '@fortawesome/free-solid-svg-icons'
+import { faUndoAlt, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 function Historic(props) {
 
@@ -25,7 +25,7 @@ function Historic(props) {
             back(element);
         }
     }
-
+    console.log(props.historic)
     return (
         <div className="Historic">
             <div className="historic-header">
@@ -38,8 +38,12 @@ function Historic(props) {
                         return (
                             <li onClick={back.bind(this, element)} key={i}>
                                     <p>{element.issue ? element.issue.Libelle : element.method.Libelle}</p>
-                                    <p>{element.decision ? element.decision.Libelle : ""}</p>
-                                
+                                    {element.decision &&
+                                        <p>{element.decision.Libelle}</p>
+                                    }  
+                                    {element.checked &&
+                                        <FontAwesomeIcon className="icon" icon={faCheckCircle} />
+                                    }                            
                             </li>
                         ) 
                     })}

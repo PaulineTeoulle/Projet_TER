@@ -1,61 +1,95 @@
 .Method{
     .methodCard{
         box-shadow: var(--shadow);
-        display: flex;
 
-        .informations{
-            padding: 15px;
-            font-size: 14px;
+        .header{
+            display: flex;
+            border-bottom: 1px solid var(--light-grey);
+            margin: 15px;
+            margin-top: 0;
+            padding: 15px 0;
 
-            h3{
-                margin: 0;
-            }
-            &>div{
-                display: flex;
+            .informations{
+                font-size: 14px;
 
+                h3{
+                    margin: 0;
+                }
+
+                &>:last-child{
+                    margin-top: 0;
+                }
+                
                 &>div{
-                    margin: 20px;
-                    width: 25%;
+                    display: flex;
 
-                    &:first-child{
-                        margin-left: 0;
-                    }
+                    &>div{
+                        margin: 20px;
+                        width: 25%;
 
-                    &:last-child{
-                        margin-right: 0;
-                    }
+                        &:first-child{
+                            margin-left: 0;
+                        }
 
-                    .icon{
-                        color: var(--main-grey);
-                        display: block;
-                        margin: auto;
-                    }
+                        &:last-child{
+                            margin-right: 0;
+                        }
 
-                    p{
-                        &:nth-child(2){
-                            margin: 0;
-                            font-size: 12px;
-                            text-align: center;
+                        .icon{
+                            color: var(--main-grey);
+                            display: block;
+                            margin: auto;
+                        }
+
+                        p{
+                            &:nth-child(2){
+                                margin: 0;
+                                font-size: 12px;
+                                text-align: center;
+                            }
                         }
                     }
                 }
             }
-        }
-        
-        .ressources{
-            max-width: 100px;
-            min-width: 10%;
-            background-color: var(--light-grey);
-            margin: 15px;
+            
+            .ressources{
+                max-width: 100px;
+                min-width: 10%;
+                background-color: var(--light-grey);
 
-            .icon{
-                color: var(--pdf-file);
-                font-size: 2.5em;
-                margin: 10px auto;
-                display: block;
+                .ressource{
+                    margin: 15px auto;
+                    .icon{
+                        color: var(--pdf-file);
+                        font-size: 2.5em;
+                        margin: auto;
+                        display: block;
+                    }
+
+                    p{
+                        color: var(--secondary-color);
+                        font-size: 10px;
+                        text-decoration: underline;
+                        text-align: center;
+                        margin-top: 5px;
+                    }
+                }
             }
         }
-    }
+
+        .footer{
+            padding: 15px;
+            padding-top: 0;
+            display: flex;
+            align-items: center;
+
+            &>span:last-child{
+                color: var(--main-grey);
+                margin-left: 10px;
+                font-size: 14px;
+            }
+        }
+    } 
     .action{
         margin-top: 10px;
         display: flex;
@@ -66,5 +100,5 @@
         :nth-child(2){
             margin-left: 10px;
         }
-    } 
+    }
 }
