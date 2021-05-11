@@ -6,9 +6,18 @@ function Nav() {
         <div className="Navigation">
             <nav>
                 <ul>
-                    <Link to="/"><li>Home</li></Link>
-                    <Link to="/quiz"><li>Quiz</li></Link>
-                    <Link to="/manageTree"><li>Tree</li></Link>
+                    <Link to="/">
+                        <li>Home</li>
+                    </Link>
+                    <Link to="/quiz">
+                        <li>Quiz</li>
+                    </Link>
+                    <Link to="/manageTree">
+                        <li>Tree</li>
+                    </Link>
+                    <Link to="/manageUsers">
+                        <li>Users</li>
+                    </Link>
                 </ul>
             </nav>
         </div>

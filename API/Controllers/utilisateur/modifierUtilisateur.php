@@ -7,26 +7,32 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
     include_once '../../config/Database.php';
-    include_once '../../models/Accueil.php';
+    include_once '../../models/Utilisateur.php';
 
     $database = new Database();
     $db = $database->getConnection();
-    $accueil = new Accueil($db);
+    $utilisateur = new Utilisateur($db);
 
     $donnees = json_decode(file_get_contents("php://input"));
 
-    if (!empty($donnees->description)) {
-        $accueil->description = $donnees->description;
-        if ($accueil->modifier()) {
-            $accueilResult = [
-                "description" => $accueil->description,
-            ];
-            echo json_encode($accueilResult);
-            echo json_encode(["message" => "La modification a été effectuée"]);
+    if (isset($donnees->id_utilisateur) && !empty($donnees->role)) {
+        $utilisateur->id = $donnees->id_utilisateur;
+        $utilisateur->role = $donnees->role;
+
+        if ($utilisateur->modifierRole()) {
+//            $utilisateurResults = [
+//                "id" => $utilisateur->id,
+//                "role" => $utilisateur->role
+//            ];
+            $utilisateur = $utilisateur->lire();
+            echo json_encode($utilisateur);
         } else {
-            echo json_encode(["message" => "La modification n'a pas été effectuée"]);
+            echo json_encode(["message" => "La modification n'a pas été effectué"]);
         }
     }
+
+
 } else {
     echo json_encode(["message" => "La méthode n'est pas autorisée"]);
+
 }

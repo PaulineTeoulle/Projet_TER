@@ -8,18 +8,21 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include_once '../../config/Database.php';
-    include_once '../../models/Accueil.php';
+    include_once '../../models/Sortie.php';
 
     $database = new Database();
     $db = $database->getConnection();
-    $accueil = new Accueil($db);
+    $sortie = new Sortie($db);
 
     $donnees = json_decode(file_get_contents("php://input"));
-    if (!empty($donnees->description)) {
-        $accueil->description = $donnees->description;
-        if ($accueil->creer()) {
-            $accueilResult = [
-                "description" => $accueil->description,
+    if (!empty($donnees->message) && !empty($donnees->id_decision)) {
+        $sortie->message = $donnees->message;
+        $sortie->id_decision = $donnees->id_decision;
+        if ($sortie->creer()) {
+            $sortieResults = [
+                "message" => $sortie->message,
+                "id_decision" => $sortie->id_decision
+
             ];
             echo json_encode(["message" => "L'ajout a été effectué"]);
         } else {
