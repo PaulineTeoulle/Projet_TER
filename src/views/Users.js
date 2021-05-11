@@ -87,12 +87,12 @@ export class Users extends React.Component {
                 data: data
             })
                 .then(response => {
-                    console.log(response)
-                    if (response.status === 200) {
-                        this.setState({
-                            users: response.data
+                    axios.get('http://localhost/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
+                        .then(response => {
+                            this.setState({users: response.data});
                         })
-                    }
+                        .catch(error => console.log(error))
+                    this.handleClose();
                 })
                 .catch(function (erreur) {
                     console.log(erreur);
