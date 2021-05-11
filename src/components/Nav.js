@@ -18,9 +18,6 @@ function Nav() {
                     <Link to="/manageUsers">
                         <li>Users</li>
                     </Link>
-                    <Link to="/test">
-                        <li>TestModal</li>
-                    </Link>
                 </ul>
             </nav>
         </div>
