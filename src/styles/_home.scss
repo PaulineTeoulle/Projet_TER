@@ -1,0 +1,40 @@
+.Home {
+
+  column-count: 2;
+
+  .Logo {
+    position: absolute;
+    margin-top: 150px;
+    margin-left: 300px;
+    width: 500px;
+    height: 500px;
+  }
+
+  .Accueil {
+    position: absolute;
+    margin-top: 110px;
+    margin-left: 50%;
+    width: 700px;
+    height: 500px;
+    color: var(--main-color);
+    font-size: 120%;
+
+    svg {
+      &:hover {
+        color: var(--secondary-color);
+        cursor: pointer;
+      }
+
+      width: 25px;
+    }
+  }
+
+  h3 {
+    color: var(--main-color);
+    font-weight: 700;
+    font-size: 200%;
+
+
+  }
+
+}
