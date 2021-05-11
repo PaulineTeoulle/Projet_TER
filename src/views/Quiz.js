@@ -206,6 +206,7 @@ export class Quiz extends React.Component {
         if(!this.state.tree){
             axios.get(url + '/reactTest/MATUI/API/Controllers/lireArbre.php')
             .then(response => {
+                console.log(response)
                 this.setState({tree: response.data});
                 this.changeData(response.data.entree[0].ID_Critere);
             })
