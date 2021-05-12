@@ -5,7 +5,7 @@ header("Access-Control-Allow-Methods: PUT, GET, POST");
 
 
 $response = array();
-$upload_dir = '../documentsRessources/';
+$upload_dir = '../src/public/documentsRessources/';
 $server_url = 'http://127.0.0.1:8000';
 
 
@@ -32,8 +32,6 @@ if ($_FILES['file']) {
         if (move_uploaded_file($file_tmp_name, $upload_name)) {
             $ressource->nom = $file_name;
             $ressource->fichier = $upload_name;
-            echo $ressource->nom;
-            echo $ressource->fichier;
             if ($ressource->creer()) {
                 $response = array(
                     "status" => "success",
