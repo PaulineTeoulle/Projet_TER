@@ -1,9 +1,8 @@
-import React, {useState, useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import $ from 'jquery';
-import ReactFlow,{ removeElements, addEdge, ReactFlowProps, Controls,ReactFlowProvider  } from 'react-flow-renderer';
+import ReactFlow, {addEdge, ReactFlowProvider, removeElements} from 'react-flow-renderer';
 
 import Toolbar from '../components/Toolbar';
-import { createPortal } from 'react-dom';
 
 function Tree() {
 
@@ -11,20 +10,20 @@ function Tree() {
         {
             id: '1',
             type: 'input',
-            data: { label: 'Start Node' },
-            position: { x: 250, y: 25 },
+            data: {label: 'Start Node'},
+            position: {x: 250, y: 25},
         },
         {
             id: '2',
             type: 'default',
-            data: { label: 'Node' },
-            position: { x: 100, y: 125 },
+            data: {label: 'Node'},
+            position: {x: 100, y: 125},
         },
         {
             id: '3',
-            type: 'output', 
-            data: { label: 'End Node' },
-            position: { x: 250, y: 250 },
+            type: 'output',
+            data: {label: 'End Node'},
+            position: {x: 250, y: 250},
         },
         {
             id: 'e1-2',
@@ -41,8 +40,8 @@ function Tree() {
             type: 'smoothstep',
             arrowHeadType: 'arrowclosed',
             label: 'edge label',
-          },
-      ];
+        },
+    ];
 
     const [nextId, setNextId] = useState("0");
     const [editedElement, setEditedElement] = useState(null);
@@ -50,8 +49,10 @@ function Tree() {
     const reactFlowWrapper = useRef(null);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
     const onElementsRemove = (elementsToRemove) => setElements((els) => removeElements(elementsToRemove, els));
-    const onConnect = (params) => setElements((els) => addEdge({ ...params, 
-        arrowHeadType: 'arrowclosed', label: 'edge label', type: 'smoothstep'}, els));
+    const onConnect = (params) => setElements((els) => addEdge({
+        ...params,
+        arrowHeadType: 'arrowclosed', label: 'edge label', type: 'smoothstep'
+    }, els));
     const onLoad = (_reactFlowInstance) => setReactFlowInstance(_reactFlowInstance);
 
 
@@ -67,12 +68,12 @@ function Tree() {
 
         //check if input/output already exists
         const type = event.dataTransfer.getData('application/reactflow');
-        if(type == "input" || type == "output"){
-            if(checkExist(type)){
+        if (type == "input" || type == "output") {
+            if (checkExist(type)) {
                 return alert("Désolé, il ne peut y avoir qu'un seul noeud de type " + type)
-            } 
+            }
         }
-        
+
         const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
         const position = reactFlowInstance.project({
             x: event.clientX - reactFlowBounds.left,
@@ -82,9 +83,14 @@ function Tree() {
         setNextId((parseInt(nextId) + 1).toString());
     };
 
-    const onElementClick = (event, element) =>{
-        event.preventDefault();
-        openEdition(element);
+    const onElementClick = (event, element) => {
+        // event.preventDefault();
+        let el = $("div").find(`[data-id='${element.id}']`)
+        if (el.text() === "Start Node" || el.text() === "End Node") {
+            console.log("Impossible de modifier le noeud (début ou fin)")
+        } else {
+            openEdition(element);
+        }
     }
 
     const onPaneClick = (event) => {
@@ -96,22 +102,22 @@ function Tree() {
     // FUNCTIONS
 
     // set next ID
-    (function setId(){
-        $(".react-flow__node").each(function( index ) {
+    (function setId() {
+        $(".react-flow__node").each(function (index) {
             let currentId = $(this).data("id");
-            if(currentId >= nextId){
+            if (currentId >= nextId) {
                 setNextId((currentId + 1).toString());
             }
         });
     })();
 
-    function getId(){
+    function getId() {
         return nextId;
     }
 
     // add input in selected node
-    function openEdition(element){
-        if(!editedElement){
+    function openEdition(element) {
+        if (!editedElement) {
             let el = $("div").find(`[data-id='${element.id}']`)
             let text = el.text()
             el.css("font-size", 0);
@@ -121,11 +127,11 @@ function Tree() {
     }
 
     // remove input in selected node and save label
-    function closeEdition(){
-        if(editedElement){
+    function closeEdition() {
+        if (editedElement) {
             let newValue = editedElement.children("input").val();
             elements.forEach(element => {
-                if(element.id == editedElement.data("id")){
+                if (element.id == editedElement.data("id")) {
                     element.data.label = newValue;
                 }
             });
@@ -140,15 +146,15 @@ function Tree() {
             id: getId(),
             type,
             position,
-            data: { label: `${type} node` },
+            data: {label: `${type} node`},
         };
         setElements((es) => es.concat(newNode));
     }
 
     // check if a node type already exists
-    function checkExist(type){
+    function checkExist(type) {
         for (let i = 0; i < elements.length; i++) {
-            if(elements[i].type == type){
+            if (elements[i].type == type) {
                 return true;
             }
         }
@@ -157,25 +163,25 @@ function Tree() {
 
     // DEBUG
 
-    function printNodes(){
+    function printNodes() {
         console.log(elements);
     }
 
     return (
         <div className="Tree">
-            <ReactFlowProvider>        
+            <ReactFlowProvider>
                 <div className="reactflow-wrapper" ref={reactFlowWrapper}>
                     <h1>Tree</h1>
-                    <div style={{ height: 600, backgroundColor: 'lightgrey' }}>
-                        <ReactFlow  elements={elements}
-                            onElementsRemove={onElementsRemove}
-                            onConnect={onConnect}
-                            deleteKeyCode={46}
-                            onLoad={onLoad}
-                            onDrop={onDrop}
-                            onDragOver={onDragOver}
-                            onElementClick={onElementClick}
-                            onPaneClick={onPaneClick} />
+                    <div style={{height: 600, backgroundColor: 'lightgrey'}}>
+                        <ReactFlow elements={elements}
+                                   onElementsRemove={onElementsRemove}
+                                   onConnect={onConnect}
+                                   deleteKeyCode={46}
+                                   onLoad={onLoad}
+                                   onDrop={onDrop}
+                                   onDragOver={onDragOver}
+                                   onElementClick={onElementClick}
+                                   onPaneClick={onPaneClick}/>
                     </div>
                     <button onClick={() => printNodes()}>print nodes</button>
                     <Toolbar/>

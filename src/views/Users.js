@@ -15,7 +15,8 @@ export class Users extends React.Component {
         super(props);
         this.state = {
             users: null,
-            modalOpen: false,
+            modalEditOpen: false,
+            modalDeleteOpen: false,
             idUser: null,
             currentRole: null,
             newRole: "user"
@@ -23,20 +24,29 @@ export class Users extends React.Component {
         this.componentDidMount = this.componentDidMount.bind(this);
         this.edit = this.edit.bind(this);
         this.delete = this.delete.bind(this);
+        this.handleCloseEdit = this.handleCloseEdit.bind(this);
+        this.handleCloseDelete = this.handleCloseDelete.bind(this);
+        this.handleClickOpenDelete = this.handleClickOpenDelete.bind(this);
+        this.handleClickOpenEdit = this.handleClickOpenEdit.bind(this);
+
     }
 
-    handleClickOpen(id, role) {
-        this.setState({modalOpen: true, idUser: id, currentRole: role});
+    handleClickOpenEdit(id, role) {
+        this.setState({modalEditOpen: true, idUser: id, currentRole: role});
         console.log(id);
     };
 
-    handleClose = () => {
-        this.setState({modalOpen: false});
+    handleCloseEdit() {
+        this.setState({modalEditOpen: false});
     };
 
-    onRoleChange(event) {
-        this.setState({newRole: event.target.value})
-    }
+    handleClickOpenDelete() {
+        this.setState({modalDeleteOpen: true});
+    };
+
+    handleCloseDelete() {
+        this.setState({modalDeleteOpen: false});
+    };
 
     handleChange = (event) => {
         this.setState({newRole: event.target.value});
@@ -68,14 +78,13 @@ export class Users extends React.Component {
                             this.setState({users: response.data});
                         })
                         .catch(error => console.log(error))
-                    this.handleClose();
+                    this.handleCloseEdit();
                 })
                 .catch(function (erreur) {
                     console.log(erreur);
                 });
 
         }
-        this.handleClose();
     }
 
     delete = (id) => {
@@ -92,7 +101,7 @@ export class Users extends React.Component {
                             this.setState({users: response.data});
                         })
                         .catch(error => console.log(error))
-                    this.handleClose();
+                    this.handleCloseDelete();
                 })
                 .catch(function (erreur) {
                     console.log(erreur);
@@ -103,7 +112,7 @@ export class Users extends React.Component {
 
     chargeData() {
         let listItems = [];
-        for (var i in this.state.users) {
+        for (let i in this.state.users) {
             let child = [];
             child.push(<div key={i} className="row">
                 <p>{this.state.users[i]['Pseudo']}</p>
@@ -112,27 +121,26 @@ export class Users extends React.Component {
 
                 <p>
                     <FontAwesomeIcon icon={faPen}
-                                     onClick={this.handleClickOpen.bind(this, this.state.users[i]['ID_Utilisateur'], this.state.users[i]['Role'])}/>
+                                     onClick={this.handleClickOpenEdit.bind(this, this.state.users[i]['ID_Utilisateur'], this.state.users[i]['Role'])}/>
 
                     <Dialog
-                        open={this.state.modalOpen}
-                        onClose={() => this.handleClose}
+                        open={this.state.modalEditOpen}
+                        onClose={() => this.handleCloseEdit}
                     >
-                        <DialogTitle>Changer le role de l'utilisateur {this.state.idUser}</DialogTitle>
+                        <DialogTitle>Modify role of this user : {this.state.users[i]['Pseudo']}</DialogTitle>
                         <DialogContent>
-                            <FormControl className="formControl">
+                            <FormControl>
                                 <InputLabel>Role</InputLabel>
-                                <Select className="select" onChange={this.handleChange.bind(this)} defaultValue="">
+                                <Select onChange={this.handleChange.bind(this)} defaultValue="">
                                     <MenuItem value={"administrator"}>Administrator</MenuItem>
                                     <MenuItem value={"user"}>User</MenuItem>
                                     <MenuItem value={"super-admin"}>Super-administrator</MenuItem>
                                 </Select>
-
                             </FormControl>
                         </DialogContent>
 
                         <DialogActions>
-                            <Button onClick={this.handleClose}>
+                            <Button onClick={this.handleCloseEdit}>
                                 Cancel
                             </Button>
                             <Button
@@ -145,7 +153,28 @@ export class Users extends React.Component {
 
 
                     <FontAwesomeIcon icon={faTrashAlt}
-                                     onClick={this.delete.bind(this, this.state.users[i]['ID_Utilisateur'])}/>
+                                     onClick={this.handleClickOpenDelete}/>
+
+                    <Dialog
+                        open={this.state.modalDeleteOpen}
+                        onClose={() => this.handleCloseDelete}
+                    >
+
+                        <DialogContent>
+                            <p>Are you sur about your choice ?</p>
+                        </DialogContent>
+
+                        <DialogActions>
+                            <Button onClick={this.handleCloseDelete}>
+                                No
+                            </Button>
+                            <Button
+                                onClick={this.delete.bind(this, this.state.users[i]['ID_Utilisateur'])}>
+                                Yes
+                            </Button>
+                        </DialogActions>
+
+                    </Dialog>
                 </p>
             </div>)
             listItems.push(child);
