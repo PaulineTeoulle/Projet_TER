@@ -18,6 +18,9 @@ function Nav() {
                     <Link to="/manageUsers">
                         <li>Users</li>
                     </Link>
+                    <Link to="/fileUpload">
+                        <li>FileUpload</li>
+                    </Link>
                 </ul>
             </nav>
         </div>
