@@ -6,25 +6,12 @@ import Home from './views/Home';
 import Quiz from './views/Quiz';
 import Tree from './views/Tree';
 import Users from './views/Users';
+import Summary from './views/Summary';
 
 import Nav from './components/Nav';
 
 
 export class App extends React.Component {
-
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {list : null};
-  //   this.componentDidMount = this.componentDidMount.bind(this);
-  // }
-
-//   componentDidMount(){
-//   axios.get('http://localhost/reactTest/test/API/route.php')
-//   .then(response =>{this.setState({list: response.data})})
-//   .catch(error => console.log(error) )
-
-//   console.log(this.state.list)
-// };
 
   render(){
     return(
@@ -34,9 +21,10 @@ export class App extends React.Component {
             <Switch>
               <Route path="/" exact component={Home}/>
               <Route path="/quiz" exact component={Quiz}/>
-                <Route path="/manageTree" exact component={Tree}/>
-                <Route path="/manageUsers" exact component={Users}/>
-                <Redirect to="/"/> {/* Redirect to home when invalid url */}
+              <Route path="/summary" exact component={Summary}/>
+              <Route path="/manageTree" exact component={Tree}/>
+              <Route path="/manageUsers" exact component={Users}/>
+              <Redirect to="/"/> {/* Redirect to home when invalid url */}
             </Switch>
           </div>
         </Router>

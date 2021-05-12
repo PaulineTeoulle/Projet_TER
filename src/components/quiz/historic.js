@@ -25,7 +25,7 @@ function Historic(props) {
             back(element);
         }
     }
-    console.log(props.historic)
+
     return (
         <div className="Historic">
             <div className="historic-header">

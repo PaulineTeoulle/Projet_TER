@@ -1,0 +1,46 @@
+.Method{
+    .dropDown{
+        height: 100px;
+        position: relative;
+        overflow: hidden;
+        border-bottom: 5px solid white;
+
+        .deploy{
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 90px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+
+        .header{
+            border: none;
+            margin-bottom: 0;
+
+            .informations{
+                &>div:nth-child(3){
+                    margin-top: 100px;
+                }
+            }
+        }
+    }
+
+    .dropped{
+        height: auto;
+        overflow: initial;
+
+        .deploy{
+            transform: rotate(180deg);
+            top: 97%;
+        }
+
+        .header{
+            .informations{
+                &>div:nth-child(3){
+                    margin-top: initial;
+                }
+            }
+        }
+    }
+}
