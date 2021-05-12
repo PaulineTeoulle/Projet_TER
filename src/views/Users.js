@@ -48,10 +48,6 @@ export class Users extends React.Component {
         this.setState({modalDeleteOpen: false});
     };
 
-    onRoleChange(event) {
-        this.setState({newRole: event.target.value})
-    }
-
     handleChange = (event) => {
         this.setState({newRole: event.target.value});
     };
@@ -116,7 +112,7 @@ export class Users extends React.Component {
 
     chargeData() {
         let listItems = [];
-        for (var i in this.state.users) {
+        for (let i in this.state.users) {
             let child = [];
             child.push(<div key={i} className="row">
                 <p>{this.state.users[i]['Pseudo']}</p>
@@ -135,7 +131,7 @@ export class Users extends React.Component {
                         <DialogContent>
                             <FormControl>
                                 <InputLabel>Role</InputLabel>
-                                <Select className="select" onChange={this.handleChange.bind(this)} defaultValue="">
+                                <Select onChange={this.handleChange.bind(this)} defaultValue="">
                                     <MenuItem value={"administrator"}>Administrator</MenuItem>
                                     <MenuItem value={"user"}>User</MenuItem>
                                     <MenuItem value={"super-admin"}>Super-administrator</MenuItem>
