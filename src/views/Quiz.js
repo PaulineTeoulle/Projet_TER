@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
-import Issues from '../components/quiz/issues';
-import Historic from '../components/quiz/historic';
-import Method from '../components/quiz/method';
+import Issues from '../components/quiz/Issues';
+import Historic from '../components/quiz/Historic';
+import Method from '../components/quiz/Method';
 
 
 export class Quiz extends React.Component {
@@ -17,11 +17,10 @@ export class Quiz extends React.Component {
             currentIssue: null,
             currentDecisions: [],
             historic: [],
-            step: 0,
+            step: 0        
         };
         // this.componentDidMount = this.componentDidMount.bind(this);
     }
-
 
     // met a jour le questionnaire
     // historic : met a jour l'historique normalement
@@ -62,7 +61,10 @@ export class Quiz extends React.Component {
                     this.manageStoreData(nextIssueId, decision, historic, editHistoric);
                 }
             }else {
-                alert("fini");
+                this.props.history.push({
+                    pathname: '/summary',
+                    state: { historic: this.state.historic }
+                })            
             }
         }
     }
@@ -147,7 +149,15 @@ export class Quiz extends React.Component {
             }
         } else {
             // si on retourne a une méthode
-            let index =  this.state.historic.indexOf(this.state.historic.find(el => el.method));
+            // let index =  this.state.historic.indexOf(this.state.historic.find(el => el.method));
+            let index;
+            this.state.historic.forEach(element => {
+                if('method' in element){
+                    if(element.method.ID_Methode === ID){
+                        index = this.state.historic.indexOf(element);
+                    }
+                }
+            });
             let decisionBeforeMethod = this.state.historic[index - 1].decision;   
             this.state.historic.length = index;
             this.setState({step: index});
@@ -206,7 +216,6 @@ export class Quiz extends React.Component {
         if(!this.state.tree){
             axios.get(url + '/reactTest/MATUI/API/Controllers/lireArbre.php')
             .then(response => {
-                console.log(response)
                 this.setState({tree: response.data});
                 this.changeData(response.data.entree[0].ID_Critere);
             })

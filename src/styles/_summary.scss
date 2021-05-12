@@ -1,0 +1,31 @@
+.Summary{
+    display: flex;
+
+    &>div:first-child{
+        width: 65%;
+        margin: 0 15px 0 30px;
+
+        h3{
+            margin: 0;
+        }
+
+        ul{
+            list-style-type: none;
+            padding: 0;
+        }
+    }
+
+    &>div:nth-child(2){
+        width: 35%;
+        margin: 0 30px 0 15px;
+
+        .messageCard{
+            box-shadow: var(--shadow);
+            padding: 15px;
+        }
+
+        .button{
+            margin-top: 10px;
+        }
+    }
+}
