@@ -1,12 +1,15 @@
 import React from 'react'
 import axios from 'axios';
+import pdf from '../public/documentsRessources/Compte-Rendu-de-Réunion-7.pdf';
 
 class FileUpload extends React.Component {
+
 
     constructor(props) {
         super(props);
         this.state = {
-            file: null
+            file: null,
+            showFile: '../public/documentsRessources/Compte-Rendu-de-Réunion-7.pdf'
         }
         this.onSubmit = this.onSubmit.bind(this)
         this.onChange = this.onChange.bind(this)
@@ -33,16 +36,34 @@ class FileUpload extends React.Component {
         });
     }
 
+
+    componentDidMount() {
+        if (this.state.description === null) {
+            axios.get('http://localhost/Projet_TER/API/Controllers/readFile.php')
+                .then(response => {
+
+                    this.setState({showFile: response.data['description']});
+                })
+                .catch(error => console.log(error))
+        }
+    };
+
     render() {
+        console.log(pdf);
+        console.log(this.state.showFile);
         return (
-            <form onSubmit={this.onSubmit}>
-                <h1> React File Upload Example</h1>
-                <input type="file" onChange={this.onChange}/>
-                <button type="submit">Upload File</button>
-            </form>
+            <div>
+                <form onSubmit={this.onSubmit}>
+                    <h1> React File Upload Example</h1>
+                    <input type="file" onChange={this.onChange}/>
+                    <button type="submit">Upload File</button>
+                    <a href={pdf} target="blank">OUI</a>
+                    <a href={require('../public/documentsRessources/Compte-Rendu-de-Réunion-7.pdf')}
+                       target="blank">NON</a>
+                </form>
+            </div>
         )
     }
-
 }
 
 export default FileUpload;

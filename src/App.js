@@ -35,7 +35,7 @@ export class App extends React.Component {
             <Switch>
               <Route path="/" exact component={Home}/>
               <Route path="/quiz" exact component={Quiz}/>
-                <Route path="/manageTree" exact component={Tree}/>
+              <Route path="/manageTree" exact component={Tree}/>
               <Route path="/manageUsers" exact component={Users}/>
               <Route path="/fileUpload" exact component={FileUpload}/>
               <Redirect to="/"/> {/* Redirect to home when invalid url */}
