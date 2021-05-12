@@ -8,7 +8,14 @@ $response = array();
 $upload_dir = '../documentsRessources/';
 $server_url = 'http://127.0.0.1:8000';
 
+
 if ($_FILES['file']) {
+    include_once '../config/Database.php';
+    include_once '../models/Ressource.php';
+    $database = new Database();
+    $db = $database->getConnection();
+    $ressource = new Ressource($db);
+
     $file_name = $_FILES["file"]["name"];
     $file_tmp_name = $_FILES["file"]["tmp_name"];
     $error = $_FILES["file"]["error"];
@@ -23,13 +30,18 @@ if ($_FILES['file']) {
         $upload_name = $upload_dir . $file_name;
         $upload_name = preg_replace('/\s+/', '-', $upload_name);
         if (move_uploaded_file($file_tmp_name, $upload_name)) {
-            $response = array(
-                "status" => "success",
-                "error" => false,
-                "message" => "File uploaded successfully",
-                "url" => $server_url . "/" . $upload_name
-            );
-
+            $ressource->nom = $file_name;
+            $ressource->fichier = $upload_name;
+            echo $ressource->nom;
+            echo $ressource->fichier;
+            if ($ressource->creer()) {
+                $response = array(
+                    "status" => "success",
+                    "error" => false,
+                    "message" => "File uploaded successfully",
+                    "url" => $server_url . "/" . $upload_name
+                );
+            }
 
         } else {
             $response = array(
