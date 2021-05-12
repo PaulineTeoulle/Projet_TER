@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
-import Issues from '../components/quiz/Issues';
-import Historic from '../components/quiz/Historic';
-import Method from '../components/quiz/Method';
+import Issues from '../components/quiz/issues';
+import Historic from '../components/quiz/historic';
+import Method from '../components/quiz/method';
 
 
 export class Quiz extends React.Component {
@@ -11,7 +11,7 @@ export class Quiz extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tree : null,
+            tree: null,
             checkedDecision: null,
             currentMethod: null,
             currentIssue: null,
@@ -214,7 +214,7 @@ export class Quiz extends React.Component {
         let url = protocol + '//' + host;
 
         if(!this.state.tree){
-            axios.get(url + '/reactTest/MATUI/API/Controllers/lireArbre.php')
+            axios.get(url + '/Projet_TER/API/Controllers/lireArbre.php')
             .then(response => {
                 this.setState({tree: response.data});
                 this.changeData(response.data.entree[0].ID_Critere);
