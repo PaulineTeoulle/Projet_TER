@@ -27,6 +27,7 @@ export class App extends React.Component {
               <Redirect to="/"/> {/* Redirect to home when invalid url */}
             </Switch>
           </div>
+          <div id="warning-message">This website is only viewable in landscape mode</div>
         </Router>
     )
   }

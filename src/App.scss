@@ -24,6 +24,8 @@
 @import './styles/_dropMethodCard.scss';
 @import './styles/_navbar.scss';
 
+@import './styles/_breakpoints.scss';
+
 h1, h2, h3 {
     font-size: 20px;
     font-weight: 500;
@@ -32,4 +34,33 @@ h1, h2, h3 {
 p {
     margin: 0;
 }
+
+#warning-message{ 
+    display: none; 
+}
+
+@media only screen and (orientation:portrait){
+    .App { 
+        display:none; 
+    }
+
+    #warning-message { 
+        display:block; 
+    }
+}
+
+@media only screen and (orientation:landscape){
+    #warning-message{
+        display:none; 
+    }
+}
+
+@include breakpoint(laptop){
+    body{
+        background-color: red;
+    }
+}
+
+
+
 
