@@ -31,13 +31,13 @@ export default class Home extends React.Component { // Tell webpack this JS file
     }
 
     componentDidMount() {
-        if (this.state.description === null) {
-            axios.get('http://localhost/Projet_TER/API/Controllers/accueil/lire.php')
-                .then(response => {
-                    this.setState({description: response.data['description']});
-                })
-                .catch(error => console.log(error))
-        }
+        // if (this.state.description === null) {
+        //     axios.get('http://localhost/Projet_TER/API/Controllers/accueil/lire.php')
+        //         .then(response => {
+        //             this.setState({description: response.data['description']});
+        //         })
+        //         .catch(error => console.log(error))
+        // }
     };
 
     handleOpen() {

@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
-import Issues from '../components/quiz/issues';
-import Historic from '../components/quiz/historic';
-import Method from '../components/quiz/method';
+import Issues from '../components/quiz/Issues';
+import Historic from '../components/quiz/Historic';
+import Method from '../components/quiz/Method';
 
 
 export class Quiz extends React.Component {

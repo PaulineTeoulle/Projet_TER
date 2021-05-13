@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-import pdf from '../public/documentsRessources/Compte-Rendu-de-Réunion-7.pdf';
+import pdf from '../public/documentsRessources/Compte-Rendu-de-Réunion-7.pdf';   
 
 class FileUpload extends React.Component {
 
@@ -9,7 +9,8 @@ class FileUpload extends React.Component {
         super(props);
         this.state = {
             file: null,
-            showFile: '../public/documentsRessources/Compte-Rendu-de-Réunion-7.pdf'
+            showFile: '../public/documentsRessources/Compte-Rendu-de-Réunion-7.pdf',
+            staticLink: 'http://localhost/reactTest/MATUI/src/public/documentsRessources/ExamenIHM_CorentinRoy.pdf'
         }
         this.onSubmit = this.onSubmit.bind(this)
         this.onChange = this.onChange.bind(this)
@@ -29,17 +30,24 @@ class FileUpload extends React.Component {
     async uploadFile(file) {
         const formData = new FormData();
         formData.append('file', file)
-        return await axios.post('http://localhost/Projet_TER/API/Controllers/uploadFile.php', formData, {
+        return await axios.post('http://localhost/reactTest/MATUI/API/Controllers/uploadFile.php', formData, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         });
     }
 
+    open = () => {
+        let protocol = window.location.protocol;
+        let host = window.location.hostname;
+        let url = protocol + '//' + host;
+        let dynamicPdf = 'ExamenIHM_CorentinRoy.pdf';
+        window.open(url + '/reactTest/MATUI/src/public/documentsRessources/' + dynamicPdf);
+    }
 
     componentDidMount() {
         if (this.state.description === null) {
-            axios.get('http://localhost/Projet_TER/API/Controllers/readFile.php')
+            axios.get('http://localhost/reactTest/MATUI/API/Controllers/readFile.php')
                 .then(response => {
 
                     this.setState({showFile: response.data['description']});
@@ -59,7 +67,12 @@ class FileUpload extends React.Component {
                     <button type="submit">Upload File</button>
                     <a href={pdf} target="blank">OUI</a>
                     <a href={require('../public/documentsRessources/Compte-Rendu-de-Réunion-7.pdf')}
-                       target="blank">NON</a>
+                    target="blank">NON</a>
+
+                    <br/>
+                    <a href={this.state.staticLink}>open pdf (statick link)</a>
+                    <br/>
+                    <p onClick={this.open}>open pdf (function dynamic link)</p>
                 </form>
             </div>
         )
