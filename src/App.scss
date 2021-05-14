@@ -24,11 +24,12 @@
 @import './styles/_dropMethodCard.scss';
 @import './styles/_navbar.scss';
 @import './styles/_warning.scss';
+@import './styles/_modal.scss';
 
 @import './styles/_breakpoints.scss';
 
 
-.Quiz, nav{
+.Quiz, .Summary, nav{
     max-width: 1200px;
     margin: auto;
 }

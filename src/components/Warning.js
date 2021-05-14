@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import robotError from '../public/robotError.svg'
 
 
-function Warning({message}) {    
+function Warning() {    
     return (
         <div className="Warning">
             <div>

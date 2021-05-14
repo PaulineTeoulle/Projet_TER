@@ -1,9 +1,22 @@
-import React from 'react';
+import React, {useState, useRef} from 'react';
 
+import Modal from "../Modal";
+import $ from 'jquery';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUndoAlt, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 
 function Historic(props) {
+    const [modalOpen, setModalOpen] = useState(false);
+    const [selectedElement, setSelectedElement] = useState(null);
+
+    function openModal(element){
+        setModalOpen(true);
+        setSelectedElement(element)
+    }
+
+    function closeModal(){
+        setModalOpen(false);
+    }
 
     function back(element){
         let ID;
@@ -36,7 +49,7 @@ function Historic(props) {
                 <ul>
                 {props.historic.map((element, i) => {   
                         return (
-                            <li onClick={back.bind(this, element)} key={i}>
+                            <li onClick={openModal.bind(this, element)} key={i}>
                                     <p title={element.issue ? element.issue.Libelle : element.method.Libelle}>{element.issue ? element.issue.Libelle : element.method.Libelle}</p>
                                     {element.decision &&
                                         <p>{element.decision.Libelle}</p>
@@ -50,6 +63,14 @@ function Historic(props) {
                 </ul>
                 : <div>Loading...</div>
             }
+            <Modal
+                title="attention"
+                message="sur de toi ?"
+                open={modalOpen}  
+                close={closeModal}
+                mainAction={back}
+                mainActionParameters={selectedElement}
+            />
         </div>
     );
 }
