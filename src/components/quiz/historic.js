@@ -1,11 +1,11 @@
 import React from 'react';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUndoAlt, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faCheckCircle, faUndoAlt} from '@fortawesome/free-solid-svg-icons'
 
 function Historic(props) {
 
-    function back(element){
+    function back(element) {
         let ID;
         let type;
         if ('issue' in element) {
@@ -37,7 +37,7 @@ function Historic(props) {
                 {props.historic.map((element, i) => {   
                         return (
                             <li onClick={back.bind(this, element)} key={i}>
-                                    <p title={element.issue ? element.issue.Libelle : element.method.Libelle}>{element.issue ? element.issue.Libelle : element.method.Libelle}</p>
+                                <p>{element.issue ? element.issue.Libelle : element.method.Libelle}</p>
                                     {element.decision &&
                                         <p>{element.decision.Libelle}</p>
                                     }  

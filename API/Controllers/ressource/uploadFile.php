@@ -5,7 +5,7 @@ header("Access-Control-Allow-Methods: PUT, GET, POST");
 
 
 $response = array();
-$upload_dir = '../../src/public/documentsRessources/';
+$upload_dir = '../../../src/public/documentsRessources/';
 $server_url = 'http://127.0.0.1:8000';
 
 

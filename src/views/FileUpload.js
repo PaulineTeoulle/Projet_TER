@@ -35,28 +35,28 @@ class FileUpload extends React.Component {
     }
 
     handleSubmit(event) {
-        //alert('A name was submitted: ' + this.state.id_methode);
-
         this.getDatasForOneMethod();
         event.preventDefault();
     }
 
     async uploadFile(file) {
         const formData = new FormData();
-        formData.append('file', file)
-        return await axios.post('http://localhost/reactTest/MATUI/API/Controllers/uploadFile.php', formData, {
+        formData.append('file', file);
+        let protocol = window.location.protocol;
+        let host = window.location.hostname;
+        let url = protocol + '//' + host;
+        return await axios.post(url + '/Projet_TER/API/Controllers/ressource/uploadFile.php', formData, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         });
     }
 
-    open = () => {
+    open(name) {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
-        let dynamicPdf = 'ExamenIHM_CorentinRoy.pdf';
-        window.open(url + '/Projet_TER/src/public/documentsRessources/' + dynamicPdf);
+        window.open(url + '/Projet_TER/src/public/documentsRessources/' + name);
     }
 
 
@@ -69,9 +69,7 @@ class FileUpload extends React.Component {
         console.log(json);
         axios.post(url + '/Projet_TER/API/Controllers/ressource/lireRessourcesMethode.php', json)
             .then(response => {
-                this.setState({datas: response.data}, function () {
-                    console.log(this.state.datas);
-                });
+                this.setState({datas: response.data});
             })
             .catch(error => console.log(error))
 
@@ -81,11 +79,7 @@ class FileUpload extends React.Component {
     render() {
         if (this.state.datas.length !== 0) {
             return (<div>
-                    <form onSubmit={this.onSubmit}>
-                        <h1>Upload File</h1>
-                        <input type="file" onChange={this.onChange}/>
-                        <button type="submit">Upload File</button>
-                    </form>
+
 
                     <br/>
                     <h1>Read File</h1>
@@ -100,22 +94,27 @@ class FileUpload extends React.Component {
                                 Id :
                                 <input type="text" onChange={this.handleChange}/>
                             </label>
-                            <button type="submit">LOL</button>
+                            <button type="submit">Load Pdf</button>
                         </form>
-
                         <br/>
-
-                        <div> {this.state.datas.map(data => <p key={data.ID_Ressource}>{data.Nom}</p>)}</div>
+                        <div> {this.state.datas.map(data => <p key={data.ID_Ressource}
+                                                               onClick={this.open.bind(this, data.Nom)}>{data.Nom}</p>)}</div>
+                        <br/>
                     </div>
                 </div>
             )
         } else return (<div>
+            <form onSubmit={this.onSubmit}>
+                <h1>Upload File</h1>
+                <input type="file" onChange={this.onChange}/>
+                <button type="submit">Upload File</button>
+            </form>
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Id :
                     <input type="text" onChange={this.handleChange}/>
                 </label>
-                <button type="submit">LOL</button>
+                <button type="submit">Load Pdf</button>
             </form>
         </div>);
     }
