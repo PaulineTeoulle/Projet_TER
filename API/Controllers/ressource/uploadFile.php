@@ -10,8 +10,8 @@ $server_url = 'http://127.0.0.1:8000';
 
 
 if ($_FILES['file']) {
-    include_once '../config/Database.php';
-    include_once '../models/Ressource.php';
+    include_once '../../config/Database.php';
+    include_once '../../models/Ressource.php';
     $database = new Database();
     $db = $database->getConnection();
     $ressource = new Ressource($db);
