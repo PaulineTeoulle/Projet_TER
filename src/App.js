@@ -8,6 +8,7 @@ import Tree from './views/Tree';
 import Users from './views/Users';
 import FileUpload from './views/FileUpload';
 import Summary from './views/Summary';
+import Warning from './components/Warning'
 
 import Nav from './components/Nav';
 
@@ -29,7 +30,7 @@ export class App extends React.Component {
               <Redirect to="/"/> {/* Redirect to home when invalid url */}
             </Switch>
           </div>
-          <div id="warning-message">This website is only viewable in landscape mode</div>
+          <Warning/>
         </Router>
     )
   }

@@ -23,8 +23,15 @@
 @import './styles/_users.scss';
 @import './styles/_dropMethodCard.scss';
 @import './styles/_navbar.scss';
+@import './styles/_warning.scss';
 
 @import './styles/_breakpoints.scss';
+
+
+.Quiz, nav{
+    max-width: 1200px;
+    margin: auto;
+}
 
 h1, h2, h3 {
     font-size: 20px;
@@ -35,7 +42,7 @@ p {
     margin: 0;
 }
 
-#warning-message{ 
+.Warning{ 
     display: none; 
 }
 
@@ -44,23 +51,48 @@ p {
         display:none; 
     }
 
-    #warning-message { 
+    .Warning { 
         display:block; 
     }
 }
 
 @media only screen and (orientation:landscape){
-    #warning-message{
+    .Warning{
         display:none; 
     }
 }
 
 @include breakpoint(laptop){
-    body{
-        background-color: red;
+    .App{
+        .Historic{
+            width: 25%;
+        }
+
+        .Issues, .Method{
+            width:75%;
+
+            .methodCard{
+                .header{
+                    .informations{
+                        &>div{
+                            flex-wrap: wrap;
+                            justify-content: space-around;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 
+@include breakpoint(tablet){
+    h1, h2, h3 {
+        font-size: 16px;
+    }
 
+    p{
+        font-size: 14px;
+    }
+}
 
 

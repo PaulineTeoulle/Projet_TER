@@ -1,0 +1,14 @@
+.Warning{
+    display: block;
+    margin: auto;
+    margin-top: 50vh;
+    transform: translateY(-50%);
+    width: 300px;
+
+    &>div{
+        width: 200px;
+        margin: auto;
+        margin-bottom: 30px;
+        transform: rotate(10deg);
+    }
+}

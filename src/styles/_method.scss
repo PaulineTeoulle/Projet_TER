@@ -44,6 +44,7 @@
                         p{
                             &:nth-child(2){
                                 margin: 0;
+                                margin-bottom: 10px;
                                 font-size: 12px;
                                 text-align: center;
                             }
@@ -53,8 +54,7 @@
             }
             
             .ressources{
-                max-width: 100px;
-                min-width: 10%;
+                min-width: 70px;
                 background-color: var(--light-grey);
 
                 .ressource{
