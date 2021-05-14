@@ -48,6 +48,17 @@
                 margin: 0;
             }
 
+            p{
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            &>p:nth-child(2){
+                width: 25%;
+                text-align: right;
+            }
+
             .icon{
                 color: var(--main-grey);
             }
