@@ -25,10 +25,10 @@ function Issues(props) {
                 <p className="step">Question {props.step}</p>
                 <form action="#">
                 {props.decisions.map((decision, i) => {     
-                    // if(decision.ID_Critere_sortant == null){
-                    //     // 0 == end node
-                    //     decision.ID_Critere_sortant = 0;
-                    // }
+                    if(decision.ID_Critere_sortant == null){
+                        // 0 == end node
+                        decision.ID_Critere_sortant = 0;
+                    }
                     return (
                         <div key={decision.ID_Decision}>
                             <input type="radio" name="radio-group" value={decision.ID_Decision}/>

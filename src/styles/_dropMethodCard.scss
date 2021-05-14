@@ -12,6 +12,10 @@
             top: 90px;
             transform: translateY(-50%);
             cursor: pointer;
+
+            &:hover{
+                color: var(--secondary-color);
+            }
         }
 
         .header{
@@ -36,6 +40,8 @@
         }
 
         .header{
+            margin-bottom: 10px;
+
             .informations{
                 &>div:nth-child(3){
                     margin-top: initial;
