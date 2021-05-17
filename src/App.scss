@@ -28,6 +28,7 @@ p {
 .Warning {
     display: none;
 }
+
 @import './styles/_quiz.scss';
 @import './styles/_issues.scss';
 @import './styles/_historic.scss';
@@ -42,6 +43,7 @@ p {
 @import './styles/_navbar.scss';
 @import './styles/_warning.scss';
 @import './styles/_modal.scss';
+@import './styles/_modalEditRole.scss';
 @import './styles/_breakpoints.scss';
 
 

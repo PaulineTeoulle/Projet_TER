@@ -12,7 +12,7 @@ function Issues(props) {
             allChoices.push($(this).val());
         });
 
-        if(checkedBox){
+        if (checkedBox) {
             let decision = props.decisions.find(decision => decision.ID_Decision === checkedBox)
             props.changeData(decision.ID_Critere_sortant, decision, allChoices);
         }

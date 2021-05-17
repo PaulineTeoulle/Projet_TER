@@ -55,8 +55,8 @@ function Method(props) {
                     </div>
                     <div className="ressources">
                         <div className="ressource">
-                            <FontAwesomeIcon className="icon" icon={faFilePdf} /> 
-                            <p>user.pdf</p> 
+                            <FontAwesomeIcon className="icon" icon={faFilePdf}/>
+                            <p>user.pdf</p>
                         </div>
                     </div>
                 </div>
