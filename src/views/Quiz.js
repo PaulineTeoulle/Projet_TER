@@ -79,6 +79,7 @@ export class Quiz extends React.Component {
             currentDecisions: decisions,
             step: this.state.step + 1
         }, () => {
+            console.log(this.state.currentDecisions);
             // on met a jour l'historique
             if(historic){
                 this.manageHistoric(decision, oldIssue)
