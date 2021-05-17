@@ -70,8 +70,8 @@ function Method(props) {
             </div>
 
             <div className="action">
-                <button className="button outlined" onClick={finish}>Finish</button>
-                <button className="button filled" onClick={resume}>Continue</button>
+                <button className="button outlined" onClick={finish}>finish</button>
+                <button className="button filled" onClick={resume}>continue</button>
             </div>
         </div>
     );
