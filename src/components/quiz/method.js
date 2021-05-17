@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUsers, faFolderOpen, faClipboard, faChartPie, faFilePdf } from '@fortawesome/free-solid-svg-icons'
 
 function Method(props) {
     const [checked, setChecked] = useState(false);
+    const [ressources, setRessources] = useState(null);
 
     function finish(){
         props.changeData(0);
@@ -18,10 +20,36 @@ function Method(props) {
         setChecked(!checked);
     }
 
+
+    function getRessources() {
+        let protocol = window.location.protocol;
+        let host = window.location.hostname;
+        let url = protocol + '//' + host;
+
+        const json = JSON.stringify({id_methode: Number(props.method.ID_Methode)});
+        axios.post(url + '/reactTest/MATUI/API/Controllers/ressource/lireRessourcesMethode.php', json)
+            .then(response => {
+                setRessources(response.data);
+            })
+            .catch(error => console.log(error))
+    }
+
+    function openFile(name) {
+        let protocol = window.location.protocol;
+        let host = window.location.hostname;
+        let url = protocol + '//' + host;
+        window.open(url + '/reactTest/MATUI/src/public/documentsRessources/' + name);
+    }
+
+    useEffect(() => {
+        getRessources();
+    },[]);
+
     useEffect(() => {
         props.checkedMethod(props.method, checked);
     }, [checked]);
 
+    
     return (
         <div className="Method">
             <div className="methodCard">
@@ -53,12 +81,17 @@ function Method(props) {
                         </div>
                         <p>{props.method.Exemple}</p>
                     </div>
-                    <div className="ressources">
-                        <div className="ressource">
-                            <FontAwesomeIcon className="icon" icon={faFilePdf} /> 
-                            <p>user.pdf</p> 
-                        </div>
+                    {ressources ?
+                    <div className="ressources">                
+                            {ressources.map((element, i) => {   
+                                return(<div onClick={() => openFile(element.Nom)} className="ressource">
+                                    <FontAwesomeIcon className="icon" icon={faFilePdf} /> 
+                                    <p>{element.Nom}</p>
+                                </div>)
+                            })}
                     </div>
+                    : <p>??</p>
+                    }
                 </div>
                 <div className="footer">
                     <label className="switch">

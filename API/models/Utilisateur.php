@@ -24,6 +24,21 @@ class Utilisateur
         return $result;
     }
 
+
+    public function lireUn()
+    {
+        $sql = "SELECT ID_Utilisateur, Mail, Pseudo, Role FROM u_utilisateur WHERE Mail= :mail AND Mot_de_passe = :mot_de_passe";
+        $query = $this->connexion->prepare($sql);
+        $this->mail = htmlspecialchars(strip_tags($this->mail));
+        $this->mot_de_passe = htmlspecialchars(strip_tags($this->mot_de_passe));
+
+        $query->bindParam(":mail", $this->mail);
+        $query->bindParam(":mot_de_passe", $this->mot_de_passe);
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     public function creer()
     {
         $sql = "INSERT INTO u_utilisateur SET Mail=:mail, Pseudo=:pseudo,  Mot_de_passe=:mot_de_passe, Role=:role ";

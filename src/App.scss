@@ -1,7 +1,7 @@
 :root {
     // colors
     --main-color: #0D1A70;
-    --secondary-color: #007ACC; 
+    --secondary-color: #007ACC;
     --text-color: #1A1A1A;
     --main-grey: #666;
     --light-grey: #E6E6E6;
@@ -10,27 +10,8 @@
     // styles
     --shadow: rgba(150, 150, 150, 0.24) 0px 3px 8px;
 }
-    
-@import './styles/_home.scss';
-@import './styles/_quiz.scss';
-@import './styles/_issues.scss';
-@import './styles/_historic.scss';
-@import './styles/_method.scss';
-@import './styles/_summary.scss';
 
-@import './styles/_switch.scss';
-@import './styles/_button.scss';
-@import './styles/_users.scss';
-@import './styles/_dropMethodCard.scss';
-@import './styles/_navbar.scss';
-@import './styles/_warning.scss';
-@import './styles/_modal.scss';
-@import './styles/_loader.scss';
-
-@import './styles/_breakpoints.scss';
-
-
-.Quiz, .Summary, nav{
+.Quiz, .Home, .Summary, nav {
     max-width: 1200px;
     margin: auto;
 }
@@ -44,23 +25,43 @@ p {
     margin: 0;
 }
 
-.Warning{ 
-    display: none; 
+.Warning {
+    display: none;
 }
 
-@media only screen and (orientation:portrait){
-    .App { 
-        display:none; 
+@import './styles/_quiz.scss';
+@import './styles/_issues.scss';
+@import './styles/_historic.scss';
+@import './styles/_method.scss';
+@import './styles/_summary.scss';
+@import './styles/_home.scss';
+
+@import './styles/_switch.scss';
+@import './styles/_button.scss';
+@import './styles/_users.scss';
+@import './styles/_dropMethodCard.scss';
+@import './styles/_navbar.scss';
+@import './styles/_warning.scss';
+@import './styles/_modal.scss';
+@import './styles/_modalEditRole.scss';
+@import './styles/_loader.scss';
+
+@import './styles/_breakpoints.scss';
+
+
+@media only screen and (orientation:portrait) {
+    .App {
+        display: none;
     }
 
-    .Warning { 
-        display:block; 
+    .Warning {
+        display: block;
     }
 }
 
 @media only screen and (orientation:landscape){
-    .Warning{
-        display:none; 
+    .Warning {
+        display: none;
     }
 }
 
@@ -82,7 +83,7 @@ p {
                         }
                     }
                 }
-            }     
+            }
         }
     }
 }
@@ -96,5 +97,3 @@ p {
         font-size: 14px;
     }
 }
-
-

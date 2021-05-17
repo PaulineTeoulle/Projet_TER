@@ -1,6 +1,6 @@
 import React from 'react';
-// import logo from '../public/logothedre.png';
 import Loader from '../components/Loader'
+import logo from '../public/logothedre.png';
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen} from "@fortawesome/free-solid-svg-icons";
@@ -32,13 +32,17 @@ export default class Home extends React.Component { // Tell webpack this JS file
     }
 
     componentDidMount() {
-        // if (this.state.description === null) {
-        //     axios.get('http://localhost/Projet_TER/API/Controllers/accueil/lire.php')
-        //         .then(response => {
-        //             this.setState({description: response.data['description']});
-        //         })
-        //         .catch(error => console.log(error))
-        // }
+        let protocol = window.location.protocol;
+        let host = window.location.hostname;
+        let url = protocol + '//' + host;
+
+        if (this.state.description === null) {
+            axios.get(url + '/reactTest/MATUI/API/Controllers/accueil/lire.php')
+                .then(response => {
+                    this.setState({description: response.data['description']});
+                })
+                .catch(error => console.log(error))
+        }
     };
 
     handleOpen() {
@@ -81,9 +85,9 @@ export default class Home extends React.Component { // Tell webpack this JS file
     render() {
         if (this.state.description === null) return (<Loader/> );
         else return (
-            <div className="home">
+            <div className="Home">
                 <div className="logo">
-                    {/* <img src={logo} alt={'Logo Thedre'}/> */}
+                    <img src={logo} alt={'Logo Thedre'}/>
                 </div>
                 <div className="content">
                     <h3> Contents <FontAwesomeIcon icon={faPen} onClick={this.handleOpen}/></h3>
@@ -94,13 +98,13 @@ export default class Home extends React.Component { // Tell webpack this JS file
                         <DialogTitle className="dialogTitle">Modify home content</DialogTitle>
                         <DialogContent className="dialogContent">
                             <TextField className="textField"
-                                       id="outlined-multiline-static"
-                                       label="Description"
-                                       multiline
-                                       rows={10}
-                                       defaultValue={this.state.description}
-                                       variant="outlined"
-                                       onChange={this.handleChange}
+                                id="outlined-multiline-static"
+                                label="Description"
+                                multiline
+                                rows={10}
+                                defaultValue={this.state.description}
+                                variant="outlined"
+                                onChange={this.handleChange}
                             />
                         </DialogContent>
 
@@ -113,7 +117,6 @@ export default class Home extends React.Component { // Tell webpack this JS file
                                 Ok
                             </Button>
                         </DialogActions>
-
                     </Dialog>
                     <p>{this.state.description}</p>
                 </div>

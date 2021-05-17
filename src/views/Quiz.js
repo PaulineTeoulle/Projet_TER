@@ -1,9 +1,9 @@
 import React from 'react';
 import axios from 'axios';
 
-import Issues from '../components/quiz/Issues';
-import Historic from '../components/quiz/Historic';
-import Method from '../components/quiz/Method';
+import Issues from '../components/quiz/issues';
+import Historic from '../components/quiz/historic';
+import Method from '../components/quiz/method';
 
 
 export class Quiz extends React.Component {
@@ -11,7 +11,7 @@ export class Quiz extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tree : null,
+            tree: null,
             checkedDecision: null,
             currentMethod: null,
             currentIssue: null,
@@ -79,7 +79,6 @@ export class Quiz extends React.Component {
             currentDecisions: decisions,
             step: this.state.step + 1
         }, () => {
-            console.log(this.state.currentDecisions);
             // on met a jour l'historique
             if(historic){
                 this.manageHistoric(decision, oldIssue)

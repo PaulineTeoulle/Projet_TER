@@ -22,6 +22,21 @@ class Ressource
         return $result;
     }
 
+    public function creer()
+    {
+        $sql = "INSERT INTO a_ressource SET Nom=:nom, Fichier=:fichier";
+        $query = $this->connexion->prepare($sql);
+
+        $this->nom = htmlspecialchars(strip_tags($this->nom));
+        $this->fichier = htmlspecialchars(strip_tags($this->fichier));
+        $query->bindParam(":nom", $this->nom);
+        $query->bindParam(":fichier", $this->fichier);
+        if ($query->execute()) {
+            return true;
+        }
+        return false;
+    }
+
     public function supprimer()
     {
         $sql = " DELETE FROM a_ressource WHERE ID_Ressource=:id_ressource";

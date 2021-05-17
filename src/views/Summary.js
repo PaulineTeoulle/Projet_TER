@@ -1,13 +1,13 @@
 import React from 'react';
 import DropMethodCard from '../components/quiz/DropMethodCard';
 
-export class Quiz extends React.Component {
+export class Summary extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             historic: null,
-            resume: null,     
+            resume: null,
             amount: null
         };
     }
@@ -75,4 +75,4 @@ export class Quiz extends React.Component {
 }
 
 
-export default Quiz;
+export default Summary;
