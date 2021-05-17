@@ -37,7 +37,7 @@ function Historic(props) {
                 {props.historic.map((element, i) => {   
                         return (
                             <li onClick={back.bind(this, element)} key={i}>
-                                <p>{element.issue ? element.issue.Libelle : element.method.Libelle}</p>
+                                    <p>{element.issue ? element.issue.Libelle : element.method.Libelle}</p>
                                     {element.decision &&
                                         <p>{element.decision.Libelle}</p>
                                     }  

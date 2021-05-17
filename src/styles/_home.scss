@@ -1,23 +1,16 @@
-.home {
-
+.Home {
   column-count: 2;
 
-  .logo {
-    position: absolute;
-    margin-top: 150px;
-    margin-left: 300px;
-    width: 500px;
-    height: 500px;
-  }
+  //vertical-align: middle;
+  //transform : translateY(-50%);
+  height: 90vh;
+  align-items: center;
+  display: flex;
 
   .content {
-    position: absolute;
-    margin-top: 110px;
-    margin-left: 50%;
-    width: 700px;
-    height: 500px;
     color: var(--main-color);
     font-size: 120%;
+    margin-left: 10%;
 
     svg {
       &:hover {
@@ -32,8 +25,7 @@
   h3 {
     color: var(--main-color);
     font-weight: 700;
-    font-size: 200%;
-
+    font-size: 2em;
   }
 
 }
