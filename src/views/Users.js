@@ -8,6 +8,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import {FormControl, InputLabel, MenuItem, Select,} from "@material-ui/core";
+import Modal from "../components/Modal";
 
 export class Users extends React.Component {
 
@@ -73,6 +74,7 @@ export class Users extends React.Component {
                 data: data
             })
                 .then(response => {
+                    console.log(response)
                     axios.get('http://localhost/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
                         .then(response => {
                             this.setState({users: response.data});
@@ -96,6 +98,7 @@ export class Users extends React.Component {
                 data: data
             })
                 .then(response => {
+                    console.log(response)
                     axios.get('http://localhost/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
                         .then(response => {
                             this.setState({users: response.data});
@@ -113,13 +116,16 @@ export class Users extends React.Component {
     chargeData() {
         let listItems = [];
         for (let i in this.state.users) {
-            let child = [];
-            child.push(<div key={i} className="row">
-                <p>{this.state.users[i]['Pseudo']}</p>
-                <p>{this.state.users[i]['Mail']}</p>
-                <p>{this.state.users[i]['Role']}</p>
+            if (this.state.users.hasOwnProperty(i)) {
 
-                <p>
+
+                let child = [];
+                child.push(<div key={i} className="row">
+                    <p>{this.state.users[i]['Pseudo']}</p>
+                    <p>{this.state.users[i]['Mail']}</p>
+                    <p>{this.state.users[i]['Role']}</p>
+
+
                     <FontAwesomeIcon icon={faPen}
                                      onClick={this.handleClickOpenEdit.bind(this, this.state.users[i]['ID_Utilisateur'], this.state.users[i]['Role'])}/>
 
@@ -151,33 +157,24 @@ export class Users extends React.Component {
 
                     </Dialog>
 
-
                     <FontAwesomeIcon icon={faTrashAlt}
                                      onClick={this.handleClickOpenDelete}/>
 
-                    <Dialog
+                    <Modal
+                        title="Warning"
+                        message="Are you sure ?"
+                        actionButton="Yes"
+                        closeButton="No"
                         open={this.state.modalDeleteOpen}
-                        onClose={() => this.handleCloseDelete}
-                    >
+                        close={this.handleCloseDelete}
+                        mainAction={this.delete.bind(this)}
+                        mainActionParameters={this.state.users[i]['ID_Utilisateur']}
+                    />
 
-                        <DialogContent>
-                            <p>Are you sur about your choice ?</p>
-                        </DialogContent>
 
-                        <DialogActions>
-                            <Button onClick={this.handleCloseDelete}>
-                                No
-                            </Button>
-                            <Button
-                                onClick={this.delete.bind(this, this.state.users[i]['ID_Utilisateur'])}>
-                                Yes
-                            </Button>
-                        </DialogActions>
-
-                    </Dialog>
-                </p>
-            </div>)
-            listItems.push(child);
+                </div>)
+                listItems.push(child);
+            }
         }
         return listItems;
     }

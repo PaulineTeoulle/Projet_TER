@@ -11,8 +11,7 @@
     --shadow: rgba(150, 150, 150, 0.24) 0px 3px 8px;
 }
 
-
-.Quiz, .Home, nav {
+.Quiz, .Home, .Summary, nav {
     max-width: 1200px;
     margin: auto;
 }
@@ -26,11 +25,15 @@ p {
     margin: 0;
 }
 
+.Warning {
+    display: none;
+}
 @import './styles/_quiz.scss';
 @import './styles/_issues.scss';
 @import './styles/_historic.scss';
 @import './styles/_method.scss';
 @import './styles/_summary.scss';
+@import './styles/_home.scss';
 
 @import './styles/_switch.scss';
 @import './styles/_button.scss';
@@ -39,41 +42,22 @@ p {
 @import './styles/_navbar.scss';
 @import './styles/_warning.scss';
 @import './styles/_modal.scss';
-
 @import './styles/_breakpoints.scss';
 
 
-.Quiz, .Summary, nav{
-    max-width: 1200px;
-    margin: auto;
-}
-
-h1, h2, h3 {
-    font-size: 20px;
-    font-weight: 500;
-}
-
-p {
-    margin: 0;
-}
-
-.Warning{ 
-    display: none; 
-}
-
-@media only screen and (orientation:portrait){
-    .App { 
-        display:none; 
+@media only screen and (orientation:portrait) {
+    .App {
+        display: none;
     }
 
-    .Warning { 
-        display:block; 
+    .Warning {
+        display: block;
     }
 }
 
 @media only screen and (orientation:landscape){
-    .Warning{
-        display:none; 
+    .Warning {
+        display: none;
     }
 }
 
@@ -107,25 +91,5 @@ p {
 
     p{
         font-size: 14px;
-    }
-}
-
-.Warning {
-    display: none;
-}
-
-@media only screen and (orientation: portrait) {
-    .App {
-        display: none;
-    }
-
-    .Warning {
-        display: block;
-    }
-}
-
-@media only screen and (orientation: landscape) {
-    .Warning {
-        display: none;
     }
 }

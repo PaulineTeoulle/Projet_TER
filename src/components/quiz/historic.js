@@ -1,15 +1,14 @@
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 
 import Modal from "../Modal";
-import $ from 'jquery';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUndoAlt, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faCheckCircle, faUndoAlt} from '@fortawesome/free-solid-svg-icons'
 
 function Historic(props) {
     const [modalOpen, setModalOpen] = useState(false);
     const [selectedElement, setSelectedElement] = useState(null);
 
-    function openModal(element){
+    function openModal(element) {
         setModalOpen(true);
         setSelectedElement(element)
     }
@@ -66,6 +65,8 @@ function Historic(props) {
             <Modal
                 title="attention"
                 message="sur de toi ?"
+                actionButton="Oui"
+                closeButton="Non"
                 open={modalOpen}
                 close={closeModal}
                 mainAction={back}
