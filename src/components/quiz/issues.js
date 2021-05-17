@@ -1,18 +1,18 @@
 import React from 'react';
 import $ from 'jquery';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faChevronRight} from '@fortawesome/free-solid-svg-icons'
 
 function Issues(props) {
 
-    function next(){
+    function next() {
         let checkedBox = $('input:checked').val();
         let allChoices = [];
-        $.each($("input"), function(){
+        $.each($("input"), function () {
             allChoices.push($(this).val());
         });
 
-        if(checkedBox){
+        if (checkedBox) {
             let decision = props.decisions.find(decision => decision.ID_Decision === checkedBox)
             props.changeData(decision.ID_Critere_sortant, decision, allChoices);
         }
