@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import $ from 'jquery';
 
 function Modal(props) {  
@@ -17,6 +17,10 @@ function Modal(props) {
         $('.Modal').css("display", "block");
     }
 
+    function buildComponent(){
+        return React.createElement(props.component)
+    }
+
     useEffect(() => {
         if(props.open){
             openModal();
@@ -28,7 +32,12 @@ function Modal(props) {
         <div className="Modal">
             <div>
                 <h3>{props.title}</h3>
-                <p>{props.message}</p>
+                {props.message &&
+                    <p>{props.message}</p>
+                }
+                {props.component &&
+                    buildComponent()
+                }
                 <div className="action">
                     <button className="button filled" onClick={customFunction}>{props.mainActionName}</button>
                     <button className="button outlined" onClick={closeModal}>{props.secondaryActionName}</button>

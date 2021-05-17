@@ -90,7 +90,7 @@ function Method(props) {
                                 </div>)
                             })}
                     </div>
-                    : <p>??</p>
+                    : <p>No ressources</p>
                     }
                 </div>
                 <div className="footer">

@@ -65,7 +65,6 @@ class FileUpload extends React.Component {
         let url = protocol + '//' + host;
 
         const json = JSON.stringify({id_methode: Number(this.state.id_methode)});
-        console.log(json);
         axios.post(url + '/reactTest/MATUI/API/Controllers/ressource/lireRessourcesMethode.php', json)
             .then(response => {
                 this.setState({datas: response.data});
