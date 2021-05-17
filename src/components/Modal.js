@@ -30,8 +30,8 @@ function Modal(props) {
                 <h3>{props.title}</h3>
                 <p>{props.message}</p>
                 <div className="action">
-                    <button className="button filled" onClick={customFunction}>Oui</button>
-                    <button className="button outlined" onClick={closeModal}>Non</button>
+                    <button className="button filled" onClick={customFunction}>{props.mainActionName}</button>
+                    <button className="button outlined" onClick={closeModal}>{props.secondaryActionName}</button>
                 </div>
             </div>
         </div>

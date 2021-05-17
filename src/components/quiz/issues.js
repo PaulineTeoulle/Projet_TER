@@ -1,5 +1,6 @@
 import React from 'react';
 import $ from 'jquery';
+import Loader from '../Loader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
 
@@ -41,7 +42,7 @@ function Issues(props) {
             </div>
         );
     } else {
-        return <p>loading...</p>
+        return <Loader/>
     }
 }
 

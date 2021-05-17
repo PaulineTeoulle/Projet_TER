@@ -1,5 +1,6 @@
 import React from 'react';
 // import logo from '../public/logothedre.png';
+import Loader from '../components/Loader'
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen} from "@fortawesome/free-solid-svg-icons";
@@ -78,7 +79,7 @@ export default class Home extends React.Component { // Tell webpack this JS file
 
 
     render() {
-        if (this.state.description === null) return (<p>Loading...</p>);
+        if (this.state.description === null) return (<Loader/> );
         else return (
             <div className="home">
                 <div className="logo">

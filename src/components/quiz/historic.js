@@ -4,6 +4,7 @@ import Modal from "../Modal";
 import $ from 'jquery';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUndoAlt, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import Loader from '../Loader';
 
 function Historic(props) {
     const [modalOpen, setModalOpen] = useState(false);
@@ -61,15 +62,17 @@ function Historic(props) {
                         ) 
                     })}
                 </ul>
-                : <div>Loading...</div>
+                : <Loader/>
             }
             <Modal
-                title="attention"
-                message="sur de toi ?"
+                title="Warning"
+                message="Do you really want to come back at this step ? Any selected method will be lost."
                 open={modalOpen}  
                 close={closeModal}
                 mainAction={back}
                 mainActionParameters={selectedElement}
+                mainActionName="Come Back"
+                secondaryActionName="Cancel"
             />
         </div>
     );
