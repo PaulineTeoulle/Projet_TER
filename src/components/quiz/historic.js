@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 
-import Modal from "../Modal";
+import ModalConfirmation from "../modal/ModalConfirmation";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUndoAlt, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import Loader from '../Loader';
@@ -65,16 +65,14 @@ function Historic(props) {
                 </ul>
                 : <Loader/>
             }
-            <Modal
+            <ModalConfirmation
                 title="Warning"
                 message="Do you really want to come back at this step ? Any selected method will be lost."
-                // component={Exemple}
                 open={modalOpen}  
                 close={closeModal}
                 mainAction={back}
                 mainActionParameters={selectedElement}
                 mainActionName="Come Back"
-                secondaryActionName="Cancel"
             />
         </div>
     );
