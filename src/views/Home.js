@@ -4,7 +4,7 @@ import logo from '../public/logothedre.png';
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen} from "@fortawesome/free-solid-svg-icons";
-import ModalEditHome from "../components/ModalEditHome";
+import ModalEditHome from "../components/modal/ModalEditHome";
 
 export default class Home extends React.Component { // Tell webpack this JS file uses this image
 

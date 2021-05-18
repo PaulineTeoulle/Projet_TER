@@ -2,9 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEnvelope, faPen, faTrashAlt, faUser, faUserTag} from '@fortawesome/free-solid-svg-icons'
-import ModalEditRole from "../components/ModalEditRole";
-import ModalDeleteUser from "../components/ModalDeleteUser";
-import ModalConfirmation from "../components/modal/ModalConfirmation";
+import ModalEditRole from "../components/modal/ModalEditRole";
+import ModalDeleteUser from "../components/modal/ModalDeleteUser";
 
 export class Users extends React.Component {
 
@@ -136,7 +135,7 @@ export class Users extends React.Component {
 
                     <FontAwesomeIcon icon={faTrashAlt} onClick={this.handleClickOpenDelete}/>
 
-                    <ModalConfirmation
+                    <ModalDeleteUser
                         title="Warning"
                         message="Are you sure you want to delete this user ?"
                         actionButton="Yes"
@@ -163,7 +162,7 @@ export class Users extends React.Component {
                     <div className="header">
                         <p><FontAwesomeIcon icon={faUser}/>Username</p>
                         <p><FontAwesomeIcon icon={faEnvelope}/>Mail</p>
-                        <p><FontAwesomeIcon icon={faUserTag}/>Role </p>
+                        <p><FontAwesomeIcon icon={faUserTag}/>Role</p>
                     </div>
                     {this.chargeData()}
                 </div>
