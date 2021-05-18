@@ -23,7 +23,6 @@ function Modal(props) {
         }
     }, [props.open]);
 
-
     return (
         <div className="Modal">
             <div>

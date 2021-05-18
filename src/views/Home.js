@@ -3,12 +3,7 @@ import logo from '../public/logothedre.png';
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen} from "@fortawesome/free-solid-svg-icons";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import {TextField} from "@material-ui/core";
+import ModalEditHome from "../components/ModalEditHome";
 
 export default class Home extends React.Component { // Tell webpack this JS file uses this image
 
@@ -19,11 +14,9 @@ export default class Home extends React.Component { // Tell webpack this JS file
             description: null,
             modalOpen: false,
             newDescription: null,
-
         }
         this.componentDidMount = this.componentDidMount.bind(this);
         this.edit = this.edit.bind(this);
-
         this.handleChange = this.handleChange.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
@@ -52,8 +45,8 @@ export default class Home extends React.Component { // Tell webpack this JS file
         this.setState({modalOpen: false});
     };
 
-    handleChange = (event) => {
-        this.setState({newDescription: event.target.value});
+    handleChange(description) {
+        this.setState({newDescription: description});
     };
 
     edit() {
@@ -80,7 +73,6 @@ export default class Home extends React.Component { // Tell webpack this JS file
         this.handleClose();
     }
 
-
     render() {
         if (this.state.description === null) return (<p>Loading...</p>);
         else return (
@@ -90,33 +82,17 @@ export default class Home extends React.Component { // Tell webpack this JS file
                 </div>
                 <div className="content">
                     <h3> Contents <FontAwesomeIcon icon={faPen} onClick={this.handleOpen}/></h3>
-                    <Dialog className="dialog"
-                            open={this.state.modalOpen}
-                            onClose={() => this.handleClose}
-                    >
-                        <DialogTitle className="dialogTitle">Modify home content</DialogTitle>
-                        <DialogContent className="dialogContent">
-                            <TextField className="textField"
-                                       id="outlined-multiline-static"
-                                       label="Description"
-                                       multiline
-                                       rows={10}
-                                       defaultValue={this.state.description}
-                                       variant="outlined"
-                                       onChange={this.handleChange}
-                            />
-                        </DialogContent>
-
-                        <DialogActions>
-                            <Button onClick={this.handleClose}>
-                                Cancel
-                            </Button>
-                            <Button
-                                onClick={this.edit}>
-                                Ok
-                            </Button>
-                        </DialogActions>
-                    </Dialog>
+                    <ModalEditHome
+                        title="Modify description"
+                        message="Please modify"
+                        oldDescription={this.state.description}
+                        actionButton="Confirm"
+                        closeButton="Quit"
+                        open={this.state.modalOpen}
+                        close={this.handleClose}
+                        mainAction={this.edit.bind(this)}
+                        changeAction={this.handleChange.bind(this)}
+                    />
                     <p>{this.state.description}</p>
                 </div>
             </div>

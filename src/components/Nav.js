@@ -1,8 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faProjectDiagram, faUser, faUserCog, faHome, faQuestion } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faHome, faProjectDiagram, faQuestion, faUser, faUserCog} from '@fortawesome/free-solid-svg-icons'
 
 function Nav() {
     return (
@@ -10,7 +10,7 @@ function Nav() {
             <nav>
                 <ul>
                     <Link to="/">
-                        <li><FontAwesomeIcon className="icon" icon={faHome} /></li>
+                        <li><FontAwesomeIcon className="icon" icon={faHome}/></li>
                     </Link>
                     <Link to="/quiz">
                         <li><FontAwesomeIcon className="icon" icon={faQuestion} /></li>
@@ -23,9 +23,6 @@ function Nav() {
                     </Link>
                     <Link to="/manageUsers">
                         <li><FontAwesomeIcon className="icon" icon={faUserCog} /></li>
-                    </Link>
-                    <Link to="/fileUpload">
-                        <li>FileUpload</li>
                     </Link>
                 </ul>
             </nav>

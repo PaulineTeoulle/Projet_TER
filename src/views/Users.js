@@ -3,7 +3,7 @@ import axios from 'axios';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEnvelope, faPen, faTrashAlt, faUser, faUserTag} from '@fortawesome/free-solid-svg-icons'
 import ModalEditRole from "../components/ModalEditRole";
-import Modal from "../components/Modal";
+import ModalDeleteUser from "../components/ModalDeleteUser";
 
 export class Users extends React.Component {
 
@@ -133,10 +133,9 @@ export class Users extends React.Component {
                         mainActionParameters={this.state.newRole}
                     />
 
-                    <FontAwesomeIcon icon={faTrashAlt}
-                                     onClick={this.handleClickOpenDelete}/>
+                    <FontAwesomeIcon icon={faTrashAlt} onClick={this.handleClickOpenDelete}/>
 
-                    <Modal
+                    <ModalDeleteUser
                         title="Warning"
                         message="Are you sure you want to delete this user ?"
                         actionButton="Yes"
