@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 
-function Exemple({message}) {    
+function Exemple({props}) {    
     const [age, setAge] = useState(20);
 
     function handleAge() {
@@ -11,7 +11,7 @@ function Exemple({message}) {
     return (
         <div className="Exemple">
             <h1>Exemple page</h1>
-            <p>{message}</p>
+            <p>{props}</p>
             <p>variable age du state : {age}</p>
             <button onClick={() => handleAge()}>Change age +</button>
         </div>

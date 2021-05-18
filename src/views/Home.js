@@ -1,4 +1,5 @@
 import React from 'react';
+import Loader from '../components/Loader'
 import logo from '../public/logothedre.png';
 import axios from "axios";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -14,9 +15,11 @@ export default class Home extends React.Component { // Tell webpack this JS file
             description: null,
             modalOpen: false,
             newDescription: null,
+
         }
         this.componentDidMount = this.componentDidMount.bind(this);
         this.edit = this.edit.bind(this);
+
         this.handleChange = this.handleChange.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleOpen = this.handleOpen.bind(this);
@@ -73,8 +76,9 @@ export default class Home extends React.Component { // Tell webpack this JS file
         this.handleClose();
     }
 
+
     render() {
-        if (this.state.description === null) return (<p>Loading...</p>);
+        if (this.state.description === null) return (<Loader/> );
         else return (
             <div className="Home">
                 <div className="logo">

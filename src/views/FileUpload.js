@@ -10,7 +10,6 @@ class FileUpload extends React.Component {
             file: null,
             datas: [],
             id_methode: "",
-            staticLink: 'http://localhost/reactTest/MATUI/src/public/documentsRessources/ExamenIHM_CorentinRoy.pdf'
         }
         this.onSubmit = this.onSubmit.bind(this)
         this.onChange = this.onChange.bind(this)
@@ -45,7 +44,7 @@ class FileUpload extends React.Component {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
-        return await axios.post(url + '/Projet_TER/API/Controllers/ressource/uploadFile.php', formData, {
+        return await axios.post(url + '/reactTest/MATUI/API/Controllers/ressource/uploadFile.php', formData, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
@@ -66,8 +65,7 @@ class FileUpload extends React.Component {
         let url = protocol + '//' + host;
 
         const json = JSON.stringify({id_methode: Number(this.state.id_methode)});
-        console.log(json);
-        axios.post(url + '/Projet_TER/API/Controllers/ressource/lireRessourcesMethode.php', json)
+        axios.post(url + '/reactTest/MATUI/API/Controllers/ressource/lireRessourcesMethode.php', json)
             .then(response => {
                 this.setState({datas: response.data});
             })
@@ -83,7 +81,6 @@ class FileUpload extends React.Component {
 
                     <br/>
                     <h1>Read File</h1>
-                    <a href={this.state.staticLink}>open pdf (statick link)</a>
                     <br/>
                     <p onClick={this.open}>open pdf (function dynamic link)</p>
                     <br/><br/><br/>

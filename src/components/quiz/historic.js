@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 
-import Modal from "../Modal";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faCheckCircle, faUndoAlt} from '@fortawesome/free-solid-svg-icons'
+import ModalConfirmation from "../modal/ModalConfirmation";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUndoAlt, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import Loader from '../Loader';
+import Exemple from '../Exemple'
+
 
 function Historic(props) {
     const [modalOpen, setModalOpen] = useState(false);
@@ -60,17 +63,16 @@ function Historic(props) {
                         ) 
                     })}
                 </ul>
-                : <div>Loading...</div>
+                : <Loader/>
             }
-            <Modal
-                title="attention"
-                message="sur de toi ?"
-                actionButton="Oui"
-                closeButton="Non"
-                open={modalOpen}
+            <ModalConfirmation
+                title="Warning"
+                message="Do you really want to come back at this step ? Any selected method will be lost."
+                open={modalOpen}  
                 close={closeModal}
                 mainAction={back}
                 mainActionParameters={selectedElement}
+                mainActionName="Come Back"
             />
         </div>
     );

@@ -79,7 +79,6 @@ export class Quiz extends React.Component {
             currentDecisions: decisions,
             step: this.state.step + 1
         }, () => {
-            console.log(this.state.currentDecisions);
             // on met a jour l'historique
             if(historic){
                 this.manageHistoric(decision, oldIssue)
@@ -215,7 +214,7 @@ export class Quiz extends React.Component {
         let url = protocol + '//' + host;
 
         if(!this.state.tree){
-            axios.get(url + '/Projet_TER/API/Controllers/lireArbre.php')
+            axios.get(url + '/reactTest/MATUI/API/Controllers/lireArbre.php')
             .then(response => {
                 this.setState({tree: response.data});
                 this.changeData(response.data.entree[0].ID_Critere);

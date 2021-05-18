@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEnvelope, faPen, faTrashAlt, faUser, faUserTag} from '@fortawesome/free-solid-svg-icons'
 import ModalEditRole from "../components/ModalEditRole";
 import ModalDeleteUser from "../components/ModalDeleteUser";
+import ModalConfirmation from "../components/modal/ModalConfirmation";
 
 export class Users extends React.Component {
 
@@ -135,7 +136,7 @@ export class Users extends React.Component {
 
                     <FontAwesomeIcon icon={faTrashAlt} onClick={this.handleClickOpenDelete}/>
 
-                    <ModalDeleteUser
+                    <ModalConfirmation
                         title="Warning"
                         message="Are you sure you want to delete this user ?"
                         actionButton="Yes"
