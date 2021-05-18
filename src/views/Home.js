@@ -83,6 +83,7 @@ export default class Home extends React.Component { // Tell webpack this JS file
             <div className="Home">
                 <div className="logo">
                     <img src={logo} alt={'Logo Thedre'}/>
+                    <button className="button filled">Start</button>
                 </div>
                 <div className="content">
                     <h3> Contents <FontAwesomeIcon icon={faPen} onClick={this.handleOpen}/></h3>
