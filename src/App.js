@@ -28,7 +28,7 @@ export class App extends React.Component {
                   <Route path="/summary" exact component={Summary}/>
                   <Route path="/manageTree" exact component={Tree}/>
                   <Route path="/manageUsers" exact component={Users}/>
-                  <Route path="/login" exact component={SignIn}/>
+                  <Route path="/login" exact component={Login}/>
                   <Route path="/register" exact component={SignUp}/>
                   <Route path="/fileUpload" exact component={FileUpload}/>
                   <Redirect to="/"/> {/* Redirect to home when invalid url */}
