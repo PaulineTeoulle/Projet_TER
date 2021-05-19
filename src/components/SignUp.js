@@ -1,7 +1,7 @@
 import React from 'react';
 import ModalSignUp from "./modal/ModalSignUp";
 
-export class Users extends React.Component {
+export class SignUp extends React.Component {
 
     constructor(props) {
         super(props);
@@ -27,11 +27,11 @@ export class Users extends React.Component {
 
     render() {
         return (
-            <div className="Users">
+            <div className="SignUp">
                 {/*<button className="button outlined" onClick={this.handleClickOpenSignUp}>Open</button>*/}
                 <ModalSignUp
-                    title="Sign Up"
-                    actionButton="Sign Up"
+                    title="Sign up"
+                    actionButton="Sign up"
                     closeButton="Quit"
                     open={true}
                     close={this.handleClickCloseSignUp}
@@ -39,9 +39,8 @@ export class Users extends React.Component {
                 />
             </div>
         );
-
     }
 }
 
-export default Users;
+export default SignUp;
 

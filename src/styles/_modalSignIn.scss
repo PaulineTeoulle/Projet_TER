@@ -1,4 +1,4 @@
-.ModalSignUp {
+.ModalSignIn {
   display: none;
   position: fixed;
   z-index: 1;
@@ -42,7 +42,6 @@
       }
     }
 
-
     .action {
       margin-top: 50px;
       display: flex;
@@ -55,7 +54,6 @@
         margin-left: 10px;
       }
     }
-
 
   }
 }
