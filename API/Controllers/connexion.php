@@ -17,29 +17,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $donnees = json_decode(file_get_contents("php://input"));
 
-    if (isset($donnees->mail) && !empty($donnees->mot_de_passe)) {
-        $utilisateur->mail = $donnees->mail;
+    if (isset($donnees->username) && !empty($donnees->mot_de_passe)) {
+        $utilisateur->pseudo = $donnees->username;
         $utilisateur->mot_de_passe = $donnees->mot_de_passe;
 
         $utilisateur = $utilisateur->lireUn();
 
-
-        echo json_encode($utilisateur["ID_Utilisateur"]);
         $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
-        $payload = json_encode(['user_id' => $utilisateur["ID_Utilisateur"]]);
-
+        $payload = json_encode(['user_id' => $utilisateur["ID_Utilisateur"], 'user_username' => $utilisateur["Pseudo"], 'user_role' => $utilisateur["Role"], 'user_mail' => $utilisateur["Mail"]]);
         $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
         $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($payload));
-
         $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, 'abC123!', true);
         $base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
 
         $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
-
         echo json_encode(["token" => $jwt]);
-
     }
-
 
 } else {
     echo json_encode(["message" => "La méthode n'est pas autorisée"]);

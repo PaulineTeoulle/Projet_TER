@@ -11,8 +11,9 @@ function Login({props}) {
         let host = window.location.hostname;
         let url = protocol + '//' + host;
 
-        const json = JSON.stringify({id_methode: Number(props.method.ID_Methode)});
-        axios.post(url + '/reactTest/MATUI/API/Controllers/ressource/lireRessourcesMethode.php', json)
+        const json = JSON.stringify({username: username, mot_de_passe: password});
+
+        axios.post(url + '/reactTest/MATUI/API/Controllers/connexion.php', json)
             .then(response => {
                 console.log(response.data);
             })
