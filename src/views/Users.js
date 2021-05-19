@@ -135,6 +135,7 @@ export class Users extends React.Component {
 
                     <FontAwesomeIcon icon={faTrashAlt} onClick={this.handleClickOpenDelete}/>
 
+
                     <ModalDeleteUser
                         title="Warning"
                         message="Are you sure you want to delete this user ?"

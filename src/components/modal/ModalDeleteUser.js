@@ -29,8 +29,8 @@ function ModalDeleteUser(props) {
                 <p>{props.message}</p>
                 <div>
                     <div className="action">
-                        <button className="button outlined" onClick={closeModal}>{props.closeButton}</button>
                         <button className="button filled" onClick={customFunction}>{props.actionButton}</button>
+                        <button className="button outlined" onClick={closeModal}>{props.closeButton}</button>
                     </div>
                 </div>
             </div>

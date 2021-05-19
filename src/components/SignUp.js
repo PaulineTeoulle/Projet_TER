@@ -28,12 +28,12 @@ export class Users extends React.Component {
     render() {
         return (
             <div className="Users">
-                <button className="button outlined" onClick={this.handleClickOpenSignUp}>Open</button>
+                {/*<button className="button outlined" onClick={this.handleClickOpenSignUp}>Open</button>*/}
                 <ModalSignUp
                     title="Sign Up"
                     actionButton="Sign Up"
                     closeButton="Quit"
-                    open={this.state.modalSignUpOpen}
+                    open={true}
                     close={this.handleClickCloseSignUp}
                     mainAction={this.ok}
                 />

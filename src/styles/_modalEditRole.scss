@@ -13,7 +13,7 @@
 
   & > div {
     border-top: 3px solid var(--secondary-color);
-    width: 50%;
+    width: 20%;
     background-color: white;
     display: block;
     margin: auto;
@@ -46,13 +46,12 @@
     #select {
       background-color: transparent;
       padding: 0.5em 0.5em 0.5em 0.5em;
-      width: 20%;
+      width: 50%;
       height: 20%;
+      cursor: pointer;
       font-family: inherit;
       font-size: inherit;
 
-      #option {
-      }
     }
 
     .action {
