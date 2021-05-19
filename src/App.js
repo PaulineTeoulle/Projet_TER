@@ -9,6 +9,7 @@ import Users from './views/Users';
 import FileUpload from './views/FileUpload';
 import Summary from './views/Summary';
 import Warning from './components/Warning'
+import Login from './views/Login';
 
 import Nav from './components/Nav';
 
@@ -27,6 +28,7 @@ export class App extends React.Component {
               <Route path="/manageTree" exact component={Tree}/>
               <Route path="/manageUsers" exact component={Users}/>
               <Route path="/fileUpload" exact component={FileUpload}/>
+              <Route path="/login" exact component={Login}/>
               <Redirect to="/"/> {/* Redirect to home when invalid url */}
             </Switch>
           </div>

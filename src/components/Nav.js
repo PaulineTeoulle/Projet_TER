@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faProjectDiagram, faUser, faUserCog, faHome, faQuestion } from '@fortawesome/free-solid-svg-icons'
+import { faProjectDiagram, faUser, faUserCog, faHome, faQuestion, faFileUpload, faFile } from '@fortawesome/free-solid-svg-icons'
 
 function Nav() {
     return (
@@ -25,7 +25,7 @@ function Nav() {
                         <li><FontAwesomeIcon className="icon" icon={faUserCog} /></li>
                     </Link>
                     <Link to="/fileUpload">
-                        <li>FileUpload</li>
+                        <li><FontAwesomeIcon className="icon" icon={faFileUpload} /></li>
                     </Link>
                 </ul>
             </nav>
