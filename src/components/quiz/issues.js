@@ -1,8 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
 import Loader from '../Loader'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faChevronRight, faInfoCircle} from '@fortawesome/free-solid-svg-icons'
 
 
 function Issues(props) {
@@ -20,10 +20,13 @@ function Issues(props) {
         }
     }
 
-    if(props.issue && props.decisions){
+    if (props.issue && props.decisions) {
         return (
             <div className="Issues">
-                <h3>{props.issue.Libelle}</h3>
+
+                {props.issue.Informations != null ?
+                    <h3><FontAwesomeIcon className="issueInfoIcon" icon={faInfoCircle}/> {props.issue.Libelle}</h3>
+                    : <h3> {props.issue.Libelle}</h3>}
                 <p className="step">Question {props.step}</p>
                 <form action="#">
                     {props.decisions.map((decision, i) => {
