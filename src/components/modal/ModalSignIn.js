@@ -14,6 +14,7 @@ function ModalSignIn(props) {
     function changeUsername(e) {
         setUsername(e.target.value);
         props.changeUsername(e.target.value);
+        console.log(e);
     }
 
     function changePassword(e) {

@@ -10,7 +10,8 @@ import FileUpload from './views/FileUpload';
 import Summary from './views/Summary';
 import Warning from './components/Warning'
 import Login from './views/Login';
-
+import SignUp from './components/SignUp'
+import SignIn from './components/SignIn'
 import Nav from './components/Nav';
 
 
@@ -20,17 +21,18 @@ export class App extends React.Component {
     return(
         <Router>
           <div className="App">
-            <Nav/>
-            <Switch>
-              <Route path="/" exact component={Home}/>
-              <Route path="/quiz" exact component={Quiz}/>
-              <Route path="/summary" exact component={Summary}/>
-              <Route path="/manageTree" exact component={Tree}/>
-              <Route path="/manageUsers" exact component={Users}/>
-              <Route path="/fileUpload" exact component={FileUpload}/>
-              <Route path="/login" exact component={Login}/>
-              <Redirect to="/"/> {/* Redirect to home when invalid url */}
-            </Switch>
+              <Nav/>
+              <Switch>
+                  <Route path="/" exact component={Home}/>
+                  <Route path="/quiz" exact component={Quiz}/>
+                  <Route path="/summary" exact component={Summary}/>
+                  <Route path="/manageTree" exact component={Tree}/>
+                  <Route path="/manageUsers" exact component={Users}/>
+                  <Route path="/login" exact component={Login}/>
+                  <Route path="/register" exact component={SignUp}/>
+                  <Route path="/fileUpload" exact component={FileUpload}/>
+                  <Redirect to="/"/> {/* Redirect to home when invalid url */}
+              </Switch>
           </div>
           <Warning/>
         </Router>
