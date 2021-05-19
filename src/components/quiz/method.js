@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsers, faFolderOpen, faClipboard, faChartPie, faFilePdf } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faChartPie, faClipboard, faFilePdf, faFolderOpen, faUsers} from '@fortawesome/free-solid-svg-icons'
 
 function Method(props) {
     const [checked, setChecked] = useState(false);
     const [ressources, setRessources] = useState(null);
 
-    function finish(){
+    function finish() {
         props.changeData(0);
     }
 
-    function resume(){
+    function resume() {
         props.resumeQuiz();
     }
 

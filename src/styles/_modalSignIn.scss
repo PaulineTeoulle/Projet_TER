@@ -1,0 +1,28 @@
+.ModalSignIn {
+  .InputItems {
+    margin: 0 auto 0 50px;
+
+    input {
+      font-size: 20px;
+      font-family: FontAwesome, serif;
+      padding: 15px;
+      margin: 10px 0;
+      border: none;
+      border-bottom: 1px solid black;
+    }
+  }
+
+  .action {
+    margin-top: 50px;
+    display: flex;
+
+    :first-child {
+      margin-right: 10px;
+    }
+
+    :nth-child(2) {
+      margin-left: 10px;
+    }
+  }
+}
+

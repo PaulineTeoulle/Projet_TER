@@ -2,8 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEnvelope, faPen, faTrashAlt, faUser, faUserTag} from '@fortawesome/free-solid-svg-icons'
-import ModalEditRole from "../components/ModalEditRole";
-import ModalConfirmation from "../components/modal/ModalConfirmation";
+import ModalEditRole from "../components/modal/ModalEditRole";
+import ModalDeleteUser from "../components/modal/ModalDeleteUser";
 
 export class Users extends React.Component {
 
@@ -66,12 +66,12 @@ export class Users extends React.Component {
             console.log(data);
             axios({
                 method: 'put',
-                url: 'http://localhost/Projet_TER/API/Controllers/utilisateur/modifierUtilisateur.php',
+                url: 'http://localhost/reactTest/MATUI/API/Controllers/utilisateur/modifierUtilisateur.php',
                 data: data
             })
                 .then(response => {
                     console.log(response)
-                    axios.get('http://localhost/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
+                    axios.get('http://localhost/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
                         .then(response => {
                             this.setState({users: response.data});
                         })
@@ -89,12 +89,12 @@ export class Users extends React.Component {
             let data = JSON.stringify({id: Number(id)});
             axios({
                 method: 'delete',
-                url: 'http://localhost/Projet_TER/API/Controllers/utilisateur/supprimerUtilisateur.php',
+                url: 'http://localhost/reactTest/MATUI/API/Controllers/utilisateur/supprimerUtilisateur.php',
                 data: data
             })
                 .then(response => {
                     console.log(response)
-                    axios.get('http://localhost/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
+                    axios.get('http://localhost/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
                         .then(response => {
                             this.setState({users: response.data});
                         })
@@ -133,10 +133,10 @@ export class Users extends React.Component {
                         mainActionParameters={this.state.newRole}
                     />
 
-                    <FontAwesomeIcon icon={faTrashAlt}
-                                     onClick={this.handleClickOpenDelete}/>
+                    <FontAwesomeIcon icon={faTrashAlt} onClick={this.handleClickOpenDelete}/>
 
-                    <ModalConfirmation
+
+                    <ModalDeleteUser
                         title="Warning"
                         message="Are you sure you want to delete this user ?"
                         actionButton="Yes"
@@ -163,7 +163,7 @@ export class Users extends React.Component {
                     <div className="header">
                         <p><FontAwesomeIcon icon={faUser}/>Username</p>
                         <p><FontAwesomeIcon icon={faEnvelope}/>Mail</p>
-                        <p><FontAwesomeIcon icon={faUserTag}/>Role </p>
+                        <p><FontAwesomeIcon icon={faUserTag}/>Role</p>
                     </div>
                     {this.chargeData()}
                 </div>

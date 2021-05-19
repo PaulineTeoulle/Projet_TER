@@ -55,7 +55,7 @@ class FileUpload extends React.Component {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
-        window.open(url + '/Projet_TER/src/public/documentsRessources/' + name);
+        window.open(url + '/reactTest/MATUI/src/public/documentsRessources/' + name);
     }
 
 

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import $ from 'jquery';
 
 /*
@@ -31,7 +31,7 @@ function ModalConfirmation(props) {
     }
 
     function buildComponent(){
-        return React.createElement(props.component, [props.age])
+        return React.createElement(props.component, [props])
     }
 
     useEffect(() => {

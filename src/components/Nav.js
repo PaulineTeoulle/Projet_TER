@@ -4,13 +4,14 @@ import {Link} from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faProjectDiagram, faUser, faUserCog, faHome, faQuestion, faFileUpload, faFile } from '@fortawesome/free-solid-svg-icons'
 
+
 function Nav() {
     return (
         <div className="Navigation">
             <nav>
                 <ul>
                     <Link to="/">
-                        <li><FontAwesomeIcon className="icon" icon={faHome} /></li>
+                        <li><FontAwesomeIcon className="icon" icon={faHome}/></li>
                     </Link>
                     <Link to="/quiz">
                         <li><FontAwesomeIcon className="icon" icon={faQuestion} /></li>
