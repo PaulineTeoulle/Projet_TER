@@ -1,15 +1,44 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 import $ from 'jquery';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUsers, faFolderOpen, faClipboard, faChartPie, faFilePdf, faSortDown } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faChartPie, faClipboard, faFilePdf, faFolderOpen, faSortDown, faUsers} from '@fortawesome/free-solid-svg-icons'
+import axios from "axios";
 
 function DropMethodCard(props) {
 
-    function dropCard(e){
+    const [ressources, setRessources] = useState(null);
+
+
+    function getRessources() {
+        let protocol = window.location.protocol;
+        let host = window.location.hostname;
+        let url = protocol + '//' + host;
+
+        const json = JSON.stringify({id_methode: Number(props.method.ID_Methode)});
+        axios.post(url + '/Projet_TER/API/Controllers/ressource/lireRessourcesMethode.php', json)
+            .then(response => {
+                setRessources(response.data);
+            })
+            .catch(error => console.log(error))
+    }
+
+    useEffect(() => {
+        getRessources();
+    }, []);
+
+
+    function openFile(name) {
+        let protocol = window.location.protocol;
+        let host = window.location.hostname;
+        let url = protocol + '//' + host;
+        window.open(url + '/Projet_TER/src/public/documentsRessources/' + name);
+    }
+
+    function dropCard(e) {
         let parentId = e.currentTarget.parentElement.id;
         console.log(parentId)
-        $( "#" + parentId ).toggleClass('dropped');
+        $("#" + parentId).toggleClass('dropped');
     }
 
     return (
@@ -36,22 +65,27 @@ function DropMethodCard(props) {
                                 <p>{props.method.Type_methode}</p>
                             </div>
                             <div>
-                                <FontAwesomeIcon className="icon" icon={faChartPie} />  
+                                <FontAwesomeIcon className="icon" icon={faChartPie}/>
                                 <p>analysis</p>
                                 <p>{props.method.Type_analyse}</p>
                             </div>
                         </div>
                         <p>{props.method.Exemple}</p>
                     </div>
-                    <div className="ressources">
-                        <div className="ressource">
-                            <FontAwesomeIcon className="icon" icon={faFilePdf} /> 
-                            <p>user.pdf</p> 
+                    {ressources ?
+                        <div className="ressources">
+                            {ressources.map((element, i) => {
+                                return (<div onClick={() => openFile(element.Nom)} className="ressource">
+                                    <FontAwesomeIcon className="icon" icon={faFilePdf}/>
+                                    <p>{element.Nom}</p>
+                                </div>)
+                            })}
                         </div>
-                    </div>
+                        : <p>No ressources</p>
+                    }
                 </div>
                 <div onClick={(e) => dropCard(e)} className="deploy">
-                    <FontAwesomeIcon icon={faSortDown} />  
+                    <FontAwesomeIcon icon={faSortDown}/>
                 </div>
             </div>
         </div>
