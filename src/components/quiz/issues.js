@@ -20,13 +20,19 @@ function Issues(props) {
         }
     }
 
+    function showInformations() {
+        $('.issueInfo').css("display", "block");
+    }
+
     if (props.issue && props.decisions) {
         return (
             <div className="Issues">
 
                 {props.issue.Informations != null ?
-                    <h3><FontAwesomeIcon className="issueInfoIcon" icon={faInfoCircle}/> {props.issue.Libelle}</h3>
+                    <h3><FontAwesomeIcon className="issueInfoIcon" icon={faInfoCircle}
+                                         onClick={showInformations}/> {props.issue.Libelle} </h3>
                     : <h3> {props.issue.Libelle}</h3>}
+                <p className="issueInfo">{props.issue.Informations}</p>
                 <p className="step">Question {props.step}</p>
                 <form action="#">
                     {props.decisions.map((decision, i) => {

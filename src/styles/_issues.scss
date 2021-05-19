@@ -19,6 +19,12 @@
         width: 70%;
     }
 
+    .issueInfo {
+        display: none;
+        color: var(--main-grey);
+        margin-left: 35px;
+    }
+
     .issueInfoIcon {
         cursor: pointer;
         color: var(--main-color);

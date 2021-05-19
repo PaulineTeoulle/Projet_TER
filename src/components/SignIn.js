@@ -6,9 +6,9 @@ export class SignIn extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            modalSignInOpen: false,
+            modalSignInOpen: true,
         };
-        this.ok = this.ok.bind(this);
+        this.signIn = this.signIn.bind(this);
         this.handleClickOpenSignIn = this.handleClickOpenSignIn.bind(this);
         this.handleClickCloseSignIn = this.handleClickCloseSignIn.bind(this);
     }
@@ -21,8 +21,8 @@ export class SignIn extends React.Component {
         this.setState({modalSignInOpen: false});
     };
 
-    ok() {
-        alert('OUI')
+    signIn() {
+        alert('Sign In !');
     }
 
     render() {
@@ -33,9 +33,9 @@ export class SignIn extends React.Component {
                     title="Sign in"
                     actionButton="Sign in"
                     closeButton="Quit"
-                    open={true}
+                    open={this.state.modalSignInOpen}
                     close={this.handleClickCloseSignIn}
-                    mainAction={this.ok}
+                    mainAction={this.signIn}
                 />
             </div>
         );
