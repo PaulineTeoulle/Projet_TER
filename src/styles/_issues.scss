@@ -19,12 +19,6 @@
         width: 70%;
     }
 
-    .issueInfo {
-        display: none;
-        color: var(--main-grey);
-        margin-left: 35px;
-    }
-
     .issueInfoIcon {
         cursor: pointer;
         color: var(--main-color);
@@ -32,6 +26,13 @@
         &:hover {
             color: var(--secondary-color);
         }
+    }
+
+    .content {
+        background-color: var(--light-grey);
+        border-radius: 50px;
+        padding: 15px;
+        font-size: 14px;
     }
 
     form {

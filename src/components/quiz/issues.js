@@ -7,6 +7,8 @@ import {faChevronRight, faInfoCircle} from '@fortawesome/free-solid-svg-icons'
 
 function Issues(props) {
 
+    const [infoOpen, setIsOpen] = React.useState(false);
+
     function next() {
         let checkedBox = $('input:checked').val();
         let allChoices = [];
@@ -20,9 +22,10 @@ function Issues(props) {
         }
     }
 
-    function showInformations() {
-        $('.issueInfo').css("display", "block");
+    function togglePanel() {
+        setIsOpen(!infoOpen);
     }
+
 
     if (props.issue && props.decisions) {
         return (
@@ -30,9 +33,15 @@ function Issues(props) {
 
                 {props.issue.Informations != null ?
                     <h3><FontAwesomeIcon className="issueInfoIcon" icon={faInfoCircle}
-                                         onClick={showInformations}/> {props.issue.Libelle} </h3>
+                                         onClick={(e) => togglePanel(e)}/> {props.issue.Libelle} </h3>
                     : <h3> {props.issue.Libelle}</h3>}
-                <p className="issueInfo">{props.issue.Informations}</p>
+
+                {infoOpen ?
+                    <div className="content">
+                        <p aria-label={"info"}>{props.issue.Informations}</p>
+                    </div>
+                    : null}
+
                 <p className="step">Question {props.step}</p>
                 <form action="#">
                     {props.decisions.map((decision, i) => {
