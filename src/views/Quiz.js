@@ -74,6 +74,7 @@ export class Quiz extends React.Component {
         let issue = this.state.tree.criteres.find(critere => critere.ID_Critere === nextIssueId);
         let decisions =  this.state.tree.decisions.filter(decision => decision.ID_Critere_entrant === issue.ID_Critere);
         let oldIssue = this.state.currentIssue;
+        console.log(decisions);
         this.setState({
             currentIssue: issue,
             currentDecisions: decisions,

@@ -214,26 +214,21 @@ function Tree() {
     }
 
     function initNodes(start){
-        let count = 2;
-        let x = 1;
         // pour chaque critère on créer le noeud
         initialTree.criteres.forEach(node => {
             let color = colors[0]
             colors.splice(0, 1);
             if(node.ID_Critere !== start){
-                createNode(node.ID_Critere, 'default',  {x: x*100, y: count * 100}, node.Libelle)
-                count++;
-                x++;
+                createNode(node.ID_Critere, 'default',  {x: node.x, y: node.y}, node.Libelle)
             }
                 // on récupère les décisions attaché au critère et on regarde si un méthode est attaché
                 let decisions = getDecisions(node.ID_Critere);
                 decisions.forEach(decision => {
                     let method = getMethod(decision);
                     if(method){
-                        createNode("M" + method.ID_Methode, 'default',  {x: x*100, y: count * 100}, method.Libelle);
+                        createNode("M" + method.ID_Methode, 'default',  {x: method.x, y: method.y}, method.Libelle);
                         createEdge(node.ID_Critere, "M" + method.ID_Methode, decision.Libelle, color);
                         createEdge("M" + method.ID_Methode, decision.ID_Critere_sortant, null, color);
-                        count ++;
                     } else {
                         if(decision.ID_Critere_sortant){
                             createEdge(decision.ID_Critere_entrant, decision.ID_Critere_sortant, decision.Libelle, color);

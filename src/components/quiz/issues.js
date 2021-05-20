@@ -33,7 +33,7 @@ function Issues(props) {
 
                 {props.issue.Informations != null ?
                     <h3><FontAwesomeIcon className="issueInfoIcon" icon={faInfoCircle}
-                                         onClick={(e) => togglePanel(e)}/> {props.issue.Libelle} </h3>
+                        onClick={(e) => togglePanel(e)}/> {props.issue.Libelle} </h3>
                     : <h3> {props.issue.Libelle}</h3>}
 
                 {infoOpen ?
@@ -45,10 +45,10 @@ function Issues(props) {
                 <p className="step">Question {props.step}</p>
                 <form action="#">
                     {props.decisions.map((decision, i) => {
-                        // if(decision.ID_Critere_sortant == null){
-                        //     // 0 == end node
-                        //     decision.ID_Critere_sortant = 0;
-                        // }
+                        if(decision.ID_Critere_sortant == null){
+                            // 0 == end node
+                            decision.ID_Critere_sortant = 0;
+                        }
                         return (
                             <div key={decision.ID_Decision}>
                                 <input type="radio" name="radio-group" value={decision.ID_Decision}/>
