@@ -6,28 +6,10 @@ export class Summary extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            historic: null,
+            retainedMethods: null,
             resume: null,
             amount: null
         };
-    }
-
-    pullResume = () => {
-        console.log(this.state.historic)
-        let historic = this.state.historic;
-        let resume = [];
-        historic.forEach(element => {
-            if('method' in element){
-                if(element.checked){
-                    resume.push(element);
-                }
-            }
-        });
-        let amount = resume.length ? resume.length : 0
-        this.setState({
-            resume: resume,
-            amount : amount
-        });
     }
 
     goToHome = () => {
@@ -37,8 +19,15 @@ export class Summary extends React.Component {
     }
 
     componentDidMount(){
-        if(this.props.location.state){
-            this.setState({historic: this.props.location.state.historic},() =>{this.pullResume()});
+        if(this.props.location.state.retainedMethods.length){
+            console.log("methond retenu")
+            this.setState({
+                retainedMethods: this.props.location.state.retainedMethods,
+                amount: this.props.location.state.retainedMethods.length
+            });
+        } else {
+            this.setState({ amount: 0});
+            console.log("pas de methond retenu")
         }
     };
 
@@ -47,9 +36,9 @@ export class Summary extends React.Component {
             <div className="Summary">
                 <div>
                     <h3>You have retained {this.state.amount} method{this.state.amount > 1 ? "s" : ""}</h3>
-                {this.state.resume ? 
+                {this.state.retainedMethods ? 
                     <ul>
-                        {this.state.resume.map((element, i) => {   
+                        {this.state.retainedMethods.map((element, i) => {   
                                 return (
                                     <li key={i}>
                                         <DropMethodCard method={element.method}
