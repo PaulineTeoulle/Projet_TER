@@ -26,10 +26,9 @@ export class Quiz extends React.Component {
     // met a jour le questionnaire
     // historic : met a jour l'historique normalement
     // editHistoric : met a jour artificiellement quand on est sur une méthode (arret du flux)
-    changeData = (nextIssueId, decision = null, allChoices = null, historic = true, editHistoric = false) => {
+    changeData = async (nextIssueId, decision = null, allChoices = null, historic = true, editHistoric = false) => {
         // ID de la prochaine question
         this.setState({checkedDecision: decision});
-        console.log(this.state.retainedMethods)
 
         //  Vérifie si la décision renvoie une méthode
         let method = this.checkMethod(decision);
@@ -50,6 +49,7 @@ export class Quiz extends React.Component {
                         }
                     });
                     if(restart){
+                        this.addRetainedMethods();
                         this.setState({
                             historic: [],
                             step: 0,
@@ -67,9 +67,10 @@ export class Quiz extends React.Component {
                 }
             }else {
                 // quand on sort du questionnaire
+                await this.addRetainedMethods();         
                 this.props.history.push({
                     pathname: '/summary',
-                    state: { historic: this.state.historic }
+                    state: { retainedMethods: this.state.retainedMethods }
                 })            
             }
         }
@@ -113,9 +114,6 @@ export class Quiz extends React.Component {
     }
 
     checkedMethod = (method, checked) => {
-        if(checked){
-            this.setState({retainedMethods: this.state.retainedMethods.concat(method)}); 
-        }
         let index;
         this.state.historic.forEach(element => {
             if('method' in element){
@@ -142,6 +140,30 @@ export class Quiz extends React.Component {
                 return method;
             }
         }
+    }
+
+    // ajoute les méthodes retenu lors du précédent passage
+    // se produit lorsque on restart le questionnaire
+    addRetainedMethods = () => {
+        return new Promise((resolve,reject)=>{
+            let methods = [];
+            this.state.historic.forEach(element => {
+                if('method' in element){
+                    if(element.checked){
+                        if(this.state.retainedMethods.length){
+                            this.state.retainedMethods.forEach(retainedMethod => {
+                                if(retainedMethod.method.ID_Methode !== element.method.ID_Methode){
+                                    methods.push(element);
+                                }
+                            })
+                        } else {
+                            methods.push(element);
+                        }
+                    }
+                }
+            });
+        this.setState({retainedMethods: this.state.retainedMethods.concat(methods)}, () => resolve()); 
+        });
     }
 
     // on retourne dans l'historique 
@@ -252,6 +274,18 @@ export class Quiz extends React.Component {
                 <Historic historic={this.state.historic} 
                     backOut={this.backOut}
                 />
+
+                {this.state.retainedMethods.length ?
+                    <div>                
+                        {this.state.retainedMethods.map((element, i) => {   
+                            return(<div key={i}>
+                                <p>{element.method.Libelle}</p>
+                            </div>)
+                        })}
+                    </div>
+                    : <p>No methods</p>
+                    }
+
             </div>
         );
     }
