@@ -15,6 +15,7 @@ export class Quiz extends React.Component {
             checkedDecision: null,
             currentMethod: null,
             currentIssue: null,
+            retainedMethods: [],
             currentDecisions: [],
             historic: [],
             step: 0        
@@ -28,6 +29,7 @@ export class Quiz extends React.Component {
     changeData = (nextIssueId, decision = null, allChoices = null, historic = true, editHistoric = false) => {
         // ID de la prochaine question
         this.setState({checkedDecision: decision});
+        console.log(this.state.retainedMethods)
 
         //  Vérifie si la décision renvoie une méthode
         let method = this.checkMethod(decision);
@@ -42,25 +44,29 @@ export class Quiz extends React.Component {
                     let restart;
                     allChoices.forEach(element => {
                         let decision = this.state.tree.decisions.find(el => el.ID_Decision === element);
-                        if(decision.ID_Critere_sortant === null){
+                        if(decision.ID_Critere_sortant === 0){
+                            // on détecte le critère de fin quand une des décision a un critère sortant null
                             restart = true;
                         }
                     });
-
                     if(restart){
                         this.setState({
                             historic: [],
                             step: 0,
                         }, () => {
+                            // quand on conitnu a la fin du questionnaire
                             this.manageStoreData(nextIssueId, decision, historic, editHistoric);
                         });
                     } else {
+                        // quand on répond au critère (comportement de base)
                         this.manageStoreData(nextIssueId, decision, historic, editHistoric);
                     }
                 } else {
+                    // quand on sort d'une méthode (pas de choix fait)
                     this.manageStoreData(nextIssueId, decision, historic, editHistoric);
                 }
             }else {
+                // quand on sort du questionnaire
                 this.props.history.push({
                     pathname: '/summary',
                     state: { historic: this.state.historic }
@@ -74,7 +80,6 @@ export class Quiz extends React.Component {
         let issue = this.state.tree.criteres.find(critere => critere.ID_Critere === nextIssueId);
         let decisions =  this.state.tree.decisions.filter(decision => decision.ID_Critere_entrant === issue.ID_Critere);
         let oldIssue = this.state.currentIssue;
-        console.log(decisions);
         this.setState({
             currentIssue: issue,
             currentDecisions: decisions,
@@ -108,6 +113,9 @@ export class Quiz extends React.Component {
     }
 
     checkedMethod = (method, checked) => {
+        if(checked){
+            this.setState({retainedMethods: this.state.retainedMethods.concat(method)}); 
+        }
         let index;
         this.state.historic.forEach(element => {
             if('method' in element){
