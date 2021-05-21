@@ -8,18 +8,22 @@ function Register({props}) {
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
 
 
-    function sendConnection() {
+    function register() {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
 
-        const json = JSON.stringify({username: username, mot_de_passe: password});
-        axios.post(url + '/Projet_TER/API/Controllers/connexion.php', json)
-            // axios.post(url + '/reactTest/MATUI/API/Controllers/connexion.php', json)
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => console.log(error))
+        if (username !== "" && mail !== "" && password !== "" && passwordConfirmation !== "" && password === passwordConfirmation) {
+            const json = JSON.stringify({mail: mail, pseudo: username, mot_de_passe: password});
+            axios.post(url + '/Projet_TER/API/Controllers/utilisateur/creerUtilisateur.php', json)
+                // axios.post(url + '/reactTest/MATUI/API/Controllers/connexion.php', json)
+                .then(response => {
+                    console.log(response.data);
+                    window.location.href = '/login'
+                })
+                .catch(error => console.log(error))
+        }
+
     }
 
     useEffect(() => {
@@ -29,6 +33,13 @@ function Register({props}) {
     useEffect(() => {
         console.log(password)
     }, [password]);
+
+    useEffect(() => {
+        console.log(passwordConfirmation)
+    }, [passwordConfirmation]);
+    useEffect(() => {
+        console.log(mail)
+    }, [mail]);
 
     return (
         // <div className="Login">
@@ -74,7 +85,7 @@ function Register({props}) {
                 </div>
 
                 <div className="action">
-                    <button className="button filled" onClick={sendConnection}>Sign up</button>
+                    <button className="button filled" onClick={register}>Sign up</button>
                 </div>
 
             </div>

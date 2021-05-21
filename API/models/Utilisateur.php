@@ -6,7 +6,7 @@ class Utilisateur
     public $mail;
     public $pseudo;
     public $mot_de_passe;
-    public $role = "utilisateur";
+    public $role = "user";
     private $connexion;
     private $table = "u_utilisateur";
 
