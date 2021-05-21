@@ -46,7 +46,7 @@ function Login({props}) {
         //         <p>Don't have an account ? <a href="/register">Create one now</a></p>
         //     </div>
         // </div>
-        <div className="Login">
+        <div className="LoginRegister">
             <div>
                 <h3>Sign in</h3>
                 <div className="InputItems">
