@@ -5,51 +5,18 @@ import ReactFlow, {addEdge, ReactFlowProvider, removeElements} from 'react-flow-
 
 import Loader from '../components/Loader';
 import Toolbar from '../components/Toolbar';
+import CustomNode from '../components/tree/CustomNode';
 
 function Tree() {
-
-    const defaultElements = [
-        {
-            id: '1',
-            type: 'input',
-            data: {label: 'Start Node'},
-            position: {x: 250, y: 25},
-        },
-        {
-            id: '2',
-            type: 'default',
-            data: {label: 'Node'},
-            position: {x: 100, y: 125},
-        },
-        {
-            id: '3',
-            type: 'output',
-            data: {label: 'End Node'},
-            position: {x: 250, y: 250},
-        },
-        {
-            id: 'e1-2',
-            source: '1',
-            target: '2',
-            type: 'smoothstep',
-            arrowHeadType: 'arrowclosed',
-            label: 'edge label',
-        },
-        {
-            id: 'e2-3',
-            source: '2',
-            target: '3',
-            type: 'smoothstep',
-            arrowHeadType: 'arrowclosed',
-            label: 'edge label',
-        },
-    ];
+    const nodeTypes = {
+        critereNode: CustomNode,
+    };
 
     const colors = ['black', 'marron', 'blue', 'red', 'purple', 'fushia', 'green', 'lime', 'yellow',
 'navy', 'aqua', 'aquamarine', 'chocolate', 'coral', 'crimson', 'darkcyan', 'darkgreen', 'darkorange', 'darkseagreen',
 'deeppink', 'gold', 'indgo', 'lightcoral'];
 
-    const [initialTree, setinitialTree] = useState(null);
+    const [initialTree, setInitialTree] = useState(null);
     const [nextId, setNextId] = useState("0");
     const [editedElement, setEditedElement] = useState(null);
     const [elements, setElements] = useState([]);
@@ -60,7 +27,9 @@ function Tree() {
         ...params,
         arrowHeadType: 'arrowclosed', label: 'edge label', type: 'smoothstep'
     }, els));
-    const onLoad = (_reactFlowInstance) => setReactFlowInstance(_reactFlowInstance);
+    // const onLoad = (_reactFlowInstance) => setReactFlowInstance(_reactFlowInstance);
+    // const [reactFlowInstance, setReactFlowInstance] = useState(null);
+
 
 
     // HOOKS REACT-FLOW
@@ -86,7 +55,7 @@ function Tree() {
             x: event.clientX - reactFlowBounds.left,
             y: event.clientY - reactFlowBounds.top,
         });
-        createNode(type, position);
+        createNode(getId(), type, position);
         setNextId((parseInt(nextId) + 1).toString());
     };
 
@@ -107,16 +76,6 @@ function Tree() {
 
 
     // FUNCTIONS
-
-    // set next ID
-    (function setId() {
-        $(".react-flow__node").each(function (index) {
-            let currentId = $(this).data("id");
-            if (currentId >= nextId) {
-                setNextId((currentId + 1).toString());
-            }
-        });
-    })();
 
     function getId() {
         return nextId;
@@ -166,8 +125,11 @@ function Tree() {
             };
         }
         setElements((es) => es.concat(newNode));
-        setNextId((parseInt(nextId) + 1).toString());
+        if(id > getId()){
+            setNextId((parseInt(id) + 1).toString());
+        }
     }
+    
 
     function createEdge(id_source, id_target, label, color){
         let newEdge = {
@@ -185,7 +147,6 @@ function Tree() {
     // check if a node type already exists
     function checkExist(type) {
         if(elements){
-            console.log("yes")
             for (let i = 0; i < elements.length; i++) {
                 if (elements[i].type == type) {
                     return true;
@@ -197,45 +158,37 @@ function Tree() {
         }
     }
 
-    // DEBUG
-
-    function printNodes() {
-        console.log(initialTree);
-    }
-
     // INIT TREE
 
-    function initInput(){
+    function initTree(){
         createNode('0', 'input', {x: 0, y: 0});
         let firstNode = initialTree.criteres.find(el => el.ID_Critere === initialTree.entree[0].ID_Critere);
-        createNode(firstNode.ID_Critere,'default', {x: 0, y: 100}, firstNode.Libelle);
+        createNode(firstNode.ID_Critere,'critereNode', {x: 0, y: 100}, firstNode.Libelle);
         createEdge('0', firstNode.ID_Critere, null);
-        initNodes(initialTree.entree[0].ID_Critere)
+        initNodes(initialTree.entree[0].ID_Critere);
     }
 
     function initNodes(start){
-        // pour chaque critère on créer le noeud
         initialTree.criteres.forEach(node => {
             let color = colors[0]
             colors.splice(0, 1);
             if(node.ID_Critere !== start){
-                createNode(node.ID_Critere, 'default',  {x: node.x, y: node.y}, node.Libelle)
+                createNode(node.ID_Critere, 'critereNode',  {x: node.x, y: node.y}, node.Libelle)
             }
-                // on récupère les décisions attaché au critère et on regarde si un méthode est attaché
-                let decisions = getDecisions(node.ID_Critere);
-                decisions.forEach(decision => {
-                    let method = getMethod(decision);
-                    if(method){
-                        createNode("M" + method.ID_Methode, 'default',  {x: method.x, y: method.y}, method.Libelle);
-                        createEdge(node.ID_Critere, "M" + method.ID_Methode, decision.Libelle, color);
-                        createEdge("M" + method.ID_Methode, decision.ID_Critere_sortant, null, color);
-                    } else {
-                        if(decision.ID_Critere_sortant){
-                            createEdge(decision.ID_Critere_entrant, decision.ID_Critere_sortant, decision.Libelle, color);
-                        }
+            // on récupère les décisions attaché au critère et on regarde si un méthode est attaché
+            let decisions = getDecisions(node.ID_Critere);
+            decisions.forEach(decision => {
+                let method = getMethod(decision);
+                if(method){
+                    createNode("M" + method.ID_Methode, 'default',  {x: method.x, y: method.y}, method.Libelle);
+                    createEdge(node.ID_Critere, "M" + method.ID_Methode, decision.Libelle, color);
+                    createEdge("M" + method.ID_Methode, decision.ID_Critere_sortant, null, color);
+                } else {
+                    if(decision.ID_Critere_sortant){
+                        createEdge(decision.ID_Critere_entrant, decision.ID_Critere_sortant, decision.Libelle, color);
                     }
-                })
-            
+                }
+            })                
         });
     }
 
@@ -256,7 +209,7 @@ function Tree() {
             let url = protocol + '//' + host;
                 axios.get(url + '/reactTest/MATUI/API/Controllers/lireArbre.php')
                 .then(response => {
-                    setinitialTree(response.data)
+                    setInitialTree(response.data)
                 })
                 .catch(error => console.log(error))
         }
@@ -264,10 +217,104 @@ function Tree() {
 
     useEffect(() => {
         if(initialTree){
-            console.log(initialTree)
-            initInput();
+            initTree();
         }
     }, [initialTree]);
+
+    
+    useEffect(() => {
+        if(nextId){
+            console.log(nextId)
+        }
+    }, [nextId]);
+
+     // DEBUG
+
+    /*
+    types :
+        - input (start node)
+        - output (end node)
+        - default (node)
+        - smoothstep (edge)
+    */
+    function printNodes() {
+        let flow = reactFlowInstance.toObject();
+        let finalTree = {
+            entree: [],
+            sortie: [],
+            criteres: [],
+            methodes: [],
+            decisions: []
+        };
+        flow.elements.forEach(element => {
+            let transformedElement;
+            switch (element.type) {
+                case 'critereNode':
+                    transformedElement = transformToCritere(element);
+                    finalTree.criteres.push(transformedElement)
+                    break;
+                case 'default':
+                    // transformedElement = transformToCritere(element);
+                    finalTree.methodes.push(element)
+                    break;
+                case 'smoothstep':
+                    if(element.label){
+                        transformedElement = transformToDecision(element);
+                        finalTree.decisions.push(transformedElement)
+                    }
+                        break;
+                case 'input':
+                    transformedElement = transformToEntree(element);
+                    finalTree.entree.push(transformedElement)
+                    break;
+                case 'output':
+                    transformedElement = transformToSortie(element);
+                    finalTree.sortie.push(transformedElement)
+                    break;
+            }
+        })
+        console.log(initialTree)
+        console.log(finalTree);
+    }
+
+    function transformToCritere(element){
+        let critere = {
+            ID_Critere: element.id,
+            Libelle: element.data.label,
+            x: element.position.x,
+            y: element.position.y
+        }
+        return critere;
+    }
+
+    function transformToDecision(element){
+        let decision = {
+            ID_Critere_entrant: element.source,
+            ID_Critere_sortant: element.target,
+            Libelle: element.label,
+        }
+        return decision;
+    }
+
+    function transformToEntree(element){
+        let critere = {
+            ID_Critere: element.id,
+            Libelle: element.data.label,
+            x: element.position.x,
+            y: element.position.y
+        }
+        return critere;
+    }
+
+    function transformToSortie(element){
+        let critere = {
+            ID_Critere: element.id,
+            Libelle: element.data.label,
+            x: element.position.x,
+            y: element.position.y
+        }
+        return critere;
+    }
 
     return (
         <div className="Tree">
@@ -278,10 +325,11 @@ function Tree() {
                         <div style={{height: 600, backgroundColor: 'lightgrey', margin: '100px'}}>
                             <ReactFlow 
                                 elements={elements}
+                                nodeTypes={nodeTypes}
                                 onElementsRemove={onElementsRemove}
                                 onConnect={onConnect}
                                 deleteKeyCode={46}
-                                onLoad={onLoad}
+                                onLoad={setReactFlowInstance}
                                 onDrop={onDrop}
                                 onDragOver={onDragOver}
                                 onElementClick={onElementClick}
