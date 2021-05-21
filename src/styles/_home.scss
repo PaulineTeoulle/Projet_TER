@@ -45,19 +45,3 @@
     }
   }
 }
-
-@include breakpoint(laptop){
-  .Home{
-    height: auto;
-    display: block;
-
-    .content{
-
-    }
-
-    .logo{
-      float: left;
-      margin: 50px;
-    }
-  }
-}

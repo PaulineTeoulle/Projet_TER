@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEnvelope, faPen, faTrashAlt, faUser, faUserTag} from '@fortawesome/free-solid-svg-icons'
 import ModalEditRole from "../components/modal/ModalEditRole";
 import ModalDeleteUser from "../components/modal/ModalDeleteUser";
+import Loader from "../components/Loader";
 
 export class Users extends React.Component {
 
@@ -155,7 +156,7 @@ export class Users extends React.Component {
     }
 
     render() {
-        if (this.state.users === null) return (<p>Loading...</p>);
+        if (this.state.users === null) return (<Loader/>);
         else {
             console.log(this.state.users);
             return (
