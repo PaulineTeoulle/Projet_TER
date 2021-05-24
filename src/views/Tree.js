@@ -131,9 +131,9 @@ function Tree() {
     }
     
 
-    function createEdge(id_source, id_target, label, color){
+    function createEdge(id, id_source, id_target, label, color){
         let newEdge = {
-            id: `e${id_source}-${id_target}`,
+            id: id,
             source: id_source,
             target: id_target,
             type: 'smoothstep',
@@ -164,7 +164,7 @@ function Tree() {
         createNode('0', 'input', {x: 0, y: 0});
         let firstNode = initialTree.criteres.find(el => el.ID_Critere === initialTree.entree[0].ID_Critere);
         createNode(firstNode.ID_Critere,'critereNode', {x: 0, y: 100}, firstNode.Libelle);
-        createEdge('0', firstNode.ID_Critere, null);
+        createEdge('D0' ,'0', firstNode.ID_Critere, null);
         initNodes(initialTree.entree[0].ID_Critere);
     }
 
@@ -181,11 +181,11 @@ function Tree() {
                 let method = getMethod(decision);
                 if(method){
                     createNode("M" + method.ID_Methode, 'default',  {x: method.x, y: method.y}, method.Libelle);
-                    createEdge(node.ID_Critere, "M" + method.ID_Methode, decision.Libelle, color);
-                    createEdge("M" + method.ID_Methode, decision.ID_Critere_sortant, null, color);
+                    createEdge("D" + decision.ID_Decision ,node.ID_Critere, "M" + method.ID_Methode, decision.Libelle, color);
+                    createEdge("DM" + decision.ID_Decision, "M" + method.ID_Methode, decision.ID_Critere_sortant, null, color);
                 } else {
                     if(decision.ID_Critere_sortant){
-                        createEdge(decision.ID_Critere_entrant, decision.ID_Critere_sortant, decision.Libelle, color);
+                        createEdge("D" + decision.ID_Decision, decision.ID_Critere_entrant, decision.ID_Critere_sortant, decision.Libelle, color);
                     }
                 }
             })                
@@ -228,7 +228,7 @@ function Tree() {
         }
     }, [nextId]);
 
-     // DEBUG
+     // RECONSTRUCTION DE L'ARBRE
 
     /*
     types :
@@ -254,12 +254,12 @@ function Tree() {
                     finalTree.criteres.push(transformedElement)
                     break;
                 case 'default':
-                    // transformedElement = transformToCritere(element);
-                    finalTree.methodes.push(element)
+                    transformedElement = transformToMethod(element, flow);
+                    finalTree.methodes.push(transformedElement)
                     break;
                 case 'smoothstep':
                     if(element.label){
-                        transformedElement = transformToDecision(element);
+                        transformedElement = transformToDecision(element, flow);
                         finalTree.decisions.push(transformedElement)
                     }
                         break;
@@ -287,10 +287,28 @@ function Tree() {
         return critere;
     }
 
-    function transformToDecision(element){
+    function transformToMethod(element, flow){
+        let decision = flow.elements.find(el => el.type === "smoothstep" && el.target === element.id);
+        let method = {
+            ID_Method: element.id.slice(1),
+            ID_Decision: decision.id.slice(1),
+            Libelle: element.data.label,
+            x: element.position.x,
+            y: element.position.y
+        }
+        return method;
+    }
+
+    function transformToDecision(element, flow){
+        let outDecision;
+        if(element.target.includes("M")){
+            outDecision = flow.elements.find(el => el.type === "smoothstep" && el.source === element.target);
+        }
+        console.log(element.id)
         let decision = {
+            ID_Decision: element.id.slice(1),
             ID_Critere_entrant: element.source,
-            ID_Critere_sortant: element.target,
+            ID_Critere_sortant: (outDecision ? outDecision.target : element.target),
             Libelle: element.label,
         }
         return decision;
