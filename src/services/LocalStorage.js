@@ -3,7 +3,7 @@ export function removeItem(itemToRemove){
 }
 
 export function getItem(item){
-    window.localStorage.getItem(item);
+    return window.localStorage.getItem(item);
 }
 
 export function addItem(localStorageName, newItem){

@@ -27,12 +27,12 @@ class Utilisateur
 
     public function lireUn()
     {
-        $sql = "SELECT ID_Utilisateur, Mail, Pseudo, Role FROM u_utilisateur WHERE Mail= :mail AND Mot_de_passe = :mot_de_passe";
+        $sql = "SELECT ID_Utilisateur, Mail, Pseudo, Role FROM u_utilisateur WHERE Pseudo= :pseudo AND Mot_de_passe = :mot_de_passe";
         $query = $this->connexion->prepare($sql);
         $this->mail = htmlspecialchars(strip_tags($this->mail));
         $this->mot_de_passe = htmlspecialchars(strip_tags($this->mot_de_passe));
 
-        $query->bindParam(":mail", $this->mail);
+        $query->bindParam(":pseudo", $this->pseudo);
         $query->bindParam(":mot_de_passe", $this->mot_de_passe);
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
