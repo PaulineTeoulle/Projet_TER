@@ -4,6 +4,7 @@ import {login, isUserRole, isAdminRole, isSuperAdminRole} from "../services/Auth
 
 const Login = ({history}) => {
 
+    //Utilisation du contexte pour vérifier les états de connexion
     const {isAuthenticated, setIsAuthenticated} = useContext(Auth);
     const {isUser,setIsUser} = useContext(Auth);
     const {isAdmin,setIsAdmin} = useContext(Auth);
@@ -22,6 +23,7 @@ const Login = ({history}) => {
     const handleSubmit = async event => {
         event.preventDefault();
 
+        //Set les états du contexte quand on est connecté
         try {
             const response = await login(user);
             setIsAuthenticated(response);

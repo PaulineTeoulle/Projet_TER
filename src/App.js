@@ -18,12 +18,14 @@ import {hasAuthenticated, isAdminRole} from "./services/AuthApi";
 
 function App() {
 
+    //Setup des états selon les setters
     const [isAuthenticated, setIsAuthenticated] = useState(hasAuthenticated());
     const [isAdmin, setIsAdmin] = useState(isAdminRole());
     const [isUser, setIsUser] = useState(isAdminRole());
     const [isSuperAdmin, setIsSuperAdmin] = useState(isAdminRole());
 
     return (
+        //Provider pour distribuer les états à tous les niveaux
         <Auth.Provider value={{isAuthenticated, setIsAuthenticated, isAdmin, setIsAdmin,isUser,setIsUser,isSuperAdmin,setIsSuperAdmin}}>
             <Router>
                 <div className="App">
@@ -32,11 +34,8 @@ function App() {
                         <Route path="/" exact component={Home}/>
                         <Route path="/quiz" exact component={Quiz}/>
                         <Route path="/summary" exact component={Summary}/>
-                        <Route path="/manageTree" exact component={Tree}/>
-                        <Route path="/manageUsers" exact component={Users}/>
                         <Route path="/login" exact component={Login}/>
                         <Route path="/register" exact component={Register}/>
-                        <Route path="/fileUpload" exact component={FileUpload}/>
                         <AuthenticatedRoute path="/manageTree" component={Tree}/>
                         <AuthenticatedRoute path="/manageUsers" component={Users}/>
                         <AuthenticatedRoute path="/fileUpload" exact component={FileUpload}/>
