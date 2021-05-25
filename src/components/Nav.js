@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faFileUpload, faHome, faProjectDiagram, faQuestion, faUser, faUserCog} from '@fortawesome/free-solid-svg-icons'
+import {faFileUpload, faHome, faProjectDiagram, faQuestion, faUser, faUserCog, faSignOutAlt} from '@fortawesome/free-solid-svg-icons'
 import Auth from "../contexts/Auth";
 import {logout} from "../services/AuthApi";
 
@@ -37,7 +37,7 @@ const Nav = () => {
                     </>)}
 
                     {isUser &&(<>  <Link to="/logout">
-                        <li onClick={handleLogout}>Deconnexion</li>
+                        <li onClick={handleLogout}><FontAwesomeIcon className="icon" icon={faSignOutAlt}/></li>
                     </Link></>)}
 
                     {isAdmin && (<> <Link to="/manageTree">
@@ -49,7 +49,7 @@ const Nav = () => {
                         </Link>
 
                         <Link to="/logout">
-                            <li onClick={handleLogout}>Deconnexion</li>
+                            <li onClick={handleLogout}><FontAwesomeIcon className="icon" icon={faSignOutAlt}/></li>
                         </Link></>)}
 
                     {isSuperAdmin && (<>
@@ -64,7 +64,7 @@ const Nav = () => {
                         </Link>
 
                         <Link to="/logout">
-                            <li onClick={handleLogout}>Deconnexion</li>
+                            <li onClick={handleLogout}><FontAwesomeIcon className="icon" icon={faSignOutAlt}/></li>
                         </Link>
                     </>)}
                 </ul>
