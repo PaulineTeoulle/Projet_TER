@@ -18,15 +18,19 @@ function Tree() {
 
     const [initialTree, setInitialTree] = useState(null);
     const [nextId, setNextId] = useState("0");
+    const [nextEdgeId, setNextEdgeId] = useState("D1");
+    const [nextMethodId, setNextMethodId] = useState("M1");
+
     const [editedElement, setEditedElement] = useState(null);
     const [elements, setElements] = useState([]);
+
     const reactFlowWrapper = useRef(null);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
     const onElementsRemove = (elementsToRemove) => setElements((els) => removeElements(elementsToRemove, els));
     const onConnect = (params) => setElements((els) => addEdge({
         ...params,
-        arrowHeadType: 'arrowclosed', label: 'edge label', type: 'smoothstep'
-    }, els));
+        id: getEdgeId(), arrowHeadType: 'arrowclosed', label: 'edge label', type: 'smoothstep',
+    }, els, setNextEdgeId("D" + (parseInt(nextEdgeId.slice(1)) + 1).toString())));
     // const onLoad = (_reactFlowInstance) => setReactFlowInstance(_reactFlowInstance);
     // const [reactFlowInstance, setReactFlowInstance] = useState(null);
 
@@ -56,13 +60,15 @@ function Tree() {
             y: event.clientY - reactFlowBounds.top,
         });
         createNode(getId(), type, position);
-        setNextId((parseInt(nextId) + 1).toString());
+        // if(type === 'default' || type === 'critereNode'){
+        //     setNextId((parseInt(nextId) + 1).toString());
+        // }
     };
 
     const onElementClick = (event, element) => {
         // event.preventDefault();
-        let el = $("div").find(`[data-id='${element.id}']`)
-        if (el.text() === "Start Node" || el.text() === "End Node") {
+        // let el = $("div").find(`[data-id='${element.id}']`)
+        if (element.type === "input" || element.type === "output") {
             console.log("Impossible de modifier le noeud (début ou fin)")
         } else {
             openEdition(element);
@@ -81,11 +87,20 @@ function Tree() {
         return nextId;
     }
 
+    function getEdgeId() {
+        return nextEdgeId;
+    }
+
+    function getMethodId() {
+        return nextMethodId;
+    }
+
     // add input in selected node
     function openEdition(element) {
         if (!editedElement) {
-            let el = $("div").find(`[data-id='${element.id}']`)
-            let text = el.text()
+            let el = $("div").find(`[data-id='${element.id}']`);
+            console.log(el);
+            let text = el.text();
             el.css("font-size", 0);
             el.append(`<input type="text" id="label" name="label" value="${text}"/>`);
             setEditedElement(el)
@@ -109,25 +124,67 @@ function Tree() {
 
     function createNode(id, type, position, label) {
         let newNode;
-        if(label){
-            newNode = {
-                id: id,
-                type,
-                position,
-                data: {label: label},
-            };
-        } else {
-            newNode = {
-                id: getId(),
-                type,
-                position,
-                data: {label: `${type} node`},
-            };
+        switch (type) {
+            case 'input':
+                newNode = {
+                    id: "0",
+                    type,
+                    position,
+                    data: {label: label},
+                };
+                break;
+            case 'output':
+                newNode = {
+                    id: "S0",
+                    type,
+                    position,
+                    data: {label: label},
+                };
+                break;
+            case 'critereNode':
+                if(label){
+                    newNode = {
+                        id: id,
+                        type,
+                        position,
+                        data: {label: label},
+                    };
+                    if(id > getId()){
+                        setNextId((parseInt(id) + 1).toString());
+                    }      
+                } else {
+                    newNode = {
+                        id: getId(),
+                        type,
+                        position,
+                        data: {label: `${type} node`},
+                    };
+                    setNextId((parseInt(nextId) + 1).toString());
+                }
+                break;
+            case 'default':
+                if(label){
+                    newNode = {
+                        id: id,
+                        type,
+                        position,
+                        data: {label: label},
+                    };
+                    if(parseInt(id.slice(1)) > getMethodId().slice(1)){
+                        setNextMethodId("M" + (parseInt(id.slice(1)) + 1).toString());
+                    }               
+                } else {
+                    newNode = {
+                        id: getMethodId(),
+                        type,
+                        position,
+                        data: {label: `${type} node`},
+                    };
+                    setNextMethodId("M" + (parseInt(getMethodId().slice(1)) + 1).toString());
+                }
+                break;
         }
         setElements((es) => es.concat(newNode));
-        if(id > getId()){
-            setNextId((parseInt(id) + 1).toString());
-        }
     }
     
 
@@ -142,6 +199,11 @@ function Tree() {
             style: { stroke: color },
         }
         setElements((es) => es.concat(newEdge));
+        if(id.substring(0, 2) != "DM"){
+            if(parseInt(id.slice(1)) > getEdgeId().slice(1)){
+                setNextEdgeId("D" + (parseInt(id.slice(1)) + 1).toString());
+            }
+        }    
     }
 
     // check if a node type already exists
@@ -223,10 +285,10 @@ function Tree() {
 
     
     useEffect(() => {
-        if(nextId){
-            console.log(nextId)
+        if(nextMethodId){
+            console.log(nextMethodId)
         }
-    }, [nextId]);
+    }, [nextMethodId]);
 
      // RECONSTRUCTION DE L'ARBRE
 
@@ -264,12 +326,12 @@ function Tree() {
                     }
                         break;
                 case 'input':
-                    transformedElement = transformToEntree(element);
+                    transformedElement = transformToEntree(element,flow);
                     finalTree.entree.push(transformedElement)
                     break;
                 case 'output':
-                    transformedElement = transformToSortie(element);
-                    finalTree.sortie.push(transformedElement)
+                    // transformedElement = transformToSortie(element);
+                    finalTree.sortie.push(element)
                     break;
             }
         })
@@ -304,7 +366,7 @@ function Tree() {
         if(element.target.includes("M")){
             outDecision = flow.elements.find(el => el.type === "smoothstep" && el.source === element.target);
         }
-        console.log(element.id)
+
         let decision = {
             ID_Decision: element.id.slice(1),
             ID_Critere_entrant: element.source,
@@ -314,10 +376,12 @@ function Tree() {
         return decision;
     }
 
-    function transformToEntree(element){
+    function transformToEntree(element, flow){
+        let outDecision = flow.elements.find(el => el.type === "smoothstep" && el.source === element.id);
+
         let critere = {
-            ID_Critere: element.id,
-            Libelle: element.data.label,
+            ID_Entree: element.id,
+            ID_Critere: outDecision.target,
             x: element.position.x,
             y: element.position.y
         }
@@ -327,7 +391,6 @@ function Tree() {
     function transformToSortie(element){
         let critere = {
             ID_Critere: element.id,
-            Libelle: element.data.label,
             x: element.position.x,
             y: element.position.y
         }
