@@ -4,9 +4,16 @@ import {Link} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faFileUpload, faHome, faProjectDiagram, faQuestion, faUser, faUserCog} from '@fortawesome/free-solid-svg-icons'
 import Auth from "../contexts/Auth";
+import {logout} from "../services/AuthApi";
 
-function Nav() {
-    const {isAuthenticated} = useContext(Auth);
+const Nav = ()=> {
+    const {isAuthenticated, setIsAuthenticated} = useContext(Auth);
+
+    const handleLogout = () =>{
+        logout();
+        setIsAuthenticated(false);
+        console.log('on est déco');
+    };
     return (
         <div className="Navigation">
             <nav>
@@ -34,6 +41,10 @@ function Nav() {
                             </Link>
                             <Link to="/fileUpload">
                                 <li><FontAwesomeIcon className="icon" icon={faFileUpload}/></li>
+                            </Link>
+
+                            <Link to="/logout">
+                                <li onClick={handleLogout}>Deconnexion</li>
                             </Link>
                         </>
                     )}

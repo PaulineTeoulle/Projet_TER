@@ -21,7 +21,7 @@ function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(hasAuthenticated());
     //console.log(Auth.Provider);
     return (
-        <Auth.Provider value={{isAuthenticated}}>
+        <Auth.Provider value={{isAuthenticated, setIsAuthenticated}}>
             <Router>
                 <div className="App">
                     <Nav/>

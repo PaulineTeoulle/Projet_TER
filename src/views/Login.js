@@ -1,9 +1,45 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import axios from 'axios';
+import Auth from "../contexts/Auth";
+import {login} from "../services/AuthApi";
 
-function Login({props}) {
+const Login = ({history}) => {
+
+    const {isAuthenticated, setIsAuthenticated} = useContext(Auth);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [user, setUser] = useState({
+        username: "",
+        mot_de_passe: ""
+    });
+
+    const handleChange = ({currentTarget}) => {
+        const {name, value} = currentTarget;
+
+        setUser({...user, [name]: value})
+        console.log(name, value);
+    }
+
+    const handleSubmit = async event => {
+        event.preventDefault();
+
+        try {
+            const response = await login(user);
+            setIsAuthenticated(response);
+            history.replace('/quiz')
+        } catch ({response}) {
+            console.log(response);
+        }
+    }
+
+    useEffect(() => {
+        //Redirection si déjà loggé et sur la page login
+        if (isAuthenticated) {
+            history.replace('/home')
+        }
+
+    }, [history, isAuthenticated]);
+
 
     function sendConnection() {
         let protocol = window.location.protocol;
@@ -19,13 +55,6 @@ function Login({props}) {
             .catch(error => console.log(error))
     }
 
-    useEffect(() => {
-        console.log(username)
-    }, [username]);
-
-    useEffect(() => {
-        console.log(password)
-    }, [password]);
 
     return (
         // <div className="Login">
@@ -51,18 +80,20 @@ function Login({props}) {
                 <h3>Sign in</h3>
                 <div className="InputItems">
                     <div>
+                        {/*<input type="text" id="username" name="username" required placeholder="     Username"*/}
+                        {/*       onChange={e => setUsername(e.target.value)}/>*/}
                         <input type="text" id="username" name="username" required placeholder="     Username"
-                               onChange={e => setUsername(e.target.value)}/>
+                               onChange={handleChange}/>
                     </div>
 
                     <div>
-                        <input type="password" id="password" name="password" required placeholder={"     Password"}
-                               onChange={e => setPassword(e.target.value)}/>
+                        <input type="password" id="password" name="mot_de_passe" required placeholder={"     Password"}
+                               onChange={handleChange}/>
                     </div>
                 </div>
 
                 <div className="action">
-                    <button className="button filled" onClick={sendConnection}>Sign in</button>
+                    <button className="button filled" onClick={handleSubmit}>Sign in</button>
                 </div>
 
                 <div className="signup">
