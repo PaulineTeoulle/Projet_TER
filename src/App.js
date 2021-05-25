@@ -12,16 +12,19 @@ import Warning from './components/Warning'
 import Login from './views/Login';
 import Register from './views/Register';
 import Nav from './components/Nav';
-import {hasAuthenticated} from "./services/AuthApi";
 import Auth from "./contexts/Auth"
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
+import {hasAuthenticated, isAdminRole} from "./services/AuthApi";
 
 function App() {
 
     const [isAuthenticated, setIsAuthenticated] = useState(hasAuthenticated());
-    //console.log(Auth.Provider);
+    const [isAdmin, setIsAdmin] = useState(isAdminRole());
+    const [isUser, setIsUser] = useState(isAdminRole());
+    const [isSuperAdmin, setIsSuperAdmin] = useState(isAdminRole());
+
     return (
-        <Auth.Provider value={{isAuthenticated, setIsAuthenticated}}>
+        <Auth.Provider value={{isAuthenticated, setIsAuthenticated, isAdmin, setIsAdmin,isUser,setIsUser,isSuperAdmin,setIsSuperAdmin}}>
             <Router>
                 <div className="App">
                     <Nav/>
@@ -37,7 +40,6 @@ function App() {
                         <AuthenticatedRoute path="/manageTree" component={Tree}/>
                         <AuthenticatedRoute path="/manageUsers" component={Users}/>
                         <AuthenticatedRoute path="/fileUpload" exact component={FileUpload}/>
-                        {/*<AuthenticatedRoute path="/login" exact component={FileUpload}/>*/}
                         <Redirect to="/"/> {/* Redirect to home when invalid url */}
                     </Switch>
                 </div>
@@ -45,7 +47,6 @@ function App() {
             </Router>
         </Auth.Provider>
     )
-
 }
 
 export default App;

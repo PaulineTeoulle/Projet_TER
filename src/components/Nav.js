@@ -6,13 +6,18 @@ import {faFileUpload, faHome, faProjectDiagram, faQuestion, faUser, faUserCog} f
 import Auth from "../contexts/Auth";
 import {logout} from "../services/AuthApi";
 
-const Nav = ()=> {
+const Nav = () => {
     const {isAuthenticated, setIsAuthenticated} = useContext(Auth);
+    const {isUser, setIsUser} = useContext(Auth);
+    const {isAdmin, setIsAdmin} = useContext(Auth);
+    const {isSuperAdmin, setIsSuperAdmin} = useContext(Auth);
 
-    const handleLogout = () =>{
+    const handleLogout = () => {
         logout();
         setIsAuthenticated(false);
-        console.log('on est déco');
+        setIsAdmin(false);
+        setIsSuperAdmin(false);
+        setIsUser(false);
     };
     return (
         <div className="Navigation">
@@ -25,29 +30,43 @@ const Nav = ()=> {
                         <li><FontAwesomeIcon className="icon" icon={faQuestion}/></li>
                     </Link>
 
-                    {(!isAuthenticated && (
-                        <>
-                            <Link to="/login">
-                                <li><FontAwesomeIcon className="icon" icon={faUser}/></li>
-                            </Link>
-                        </>
-                    )) || (
-                        <>
-                            <Link to="/manageTree">
-                                <li><FontAwesomeIcon className="icon" icon={faProjectDiagram}/></li>
-                            </Link>
-                            <Link to="/manageUsers">
-                                <li><FontAwesomeIcon className="icon" icon={faUserCog}/></li>
-                            </Link>
-                            <Link to="/fileUpload">
-                                <li><FontAwesomeIcon className="icon" icon={faFileUpload}/></li>
-                            </Link>
+                    {!isAuthenticated && (<>
+                        <Link to="/login">
+                            <li><FontAwesomeIcon className="icon" icon={faUser}/></li>
+                        </Link>
+                    </>)}
 
-                            <Link to="/logout">
-                                <li onClick={handleLogout}>Deconnexion</li>
-                            </Link>
-                        </>
-                    )}
+                    {isUser &&(<>  <Link to="/logout">
+                        <li onClick={handleLogout}>Deconnexion</li>
+                    </Link></>)}
+
+                    {isAdmin && (<> <Link to="/manageTree">
+                        <li><FontAwesomeIcon className="icon" icon={faProjectDiagram}/></li>
+                    </Link>
+
+                        <Link to="/fileUpload">
+                            <li><FontAwesomeIcon className="icon" icon={faFileUpload}/></li>
+                        </Link>
+
+                        <Link to="/logout">
+                            <li onClick={handleLogout}>Deconnexion</li>
+                        </Link></>)}
+
+                    {isSuperAdmin && (<>
+                        <Link to="/manageTree">
+                            <li><FontAwesomeIcon className="icon" icon={faProjectDiagram}/></li>
+                        </Link>
+                        <Link to="/manageUsers">
+                            <li><FontAwesomeIcon className="icon" icon={faUserCog}/></li>
+                        </Link>
+                        <Link to="/fileUpload">
+                            <li><FontAwesomeIcon className="icon" icon={faFileUpload}/></li>
+                        </Link>
+
+                        <Link to="/logout">
+                            <li onClick={handleLogout}>Deconnexion</li>
+                        </Link>
+                    </>)}
                 </ul>
             </nav>
         </div>
