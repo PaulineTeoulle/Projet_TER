@@ -28,7 +28,7 @@ function ModalEditRole(props) {
     }, [props.open]);
 
     return (
-        <div className="ModalEditRole">
+        <div className="Modal ModalEditRole">
             <div>
                 <h3>{props.title}</h3>
                 <p>{props.message}</p>

@@ -34,7 +34,7 @@ function ModalEditHome(props) {
     }, [props.open]);
 
     return (
-        <div className="ModalEditHome">
+        <div className="Modal ModalEditHome">
             <div>
                 <h3>{props.title}</h3>
                 <p>{props.message}</p>

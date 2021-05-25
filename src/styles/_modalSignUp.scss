@@ -1,58 +1,28 @@
 .ModalSignUp {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(2px);
+  .InputItems {
+    margin: 0 auto 0 50px;
 
-  & > div {
-    border-top: 3px solid var(--secondary-color);
-    width: 18%;
-    background-color: white;
-    display: block;
-    margin: auto;
-    margin-top: 50vh;
-    transform: translateY(-50%);
-    padding: 15px;
+    input {
+      font-size: 20px;
+      font-family: FontAwesome, serif;
+      padding: 15px;
+      margin: 10px 0;
+      border: none;
+      border-bottom: 1px solid black;
+    }
+  }
 
-    h3 {
-      text-align: center;
-      font-size: 24px;
+  .action {
+    margin-top: 50px;
+    display: flex;
+
+    :first-child {
+      margin-right: 10px;
     }
 
-    p {
-      margin: 20px;
-    }
-
-    .InputItems {
-      margin: 0 auto 0 50px;
-
-      input {
-        font-size: 20px;
-        font-family: FontAwesome, serif;
-        padding: 15px;
-        margin: 10px 0;
-        border: none;
-        border-bottom: 1px solid black;
-      }
-    }
-
-    .action {
-      margin-top: 50px;
-      display: flex;
-
-      :first-child {
-        margin-right: 10px;
-      }
-
-      :nth-child(2) {
-        margin-left: 10px;
-      }
+    :nth-child(2) {
+      margin-left: 10px;
     }
   }
 }
+

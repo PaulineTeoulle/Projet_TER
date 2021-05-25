@@ -53,7 +53,7 @@ export class Users extends React.Component {
 
     componentDidMount() {
         if (this.state.users === null) {
-            axios.get('http://localhost/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
+            axios.get('http://localhost/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
                 .then(response => {
                     this.setState({users: response.data});
                 })
@@ -67,12 +67,12 @@ export class Users extends React.Component {
             console.log(data);
             axios({
                 method: 'put',
-                url: 'http://localhost/Projet_TER/API/Controllers/utilisateur/modifierUtilisateur.php',
+                url: 'http://localhost/reactTest/MATUI/API/Controllers/utilisateur/modifierUtilisateur.php',
                 data: data
             })
                 .then(response => {
                     console.log(response)
-                    axios.get('http://localhost/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
+                    axios.get('http://localhost/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
                         .then(response => {
                             this.setState({users: response.data});
                         })
@@ -90,12 +90,12 @@ export class Users extends React.Component {
             let data = JSON.stringify({id: Number(id)});
             axios({
                 method: 'delete',
-                url: 'http://localhost/Projet_TER/API/Controllers/utilisateur/supprimerUtilisateur.php',
+                url: 'http://localhost/reactTest/MATUI/API/Controllers/utilisateur/supprimerUtilisateur.php',
                 data: data
             })
                 .then(response => {
                     console.log(response)
-                    axios.get('http://localhost/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
+                    axios.get('http://localhost/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
                         .then(response => {
                             this.setState({users: response.data});
                         })

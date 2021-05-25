@@ -1,3 +1,5 @@
+@import './_breakpoints.scss';
+
 .Home {
   // column-count: 2;
   //vertical-align: middle;
@@ -31,9 +33,6 @@
       font-weight: 700;
       font-size: 1.5em;
     }
-    font-size: 120%;
-    margin-left: 10%;
-    text-align: justify;
 
     .icon {
       &:hover {
@@ -42,6 +41,22 @@
       }
       margin-left: 10px;
       height: 1rem;
+    }
+  }
+}
+
+@include breakpoint(laptop){
+  .Home{
+    height: auto;
+    display: block;
+
+    .content{
+
+    }
+
+    .logo{
+      float: left;
+      margin: 50px;
     }
   }
 }

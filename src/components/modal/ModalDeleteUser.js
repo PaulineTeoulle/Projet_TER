@@ -23,7 +23,7 @@ function ModalDeleteUser(props) {
         }
     }, [props.open]);
     return (
-        <div className="ModalDeleteUser">
+        <div className="Modal ModalDeleteUser">
             <div>
                 <h3>{props.title}</h3>
                 <p>{props.message}</p>

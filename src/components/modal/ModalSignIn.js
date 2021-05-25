@@ -38,7 +38,7 @@ function ModalSignIn(props) {
     }, [props.open]);
 
     return (
-        <div className="ModalSignIn">
+        <div className="Modal ModalSignIn">
             <div>
                 <h3>{props.title}</h3>
                 <p>{props.message}</p>
