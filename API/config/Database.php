@@ -5,9 +5,9 @@ class Database
     public $connexion;
     private $host = "localhost";
     private $db_name = "api_matui";
-    private $username = "root";
-    private $password = "";
-    private $port = 22;
+    private $username = "root"; //"adminMatui";
+    private $password = ""; //"Pm2Mv1MDRT!";
+
     public function getConnection()
     {
         $this->connexion = null;
