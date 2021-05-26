@@ -6,10 +6,15 @@ import ReactFlow, {addEdge, ReactFlowProvider, removeElements} from 'react-flow-
 import Loader from '../components/Loader';
 import Toolbar from '../components/Toolbar';
 import CustomNode from '../components/tree/CustomNode';
+import DebugNode from '../components/tree/DebugNode';
+
+import ModalEditCritere from '../components/modal/tree/ModalEditCritere';
+import ModalEditEdge from '../components/modal/tree/ModalEditEdge';
 
 function Tree() {
     const nodeTypes = {
         critereNode: CustomNode,
+        debugNode: DebugNode
     };
 
     const colors = ['black', 'marron', 'blue', 'red', 'purple', 'fushia', 'green', 'lime', 'yellow',
@@ -17,7 +22,7 @@ function Tree() {
 'deeppink', 'gold', 'indgo', 'lightcoral'];
 
     const [initialTree, setInitialTree] = useState(null);
-    const [nextId, setNextId] = useState("0");
+    const [nextId, setNextId] = useState("1");
     const [nextEdgeId, setNextEdgeId] = useState("D1");
     const [nextMethodId, setNextMethodId] = useState("M1");
 
@@ -66,23 +71,36 @@ function Tree() {
     };
 
     const onElementClick = (event, element) => {
-        // event.preventDefault();
-        // let el = $("div").find(`[data-id='${element.id}']`)
-        if (element.type === "input" || element.type === "output") {
-            console.log("Impossible de modifier le noeud (début ou fin)")
-        } else {
-            openEdition(element);
+        switch (element.type) {
+            case 'critereNode':
+                openModalEditCritere(element);
+                console.log("open critere modal")
+                break;
+            case 'default':
+                console.log("open methode modal")
+                break;
+            case 'smoothstep':
+                openModalEditEdge(element);
+                console.log("open edge modal")
+                break;
+            case 'input':
+                alert("Cannot modify start node")
+                break;
+            case 'output':
+                alert("Cannot modify end node")
+                break;
         }
     }
 
     const onPaneClick = (event) => {
         event.preventDefault();
-        closeEdition();
+        // closeEdition();
     }
 
 
     // FUNCTIONS
 
+    // return les prochains ID utilisable
     function getId() {
         return nextId;
     }
@@ -95,33 +113,13 @@ function Tree() {
         return nextMethodId;
     }
 
-    // add input in selected node
-    function openEdition(element) {
-        if (!editedElement) {
-            let el = $("div").find(`[data-id='${element.id}']`);
-            console.log(el);
-            let text = el.text();
-            el.css("font-size", 0);
-            el.append(`<input type="text" id="label" name="label" value="${text}"/>`);
-            setEditedElement(el)
-        }
-    }
-
-    // remove input in selected node and save label
-    function closeEdition() {
-        if (editedElement) {
-            let newValue = editedElement.children("input").val();
-            elements.forEach(element => {
-                if (element.id == editedElement.data("id")) {
-                    element.data.label = newValue;
-                }
-            });
-            editedElement.children("input").remove();
-            editedElement.css("font-size", "12px");
-            setEditedElement(null)
-        }
-    }
-
+    /*
+    crée un noeud de type :
+        - input
+        - output
+        - default (method)
+        - critereNode (critere)
+    */
     function createNode(id, type, position, label) {
         let newNode;
         switch (type) {
@@ -187,7 +185,7 @@ function Tree() {
         setElements((es) => es.concat(newNode));
     }
     
-
+    // crée un lien entre 2 noeuds
     function createEdge(id, id_source, id_target, label, color){
         let newEdge = {
             id: id,
@@ -206,6 +204,18 @@ function Tree() {
         }    
     }
 
+    // function createDebugNode() {
+    //     let debugNode = {
+    //         id: "666",
+    //         type: "debugNode",
+    //         position: {
+    //             x: 0,
+    //             y: 0
+    //         }
+    //     };
+    //     setElements((es) => es.concat(debugNode));
+    // }
+
     // check if a node type already exists
     function checkExist(type) {
         if(elements){
@@ -222,6 +232,7 @@ function Tree() {
 
     // INIT TREE
 
+    // initialise le noeud de debut et le premier critere pour commencer
     function initTree(){
         createNode('0', 'input', {x: 0, y: 0});
         let firstNode = initialTree.criteres.find(el => el.ID_Critere === initialTree.entree[0].ID_Critere);
@@ -230,12 +241,13 @@ function Tree() {
         initNodes(initialTree.entree[0].ID_Critere);
     }
 
+    // initilialise critère, méthodes et décisiosn depuis le premier critère
     function initNodes(start){
         initialTree.criteres.forEach(node => {
             let color = colors[0]
             colors.splice(0, 1);
             if(node.ID_Critere !== start){
-                createNode(node.ID_Critere, 'critereNode',  {x: node.x, y: node.y}, node.Libelle)
+                createNode(node.ID_Critere, 'critereNode',  {x: parseInt(node.x), y: parseInt(node.y)}, node.Libelle)
             }
             // on récupère les décisions attaché au critère et on regarde si un méthode est attaché
             let decisions = getDecisions(node.ID_Critere);
@@ -254,16 +266,19 @@ function Tree() {
         });
     }
 
+    // retourne les décisions d'un noeud
     function getDecisions(nodeId){
         let decisions =  initialTree.decisions.filter(decision => decision.ID_Critere_entrant === nodeId);
         return decisions;
     }
 
+    // retourne la méthode d'un décision si elle existe
     function getMethod(decision){
         let method =  initialTree.methodes.find(method => method.ID_Decision === decision.ID_Decision);
         return method;
     }
 
+    // récupère l'arbre a l'initialisation du composant
     useEffect(() => {
         if(!initialTree){
             let protocol = window.location.protocol;
@@ -277,20 +292,14 @@ function Tree() {
         }
     },[]);
 
+    // quand l'arbre et chargé et si il possède une entree on lance la création de l'arbre visuel
     useEffect(() => {
-        if(initialTree){
+        if(initialTree && initialTree.entree.length){
             initTree();
         }
     }, [initialTree]);
 
-    
-    useEffect(() => {
-        if(nextMethodId){
-            console.log(nextMethodId)
-        }
-    }, [nextMethodId]);
-
-     // RECONSTRUCTION DE L'ARBRE
+    // RECONSTRUCTION DE L'ARBRE
 
     /*
     types :
@@ -343,6 +352,7 @@ function Tree() {
         let critere = {
             ID_Critere: element.id,
             Libelle: element.data.label,
+            Informations: (element.data.informations ? element.data.informations : null),
             x: element.position.x,
             y: element.position.y
         }
@@ -397,14 +407,68 @@ function Tree() {
         return critere;
     }
 
+    // MODAL MANAGEMENT
+
+    // edit critères
+
+    const [modalEditCritereOpen, setModalEditCritereOpen] = useState(false);
+    const [selectedCritere, setSelectedCritere] = useState(null);
+
+    function openModalEditCritere(element) {
+        let critere = elements.find(el => el.id === element.id);
+        setSelectedCritere(critere);
+        setModalEditCritereOpen(true);
+    }
+
+    function closeModalEditCritere(){
+        setModalEditCritereOpen(false);
+    }
+
+    function saveCritere(label, informations){
+        // change le label dans l'instance react flow
+        selectedCritere.data.label = label;
+        if(informations){selectedCritere.data.informations = informations;}
+
+        // force le rendu du noeud
+        // l'instance ne se rerender pas si modification dans sous object donc on change position
+        selectedCritere.position = {x: selectedCritere.position.x, y: selectedCritere.position.y + 1}
+        rerenderFlow();
+    }
+
+    // edit edges
+    const [modalEditEdgeOpen, setModalEditEdgeOpen] = useState(false);
+    const [selectedEdge, setSelectedEdge] = useState(null);
+
+    function openModalEditEdge(element) {
+        let edge = elements.find(el => el.id === element.id);
+        setSelectedEdge(edge);
+        setModalEditEdgeOpen(true);
+    }
+
+    function closeModalEditEdge(){
+        setModalEditEdgeOpen(false);
+    }
+
+    function saveEdge(label){
+        selectedEdge.label = label;
+        rerenderFlow();
+    }
+
+    // FORCE RERENDER
+
+    function rerenderFlow(){
+        let cloneElements = [...elements];
+        setElements(cloneElements);     
+    }
+
     return (
         <div className="Tree">
             {elements ?
                 <ReactFlowProvider>
                     <div className="reactflow-wrapper" ref={reactFlowWrapper}>
-                        <h1>Tree</h1>
-                        <div style={{height: 600, backgroundColor: 'lightgrey', margin: '100px'}}>
-                            <ReactFlow 
+                        <Toolbar className="tools"/>
+                        <div className="canvas">
+                            <ReactFlow
                                 elements={elements}
                                 nodeTypes={nodeTypes}
                                 onElementsRemove={onElementsRemove}
@@ -416,9 +480,24 @@ function Tree() {
                                 onElementClick={onElementClick}
                                 onPaneClick={onPaneClick}/>
                         </div>
-                        <button onClick={() => printNodes()}>print nodes</button>
-                        <Toolbar/>
                     </div>
+                    <button onClick={() => printNodes()}>print nodes</button>
+
+                    <ModalEditCritere
+                        title="Edit critere"
+                        open={modalEditCritereOpen}  
+                        close={closeModalEditCritere}
+                        mainAction={saveCritere}
+                        selectedCritere={selectedCritere}
+                    />
+
+                    <ModalEditEdge
+                        title="Edit Edge"
+                        open={modalEditEdgeOpen}  
+                        close={closeModalEditEdge}
+                        mainAction={saveEdge}
+                        selectedEdge={selectedEdge}
+                    />
                 </ReactFlowProvider>
             : <Loader/> 
             }

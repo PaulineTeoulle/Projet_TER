@@ -1,3 +1,19 @@
 .critereNode{
     background-color: red;
 }
+
+.Tree{
+    .reactflow-wrapper{
+        display: flex;
+
+        .canvas{
+            width: 100%;
+            height: 600px;
+            background-color: lightblue;
+        }
+
+        .tools{
+            width: 100px;
+        }
+    }
+}
