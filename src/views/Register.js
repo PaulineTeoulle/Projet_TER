@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
-function Register({props}) {
+function Register() {
     const [username, setUsername] = useState("");
     const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
@@ -42,24 +42,6 @@ function Register({props}) {
     }, [mail]);
 
     return (
-        // <div className="Login">
-        //     <form>
-        //         <div>
-        //             <input type="text" id="username" name="username" required placeholder="Username"
-        //             value={username} onChange={e => setUsername(e.target.value)}/>
-        //         </div>
-        //         <div>
-        //             <input type="password" id="password" name="password" required placeholder="Password"
-        //             value={password} onChange={e => setPassword(e.target.value)}/>
-        //         </div>
-        //     </form>
-        //     <div className="action">
-        //         <button onClick={sendConnection}>connect</button>
-        //     </div>
-        //     <div className="signup">
-        //         <p>Don't have an account ? <a href="/register">Create one now</a></p>
-        //     </div>
-        // </div>
         <div className="LoginRegister">
             <div>
                 <h3>Sign up</h3>

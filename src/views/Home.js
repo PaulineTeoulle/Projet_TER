@@ -22,7 +22,6 @@ function Home() {
             axios.get(url + '/Projet_TER/API/Controllers/accueil/lire.php')
                 .then(response => {
                     setDescription(response.data['description']);
-                    //this.setState({description: response.data['description']});
                 })
                 .catch(error => console.log(error))
         }
@@ -30,7 +29,7 @@ function Home() {
 
     useEffect(() => {
         getHomeContent();
-    }, []);
+    });
 
 
     function handleOpen() {
@@ -53,7 +52,7 @@ function Home() {
                 url: 'http://localhost/Projet_TER/API/Controllers/accueil/modifier.php',
                 data: data
             })
-                .then(response => {
+                .then(() => {
                     axios.get('http://localhost/Projet_TER/API/Controllers/accueil/lire.php')
                         .then(response => {
                             setDescription(response.data['description']);

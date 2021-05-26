@@ -1,14 +1,11 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Auth from "../contexts/Auth";
 import {login, isUserRole, isAdminRole, isSuperAdminRole} from "../services/AuthApi";
 
 const Login = ({history}) => {
 
     //Utilisation du contexte pour vérifier les états de connexion
-    const {isAuthenticated, setIsAuthenticated} = useContext(Auth);
-    const {isUser,setIsUser} = useContext(Auth);
-    const {isAdmin,setIsAdmin} = useContext(Auth);
-    const {isSuperAdmin,setIsSuperAdmin} = useContext(Auth);
+    const {setIsAuthenticated ,setIsUser, setIsAdmin, setIsSuperAdmin } = useContext(Auth);
 
     const [user, setUser] = useState({
         username: "",
@@ -72,7 +69,7 @@ const Login = ({history}) => {
                 </div>
 
                 <div className="signup">
-                    <p>Don't have an account ? <a href="/register">Create one now</a></p>
+                    <p>Don't have an account ? <a href={"/register"}>Create one now</a></p>
                 </div>
             </div>
         </div>
