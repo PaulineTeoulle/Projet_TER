@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faEnvelope, faPen, faTrashAlt, faUser, faUserTag} from '@fortawesome/free-solid-svg-icons'
 import ModalEditRole from "../components/modal/ModalEditRole";
 import ModalDeleteUser from "../components/modal/ModalDeleteUser";
+import Loader from "../components/Loader";
 
 export class Users extends React.Component {
 
@@ -28,8 +29,6 @@ export class Users extends React.Component {
 
     handleClickOpenEdit(id, role) {
         this.setState({modalEditOpen: true, idUser: id, currentRole: role}, function () {
-            console.log(this.state.modalEditOpen);
-            console.log(this.state.modalDeleteOpen);
         });
 
     };
@@ -52,7 +51,11 @@ export class Users extends React.Component {
 
     componentDidMount() {
         if (this.state.users === null) {
-            axios.get('http://localhost/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
+            let protocol = window.location.protocol;
+            let host = window.location.hostname;
+            let url = protocol + '//' + host;
+            axios.get(url + '/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
+            //axios.get(url + 'reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
                 .then(response => {
                     this.setState({users: response.data});
                 })
@@ -62,16 +65,19 @@ export class Users extends React.Component {
 
     edit(role) {
         if (this.state.idUser !== null && role !== null) {
+            let protocol = window.location.protocol;
+            let host = window.location.hostname;
+            let url = protocol + '//' + host;
             let data = JSON.stringify({id_utilisateur: this.state.idUser, role: role});
-            console.log(data);
             axios({
                 method: 'put',
-                url: 'http://localhost/reactTest/MATUI/API/Controllers/utilisateur/modifierUtilisateur.php',
+                url: url + '/reactTest/MATUI/API/Controllers/utilisateur/modifierUtilisateur.php',
+                // url: url + '/reactTest/MATUI/API/Controllers/utilisateur/modifierUtilisateur.php',
                 data: data
             })
                 .then(response => {
-                    console.log(response)
-                    axios.get('http://localhost/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
+                    axios.get(url +'/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
+                    //axios.get(url +'/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
                         .then(response => {
                             this.setState({users: response.data});
                         })
@@ -86,15 +92,19 @@ export class Users extends React.Component {
 
     delete = (id) => {
         if (id !== null) {
+            let protocol = window.location.protocol;
+            let host = window.location.hostname;
+            let url = protocol + '//' + host;
             let data = JSON.stringify({id: Number(id)});
             axios({
                 method: 'delete',
-                url: 'http://localhost/reactTest/MATUI/API/Controllers/utilisateur/supprimerUtilisateur.php',
+                url: url+ '/reactTest/MATUI/API/Controllers/utilisateur/supprimerUtilisateur.php',
+                //url: url+ '/reactTest/MATUI/API/Controllers/utilisateur/supprimerUtilisateur.php',
                 data: data
             })
                 .then(response => {
-                    console.log(response)
-                    axios.get('http://localhost/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
+                    axios.get(url+ '/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
+                    //axios.get(url + '/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
                         .then(response => {
                             this.setState({users: response.data});
                         })
@@ -155,9 +165,8 @@ export class Users extends React.Component {
     }
 
     render() {
-        if (this.state.users === null) return (<p>Loading...</p>);
+        if (this.state.users === null) return (<Loader/>);
         else {
-            console.log(this.state.users);
             return (
                 <div className="Users">
                     <div className="header">

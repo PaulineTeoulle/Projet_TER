@@ -1,111 +1,100 @@
-import React from 'react';
-import Loader from '../components/Loader'
-import logo from '../public/logothedre.png';
-import axios from "axios";
+import Loader from "../components/Loader";
+import logo from "../public/logothedre.png";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen} from "@fortawesome/free-solid-svg-icons";
 import ModalEditHome from "../components/modal/ModalEditHome";
+import React, {useContext, useEffect, useState} from "react";
+import Auth from "../contexts/Auth";
+import axios from "axios";
 
-export default class Home extends React.Component { // Tell webpack this JS file uses this image
+function Home() {
+    const [description, setDescription] = useState(null);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [newDescription, setNewDescription] = useState(null);
+    const {isAdmin, isSuperAdmin} = useContext(Auth);
 
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            description: null,
-            modalOpen: false,
-            newDescription: null,
-
-        }
-        this.componentDidMount = this.componentDidMount.bind(this);
-        this.edit = this.edit.bind(this);
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-        this.handleOpen = this.handleOpen.bind(this);
-
-    }
-
-    componentDidMount() {
+    function getHomeContent() {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
 
-        if (this.state.description === null) {
+        if (description === null) {
             axios.get(url + '/reactTest/MATUI/API/Controllers/accueil/lire.php')
                 .then(response => {
-                    this.setState({description: response.data['description']});
+                    setDescription(response.data['description']);
                 })
                 .catch(error => console.log(error))
         }
-    };
+    }
 
-    handleOpen() {
-        this.setState({modalOpen: true});
-    };
+    useEffect(() => {
+        getHomeContent();
+    });
 
-    handleClose = () => {
-        this.setState({modalOpen: false});
-    };
 
-    handleChange(description) {
-        this.setState({newDescription: description});
-    };
+    function handleOpen() {
+        setModalOpen(true);
+    }
 
-    edit() {
-        if (this.state.newDescription !== null) {
-            let data = JSON.stringify({description: this.state.newDescription});
+    function handleClose() {
+        setModalOpen(false);
+    }
+
+    function handleChange(description) {
+        setNewDescription(description);
+    }
+
+    function edit() {
+        if (newDescription !== null) {
+            let data = JSON.stringify({description: newDescription});
             axios({
                 method: 'put',
                 url: 'http://localhost/reactTest/MATUI/API/Controllers/accueil/modifier.php',
                 data: data
             })
-                .then(response => {
+                .then(() => {
                     axios.get('http://localhost/reactTest/MATUI/API/Controllers/accueil/lire.php')
                         .then(response => {
-                            this.setState({description: response.data['description']});
+                            setDescription(response.data['description']);
                         })
                         .catch(error => console.log(error))
-                    this.handleClose();
+                    handleClose();
                 })
                 .catch(function (erreur) {
                     console.log(erreur);
                 });
-
         }
-        this.handleClose();
+        handleClose();
+
     }
 
-
-    render() {
-        if (this.state.description === null) return (<Loader/> );
-        else return (
-            <div className="Home">
-                <div className="logo">
-                    <img src={logo} alt={'Logo Thedre'}/>
-                    <button className="button filled">Start</button>
-                </div>
-                <div className="content">
-                    <div className="title">
-                        <h3>Contents</h3>
-                        <FontAwesomeIcon className="icon" icon={faPen} onClick={this.handleOpen}/>
-                    </div>
-                
-                    <p>{this.state.description}</p>
-                     <ModalEditHome
-                        title="Modify description"
-                        message="Please modify"
-                        oldDescription={this.state.description}
-                        actionButton="Confirm"
-                        closeButton="Quit"
-                        open={this.state.modalOpen}
-                        close={this.handleClose}
-                        mainAction={this.edit.bind(this)}
-                        changeAction={this.handleChange.bind(this)}
-                    />
-                </div>
+    if (description === null) return (<Loader/>);
+    else return (
+        <div className="Home">
+            <div className="logo">
+                <img src={logo} alt={'Logo Thedre'}/>
+                <button className="button filled" onClick={() => window.location.href = '/quiz'}>Start</button>
             </div>
-        );
-    }
-}
+            <div className="content">
+                <div className="title">
+                    <h3>Contents</h3>
+                    {isAdmin  && ( <FontAwesomeIcon className="icon" icon={faPen} onClick={handleOpen}/>)}
+                    {isSuperAdmin && ( <FontAwesomeIcon className="icon" icon={faPen} onClick={handleOpen}/>)}
+                </div>
 
+                <p>{description}</p>
+                <ModalEditHome
+                    title="Modify description"
+                    message="Please modify"
+                    oldDescription={description}
+                    actionButton="Confirm"
+                    closeButton="Quit"
+                    open={modalOpen}
+                    close={handleClose}
+                    mainAction={edit}
+                    changeAction={handleChange}
+                />
+            </div>
+        </div>
+    );
+}export default Home;

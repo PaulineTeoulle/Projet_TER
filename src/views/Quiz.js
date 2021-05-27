@@ -245,6 +245,7 @@ export class Quiz extends React.Component {
         let url = protocol + '//' + host;
 
         if(!this.state.tree){
+            //axios.get(url + '/reactTest/MATUI/API/Controllers/lireArbre.php')
             axios.get(url + '/reactTest/MATUI/API/Controllers/lireArbre.php')
             .then(response => {
                 this.setState({tree: response.data});

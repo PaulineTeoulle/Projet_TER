@@ -1,53 +1,76 @@
-import React, {useState, useEffect} from 'react';
-import axios from 'axios';
+import React, {useContext, useState} from 'react';
+import Auth from "../contexts/Auth";
+import {login, isUserRole, isAdminRole, isSuperAdminRole} from "../services/AuthApi";
 
+const Login = ({history}) => {
 
-function Login({props}) {    
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    //Utilisation du contexte pour vérifier les états de connexion
+    const {setIsAuthenticated ,setIsUser, setIsAdmin, setIsSuperAdmin } = useContext(Auth);
 
-    function sendConnection(){
-        let protocol = window.location.protocol;
-        let host = window.location.hostname;
-        let url = protocol + '//' + host;
+    const [user, setUser] = useState({
+        username: "",
+        mot_de_passe: ""
+    });
 
-        const json = JSON.stringify({username: username, mot_de_passe: password});
-
-        axios.post(url + '/reactTest/MATUI/API/Controllers/connexion.php', json)
-            .then(response => {
-                console.log(response.data);
-            })
-            .catch(error => console.log(error))
+    const handleChange = ({currentTarget}) => {
+        const {name, value} = currentTarget;
+        setUser({...user, [name]: value})
     }
 
-    useEffect(() => {
-        console.log(username)
-    }, [username]);
+    const handleSubmit = async event => {
+        event.preventDefault();
 
-       useEffect(() => {
-        console.log(password)
-    }, [password]);
-    
+        //Set les états du contexte quand on est connecté
+        try {
+            const response = await login(user);
+            setIsAuthenticated(response);
+            if(isUserRole()){
+                setIsUser(true);
+            }
+            else if (isAdminRole()){
+                setIsAdmin(true);
+            }
+           else if (isSuperAdminRole()){
+               setIsSuperAdmin(true);
+            }
+            history.replace('/quiz')
+        } catch ({response}) {
+            console.log(response);
+        }
+    }
+    //
+    // useEffect(() => {
+    //    // Redirection si déjà loggé et sur la page login
+    //     if (isAuthenticated) {
+    //         history.replace('/home')
+    //     }
+    //
+    // }, [history, isAuthenticated]);
+
+
     return (
-        <div className="Login">
-            <form>
-                <div>
-                    <input type="text" id="username" name="username" required placeholder="Username" 
-                    value={username} onChange={e => setUsername(e.target.value)}/>
+        <div className="LoginRegister">
+            <div>
+                <h3>Sign in</h3>
+                <div className="InputItems">
+                    <div>
+                        <input type="text" id="username" name="username" required placeholder="     Username"
+                               onChange={handleChange}/>
+                    </div>
+
+                    <div>
+                        <input type="password" id="password" name="mot_de_passe" required placeholder={"     Password"}
+                               onChange={handleChange}/>
+                    </div>
                 </div>
 
-                <div>
-                    <input type="password" id="password" name="password" required placeholder="Password"
-                    value={password} onChange={e => setPassword(e.target.value)}/>
+                <div className="action">
+                    <button className="button filled" onClick={handleSubmit}>Sign in</button>
                 </div>
-            </form>
 
-            <div className="action">
-                <button onClick={sendConnection}>connect</button>
-            </div>
-
-            <div className="signup">
-                <p>Don't have an account ? <a href="/register">Create one now</a></p>
+                <div className="signup">
+                    <p>Don't have an account ? <a href={"/register"}>Create one now</a></p>
+                </div>
             </div>
         </div>
     );

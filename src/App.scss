@@ -48,8 +48,8 @@ p {
 @import './styles/_modalDeleteUser.scss';
 @import './styles/_modalEditHome.scss';
 @import './styles/_modalSignUp.scss';
-
 @import './styles/_modalSignIn.scss';
+@import './styles/_login.scss';
 @import './styles/_loader.scss';
 
 @import './styles/_breakpoints.scss';
@@ -94,12 +94,29 @@ p {
     }
 }
 
-@include breakpoint(tablet){
+@include breakpoint(tablet) {
     h1, h2, h3 {
         font-size: 16px;
     }
 
-    p{
+    p {
         font-size: 14px;
+    }
+}
+
+
+@include breakpoint(laptop) {
+    .Home {
+        height: auto;
+        display: block;
+
+        .content {
+
+        }
+
+        .logo {
+            float: left;
+            margin: 50px;
+        }
     }
 }
