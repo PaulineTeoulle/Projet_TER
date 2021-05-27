@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `a_accueil`
     `Description` text    NOT NULL,
     PRIMARY KEY (`ID_Accueil`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 2
+  AUTO_INCREMENT = 0
   DEFAULT CHARSET = latin1;
 
 --
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `a_critere`
     `Informations` varchar(255) DEFAULT NULL,
     PRIMARY KEY (`ID_Critere`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 16
+  AUTO_INCREMENT = 0
   DEFAULT CHARSET = latin1;
 
 --
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `a_decision`
     KEY `ID_Critere_entrant` (`ID_Critere_entrant`),
     KEY `ID_Critere_sortant` (`ID_Critere_sortant`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 31
+  AUTO_INCREMENT = 0
   DEFAULT CHARSET = latin1;
 
 --
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `a_entree`
     PRIMARY KEY (`ID_Entree`),
     KEY `ID_Critere` (`ID_Critere`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 2
+  AUTO_INCREMENT = 0
   DEFAULT CHARSET = latin1;
 
 --
@@ -187,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `a_methode`
     PRIMARY KEY (`ID_Methode`),
     KEY `ID_Decision` (`ID_Decision`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 12
+  AUTO_INCREMENT = 0
   DEFAULT CHARSET = latin1;
 
 --
@@ -253,7 +253,7 @@ CREATE TABLE IF NOT EXISTS `a_methoderessource`
     KEY `ID_Methode` (`ID_Methode`),
     KEY `ID_Ressource` (`ID_Ressource`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 4
+  AUTO_INCREMENT = 0
   DEFAULT CHARSET = latin1;
 
 -- --------------------------------------------------------
@@ -270,7 +270,7 @@ CREATE TABLE IF NOT EXISTS `a_ressource`
     `Fichier`      varchar(255) NOT NULL,
     PRIMARY KEY (`ID_Ressource`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 2
+  AUTO_INCREMENT = 0
   DEFAULT CHARSET = latin1;
 
 --
@@ -295,7 +295,7 @@ CREATE TABLE IF NOT EXISTS `a_sortie`
     PRIMARY KEY (`ID_Sortie`),
     KEY `ID_Decision` (`ID_Decision`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 2
+  AUTO_INCREMENT = 0
   DEFAULT CHARSET = latin1;
 
 --
@@ -321,7 +321,7 @@ CREATE TABLE IF NOT EXISTS `u_utilisateur`
     `Role`           varchar(16)  NOT NULL,
     PRIMARY KEY (`ID_Utilisateur`)
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 3
+  AUTO_INCREMENT = 0
   DEFAULT CHARSET = latin1;
 
 --

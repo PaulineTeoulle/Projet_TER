@@ -5,6 +5,7 @@ import {faPen} from "@fortawesome/free-solid-svg-icons";
 import ModalEditHome from "../components/modal/ModalEditHome";
 import React, {useContext, useEffect, useState} from "react";
 import Auth from "../contexts/Auth";
+import { useHistory } from 'react-router-dom';
 import axios from "axios";
 
 function Home() {
@@ -12,6 +13,7 @@ function Home() {
     const [modalOpen, setModalOpen] = useState(false);
     const [newDescription, setNewDescription] = useState(null);
     const {isAdmin, isSuperAdmin} = useContext(Auth);
+    const history = useHistory();
 
     function getHomeContent() {
         let protocol = window.location.protocol;
@@ -20,6 +22,7 @@ function Home() {
 
         if (description === null) {
             axios.get(url + '/Projet_TER/API/Controllers/accueil/lire.php')
+            // axios.get(url + '/API/Controllers/accueil/lire.php')
                 .then(response => {
                     setDescription(response.data['description']);
                 })
@@ -47,13 +50,12 @@ function Home() {
     function edit() {
         if (newDescription !== null) {
             let data = JSON.stringify({description: newDescription});
-            axios({
-                method: 'put',
-                url: 'http://localhost/Projet_TER/API/Controllers/accueil/modifier.php',
-                data: data
-            })
+            let protocol = window.location.protocol;
+            let host = window.location.hostname;
+            let url = protocol + '//' + host;
+            axios.put(url +'/Projet_TER/API/Controllers/accueil/modifier.php',data)
                 .then(() => {
-                    axios.get('http://localhost/Projet_TER/API/Controllers/accueil/lire.php')
+                    axios.get(url+ '/Projet_TER/API/Controllers/accueil/lire.php')
                         .then(response => {
                             setDescription(response.data['description']);
                         })
@@ -65,7 +67,11 @@ function Home() {
                 });
         }
         handleClose();
+    }
 
+
+    const redirect = () => {
+        history.push('/quiz')
     }
 
     if (description === null) return (<Loader/>);
@@ -73,11 +79,12 @@ function Home() {
         <div className="Home">
             <div className="logo">
                 <img src={logo} alt={'Logo Thedre'}/>
-                <button className="button filled" onClick={() => window.location.href = '/quiz'}>Start</button>
+                <button className="button filled" onClick={redirect}>Start</button>
             </div>
             <div className="content">
                 <div className="title">
                     <h3>Contents</h3>
+                    {/*<FontAwesomeIcon className="icon" icon={faPen} onClick={handleOpen}/>*/}
                     {isAdmin  && ( <FontAwesomeIcon className="icon" icon={faPen} onClick={handleOpen}/>)}
                     {isSuperAdmin && ( <FontAwesomeIcon className="icon" icon={faPen} onClick={handleOpen}/>)}
                 </div>

@@ -15,11 +15,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $utilisateur = new Utilisateur($db);
 
     $donnees = json_decode(file_get_contents("php://input"));
-    echo json_encode($donnees);
     if (!empty($donnees->mail) && !empty($donnees->pseudo) && !empty($donnees->mot_de_passe)) {
         $utilisateur->mail = $donnees->mail;
         $utilisateur->pseudo = $donnees->pseudo;
-        $utilisateur->mot_de_passe = $donnees->mot_de_passe;
+        $utilisateur->mot_de_passe = password_hash($donnees->mot_de_passe, PASSWORD_DEFAULT);
+
         if ($utilisateur->creer()) {
             $utilisateurResults = [
                 "mail" => $utilisateur->mail,
