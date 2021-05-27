@@ -10,6 +10,8 @@ import DebugNode from '../components/tree/DebugNode';
 
 import ModalEditCritere from '../components/modal/tree/ModalEditCritere';
 import ModalEditEdge from '../components/modal/tree/ModalEditEdge';
+import ModalEditMethod from '../components/modal/tree/ModalEditMethod';
+import ModalEditEndNode from '../components/modal/tree/ModalEditEndNode';
 
 function Tree() {
     const nodeTypes = {
@@ -25,8 +27,6 @@ function Tree() {
     const [nextId, setNextId] = useState("1");
     const [nextEdgeId, setNextEdgeId] = useState("D1");
     const [nextMethodId, setNextMethodId] = useState("M1");
-
-    const [editedElement, setEditedElement] = useState(null);
     const [elements, setElements] = useState([]);
 
     const reactFlowWrapper = useRef(null);
@@ -36,10 +36,6 @@ function Tree() {
         ...params,
         id: getEdgeId(), arrowHeadType: 'arrowclosed', label: 'edge label', type: 'smoothstep',
     }, els, setNextEdgeId("D" + (parseInt(nextEdgeId.slice(1)) + 1).toString())));
-    // const onLoad = (_reactFlowInstance) => setReactFlowInstance(_reactFlowInstance);
-    // const [reactFlowInstance, setReactFlowInstance] = useState(null);
-
-
 
     // HOOKS REACT-FLOW
 
@@ -64,37 +60,31 @@ function Tree() {
             x: event.clientX - reactFlowBounds.left,
             y: event.clientY - reactFlowBounds.top,
         });
-        createNode(getId(), type, position);
-        // if(type === 'default' || type === 'critereNode'){
-        //     setNextId((parseInt(nextId) + 1).toString());
-        // }
+        createNode(type, position);
     };
 
     const onElementClick = (event, element) => {
         switch (element.type) {
             case 'critereNode':
                 openModalEditCritere(element);
-                console.log("open critere modal")
                 break;
             case 'default':
-                console.log("open methode modal")
+                openModalEditMethod(element);
                 break;
             case 'smoothstep':
                 openModalEditEdge(element);
-                console.log("open edge modal")
                 break;
             case 'input':
                 alert("Cannot modify start node")
                 break;
             case 'output':
-                alert("Cannot modify end node")
+                openModalEditEndNode(element);
                 break;
         }
     }
 
     const onPaneClick = (event) => {
         event.preventDefault();
-        // closeEdition();
     }
 
 
@@ -119,36 +109,50 @@ function Tree() {
         - output
         - default (method)
         - critereNode (critere)
+
+    parametres :
+        - type : type du noeud
+        - position : position du client si noeud créer via toolbar ou position x et y stocké en bd
+        - data : toutes les data du noeud de la BD, si noeud créer via toolbar le label et générer par défault
     */
-    function createNode(id, type, position, label) {
+    function createNode(type, position, data) {
         let newNode;
         switch (type) {
             case 'input':
+                // noeud entree
+                console.log("INPUT")
                 newNode = {
                     id: "0",
                     type,
                     position,
-                    data: {label: label},
+                    data: {label: `${type} node`},
                 };
                 break;
             case 'output':
+                // noeud sortie
+                console.log("OUTPUT")
                 newNode = {
                     id: "S0",
                     type,
                     position,
-                    data: {label: label},
+                    data: {label: `${type} node`},
                 };
                 break;
             case 'critereNode':
-                if(label){
+                // noeud critere
+                console.log("CRITERE")
+                if(data){
                     newNode = {
-                        id: id,
+                        id: data.ID_Critere,
                         type,
                         position,
-                        data: {label: label},
+                        data: {
+                            label: data.Libelle,
+                            informations: (data.Informations ? data.Informations : null)
+                        },
                     };
-                    if(id > getId()){
-                        setNextId((parseInt(id) + 1).toString());
+                    if(data.ID_Critere > getId()){
+                        setNextId((parseInt(data.ID_Critere) + 1).toString());
                     }      
                 } else {
                     newNode = {
@@ -161,15 +165,25 @@ function Tree() {
                 }
                 break;
             case 'default':
-                if(label){
+                // noeud methode
+                console.log("METHODE")
+                if(data){
                     newNode = {
-                        id: id,
+                        id: "M" + data.ID_Methode,
                         type,
                         position,
-                        data: {label: label},
+                        data: {
+                            label: data.Libelle,
+                            description: data.Description,
+                            productedData: data.Donnees_produites,
+                            workforce: data.Effectif_preconise,
+                            method: data.Type_methode,
+                            analysis: data.Type_analyse,
+                            exemple: data.Exemple
+                        },
                     };
-                    if(parseInt(id.slice(1)) > getMethodId().slice(1)){
-                        setNextMethodId("M" + (parseInt(id.slice(1)) + 1).toString());
+                    if(parseInt(data.ID_Methode) > getMethodId().slice(1)){
+                        setNextMethodId("M" + (parseInt(data.ID_Methode) + 1).toString());
                     }               
                 } else {
                     newNode = {
@@ -182,6 +196,7 @@ function Tree() {
                 }
                 break;
         }
+        // insertion du noeud dans les elements react flow render
         setElements((es) => es.concat(newNode));
     }
     
@@ -204,18 +219,6 @@ function Tree() {
         }    
     }
 
-    // function createDebugNode() {
-    //     let debugNode = {
-    //         id: "666",
-    //         type: "debugNode",
-    //         position: {
-    //             x: 0,
-    //             y: 0
-    //         }
-    //     };
-    //     setElements((es) => es.concat(debugNode));
-    // }
-
     // check if a node type already exists
     function checkExist(type) {
         if(elements){
@@ -234,9 +237,9 @@ function Tree() {
 
     // initialise le noeud de debut et le premier critere pour commencer
     function initTree(){
-        createNode('0', 'input', {x: 0, y: 0});
+        createNode('input', {x: 0, y: 0});
         let firstNode = initialTree.criteres.find(el => el.ID_Critere === initialTree.entree[0].ID_Critere);
-        createNode(firstNode.ID_Critere,'critereNode', {x: 0, y: 100}, firstNode.Libelle);
+        createNode('critereNode', {x: 0, y: 100}, firstNode);
         createEdge('D0' ,'0', firstNode.ID_Critere, null);
         initNodes(initialTree.entree[0].ID_Critere);
     }
@@ -247,14 +250,14 @@ function Tree() {
             let color = colors[0]
             colors.splice(0, 1);
             if(node.ID_Critere !== start){
-                createNode(node.ID_Critere, 'critereNode',  {x: parseInt(node.x), y: parseInt(node.y)}, node.Libelle)
+                createNode('critereNode',  {x: parseInt(node.x), y: parseInt(node.y)}, node)
             }
             // on récupère les décisions attaché au critère et on regarde si un méthode est attaché
             let decisions = getDecisions(node.ID_Critere);
             decisions.forEach(decision => {
                 let method = getMethod(decision);
                 if(method){
-                    createNode("M" + method.ID_Methode, 'default',  {x: method.x, y: method.y}, method.Libelle);
+                    createNode('default',  {x: parseInt(method.x), y: parseInt(method.y)}, method);
                     createEdge("D" + decision.ID_Decision ,node.ID_Critere, "M" + method.ID_Methode, decision.Libelle, color);
                     createEdge("DM" + decision.ID_Decision, "M" + method.ID_Methode, decision.ID_Critere_sortant, null, color);
                 } else {
@@ -339,15 +342,17 @@ function Tree() {
                     finalTree.entree.push(transformedElement)
                     break;
                 case 'output':
-                    // transformedElement = transformToSortie(element);
-                    finalTree.sortie.push(element)
+                    transformedElement = transformToSortie(element);
+                    finalTree.sortie.push(transformedElement)
                     break;
             }
         })
         console.log(initialTree)
         console.log(finalTree);
+        checkTree(finalTree);
     }
 
+    
     function transformToCritere(element){
         let critere = {
             ID_Critere: element.id,
@@ -363,8 +368,14 @@ function Tree() {
         let decision = flow.elements.find(el => el.type === "smoothstep" && el.target === element.id);
         let method = {
             ID_Method: element.id.slice(1),
-            ID_Decision: decision.id.slice(1),
+            ID_Decision: (decision ? decision.id.slice(1) : null),
             Libelle: element.data.label,
+            Description: element.data.description,
+            Donnees_produites: element.data.productedData,
+            Effectif_preconise: element.data.workforce,
+            Exemple: element.data.exemple,
+            Type_analyse: element.data.analysis,
+            Type_methode: element.data.method,
             x: element.position.x,
             y: element.position.y
         }
@@ -399,14 +410,38 @@ function Tree() {
     }
 
     function transformToSortie(element){
-        let critere = {
-            ID_Critere: element.id,
+        let endNode = {
+            ID_Sortie: element.id.slice(1),
+            message: element.data.message,
             x: element.position.x,
             y: element.position.y
         }
-        return critere;
+        return endNode;
     }
 
+    /*
+    l'abre doit :
+        - posséder un noeud entree et sortie
+        - ne pas posséder d'élements flottant (non relié ou partiellement relié)
+        - ne pas posséder d'élements non labellisé excepté les noeud d'entree, sortie,
+            liens sortant des méthodes et le lien source du noeud d'entree
+    */
+    function checkTree(finalTree){
+        if(finalTree.entree.length != 1){
+            alert("pb entree")
+        } else if (finalTree.sortie.length != 1){
+            alert("pb sortie")
+        } 
+        checkFloatingNode(finalTree);
+    }
+
+    function checkFloatingNode(finalTree){
+        finalTree.criteres.forEach(element => {
+            console.log(element)
+        })
+    }
+
+    
     // MODAL MANAGEMENT
 
     // edit critères
@@ -425,7 +460,7 @@ function Tree() {
     }
 
     function saveCritere(label, informations){
-        // change le label dans l'instance react flow
+        // change les data dans l'instance react flow
         selectedCritere.data.label = label;
         if(informations){selectedCritere.data.informations = informations;}
 
@@ -451,6 +486,62 @@ function Tree() {
 
     function saveEdge(label){
         selectedEdge.label = label;
+        rerenderFlow();
+    }
+
+    // edit method
+
+    const [modalEditMethodOpen, setModalEditMethodOpen] = useState(false);
+    const [selectedMethod, setSelectedMethod] = useState(null);
+
+    function openModalEditMethod(element) {
+        let method = elements.find(el => el.id === element.id);
+        setSelectedMethod(method);
+        setModalEditMethodOpen(true);
+    }
+
+    function closeModalEditMethod(){
+        setModalEditMethodOpen(false);
+    }
+
+    function saveMethod(newData){
+        // change les data dans l'instance react flow
+        selectedMethod.data.label = newData.label;
+        selectedMethod.data.description = newData.description;
+        selectedMethod.data.productedData = newData.productedData;
+        selectedMethod.data.workforce = newData.workforce;
+        selectedMethod.data.method = newData.method;
+        selectedMethod.data.analysis = newData.analysis;
+        selectedMethod.data.exemple = newData.exemple;
+
+        // force le rendu du noeud
+        // l'instance ne se rerender pas si modification dans sous object donc on change position
+        selectedMethod.position = {x: selectedMethod.position.x, y: selectedMethod.position.y + 1}
+        rerenderFlow();
+    }
+
+    // edit noeud de fin
+
+    const [modalEditEndNodeOpen, setModalEditEndNodeOpen] = useState(false);
+    const [selectedEndNode, setSelectedEndNode] = useState(null);
+
+    function openModalEditEndNode(element) {
+        let endNode = elements.find(el => el.id === element.id);
+        setSelectedEndNode(endNode);
+        setModalEditEndNodeOpen(true);
+    }
+
+    function closeModalEditEndNode(){
+        setModalEditEndNodeOpen(false);
+    }
+
+    function saveEndNode(message){
+        // change les data dans l'instance react flow
+        selectedEndNode.data.message = message;
+
+        // force le rendu du noeud
+        // l'instance ne se rerender pas si modification dans sous object donc on change position
+        selectedEndNode.position = {x: selectedEndNode.position.x, y: selectedEndNode.position.y + 1}
         rerenderFlow();
     }
 
@@ -497,6 +588,22 @@ function Tree() {
                         close={closeModalEditEdge}
                         mainAction={saveEdge}
                         selectedEdge={selectedEdge}
+                    />
+
+                    <ModalEditMethod
+                        title="Edit Method"
+                        open={modalEditMethodOpen}  
+                        close={closeModalEditMethod}
+                        mainAction={saveMethod}
+                        selectedMethod={selectedMethod}
+                    />
+
+                    <ModalEditEndNode
+                        title="Edit End node"
+                        open={modalEditEndNodeOpen}  
+                        close={closeModalEditEndNode}
+                        mainAction={saveEndNode}
+                        selectedEndNode={selectedEndNode}
                     />
                 </ReactFlowProvider>
             : <Loader/> 
