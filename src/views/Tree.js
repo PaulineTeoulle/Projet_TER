@@ -56,8 +56,9 @@ function Tree() {
         }
 
         const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
+        let toolbarWidth = $('aside').width();
         const position = reactFlowInstance.project({
-            x: event.clientX - reactFlowBounds.left,
+            x: event.clientX - toolbarWidth,
             y: event.clientY - reactFlowBounds.top,
         });
         createNode(type, position);
