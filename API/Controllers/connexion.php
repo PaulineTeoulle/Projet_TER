@@ -19,19 +19,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($donnees->username) && !empty($donnees->mot_de_passe)) {
         $utilisateur->pseudo = $donnees->username;
-        $utilisateur->mot_de_passe = $donnees->mot_de_passe;
+        $utilisateur->mot_de_passe =$donnees->mot_de_passe;
 
+        $hash = $utilisateur->lireMotDePasse();
+        if (password_verify($utilisateur->mot_de_passe, $hash["Mot_de_passe"])) {
+            $utilisateur = $utilisateur->lireUn();
+            $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
+            $payload = json_encode(['user_id' => $utilisateur["ID_Utilisateur"], 'user_username' => $utilisateur["Pseudo"], 'user_role' => $utilisateur["Role"], 'user_mail' => $utilisateur["Mail"], 'exp' => time()+ 60 * 60]);
+            $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
+            $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($payload));
+            $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, 'abC123!', true);
+            $base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
 
-        $utilisateur = $utilisateur->lireUn();
-        $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
-        $payload = json_encode(['user_id' => $utilisateur["ID_Utilisateur"], 'user_username' => $utilisateur["Pseudo"], 'user_role' => $utilisateur["Role"], 'user_mail' => $utilisateur["Mail"], 'exp' => time()+ 60 * 60]);
-        $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));
-        $base64UrlPayload = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($payload));
-        $signature = hash_hmac('sha256', $base64UrlHeader . "." . $base64UrlPayload, 'abC123!', true);
-        $base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
+            $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
+            echo json_encode(["token" => $jwt]);
+        } else {
+            echo 'Le mot de passe est invalide.';
+        }
 
-        $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
-        echo json_encode(["token" => $jwt]);
     }
 
 } else {
