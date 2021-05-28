@@ -8,18 +8,14 @@ import {logout} from "../services/AuthApi";
 
 const Nav = () => {
     const {isAuthenticated, setIsAuthenticated} = useContext(Auth);
-    const {isUser, setIsUser} = useContext(Auth);
-    const {isAdmin, setIsAdmin} = useContext(Auth);
-    const {isSuperAdmin, setIsSuperAdmin} = useContext(Auth);
+    const {userRole, setUserRole} = useContext(Auth);
 
     const handleLogout = () => {
         logout();
         setIsAuthenticated(false);
-        setIsAdmin(false);
-        setIsSuperAdmin(false);
-        setIsUser(false);
+        setUserRole(null);
     };
-    return (
+    return ( 
         <div className="Navigation">
             <nav>
                 <ul>
@@ -36,23 +32,19 @@ const Nav = () => {
                         </Link>
                     </>)}
 
-                    {isUser &&(<>  <Link to="/logout">
+                    {userRole === 'user' &&(<>  <Link to="/logout">
                         <li onClick={handleLogout}><FontAwesomeIcon className="icon" icon={faSignOutAlt}/></li>
                     </Link></>)}
 
-                    {isAdmin && (<> <Link to="/manageTree">
+                    {userRole === 'administrator' && (<> <Link to="/manageTree">
                         <li><FontAwesomeIcon className="icon" icon={faProjectDiagram}/></li>
                     </Link>
 
                         <Link to="/fileUpload">
                             <li><FontAwesomeIcon className="icon" icon={faFileUpload}/></li>
-                        </Link>
-
-                        <Link to="/logout">
-                            <li onClick={handleLogout}><FontAwesomeIcon className="icon" icon={faSignOutAlt}/></li>
                         </Link></>)}
 
-                    {isSuperAdmin && (<>
+                    {userRole === 'super-admin' && (<>
                         <Link to="/manageTree">
                             <li><FontAwesomeIcon className="icon" icon={faProjectDiagram}/></li>
                         </Link>
@@ -62,8 +54,10 @@ const Nav = () => {
                         <Link to="/fileUpload">
                             <li><FontAwesomeIcon className="icon" icon={faFileUpload}/></li>
                         </Link>
-
-                        <Link to="/logout">
+                    </>)}
+                    
+                    {isAuthenticated && (<>
+                    <Link to="/logout">
                             <li onClick={handleLogout}><FontAwesomeIcon className="icon" icon={faSignOutAlt}/></li>
                         </Link>
                     </>)}

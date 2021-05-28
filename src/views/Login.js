@@ -1,16 +1,16 @@
 import React, {useContext, useState} from 'react';
 import Auth from "../contexts/Auth";
-import {login, isUserRole, isAdminRole, isSuperAdminRole} from "../services/AuthApi";
+import {login, isUser} from "../services/AuthApi";
 
 const Login = ({history}) => {
 
     //Utilisation du contexte pour vérifier les états de connexion
-    const {setIsAuthenticated ,setIsUser, setIsAdmin, setIsSuperAdmin } = useContext(Auth);
+    const {setIsAuthenticated, setUserRole } = useContext(Auth);
 
     const [user, setUser] = useState({
         username: "",
         mot_de_passe: ""
-    });
+    }); 
 
     const handleChange = ({currentTarget}) => {
         const {name, value} = currentTarget;
@@ -24,29 +24,15 @@ const Login = ({history}) => {
         try {
             const response = await login(user);
             setIsAuthenticated(response);
-            if(isUserRole()){
-                setIsUser(true);
-            }
-            else if (isAdminRole()){
-                setIsAdmin(true);
-            }
-           else if (isSuperAdminRole()){
-               setIsSuperAdmin(true);
+            let userRole = isUser();
+            if(userRole){
+                setUserRole(userRole)
             }
             history.replace('/quiz')
         } catch ({response}) {
             console.log(response);
         }
     }
-    //
-    // useEffect(() => {
-    //    // Redirection si déjà loggé et sur la page login
-    //     if (isAuthenticated) {
-    //         history.replace('/home')
-    //     }
-    //
-    // }, [history, isAuthenticated]);
-
 
     return (
         <div className="LoginRegister">
@@ -55,12 +41,12 @@ const Login = ({history}) => {
                 <div className="InputItems">
                     <div>
                         <input type="text" id="username" name="username" required placeholder="     Username"
-                               onChange={handleChange}/>
+                            onChange={handleChange}/>
                     </div>
 
                     <div>
                         <input type="password" id="password" name="mot_de_passe" required placeholder={"     Password"}
-                               onChange={handleChange}/>
+                            onChange={handleChange}/>
                     </div>
                 </div>
 
