@@ -14,31 +14,40 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $decision = new Decision($db);
 
     $donnees = json_decode(file_get_contents("php://input"));
-    if (!empty($donnees->libelle) && !empty($donnees->id_critere_entrant)) {
+    if (!empty($donnees->id_decision) && !empty($donnees->libelle) && !empty($donnees->x) && !empty($donnees->y)) {
+        $decision->id = $donnees->id_decision;
         $decision->libelle = $donnees->libelle;
-        if (!empty($donnees->id_critere_sortant)) {
-            $decision->id_critere_entrant = $donnees->id_critere_entrant;
-            $decision->id_critere_sortant = $donnees->id_critere_sortant;
-
-            if ($decision->creerAvecCritereSortant()) {
+        $decision->id_critere_entrant = $donnees->id_critere_entrant;
+        $decision->id_critere_sortant = $donnees->id_critere_sortant;
+        $decision->x = $donnees->x;
+        $decision->y = $donnees->y;
+        if ($decision->id_critere_sortant == null) {
+            if ($decision->creerSansCritereSortant()) {
                 $decisionResults = [
+                    "id" => $decision->id,
                     "libelle" => $decision->libelle,
                     "id_critere_entrant" => $decision->id_critere_entrant,
-                    "id_critere_sortant" => $decision->id_critere_sortant
+                    "id_critere_sortant" => $decision->id_critere_sortant,
+                    "x" => $decision->x,
+                    "y" => $decision->y
                 ];
+                echo json_encode(["decisionResults" => $decisionResults]);
                 echo json_encode(["message" => "L'ajout a été effectué"]);
             } else {
                 echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
             }
-        } else {
-            $decision->libelle = $donnees->libelle;
-            $decision->id_critere_entrant = $donnees->id_critere_entrant;
 
-            if ($decision->creerSansCritereSortant()) {
+        } else {
+            if ($decision->creerAvecCritereSortant()) {
                 $decisionResults = [
+                    "id" => $decision->id,
                     "libelle" => $decision->libelle,
                     "id_critere_entrant" => $decision->id_critere_entrant,
+                    "id_critere_sortant" => $decision->id_critere_sortant,
+                    "x" => $decision->x,
+                    "y" => $decision->y
                 ];
+                echo json_encode(["decisionResults" => $decisionResults]);
                 echo json_encode(["message" => "L'ajout a été effectué"]);
             } else {
                 echo json_encode(["message" => "L'ajout n'a pas été effectué"]);

@@ -13,15 +13,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $db = $database->getConnection();
     $decision = new Decision($db);
 
-    $donnees = json_decode(file_get_contents("php://input"));
-    if (!empty($donnees->id)) {
-        $decision->id = $donnees->id;
-        if ($decision->supprimer()) {
-            echo json_encode(["message" => "La suppression a été effectué"]);
-        } else {
-            echo json_encode(["message" => "La suppression n'a pas été effectué"]);
-        }
+    if ($decision->supprimer()) {
+        echo json_encode(["message" => "La suppression a été effectué"]);
+    } else {
+        echo json_encode(["message" => "La suppression n'a pas été effectué"]);
     }
+
 } else {
     echo json_encode(["message" => "La méthode n'est pas autorisée"]);
 }
