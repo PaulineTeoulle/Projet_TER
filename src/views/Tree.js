@@ -28,6 +28,7 @@ function Tree() {
     const [nextEdgeId, setNextEdgeId] = useState("D1");
     const [nextMethodId, setNextMethodId] = useState("M1");
     const [elements, setElements] = useState([]);
+    const [remove, setRemove] = useState(false);
 
     const reactFlowWrapper = useRef(null);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
@@ -65,22 +66,37 @@ function Tree() {
     };
 
     const onElementClick = (event, element) => {
-        switch (element.type) {
-            case 'critereNode':
-                openModalEditCritere(element);
-                break;
-            case 'default':
-                openModalEditMethod(element);
-                break;
-            case 'smoothstep':
-                openModalEditEdge(element);
-                break;
-            case 'input':
-                alert("Cannot modify start node")
-                break;
-            case 'output':
-                openModalEditEndNode(element);
-                break;
+        if(!remove){
+            switch (element.type) {
+                case 'critereNode':
+                    openModalEditCritere(element);
+                    break;
+                case 'default':
+                    openModalEditMethod(element);
+                    break;
+                case 'smoothstep':
+                    openModalEditEdge(element);
+                    break;
+                case 'input':
+                    alert("Cannot modify start node")
+                    break;
+                case 'output':
+                    openModalEditEndNode(element);
+                    break;
+            }
+        } else {
+            if(element.type != "smoothstep"){
+                let edges = elements.filter(item => item.type === "smoothstep");
+                let attachedEdges = edges.filter(item => item.source === element.id || item.target === element.id );
+                console.log(attachedEdges)
+                if(attachedEdges.length > 0){
+                    alert("You must remove all edges from this element")
+                } else {
+                    deleteElement(element); 
+                }
+            } else {
+                deleteElement(element); 
+            }
         }
     }
 
@@ -234,6 +250,27 @@ function Tree() {
         }
     }
 
+    // gestion de la supression
+    function deleteMode(){
+        remove ? setRemove(false) : setRemove(true);
+    }
+
+    function deleteElement(element){
+            console.log("delete => ")
+            console.log(element);
+            let selectedElement = elements.find(el => el.id === element.id);
+            let index = elements.indexOf(selectedElement);
+            setElements(elements.filter(item => elements.indexOf(item) !== index))
+    }
+
+    useEffect(() => {
+        if(remove){
+            $(".canvas").css("border", "1px solid red");
+        } else {
+            $(".canvas").css("border", "none");
+        }
+    },[remove]);
+
     // INIT TREE
 
     // initialise le noeud de debut et le premier critere pour commencer
@@ -313,6 +350,7 @@ function Tree() {
         - smoothstep (edge)
     */
     function printNodes() {
+        console.log(elements);
         let flow = reactFlowInstance.toObject();
         let finalTree = {
             entree: [],
@@ -574,6 +612,7 @@ function Tree() {
                         </div>
                     </div>
                     <button onClick={() => printNodes()}>print nodes</button>
+                    <button onClick={() => deleteMode()}>delete mode</button>
 
                     <ModalEditCritere
                         title="Edit critere"
