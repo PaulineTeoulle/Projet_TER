@@ -164,45 +164,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-//
-//    //Gestion de l'entrée
-//    foreach ($donnees['entree'] as $i) {
-//        $entree->id = $i['ID_Entree'];
-//        $entree->date = $i['Date'];
-//        $entree->critere = $i['ID_Critere'];
-//
-//        if ($entree->creer()) {
-//            $entreeResults = [
-//                "id"=> $entree->id,
-//                "date" => $entree->date,
-//                "critere" => $entree->critere
-//            ];
-//            echo json_encode(["message" => "Entree ajoutée"]);
-//        } else {
-//            echo json_encode(["message" => "Entree non ajoutée"]);
-//        }
-//    }
-//    //Gestion de la sortie
-//    foreach ($donnees['sortie'] as $i) {
-//        $sortie->id = $i['ID_Sortie'];
-//        $sortie->message = $i['Message'];
-//        $sortie->id_decision = $i['ID_Decision'];
-//
-//        if ($sortie->creer()) {
-//            $sortieResults = [
-//                "id" => $sortie->id,
-//                "message" => $sortie->message,
-//                "id_decision" => $sortie->id_decision
-//
-//            ];
-//            echo json_encode(["message" => "Sortie ajoutée"]);
-//        } else {
-//            echo json_encode(["message" => "Sortie non ajoutée"]);
-//        }
-//    }
 
+    // Gestion de l'entrée
+    foreach ($donnees['entree'] as $i) {
+        $entree->date = date("Y-m-d");
+        $entree->critere = $i['ID_Critere'];
+        $entree->id = $i['ID_Entree'];
+
+        if (!empty($i['ID_Entree']) && !empty($i['ID_Critere']) && !empty($i['x']) && !empty($i['y'])) {
+            $entree->date = date("Y-m-d");
+            $entree->id = $i['ID_Entree'];
+            $entree->critere = $i['ID_Critere'];
+            $entree->x = $i['x'];
+            $entree->y = $i['y'];
+            if ($entree->creer()) {
+                $entreeResults = [
+                    "id" => $entree->id,
+                    "date" => $entree->date,
+                    "critere" => $entree->critere,
+                    "x" => $entree->x,
+                    "y" => $entree->y,
+
+                ];
+                echo json_encode(["entreeResults" => $entreeResults]);
+                echo json_encode(["message" => "L'ajout a été effectué"]);
+            } else {
+                echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
+            }
+        }
     }
-else {
-        http_response_code(405);
-        echo json_encode(["message" => "La méthode n'est pas autorisée"]);
+
+
+    //Gestion de la sortie
+    foreach ($donnees['sortie'] as $i) {
+        if (!empty($i['ID_Sortie']) && !empty($i['Message']) && !empty($i['ID_Decision']) && !empty($i['x']) && !empty($i['y'])) {
+            $sortie->id = $i['ID_Sortie'];
+            $sortie->message = $i['Message'];
+            $sortie->id_decision = $i['ID_Decision'];
+            $sortie->x = $i['x'];
+            $sortie->y = $i['y'];
+
+            if ($sortie->creer()) {
+                $sortieResults = [
+                    "id" => $sortie->id,
+                    "message" => $sortie->message,
+                    "id_decision" => $sortie->id_decision,
+                    "x" => $sortie->x,
+                    "y" => $sortie->y
+                ];
+                echo json_encode(["sortieResults" => $sortieResults]);
+                echo json_encode(["message" => "L'ajout a été effectué"]);
+            } else {
+                echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
+            }
+        }
     }
+
+}
