@@ -17,16 +17,19 @@ class Sortie
 
     public function lire()
     {
-        $sql = "SELECT * FROM a_sortie";
+        $sql = "SELECT * 
+                FROM a_sortie";
         $query = $this->connexion->prepare($sql);
         $query->execute();
+
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
     public function creer()
     {
-        $sql = "INSERT INTO a_sortie SET ID_Sortie=:id_sortie, Message=:message, ID_Decision =:id_decision, x=:x, y=:y";
+        $sql = "INSERT INTO a_sortie 
+                SET ID_Sortie=:id_sortie, Message=:message, ID_Decision =:id_decision, x=:x, y=:y";
         $query = $this->connexion->prepare($sql);
 
         $this->id = htmlspecialchars(strip_tags($this->id));
@@ -34,6 +37,7 @@ class Sortie
         $this->id_decision = htmlspecialchars(strip_tags($this->id_decision));
         $this->x = htmlspecialchars(strip_tags($this->x));
         $this->y = htmlspecialchars(strip_tags($this->y));
+
         $query->bindParam(":id_sortie", $this->id);
         $query->bindParam(":message", $this->message);
         $query->bindParam(":id_decision", $this->id_decision);

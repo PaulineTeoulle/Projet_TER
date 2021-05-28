@@ -17,7 +17,8 @@ class Entree
 
     public function lire()
     {
-        $sql = "SELECT * FROM a_entree";
+        $sql = "SELECT * 
+                FROM a_entree";
         $query = $this->connexion->prepare($sql);
         $query->execute();
 
@@ -27,18 +28,22 @@ class Entree
 
     public function creer()
     {
-        $sql = "INSERT INTO a_entree SET ID_Entree =:id, Date=:date, ID_Critere =:id_critere, x =:x, y=:y";
+        $sql = "INSERT INTO a_entree 
+                SET ID_Entree =:id, Date=:date, ID_Critere =:id_critere, x =:x, y=:y";
         $query = $this->connexion->prepare($sql);
+
         $this->id = htmlspecialchars(strip_tags($this->id));
         $this->date = htmlspecialchars(strip_tags($this->date));
         $this->critere = htmlspecialchars(strip_tags($this->critere));
         $this->x = htmlspecialchars(strip_tags($this->x));;
         $this->y = htmlspecialchars(strip_tags($this->y));
+
         $query->bindParam(":id", $this->id);
         $query->bindParam(":date", $this->date);
         $query->bindParam(":id_critere", $this->critere);
         $query->bindParam(":x", $this->x);
         $query->bindParam(":y", $this->y);
+
         if ($query->execute()) {
             return true;
         }

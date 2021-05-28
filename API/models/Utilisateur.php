@@ -17,9 +17,11 @@ class Utilisateur
 
     public function lire()
     {
-        $sql = "SELECT ID_Utilisateur, Mail, Pseudo, Role FROM u_utilisateur";
+        $sql = "SELECT ID_Utilisateur, Mail, Pseudo, Role 
+                FROM u_utilisateur";
         $query = $this->connexion->prepare($sql);
         $query->execute();
+
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
@@ -27,20 +29,28 @@ class Utilisateur
 
     public function lireUn()
     {
-        $sql = "SELECT ID_Utilisateur, Mail, Pseudo, Role, Mot_de_passe FROM u_utilisateur WHERE Pseudo= :pseudo";
+        $sql = "SELECT ID_Utilisateur, Mail, Pseudo, Role, Mot_de_passe 
+                FROM u_utilisateur 
+                WHERE Pseudo= :pseudo";
         $query = $this->connexion->prepare($sql);
+
         $this->pseudo = htmlspecialchars(strip_tags($this->pseudo));
         $query->bindParam(":pseudo", $this->pseudo);
+
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
 
     public function lireMotDePasse(){
-        $sql = "SELECT Mot_de_passe FROM u_utilisateur WHERE Pseudo=:pseudo";
+        $sql = "SELECT Mot_de_passe 
+                FROM u_utilisateur 
+                WHERE Pseudo=:pseudo";
         $query = $this->connexion->prepare($sql);
+
         $this->pseudo = htmlspecialchars(strip_tags($this->pseudo));
         $query->bindParam(":pseudo", $this->pseudo);
+
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
         return $result;
@@ -48,7 +58,8 @@ class Utilisateur
 
     public function creer()
     {
-        $sql = "INSERT INTO u_utilisateur SET Mail=:mail, Pseudo=:pseudo,  Mot_de_passe=:mot_de_passe, Role=:role ";
+        $sql = "INSERT INTO u_utilisateur 
+                SET Mail=:mail, Pseudo=:pseudo,  Mot_de_passe=:mot_de_passe, Role=:role ";
         $query = $this->connexion->prepare($sql);
 
         $this->mail = htmlspecialchars(strip_tags($this->mail));
@@ -59,6 +70,7 @@ class Utilisateur
         $query->bindParam(":pseudo", $this->pseudo);
         $query->bindParam(":mot_de_passe", $this->mot_de_passe);
         $query->bindParam(":role", $this->role);
+
         if ($query->execute()) {
             return true;
         }
@@ -67,7 +79,8 @@ class Utilisateur
 
     public function supprimer()
     {
-        $sql = "DELETE FROM u_utilisateur WHERE ID_Utilisateur=:id_utilisateur ";
+        $sql = "DELETE FROM u_utilisateur 
+                WHERE ID_Utilisateur=:id_utilisateur ";
         $query = $this->connexion->prepare($sql);
 
         $this->id = htmlspecialchars(strip_tags($this->id));
@@ -81,7 +94,9 @@ class Utilisateur
 
     public function modifierRole()
     {
-        $sql = "UPDATE u_utilisateur SET Role =:role WHERE ID_Utilisateur = :id_utilisateur";
+        $sql = "UPDATE u_utilisateur 
+                SET Role =:role 
+                WHERE ID_Utilisateur = :id_utilisateur";
         $query = $this->connexion->prepare($sql);
 
         $this->role = htmlspecialchars(strip_tags($this->role));
@@ -89,6 +104,7 @@ class Utilisateur
 
         $query->bindParam(":role", $this->role);
         $query->bindParam(":id_utilisateur", $this->id);
+
         if ($query->execute()) {
             return true;
         }

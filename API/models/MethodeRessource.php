@@ -19,6 +19,7 @@ class MethodeRessource
                 FROM a_methoderessource";
         $query = $this->connexion->prepare($sql);
         $query->execute();
+
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
@@ -29,8 +30,11 @@ class MethodeRessource
                 FROM a_ressource r INNER JOIN a_methoderessource mr ON r.ID_Ressource = mr.ID_Ressource 
                 WHERE mr.ID_Methode=:id_methode";
         $query = $this->connexion->prepare($sql);
+
         $this->id_methode = htmlspecialchars(strip_tags($this->id_methode));
+
         $query->bindParam(":id_methode", $this->id_methode);
+
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
@@ -45,6 +49,7 @@ class MethodeRessource
         $this->id = htmlspecialchars(strip_tags($this->id));
         $this->id_methode = htmlspecialchars(strip_tags($this->id_methode));
         $this->id_ressource = htmlspecialchars(strip_tags($this->id_ressource));
+
         $query->bindParam(":id_methode_ressource", $this->id);
         $query->bindParam(":id_methode", $this->id_methode);
         $query->bindParam(":id_ressource", $this->id_ressource);

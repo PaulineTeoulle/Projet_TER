@@ -18,7 +18,8 @@ class Decision
 
     public function lire()
     {
-        $sql = "SELECT * FROM a_decision";
+        $sql = "SELECT * 
+                FROM a_decision";
         $query = $this->connexion->prepare($sql);
         $query->execute();
 
@@ -29,7 +30,8 @@ class Decision
     public function creerAvecCritereSortant()
     {
 
-        $sql = "INSERT INTO a_decision SET ID_Decision =:id_decision, Libelle=:libelle, ID_Critere_entrant=:id_critere_entrant, ID_Critere_sortant=:id_critere_sortant, x=:x, y=:y";
+        $sql = "INSERT INTO a_decision 
+                SET ID_Decision =:id_decision, Libelle=:libelle, ID_Critere_entrant=:id_critere_entrant, ID_Critere_sortant=:id_critere_sortant, x=:x, y=:y";
         $query = $this->connexion->prepare($sql);
 
         $this->id = htmlspecialchars(strip_tags($this->id));
@@ -55,7 +57,8 @@ class Decision
 
     public function creerSansCritereSortant()
     {
-        $sql = "INSERT INTO a_decision SET ID_Decision =:id_decision, Libelle=:libelle, ID_Critere_entrant=:id_critere_entrant, x=:x, y=:y";
+        $sql = "INSERT INTO a_decision 
+                SET ID_Decision =:id_decision, Libelle=:libelle, ID_Critere_entrant=:id_critere_entrant, x=:x, y=:y";
         $query = $this->connexion->prepare($sql);
 
         $this->id = htmlspecialchars(strip_tags($this->id));
@@ -69,6 +72,7 @@ class Decision
         $query->bindParam(":id_critere_entrant", $this->id_critere_entrant);
         $query->bindParam(":x", $this->x);
         $query->bindParam(":y", $this->y);
+
         if ($query->execute()) {
             return true;
         }

@@ -24,9 +24,12 @@ class Accueil
      */
     public function lire()
     {
-        $sql = "SELECT * FROM a_accueil WHERE ID_Accueil=1";
+        $sql = "SELECT * 
+                FROM a_accueil 
+                WHERE ID_Accueil=1";
         $query = $this->connexion->prepare($sql);
         $query->execute();
+
         $row = $query->fetch(PDO::FETCH_ASSOC);
         $this->description = $row['Description'];
         $this->id = $row['ID_Accueil'];
@@ -40,7 +43,8 @@ class Accueil
      */
     public function creer()
     {
-        $sql = "INSERT INTO a_accueil SET Description=:description";
+        $sql = "INSERT INTO a_accueil 
+                SET Description=:description";
         $query = $this->connexion->prepare($sql);
 
         $this->description = htmlspecialchars(strip_tags($this->description));
@@ -59,10 +63,14 @@ class Accueil
      */
     public function modifier()
     {
-        $sql = "UPDATE a_accueil SET Description =:description WHERE ID_Accueil = 1";
+        $sql = "UPDATE a_accueil 
+                SET Description =:description 
+                WHERE ID_Accueil = 1";
         $query = $this->connexion->prepare($sql);
+
         $this->description = htmlspecialchars(strip_tags($this->description));
         $query->bindParam(":description", $this->description);
+
         if ($query->execute()) {
             return true;
         }

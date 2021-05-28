@@ -18,7 +18,8 @@ class Ressource
         $sql = "SELECT * 
                 FROM a_ressource";
         $query = $this->connexion->prepare($sql);
-        $query->execute();// On retourne le résultat
+        $query->execute();
+
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
@@ -31,8 +32,10 @@ class Ressource
 
         $this->nom = htmlspecialchars(strip_tags($this->nom));
         $this->fichier = htmlspecialchars(strip_tags($this->fichier));
+
         $query->bindParam(":nom", $this->nom);
         $query->bindParam(":fichier", $this->fichier);
+
         if ($query->execute()) {
             return true;
         }

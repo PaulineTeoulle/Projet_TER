@@ -17,19 +17,21 @@ class Critere
 
     public function lire()
     {
-        $sql = "SELECT * FROM a_critere";
+        $sql = "SELECT * 
+                FROM a_critere";
         $query = $this->connexion->prepare($sql);
         $query->execute();
 
-        // On retourne le résultat
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 
     public function creerAvecInformations()
     {
-        $sql = "INSERT INTO a_critere SET ID_Critere=:id_critere, Libelle=:libelle, Informations=:informations, x=:x, y=:y ";
+        $sql = "INSERT INTO a_critere 
+                SET ID_Critere=:id_critere, Libelle=:libelle, Informations=:informations, x=:x, y=:y ";
         $query = $this->connexion->prepare($sql);
+
         $this->id = htmlspecialchars(strip_tags($this->id));
         $this->libelle = htmlspecialchars(strip_tags($this->libelle));
         $this->informations = htmlspecialchars(strip_tags($this->informations));
@@ -41,6 +43,7 @@ class Critere
         $query->bindParam(":informations", $this->informations);
         $query->bindParam(":x", $this->x);
         $query->bindParam(":y", $this->y);
+
         if ($query->execute()) {
             return true;
         }
@@ -49,8 +52,10 @@ class Critere
 
     public function creerSansInformations()
     {
-        $sql = "INSERT INTO a_critere SET ID_Critere=:id_critere, Libelle=:libelle, x=:x, y=:y ";
+        $sql = "INSERT INTO a_critere 
+                SET ID_Critere=:id_critere, Libelle=:libelle, x=:x, y=:y ";
         $query = $this->connexion->prepare($sql);
+
         $this->id = htmlspecialchars(strip_tags($this->id));
         $this->libelle = htmlspecialchars(strip_tags($this->libelle));
         $this->x = htmlspecialchars(strip_tags($this->x));
@@ -60,6 +65,7 @@ class Critere
         $query->bindParam(":libelle", $this->libelle);
         $query->bindParam(":x", $this->x);
         $query->bindParam(":y", $this->y);
+
         if ($query->execute()) {
             return true;
         }

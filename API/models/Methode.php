@@ -23,9 +23,11 @@ class Methode
 
     public function lire()
     {
-        $sql = "SELECT * FROM a_methode";
+        $sql = "SELECT * 
+                FROM a_methode";
         $query = $this->connexion->prepare($sql);
         $query->execute();
+
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
