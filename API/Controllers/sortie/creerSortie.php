@@ -15,15 +15,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sortie = new Sortie($db);
 
     $donnees = json_decode(file_get_contents("php://input"));
-    if (!empty($donnees->message) && !empty($donnees->id_decision)) {
+    if (!empty($donnees->id_sortie) && !empty($donnees->message) && !empty($donnees->id_decision)&&!empty($donnees->x)&& !empty($donnees->y)) {
+        $sortie->id = $donnees->id_sortie;
         $sortie->message = $donnees->message;
         $sortie->id_decision = $donnees->id_decision;
+        $sortie->x = $donnees->x;
+        $sortie->y = $donnees->y;
+
         if ($sortie->creer()) {
             $sortieResults = [
+                "id" => $sortie->id,
                 "message" => $sortie->message,
-                "id_decision" => $sortie->id_decision
-
+                "id_decision" => $sortie->id_decision,
+                "x" => $sortie->x,
+                "y" => $sortie->y
             ];
+            echo json_encode(["sortieResults" => $sortieResults]);
             echo json_encode(["message" => "L'ajout a été effectué"]);
         } else {
             echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
