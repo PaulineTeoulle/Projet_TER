@@ -26,9 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                     "decision" => $sortie->id_decision
                 ];
                 echo json_encode($sortieResults);
-                echo json_encode(["message" => "La modification a été effectué"]);
+                echo json_encode(["Message" => "Success"]);
             } else {
-                echo json_encode(["message" => "La modification n'a pas été effectué"]);
+                echo json_encode(["Error" => "Failure"]);
             }
         } else {
 
@@ -37,15 +37,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                     "message" => $sortie->message,
                 ];
                 echo json_encode($sortieResults);
-                echo json_encode(["message" => "La modification a été effectué"]);
+                echo json_encode(["Message" => "Success"]);
             } else {
-                echo json_encode(["message" => "La modification n'a pas été effectué"]);
+                echo json_encode(["Error" => "Failure"]);
             }
         }
     }
 
 
 } else {
-    echo json_encode(["message" => "La méthode n'est pas autorisée"]);
+    echo json_encode(["Message" => "Unauthorised method"]);
 
 }
