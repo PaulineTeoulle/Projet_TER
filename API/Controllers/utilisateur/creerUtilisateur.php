@@ -19,21 +19,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $utilisateur->mail = $donnees->mail;
         $utilisateur->pseudo = $donnees->pseudo;
         $utilisateur->mot_de_passe = password_hash($donnees->mot_de_passe, PASSWORD_DEFAULT);
-        if($utilisateur->compterMail()['COUNT(*)'] == 0){
-            if ($utilisateur->creer()) {
-                $utilisateurResults = [
-                    "mail" => $utilisateur->mail,
-                    "pseudo" => $utilisateur->pseudo,
-                    "mot_de_passe" => $utilisateur->mot_de_passe,
-                ];
-                echo json_encode(["message" => "L'ajout a été effectué"]);
-            } else {
-                echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
+        if($utilisateur->compterPseudo()['COUNT(*)'] == 0){
+            if($utilisateur->compterMail()['COUNT(*)'] == 0){
+                if ($utilisateur->creer()) {
+                    $utilisateurResults = [
+                        "mail" => $utilisateur->mail,
+                        "pseudo" => $utilisateur->pseudo,
+                        "mot_de_passe" => $utilisateur->mot_de_passe,
+                    ];
+                    echo json_encode(["Message" => "Success"]);
+                } else {
+                    echo json_encode(["Error" => "Failure"]);
+                }
             }
+            else echo json_encode(["ErrorMail" => "This email address corresponds to an existing account, please enter another email address."]);
         }
-        else echo json_encode(["Erreur" => "Ce compte existe déjà, veuillez renseigner une autre adresse mail."]);
+        else echo json_encode(["ErrorPseudo" => "This username corresponds to an existing account, please enter another username."]);
+
     }
 
 } else {
-    echo json_encode(["message" => "La méthode n'est pas autorisée"]);
+    echo json_encode(["Message" => "Unauthorised method"]);
 }

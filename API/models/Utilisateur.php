@@ -39,6 +39,20 @@ class Utilisateur
         return $result;
     }
 
+    public function compterPseudo(){
+        $sql = "SELECT COUNT(*)
+                FROM u_utilisateur 
+                WHERE Pseudo= :pseudo";
+        $query = $this->connexion->prepare($sql);
+
+        $this->pseudo = htmlspecialchars(strip_tags($this->pseudo));
+        $query->bindParam(":pseudo", $this->pseudo);
+
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
 
     public function lireUn()
     {
