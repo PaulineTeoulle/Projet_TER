@@ -3,6 +3,7 @@ import $ from 'jquery';
 
 function ModalEditMethod(props) {
     const [method, setMethod] = useState(null);
+    const [resources, setResources] = useState(null);
     const [title, setTitle] = useState(null);
 
     function customFunction(){
@@ -37,6 +38,15 @@ function ModalEditMethod(props) {
         }
     }, [props.open]);
 
+    useEffect(() => {
+        if (method) {
+            setResources(props.resources[method.id.slice(1)])
+        }
+    }, [method]);
+
+    console.log(props.resources)
+
+
     return (
         <div className="Modal ModalEditMethod">
             {title &&
@@ -52,7 +62,16 @@ function ModalEditMethod(props) {
                             <input type="text" id="method" name="method" placeholder="method" defaultValue={method.data.method}/>
                             <input type="text" id="analysis" name="analysis" placeholder="analysis" defaultValue={method.data.analysis}/>
                             <input type="text" id="exemple" name="exemple" placeholder="exemple" defaultValue={method.data.exemple}/>
-                        </form>
+                            {resources &&
+                            <div>
+                            {resources.map((element, i) => {   
+                                return (
+                                    <p key={i}>{element.Nom}</p>
+                                ) 
+                            })}    
+                            </div>
+                            }                   
+                    </form>
                     }
                     <div className="action">
                         <button className="button filled" onClick={customFunction}>Save</button>

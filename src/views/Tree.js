@@ -24,6 +24,7 @@ function Tree() {
 'deeppink', 'gold', 'indgo', 'lightcoral'];
 
     const [initialTree, setInitialTree] = useState(null);
+    const [resources, setResources] = useState(null);
     const [nextId, setNextId] = useState("1");
     const [nextEdgeId, setNextEdgeId] = useState("D1");
     const [nextMethodId, setNextMethodId] = useState("M1");
@@ -319,6 +320,16 @@ function Tree() {
         return method;
     }
 
+    function initResources(){
+        let resources = [];
+        initialTree.methodesRessources.forEach(element => {
+            let resource = initialTree.ressources.filter(item => item.ID_Ressource === element.ID_Ressource);
+            let method = initialTree.methodes.find(item => item.ID_Methode === element.ID_Methode);
+            resources[method.ID_Methode] ? resources[method.ID_Methode].push(resource[0]): resources[method.ID_Methode] = [resource[0]]; 
+        })
+        setResources(resources);
+    }
+
     // récupère l'arbre a l'initialisation du composant
     useEffect(() => {
         if(!initialTree){
@@ -337,6 +348,7 @@ function Tree() {
     useEffect(() => {
         if(initialTree && initialTree.entree.length){
             initTree();
+            initResources();
         }
     }, [initialTree]);
 
@@ -636,6 +648,7 @@ function Tree() {
                         close={closeModalEditMethod}
                         mainAction={saveMethod}
                         selectedMethod={selectedMethod}
+                        resources={resources}
                     />
 
                     <ModalEditEndNode
