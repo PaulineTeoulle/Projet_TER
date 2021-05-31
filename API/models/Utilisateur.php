@@ -25,7 +25,7 @@ class Utilisateur
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-    public function lirePseudo(){
+    public function compterPseudo(){
         $sql = "SELECT COUNT(*)
                 FROM u_utilisateur 
                 WHERE Pseudo= :pseudo";

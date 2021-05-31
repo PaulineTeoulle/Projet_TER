@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $utilisateur->mail = $donnees->mail;
         $utilisateur->pseudo = $donnees->pseudo;
         $utilisateur->mot_de_passe = password_hash($donnees->mot_de_passe, PASSWORD_DEFAULT);
-        if($utilisateur->lirePSeudo()==1) {
+        if($utilisateur->compterPseudo()==1) {
             if ($utilisateur->creer()) {
                 $utilisateurResults = [
                     "mail" => $utilisateur->mail,
