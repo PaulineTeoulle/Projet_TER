@@ -19,19 +19,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $utilisateur->mail = $donnees->mail;
         $utilisateur->pseudo = $donnees->pseudo;
         $utilisateur->mot_de_passe = password_hash($donnees->mot_de_passe, PASSWORD_DEFAULT);
+        if($utilisateur->lirePSeudo()==1) {
+            if ($utilisateur->creer()) {
+                $utilisateurResults = [
+                    "mail" => $utilisateur->mail,
+                    "pseudo" => $utilisateur->pseudo,
+                    "mot_de_passe" => $utilisateur->mot_de_passe,
 
-        if ($utilisateur->creer()) {
-            $utilisateurResults = [
-                "mail" => $utilisateur->mail,
-                "pseudo" => $utilisateur->pseudo,
-                "mot_de_passe" => $utilisateur->mot_de_passe,
-
-            ];
-            echo json_encode(["message" => "L'ajout a été effectué"]);
-        } else {
-            echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
-        }
+                ];
+                echo json_encode(["message" => "L'ajout a été effectué"]);
+            } else {
+                echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
+            }
+        } else  echo json_encode(["Erreur" => "Le pseudo existe déjà, veuillez en choisir un autre"]);
     }
+
+
 } else {
     echo json_encode(["message" => "La méthode n'est pas autorisée"]);
 }
