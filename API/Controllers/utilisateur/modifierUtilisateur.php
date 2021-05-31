@@ -20,19 +20,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
         $utilisateur->role = $donnees->role;
 
         if ($utilisateur->modifierRole()) {
-//            $utilisateurResults = [
-//                "id" => $utilisateur->id,
-//                "role" => $utilisateur->role
-//            ];
             $utilisateur = $utilisateur->lire();
             echo json_encode($utilisateur);
+            echo json_encode(["Message" => "Success"]);
         } else {
-            echo json_encode(["message" => "La modification n'a pas été effectué"]);
+            echo json_encode(["Error" => "Failure"]);
         }
     }
 
 
 } else {
-    echo json_encode(["message" => "La méthode n'est pas autorisée"]);
+    echo json_encode(["Message" => "Unauthorised method"]);
 
 }
