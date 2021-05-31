@@ -14,11 +14,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $methode = new Methode($db);
 
     if ($methode->supprimer()) {
-        echo json_encode(["message" => "La suppression a été effectué"]);
+        echo json_encode(["Message" => "Success"]);
     } else {
-        echo json_encode(["message" => "La suppression n'a pas été effectué"]);
+        echo json_encode(["Error" => "Failure"]);
     }
 
 } else {
-    echo json_encode(["message" => "La méthode n'est pas autorisée"]);
+    echo json_encode(["Message" => "Unauthorised method"]);
 }
