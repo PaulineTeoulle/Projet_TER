@@ -25,14 +25,14 @@ class Utilisateur
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
-    public function compterPseudo(){
+    public function compterMail(){
         $sql = "SELECT COUNT(*)
                 FROM u_utilisateur 
-                WHERE Pseudo= :pseudo";
+                WHERE Mail= :mail";
         $query = $this->connexion->prepare($sql);
 
-        $this->pseudo = htmlspecialchars(strip_tags($this->pseudo));
-        $query->bindParam(":pseudo", $this->pseudo);
+        $this->mail = htmlspecialchars(strip_tags($this->mail));
+        $query->bindParam(":mail", $this->mail);
 
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
