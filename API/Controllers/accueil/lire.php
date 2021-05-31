@@ -16,16 +16,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $accueil->lire();
 
     if ($accueil->description != null) {
-        $prod = [
+        $accueilResult = [
             "id" => $accueil->id,
             "description" => $accueil->description,
         ];
 
-        echo json_encode($prod);
+        echo json_encode($accueilResult);
 
     } else {
-        echo json_encode(array("message" => "N'existe pas."));
+        echo json_encode(array("Message" => "Description doesn't exist."));
     }
 } else {
-    echo json_encode(["message" => "La méthode n'est pas autorisée"]);
+    echo json_encode(["Message" => "Unauthorised method"]);
 }
