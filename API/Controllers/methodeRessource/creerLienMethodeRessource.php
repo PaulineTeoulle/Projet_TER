@@ -27,11 +27,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             ];
             echo json_encode(["lienResult" => $lienResult]);
-            echo json_encode(["message" => "L'ajout a été effectué"]);
+            echo json_encode(["Message" => "Success"]);
         } else {
-            echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
+            echo json_encode(["Error" => "Failure"]);
         }
     }
 } else {
-    echo json_encode(["message" => "La méthode n'est pas autorisée"]);
+    echo json_encode(["Message" => "Unauthorised method"]);
 }
