@@ -58,9 +58,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         "y" => $critere->y
                     ];
                     echo json_encode(["critereResults" => $critereResults]);
-                    echo json_encode(["message" => "L'ajout a été effectué"]);
+                    echo json_encode(["Message" => "Success"]);
                 } else {
-                    echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
+                    echo json_encode(["Error" => "Failure"]);
                 }
 
             } else {
@@ -73,9 +73,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         "y" => $critere->y
                     ];
                     echo json_encode(["critereResults" => $critereResults]);
-                    echo json_encode(["message" => "L'ajout a été effectué"]);
+                    echo json_encode(["Message" => "Success"]);
                 } else {
-                    echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
+                    echo json_encode(["Error" => "Failure"]);
                 }
             }
         }
@@ -103,9 +103,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         "y" => $decision->y
                     ];
                     echo json_encode(["decisionResults" => $decisionResults]);
-                    echo json_encode(["message" => "L'ajout a été effectué"]);
+                    echo json_encode(["Message" => "Success"]);
                 } else {
-                    echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
+                    echo json_encode(["Error" => "Failure"]);
                 }
 
             } else {
@@ -119,9 +119,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         "y" => $decision->y
                     ];
                     echo json_encode(["decisionResults" => $decisionResults]);
-                    echo json_encode(["message" => "L'ajout a été effectué"]);
+                    echo json_encode(["Message" => "Success"]);
                 } else {
-                    echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
+                    echo json_encode(["Error" => "Failure"]);
                 }
             }
         }
@@ -157,9 +157,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     "exemple" => $methode->exemple,
                     "id_decision" => $methode->id_decision
                 ];
-                echo json_encode(["message" => "Methode ajoutée"]);
+                echo json_encode(["Message" => "Success"]);
             } else {
-                echo json_encode(["message" => "Methode non ajoutée"]);
+                echo json_encode(["Error" => "Failure"]);
             }
         }
     }
@@ -187,9 +187,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 ];
                 echo json_encode(["entreeResults" => $entreeResults]);
-                echo json_encode(["message" => "L'ajout a été effectué"]);
+                echo json_encode(["Message" => "Success"]);
             } else {
-                echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
+                echo json_encode(["Error" => "Failure"]);
             }
         }
     }
@@ -213,9 +213,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     "y" => $sortie->y
                 ];
                 echo json_encode(["sortieResults" => $sortieResults]);
-                echo json_encode(["message" => "L'ajout a été effectué"]);
+                echo json_encode(["Message" => "Success"]);
             } else {
-                echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
+                echo json_encode(["Error" => "Failure"]);
             }
         }
     }

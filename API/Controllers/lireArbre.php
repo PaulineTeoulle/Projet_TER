@@ -39,6 +39,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     echo json_encode($arrayResults);
 
 } else {
-    http_response_code(405);
-    echo json_encode(["message" => "La méthode n'est pas autorisée"]);
+    echo json_encode(["Message" => "Unauthorised method"]);
 }

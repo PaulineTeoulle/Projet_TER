@@ -34,12 +34,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
             echo json_encode(["token" => $jwt]);
         } else {
-            echo 'Le mot de passe est invalide.';
+            echo json_encode(["Message" => "Invalid Password"]);
         }
 
     }
 
 } else {
-    echo json_encode(["message" => "La méthode n'est pas autorisée"]);
+    echo json_encode(["Message" => "Unauthorised method"]);
 
 }
