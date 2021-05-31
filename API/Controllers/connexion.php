@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
             echo json_encode(["token" => $jwt]);
         } else {
-            echo json_encode(["Message" => "Invalid Password"]);
+            echo json_encode(["ErrorPassword" => "Invalid Password"]);
         }
 
     }
