@@ -151,17 +151,18 @@ export class Quiz extends React.Component {
                 if('method' in element){
                     if(element.checked){
                         if(this.state.retainedMethods.length){
-                            this.state.retainedMethods.forEach(retainedMethod => {
-                                if(retainedMethod.method.ID_Methode !== element.method.ID_Methode){
-                                    methods.push(element);
-                                }
-                            })
+                            let exist =  this.state.retainedMethods.filter(retainedMethod => retainedMethod.method.ID_Methode === element.method.ID_Methode);
+                            if(!exist.length){
+                                methods.push(element);
+                            }
                         } else {
+                            console.log("PAR LA")
                             methods.push(element);
                         }
                     }
                 }
             });
+            console.log(methods)
         this.setState({retainedMethods: this.state.retainedMethods.concat(methods)}, () => resolve()); 
         });
     }
@@ -272,21 +273,26 @@ export class Quiz extends React.Component {
                         step={this.state.step}
                     />
                 }
-                <Historic historic={this.state.historic} 
-                    backOut={this.backOut}
-                />
+                
+                <div className="aside">
+                    <Historic historic={this.state.historic} 
+                        backOut={this.backOut}
+                    />
 
-                {this.state.retainedMethods.length ?
-                    <div>                
-                        {this.state.retainedMethods.map((element, i) => {   
-                            return(<div key={i}>
-                                <p>{element.method.Libelle}</p>
-                            </div>)
-                        })}
-                    </div>
-                    : <p>No methods</p>
+                    {this.state.retainedMethods.length ?
+                        <div className="retainedMethods">  
+                         <div className="retainedMethods-header">
+                            <h3>Retained methods</h3>
+                        </div>              
+                            {this.state.retainedMethods.map((element, i) => {   
+                                return(<div key={i}>
+                                    <p>{element.method.Libelle}</p>
+                                </div>)
+                            })}
+                        </div>
+                        : <div></div>
                     }
-
+                </div>
             </div>
         );
     }

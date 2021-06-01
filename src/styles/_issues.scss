@@ -20,8 +20,9 @@
     }
 
     .issueInfoIcon {
+        margin-right: 10px;
         cursor: pointer;
-        color: var(--main-color);
+        color: var(--main-grey);
 
         &:hover {
             color: var(--secondary-color);
@@ -30,7 +31,6 @@
 
     .content {
         background-color: var(--light-grey);
-        border-radius: 50px;
         padding: 15px;
         font-size: 14px;
     }

@@ -62,15 +62,18 @@ function ModalEditMethod(props) {
                             <input type="text" id="method" name="method" placeholder="method" defaultValue={method.data.method}/>
                             <input type="text" id="analysis" name="analysis" placeholder="analysis" defaultValue={method.data.analysis}/>
                             <input type="text" id="exemple" name="exemple" placeholder="exemple" defaultValue={method.data.exemple}/>
+                            <div className="ressources">
                             {resources &&
-                            <div>
-                            {resources.map((element, i) => {   
-                                return (
-                                    <p key={i}>{element.Nom}</p>
-                                ) 
-                            })}    
-                            </div>
-                            }                   
+                                <div>
+                                {resources.map((element, i) => {   
+                                    return (
+                                        <p key={i}>{element.Nom}</p>
+                                    ) 
+                                })}    
+                                </div>
+                            }    
+                            
+                            </div>              
                     </form>
                     }
                     <div className="action">

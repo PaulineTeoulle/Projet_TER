@@ -7,9 +7,33 @@
         height: fit-content;
     }
 
-    &>.Historic{
+    &>.aside{
         width: 35%;
         margin: 0 30px 0 15px;
         height: fit-content;
+
+        .retainedMethods{
+            margin-top: 30px;
+            box-shadow: var(--shadow);
+
+            .retainedMethods-header{
+                color: var(--main-grey);
+                background-color: var(--light-grey);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                h3{
+                    margin: 0;
+                    padding: 10px;
+                }
+            }
+            p{
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                padding: 10px;
+            }
+        }
     }
 }
