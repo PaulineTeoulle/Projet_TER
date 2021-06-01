@@ -11,7 +11,7 @@
 class Critere
 {
     /**
-     * @var int id of accueil
+     * @var int id of critere
      */
     public $id;
     /**
@@ -19,7 +19,7 @@ class Critere
      */
     public $libelle;
     /**
-     * @var string|null libelle
+     * @var string|null informations
      */
     public $informations;
     /**
