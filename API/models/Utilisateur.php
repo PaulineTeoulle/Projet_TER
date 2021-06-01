@@ -1,20 +1,53 @@
 <?php
 
+/**
+ * Class Utilisateur
+ * @Goal : Read user, Create user, Delete users, Update Role of user
+ * @UsedByModule : Controllers/utilisateur
+ * @ModuleUsed : None
+ * @VisibleVariables : $id,$mail,$pseudo, $mot_de_passe, $role
+ * @VisibleProcedures : lire(), compterMail(), compterPseudo(), lireUn(), lireMotDePasse(), creer(), supprimer(), modifierRole()
+ */
 class Utilisateur
 {
+    /**
+     * @var int id of user
+     */
     public $id;
+    /**
+     * @var string mail
+     */
     public $mail;
+    /**
+     * @var string username
+     */
     public $pseudo;
+    /**
+     * @var string password
+     */
     public $mot_de_passe;
+    /**
+     * @var string role
+     */
     public $role = "user";
+    /**
+     * @var PDO|null connexion to database
+     */
     private $connexion;
-    private $table = "u_utilisateur";
 
+    /**
+     * Utilisateur constructor.
+     * @param $db
+     */
     public function __construct($db)
     {
         $this->connexion = $db;
     }
 
+    /**
+     * Read all users
+     * @return mixed
+     */
     public function lire()
     {
         $sql = "SELECT ID_Utilisateur, Mail, Pseudo, Role 
@@ -25,6 +58,11 @@ class Utilisateur
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    /**
+     * Count number of specific mail
+     * @return mixed
+     */
     public function compterMail(){
         $sql = "SELECT COUNT(*)
                 FROM u_utilisateur 
@@ -39,6 +77,10 @@ class Utilisateur
         return $result;
     }
 
+    /**
+     * Count number of specific pseudo
+     * @return mixed
+     */
     public function compterPseudo(){
         $sql = "SELECT COUNT(*)
                 FROM u_utilisateur 
@@ -54,6 +96,10 @@ class Utilisateur
     }
 
 
+    /**
+     * Read one user
+     * @return mixed
+     */
     public function lireUn()
     {
         $sql = "SELECT ID_Utilisateur, Mail, Pseudo, Role, Mot_de_passe 
@@ -69,6 +115,10 @@ class Utilisateur
         return $result;
     }
 
+    /**
+     * Read hashed password
+     * @return mixed
+     */
     public function lireMotDePasse(){
         $sql = "SELECT Mot_de_passe 
                 FROM u_utilisateur 
@@ -83,6 +133,10 @@ class Utilisateur
         return $result;
     }
 
+    /**
+     * Create user
+     * @return bool
+     */
     public function creer()
     {
         $sql = "INSERT INTO u_utilisateur 
@@ -104,6 +158,10 @@ class Utilisateur
         return false;
     }
 
+    /**
+     * Delete specific user
+     * @return bool
+     */
     public function supprimer()
     {
         $sql = "DELETE FROM u_utilisateur 
@@ -119,6 +177,10 @@ class Utilisateur
         return false;
     }
 
+    /**
+     * Update role of specific user
+     * @return bool
+     */
     public function modifierRole()
     {
         $sql = "UPDATE u_utilisateur 
