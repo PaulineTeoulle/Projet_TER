@@ -1,20 +1,53 @@
 <?php
 
+/**
+ * Class Sortie
+ * @Goal : Read, Create, Delete sortie
+ * @UsedByModule : Controllers/sortie, creerArbre, lireArbre
+ * @ModuleUsed : None
+ * @VisibleVariables : $id,$message,$id_decision
+ * @VisibleProcedures : lire(), creer(), supprimer()
+ **/
 class Sortie
 {
+    /**
+     * @var int id of sortie
+     */
     public $id;
+    /**
+     * @var string message of sortie
+     */
     public $message;
+    /**
+     * @var int id of decision
+     */
     public $id_decision;
+    /**
+     * @var int position x
+     */
     public $x;
+    /**
+     * @var int position y
+     */
     public $y;
+    /**
+     * @var PDO|null connexion to database
+     */
     private $connexion;
-    private $table = "a_sortie";
 
+    /**
+     * Sortie constructor.
+     * @param $db
+     */
     public function __construct($db)
     {
         $this->connexion = $db;
     }
 
+    /**
+     * Read all sortie
+     * @return array
+     */
     public function lire()
     {
         $sql = "SELECT * 
@@ -26,6 +59,10 @@ class Sortie
         return $result;
     }
 
+    /**
+     * Create sortie
+     * @return bool
+     */
     public function creer()
     {
         $sql = "INSERT INTO a_sortie 
@@ -50,6 +87,10 @@ class Sortie
         return false;
     }
 
+    /**
+     * Delete all sortie
+     * @return bool
+     */
     public function supprimer()
     {
         $sql = " DELETE FROM a_sortie";
@@ -59,36 +100,4 @@ class Sortie
         }
         return false;
     }
-
-//    public function modifierSansDecision()
-//    {
-//        $sql = "UPDATE a_sortie SET Message =:message WHERE ID_Sortie = 1";
-//        $query = $this->connexion->prepare($sql);
-//
-//        $this->message = htmlspecialchars(strip_tags($this->message));
-//
-//        $query->bindParam(":message", $this->message);
-//        if ($query->execute()) {
-//            return true;
-//        }
-//        return false;
-//    }
-//
-//
-//    public function modifierAvecDecision()
-//    {
-//        $sql = "UPDATE a_sortie SET Message =:message, ID_Decision =:id_decision WHERE ID_Sortie = 1";
-//        $query = $this->connexion->prepare($sql);
-//
-//        $this->message = htmlspecialchars(strip_tags($this->message));
-//        $this->id_decision = htmlspecialchars(strip_tags($this->id_decision));
-//
-//        $query->bindParam(":message", $this->message);
-//        $query->bindParam(":id_decision", $this->id_decision);
-//        if ($query->execute()) {
-//            return true;
-//        }
-//        return false;
-//    }
-
 }
