@@ -1,26 +1,77 @@
 <?php
 
+/**
+ * Class Methode
+ * @Goal : Read, Create, Delete methode
+ * @UsedByModule : Controllers/methode, creerArbre, lireArbre
+ * @ModuleUsed : None
+ * @VisibleVariables : $id,$libelle,$description,$effectif_preconise,$donnees_produites,$type_analyse,$type_methode,$exemple,$id_decision,$x,$y
+ * @VisibleProcedures : lire(), creer, supprimer()
+ */
 class Methode
 {
+    /**
+     * @var int id of methode
+     */
     public $id;
+    /**
+     * @var string libelle
+     */
     public $libelle;
+    /**
+     * @var string description
+     */
     public $description;
+    /**
+     * @var string number of people recommended
+     */
     public $effectif_preconise;
+    /**
+     * @var string data produced
+     */
     public $donnees_produites;
+    /**
+     * @var string type of analysis
+     */
     public $type_analyse;
+    /**
+     * @var string type of methode
+     */
     public $type_methode;
+    /**
+     * @var string example
+     */
     public $exemple;
+    /**
+     * @var int id of decision
+     */
     public $id_decision;
+    /**
+     * @var int position x
+     */
     public $x;
+    /**
+     * @var int position y
+     */
     public $y;
+    /**
+     * @var PDO|null connexion to database
+     */
     private $connexion;
-    private $table = "a_methode";
 
+    /**
+     * Methode constructor.
+     * @param $db
+     */
     public function __construct($db)
     {
         $this->connexion = $db;
     }
 
+    /**
+     * Read all methode
+     * @return array
+     */
     public function lire()
     {
         $sql = "SELECT * 
@@ -28,10 +79,13 @@ class Methode
         $query = $this->connexion->prepare($sql);
         $query->execute();
 
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Create methode
+     * @return bool
+     */
     public function creer()
     {
         $sql = "INSERT INTO a_methode
@@ -69,6 +123,10 @@ class Methode
         return false;
     }
 
+    /**
+     * Delete all methode
+     * @return bool
+     */
     public function supprimer()
     {
         $sql = " DELETE FROM a_methode ";
