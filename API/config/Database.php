@@ -4,7 +4,7 @@ class Database
 {
     public $connexion;
     private $host = "localhost";
-    private $db_name = "api_matui";
+    private $db_name = "test_matui";
     private $username = "root";
     private $password = "";
 

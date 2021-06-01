@@ -2,6 +2,8 @@ import React, {useRef, useState, useEffect} from 'react';
 import $, { get } from 'jquery';
 import axios from 'axios';
 import ReactFlow, {addEdge, ReactFlowProvider, removeElements} from 'react-flow-renderer';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 import Loader from '../components/Loader';
 import Toolbar from '../components/Toolbar';
@@ -36,7 +38,7 @@ function Tree() {
     const onElementsRemove = (elementsToRemove) => setElements((els) => removeElements(elementsToRemove, els));
     const onConnect = (params) => setElements((els) => addEdge({
         ...params,
-        id: getEdgeId(), arrowHeadType: 'arrowclosed', label: 'edge label', type: 'smoothstep',
+        id: getEdgeId(), arrowHeadType: 'arrowclosed', label: '', type: 'smoothstep',
     }, els, setNextEdgeId("D" + (parseInt(nextEdgeId.slice(1)) + 1).toString())));
 
     // HOOKS REACT-FLOW
@@ -266,9 +268,9 @@ function Tree() {
 
     useEffect(() => {
         if(remove){
-            $(".canvas").css("border", "1px solid red");
+            $(".canvas").css("border", "2px solid #f54748");
         } else {
-            $(".canvas").css("border", "none");
+            $(".canvas").css("border", "1px solid var(--light-grey)");
         }
     },[remove]);
 
@@ -608,7 +610,9 @@ function Tree() {
             {elements ?
                 <ReactFlowProvider>
                     <div className="reactflow-wrapper" ref={reactFlowWrapper}>
-                        <Toolbar className="tools"/>
+                        <Toolbar className="tools"
+                            save={printNodes}
+                        />
                         <div className="canvas">
                             <ReactFlow
                                 elements={elements}
@@ -622,9 +626,8 @@ function Tree() {
                                 onElementClick={onElementClick}
                                 onPaneClick={onPaneClick}/>
                         </div>
+                        <FontAwesomeIcon onClick={() => deleteMode()} className="icon delete" icon={faTrashAlt} />
                     </div>
-                    <button onClick={() => printNodes()}>print nodes</button>
-                    <button onClick={() => deleteMode()}>delete mode</button>
 
                     <ModalEditCritere
                         title="Edit critere"
