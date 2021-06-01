@@ -1,15 +1,30 @@
 <?php
 
+/**
+ * Class Accueil
+ * @Goal : Read, Create, Update Accueil Content
+ * @UsedByModule : Controllers/accueil, creerArbre, lireArbre
+ * @ModuleUsed : None
+ * @VisibleVariables : $id, $description
+ * @VisibleProcedures : lire(), modifier(), creer()
+ */
 class Accueil
 {
+    /**
+     * @var int id of accueil
+     */
     public $id;
+    /**
+     * @var string description content
+     */
     public $description;
+    /**
+     * @var null connexion of database
+     */
     private $connexion;
-    private $table = "a_accueil";
 
     /**
-     * Constructeur avec $db pour la connexion à la base de données
-     *
+     * Accueil constructor.
      * @param $db
      */
     public function __construct($db)
@@ -18,8 +33,7 @@ class Accueil
     }
 
     /**
-     * Lecture de l'accueil
-     *
+     * Read description content of accueil
      * @return string
      */
     public function lire()
@@ -32,13 +46,11 @@ class Accueil
 
         $row = $query->fetch(PDO::FETCH_ASSOC);
         $this->description = $row['Description'];
-        $this->id = $row['ID_Accueil'];
         return $this->description;
     }
 
     /**
-     * Créer l'accueil
-     *
+     * Create description content of accueil
      * @return bool
      */
     public function creer()
@@ -57,8 +69,7 @@ class Accueil
     }
 
     /**
-     * Mettre à jour l'accueil
-     *
+     * Update description of accueil
      * @return bool
      */
     public function modifier()
