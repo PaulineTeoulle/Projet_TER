@@ -1,20 +1,53 @@
 <?php
 
+/**
+ * Class Critere
+ * @Goal : Read, Create, Delete Critere
+ * @UsedByModule : Controllers/critere, creerArbre, lireArbre
+ * @ModuleUsed : None
+ * @VisibleVariables : $id, $libelle, $informations, $x, $y
+ * @VisibleProcedures : lire(), creerAvecInformations(), creerSansInformations(), supprimer()
+ */
 class Critere
 {
+    /**
+     * @var int id of accueil
+     */
     public $id;
+    /**
+     * @var string libelle
+     */
     public $libelle;
+    /**
+     * @var string|null libelle
+     */
     public $informations;
+    /**
+     * @var int position x
+     */
     public $x;
+    /**
+     * @var int position y
+     */
     public $y;
+    /**
+     * @var PDO|null connexion of database
+     */
     private $connexion;
-    private $table = "a_critere";
 
+    /**
+     * Critere constructor.
+     * @param $db
+     */
     public function __construct($db)
     {
         $this->connexion = $db;
     }
 
+    /**
+     * Read all critere
+     * @return array
+     */
     public function lire()
     {
         $sql = "SELECT * 
@@ -26,6 +59,10 @@ class Critere
         return $result;
     }
 
+    /**
+     * Create critere with informations
+     * @return bool
+     */
     public function creerAvecInformations()
     {
         $sql = "INSERT INTO a_critere 
@@ -50,6 +87,10 @@ class Critere
         return false;
     }
 
+    /**
+     * Create critere without informations
+     * @return bool
+     */
     public function creerSansInformations()
     {
         $sql = "INSERT INTO a_critere 
@@ -72,43 +113,13 @@ class Critere
         return false;
     }
 
-//    public function modifierAvecInformations()
-//    {
-//        $sql = "UPDATE a_critere SET Libelle =:libelle, Informations =:informations WHERE ID_Critere = :id_critere";
-//        $query = $this->connexion->prepare($sql);
-//
-//        $this->libelle = htmlspecialchars(strip_tags($this->libelle));
-//        $this->informations = htmlspecialchars(strip_tags($this->informations));
-//        $this->id = htmlspecialchars(strip_tags($this->id));
-//
-//        $query->bindParam(":libelle", $this->libelle);
-//        $query->bindParam(":informations", $this->informations);
-//        $query->bindParam(":id_critere", $this->id);
-//        if ($query->execute()) {
-//            return true;
-//        }
-//        return false;
-//    }
-
-//    public function modifierSansInformations()
-//    {
-//        $sql = "UPDATE a_critere SET Libelle =:libelle WHERE ID_Critere = :id_critere";
-//        $query = $this->connexion->prepare($sql);
-//
-//        $this->libelle = htmlspecialchars(strip_tags($this->libelle));
-//        $this->id = htmlspecialchars(strip_tags($this->id));
-//
-//        $query->bindParam(":libelle", $this->libelle);
-//        $query->bindParam(":id_critere", $this->id);
-//        if ($query->execute()) {
-//            return true;
-//        }
-//        return false;
-//    }
-
+    /**
+     * Delete all critere
+     * @return bool
+     */
     public function supprimer()
     {
-        $sql = " DELETE FROM a_critere";
+        $sql = "DELETE FROM a_critere";
         $query = $this->connexion->prepare($sql);
         if ($query->execute()) {
             return true;
