@@ -2,8 +2,8 @@
 
 /**
  * Class Decision
- * @Goal : Read, Create, Delete Critere
- * @UsedByModule : Controllers/critere, creerArbre, lireArbre
+ * @Goal : Read, Create, Delete Decision
+ * @UsedByModule : Controllers/decision, creerArbre, lireArbre
  * @ModuleUsed : None
  * @VisibleVariables : $id, $libelle, $id_critere_entrant, $id_critere_sortant, $x, $y
  * @VisibleProcedures : lire(), creerAvecCritereSortant(), creerSansCritereSortant(), supprimer()
@@ -23,7 +23,7 @@ class Decision
      */
     public $id_critere_entrant;
     /**
-     * @var int of critere sortant
+     * @var int id of critere sortant
      */
     public $id_critere_sortant;
     /**
@@ -35,7 +35,7 @@ class Decision
      */
     public $y;
     /**
-     * @var PDO|null connexion of database
+     * @var PDO|null connexion to database
      */
     private $connexion;
 

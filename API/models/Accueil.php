@@ -19,7 +19,7 @@ class Accueil
      */
     public $description;
     /**
-     * @var PDO|null connexion of database
+     * @var PDO|null connexion to database
      */
     private $connexion;
 

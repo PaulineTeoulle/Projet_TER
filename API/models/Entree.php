@@ -1,20 +1,53 @@
 <?php
 
+/**
+ * Class Entree
+ * @Goal : Read, Create, Delete Entree
+ * @UsedByModule : Controllers/entree, creerArbre, lireArbre
+ * @ModuleUsed : None
+ * @VisibleVariables : $id, $date, $critere, $x, $y
+ * @VisibleProcedures : lire(), creer, supprimer()
+ */
 class Entree
 {
+    /**
+     * @var int id of entree
+     */
     public $id;
+    /**
+     * @var string date of save
+     */
     public $date;
+    /**
+     * @var int id of critere
+     */
     public $critere;
+    /**
+     * @var int position x
+     */
     public $x;
+    /**
+     * @var int position y
+     */
     public $y;
+    /**
+     * @var PDO|null connexion to database
+     */
     private $connexion;
-    private $table = "a_entree";
 
+    /**
+     * Entree constructor.
+     * @param $db
+     */
     public function __construct($db)
     {
         $this->connexion = $db;
     }
 
+    /**
+     * Read all entree
+     * @return array
+     */
     public function lire()
     {
         $sql = "SELECT * 
@@ -26,6 +59,10 @@ class Entree
         return $result;
     }
 
+    /**
+     * Create entree
+     * @return bool
+     */
     public function creer()
     {
         $sql = "INSERT INTO a_entree 
@@ -50,6 +87,10 @@ class Entree
         return false;
     }
 
+    /**
+     * Delete all entree
+     * @return bool
+     */
     public function supprimer(){
         $sql = "DELETE FROM a_entree";
         $query = $this->connexion->prepare($sql);
@@ -58,21 +99,4 @@ class Entree
         }
         return false;
     }
-
-//
-//    public function modifier()
-//    {
-//        $sql = "UPDATE a_entree SET Date =:date, ID_Critere =:id_critere WHERE ID_Entree = 1";
-//        $query = $this->connexion->prepare($sql);
-//
-//        $this->date = htmlspecialchars(strip_tags($this->date));
-//        $this->critere = htmlspecialchars(strip_tags($this->critere));
-//
-//        $query->bindParam(":date", $this->date);
-//        $query->bindParam(":id_critere", $this->critere);
-//        if ($query->execute()) {
-//            return true;
-//        }
-//        return false;
-//    }
 }

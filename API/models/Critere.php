@@ -31,7 +31,7 @@ class Critere
      */
     public $y;
     /**
-     * @var PDO|null connexion of database
+     * @var PDO|null connexion to database
      */
     private $connexion;
 
