@@ -3,9 +3,9 @@
 /**
  * Class MethodeRessource
  * @Goal : Read, Create, Delete link between methode and ressource
- * @UsedByModule : Controllers/methode, creerArbre, lireArbre
+ * @UsedByModule : Controllers/methodeRessource, creerArbre, lireArbre
  * @ModuleUsed : None
- * @VisibleVariables : $id,$libelle,$description,$effectif_preconise,$donnees_produites,$type_analyse,$type_methode,$exemple,$id_decision,$x,$y
+ * @VisibleVariables : $id,$id_methode,$id_ressource
  * @VisibleProcedures : lire(), lireRessourcesMethode(), creer(), supprimer()
  */
 class MethodeRessource

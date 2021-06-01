@@ -1,18 +1,45 @@
 <?php
 
+/**
+ * Class Ressource
+ * @Goal : Read, Create, Delete ressource
+ * @UsedByModule : Controllers/ressource, creerArbre, lireArbre
+ * @ModuleUsed : None
+ * @VisibleVariables : $id,$nom,$fichier
+ * @VisibleProcedures : lire(), creer(), supprimer()
+ */
 class Ressource
 {
+    /**
+     * @var int id of a ressource
+     */
     public $id;
+    /**
+     * @var string name of a ressource
+     */
     public $nom;
+    /**
+     * @var string path to a ressource
+     */
     public $fichier;
+    /**
+     * @var PDO|null connexion to database
+     */
     private $connexion;
-    private $table = "a_ressource";
 
+    /**
+     * Ressource constructor.
+     * @param $db
+     */
     public function __construct($db)
     {
         $this->connexion = $db;
     }
 
+    /**
+     * Read all ressources
+     * @return array
+     */
     public function lire()
     {
         $sql = "SELECT * 
@@ -24,6 +51,10 @@ class Ressource
         return $result;
     }
 
+    /**
+     * Create a ressource
+     * @return bool
+     */
     public function creer()
     {
         $sql = "INSERT INTO a_ressource 
@@ -42,6 +73,10 @@ class Ressource
         return false;
     }
 
+    /**
+     * Delete all ressources
+     * @return bool
+     */
     public function supprimer()
     {
         $sql = " DELETE FROM a_ressource";
