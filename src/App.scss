@@ -11,7 +11,7 @@
     --shadow: rgba(150, 150, 150, 0.24) 0px 3px 8px;
 }
 
-.Quiz, .Home, .Summary, nav {
+.Quiz, .Home, .Summary, .Tree, nav {
     max-width: 1200px;
     margin: auto;
 }
@@ -35,6 +35,7 @@ p {
 @import './styles/_method.scss';
 @import './styles/_summary.scss';
 @import './styles/_home.scss';
+@import './styles/_tree.scss';
 
 @import './styles/_switch.scss';
 @import './styles/_button.scss';
@@ -50,6 +51,7 @@ p {
 @import './styles/_modalSignIn.scss';
 @import './styles/_login.scss';
 @import './styles/_loader.scss';
+@import './styles/_toolbar.scss';
 
 @import './styles/_breakpoints.scss';
 // @import '~font-awesome/scss/font-awesome.scss';
@@ -72,7 +74,7 @@ p {
 
 @include breakpoint(laptop){
     .App{
-        .Historic{
+        .aside{
             width: 25%;
         }
 
@@ -108,10 +110,6 @@ p {
     .Home {
         height: auto;
         display: block;
-
-        .content {
-
-        }
 
         .logo {
             float: left;

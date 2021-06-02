@@ -49,7 +49,7 @@ export class Summary extends React.Component {
                             })}
                     </ul>
                     :
-                    <p>aucune data</p>
+                    <p></p>
                 }
                 </div>
                 <div>

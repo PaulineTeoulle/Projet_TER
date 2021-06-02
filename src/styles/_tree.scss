@@ -1,0 +1,128 @@
+.Tree{
+    .reactflow-wrapper{
+        display: flex;
+        position: relative;
+        margin: 30px;
+
+        .delete{
+            cursor: pointer;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 24px;
+            height: 24px;
+            color: #f54748;
+            margin: 10px;
+            transition: .3s ease-in;
+            z-index: 100;
+
+            &:hover{
+                width: 28px;
+                height: 28px;
+                margin: 8px;
+                transition: .3s ease-in;
+            }
+        }
+
+        .canvas{
+            width: 100%;
+            height: 80vh;
+            border: 1px solid black;
+
+            .react-flow__edge, .react-flow__node, .critereNode{
+                cursor: pointer;
+            }
+
+            .selected{
+                box-shadow: 0 0 0 0;
+            }
+
+            .react-flow__node-input{
+                color: transparent;
+                border: none;
+                padding: 0;
+                width: 30px;
+                height: 30px;
+                border-radius: 50px;
+                background-color: black;
+
+                .react-flow__handle{
+                    background-color: #555;
+                }
+            }
+
+            .react-flow__node-output{
+                color: transparent;
+                border: none;
+                padding: 0;
+                width: 30px;
+                height: 30px;
+                border-radius: 50px;
+                background-color: black;
+
+                &:after {
+                    content: "";
+                    display: block;
+                    background-color: transparent;
+                    border: 2px solid black;
+                    position: absolute;
+                    top: -4px;
+                    left: -4px;
+                    width: 34px;
+                    height: 34px;
+                    border-radius: 50px;
+                    z-index: -1;
+                }
+
+                .react-flow__handle{
+                    background-color: #555;
+                }
+            }
+            
+            .react-flow__node-default{
+                background-color: #63cdda;
+                border: none;
+            }
+
+
+            .critereNode{
+                padding: 10px;
+                background-color: white;
+                border: 1px solid var(--main-color);
+                border-radius: 15px;
+                
+                // &:before{
+                //     display: block;
+                //     content: "";
+                //     position: absolute;
+                //     top: 0;
+                //     left: 0;
+                //     width: 0;
+                //     height: 0;
+                //     border-top    : 35px solid transparent;
+                //     border-bottom : 35px solid transparent;
+                //     border-right  : 200px solid red;
+                //     z-index:-1;
+                // }
+
+                //  &:after{
+                //     display: block;
+                //     content: "";
+                //     position: absolute;
+                //     top: 0;
+                //     left: 200px;
+                //     width: 0;
+                //     height: 0;
+                //     border-top    : 35px solid transparent;
+                //     border-bottom : 35px solid transparent;
+                //     border-left  : 200px solid red;
+                //     z-index:-1;
+                // }
+            }
+        }
+
+        .tools{
+            width: 100px;
+        }
+    }
+}

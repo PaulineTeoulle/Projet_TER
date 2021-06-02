@@ -4,7 +4,7 @@ import {addItem, getItem, removeItem} from "./LocalStorage";
 
 //Vérifie la connexion avec le token
 export function hasAuthenticated() {
-
+ 
     const token = getItem('token');
     const result = token ? tokenIsValid(token) : false;
     if (false === result) {
@@ -13,8 +13,7 @@ export function hasAuthenticated() {
     return result;
 }
 
-//Vérifie le role admin du token
-export function isAdminRole(){
+export function isUser(){
     const token = getItem('token');
     const result = token ? tokenIsValid(token) : false;
     if (false === result) {
@@ -22,43 +21,7 @@ export function isAdminRole(){
         return false;
     }
     if(true === result) {
-       const role = getRole(token);
-       if (role ==="administrator"){
-           return true;
-       }
-    }
-    return false;
-}
-//Vérifie le role user du token
-export function isUserRole(){
-    const token = getItem('token');
-    const result = token ? tokenIsValid(token) : false;
-    if (false === result) {
-        removeItem('token');
-        return false;
-    }
-    if(true === result) {
-        const role = getRole(token);
-        if (role ==="user"){
-            return true;
-        }
-    }
-    return false;
-}
-
-//Vérifie le role superAdmin du token
-export function isSuperAdminRole(){
-    const token = getItem('token');
-    const result = token ? tokenIsValid(token) : false;
-    if (false === result) {
-        removeItem('token');
-        return false;
-    }
-    if(true === result) {
-        const role = getRole(token);
-        if (role ==="super-admin"){
-            return true;
-        }
+        return getRole(token);
     }
     return false;
 }
@@ -75,7 +38,7 @@ export function login(credentials) {
     let host = window.location.hostname;
     let url = protocol + '//' + host;
     return axios
-        .post(url + '/Projet_TER/API/Controllers/connexion.php', credentials)
+        .post(url + '/reactTest/MATUI/API/Controllers/connexion.php', credentials)
         .then(response => response.data.token)
         .then(token => {
             addItem('token', token);

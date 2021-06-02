@@ -54,7 +54,7 @@ export class Users extends React.Component {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-            axios.get(url + '/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
+            axios.get(url + '/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
             //axios.get(url + 'reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
                 .then(response => {
                     this.setState({users: response.data});
@@ -71,12 +71,12 @@ export class Users extends React.Component {
             let data = JSON.stringify({id_utilisateur: this.state.idUser, role: role});
             axios({
                 method: 'put',
-                url: url + '/Projet_TER/API/Controllers/utilisateur/modifierUtilisateur.php',
+                url: url + '/reactTest/MATUI/API/Controllers/utilisateur/modifierUtilisateur.php',
                 // url: url + '/reactTest/MATUI/API/Controllers/utilisateur/modifierUtilisateur.php',
                 data: data
             })
                 .then(response => {
-                    axios.get(url +'/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
+                    axios.get(url +'/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
                     //axios.get(url +'/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
                         .then(response => {
                             this.setState({users: response.data});
@@ -98,12 +98,12 @@ export class Users extends React.Component {
             let data = JSON.stringify({id: Number(id)});
             axios({
                 method: 'delete',
-                url: url+ '/Projet_TER/API/Controllers/utilisateur/supprimerUtilisateur.php',
+                url: url+ '/reactTest/MATUI/API/Controllers/utilisateur/supprimerUtilisateur.php',
                 //url: url+ '/reactTest/MATUI/API/Controllers/utilisateur/supprimerUtilisateur.php',
                 data: data
             })
                 .then(response => {
-                    axios.get(url+ '/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
+                    axios.get(url+ '/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
                     //axios.get(url + '/reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
                         .then(response => {
                             this.setState({users: response.data});

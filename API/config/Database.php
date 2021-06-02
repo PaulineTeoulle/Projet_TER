@@ -21,7 +21,7 @@ class Database
     /**
      * @var string database name
      */
-    private $db_name = "api_matui";
+    private $db_name = "test_matui";
     /**
      * @var string database user
      */
@@ -30,6 +30,7 @@ class Database
      * @var string database password
      */
     private $password = ""; //"Pm2Mv1MDRT!";
+
 
     /**
      * Connect to database with PDO

@@ -1,5 +1,5 @@
 import './App.scss';
-import React, {useState} from 'react';
+import React, {useState, useEffect,useContext} from 'react';
 import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
 
 import Home from './views/Home';
@@ -14,19 +14,18 @@ import Register from './views/Register';
 import Nav from './components/Nav';
 import Auth from "./contexts/Auth"
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
-import {hasAuthenticated, isAdminRole} from "./services/AuthApi";
+import {hasAuthenticated, isUser} from "./services/AuthApi";
 
 function App() {
 
     //Setup des états selon les setters
     const [isAuthenticated, setIsAuthenticated] = useState(hasAuthenticated());
-    const [isAdmin, setIsAdmin] = useState(isAdminRole());
-    const [isUser, setIsUser] = useState(isAdminRole());
-    const [isSuperAdmin, setIsSuperAdmin] = useState(isAdminRole());
+    const [userRole, setUserRole] = useState(isUser());
 
     return (
         //Provider pour distribuer les états à tous les niveaux
-        <Auth.Provider value={{isAuthenticated, setIsAuthenticated, isAdmin, setIsAdmin,isUser,setIsUser,isSuperAdmin,setIsSuperAdmin}}>
+        <Auth.Provider value={{isAuthenticated, setIsAuthenticated, userRole, setUserRole
+        }}>
             <Router>
                 <div className="App">
                     <Nav/>
