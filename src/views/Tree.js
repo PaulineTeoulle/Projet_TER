@@ -414,11 +414,17 @@ function Tree() {
                     break;
             }
         })
-        // console.log(initialTree);
-        // console.log(finalTree);
+        
         let error = checkTree(finalTree);
         if(!error){
-            alert("GO SAVE")
+            let protocol = window.location.protocol;
+            let host = window.location.hostname;
+            let url = protocol + '//' + host;
+                axios.post(url + '/reactTest/MATUI/API/Controllers/creerArbre.php', finalTree)
+                .then(response => {
+                    console.log(response.data)
+                })
+                .catch(error => console.log(error))
         }
     }
 
