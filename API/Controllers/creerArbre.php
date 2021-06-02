@@ -39,6 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $donnees = json_decode(file_get_contents("php://input"), true);
 
+    echo json_encode($donnees);
+
     //Gestion des critères
     foreach ($donnees['criteres'] as $i) {
         if (!empty($i['ID_Critere']) && !empty($i['Libelle']) && !empty($i['x']) && !empty($i['y'])) {
@@ -49,32 +51,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $critere->y = $i['y'];
             if ($critere->informations == null) {
                 if ($critere->creerSansInformations()) {
-                    $critereResults = [
-                        "id" => $critere->id,
-                        "libelle" => $critere->libelle,
-                        "informations" => $critere->informations,
-                        "x" => $critere->x,
-                        "y" => $critere->y
-                    ];
-                    echo json_encode(["critereResults" => $critereResults]);
-                    echo json_encode(["Message" => "Success"]);
+                    echo json_encode(["Message" => "Success CRITERE"]);
                 } else {
-                    echo json_encode(["Error" => "Failure"]);
+                    echo json_encode(["Error" => "Failure CRITERE"]);
                 }
 
             } else {
                 if ($critere->creerAvecInformations()) {
-                    $critereResults = [
-                        "id" => $critere->id,
-                        "libelle" => $critere->libelle,
-                        "informations" => $critere->informations,
-                        "x" => $critere->x,
-                        "y" => $critere->y
-                    ];
-                    echo json_encode(["critereResults" => $critereResults]);
-                    echo json_encode(["Message" => "Success"]);
+                    echo json_encode(["Message" => "Success CRITERE"]);
                 } else {
-                    echo json_encode(["Error" => "Failure"]);
+                    echo json_encode(["Error" => "Failure CRITERE"]);
                 }
             }
         }
@@ -89,29 +75,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $decision->id_critere_sortant = $i['ID_Critere_sortant'];
             if ($decision->id_critere_sortant == null) {
                 if ($decision->creerSansCritereSortant()) {
-                    $decisionResults = [
-                        "id" => $decision->id,
-                        "libelle" => $decision->libelle,
-                        "id_critere_entrant" => $decision->id_critere_entrant,
-                        "id_critere_sortant" => $decision->id_critere_sortant,
-                    ];
-                    echo json_encode(["decisionResults" => $decisionResults]);
-                    echo json_encode(["Message" => "Success"]);
+                    echo json_encode(["Message" => "Success DECISION"]);
                 } else {
-                    echo json_encode(["Error" => "Failure"]);
+                    echo json_encode(["Error" => "Failure DECISION"]);
                 }
             } else {
                 if ($decision->creerAvecCritereSortant()) {
-                    $decisionResults = [
-                        "id" => $decision->id,
-                        "libelle" => $decision->libelle,
-                        "id_critere_entrant" => $decision->id_critere_entrant,
-                        "id_critere_sortant" => $decision->id_critere_sortant,
-                    ];
-                    echo json_encode(["decisionResults" => $decisionResults]);
-                    echo json_encode(["Message" => "Success"]);
+                    echo json_encode(["Message" => "Success DECISION"]);
                 } else {
-                    echo json_encode(["Error" => "Failure"]);
+                    echo json_encode(["Error" => "Failure DECISION"]);
                 }
             }
         }
@@ -127,85 +99,64 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $methode->description = $i['Description'];
             $methode->effectif_preconise = $i['Effectif_preconise'];
             $methode->donnees_produites = $i['Donnees_produites'];
-            $methode->type_analyse = $i['Type_analyse'];;
+            $methode->type_analyse = $i['Type_analyse'];
             $methode->type_methode = $i['Type_methode'];
             $methode->exemple = $i['Exemple'];
             $methode->id_decision = $i['ID_Decision'];
             $methode->x = $i['x'];
             $methode->y = $i['y'];
             if ($methode->creer()) {
-                $methodeResults = [
-                    "id" => $methode->id,
-                    "libelle" => $methode->libelle,
-                    "description" => $methode->description,
-                    "effectif_preconise" => $methode->effectif_preconise,
-                    "donnees_produites" => $methode->donnees_produites,
-                    "type_analyse" => $methode->type_analyse,
-                    "type_methode" => $methode->type_methode,
-                    "exemple" => $methode->exemple,
-                    "id_decision" => $methode->id_decision
-                ];
-                echo json_encode(["Message" => "Success"]);
+                echo json_encode(["Message" => "Success METHODE"]);
             } else {
-                echo json_encode(["Error" => "Failure"]);
+                echo json_encode(["Error" => "Failure METHODE"]);
             }
         }
     }
 
 
     // Gestion de l'entrée
-    foreach ($donnees['entree'] as $i) {
+
+    if (!empty($donnees['entree'][0])) {
+        $entree->id = $donnees['entree'][0]['ID_Entree'];
+        $entree->critere = $donnees['entree'][0]['ID_Critere'];
         $entree->date = date("Y-m-d");
-        $entree->critere = $i['ID_Critere'];
-        $entree->id = $i['ID_Entree'];
-
-        if (!empty($i['ID_Entree']) && !empty($i['ID_Critere']) && !empty($i['x']) && !empty($i['y'])) {
-            $entree->date = date("Y-m-d");
-            $entree->id = $i['ID_Entree'];
-            $entree->critere = $i['ID_Critere'];
-            $entree->x = $i['x'];
-            $entree->y = $i['y'];
-            if ($entree->creer()) {
-                $entreeResults = [
-                    "id" => $entree->id,
-                    "date" => $entree->date,
-                    "critere" => $entree->critere,
-                    "x" => $entree->x,
-                    "y" => $entree->y,
-
-                ];
-                echo json_encode(["entreeResults" => $entreeResults]);
-                echo json_encode(["Message" => "Success"]);
-            } else {
-                echo json_encode(["Error" => "Failure"]);
-            }
+        $entree->x = $donnees['entree'][0]['x'];
+        $entree->y = $donnees['entree'][0]['y'];
+        echo json_encode($entree);
+        echo json_encode($donnees['entree'][0]);
+        if ($entree->creer()) {
+            echo json_encode(["Message" => "Success ENTREE"]);
+        } else {
+            echo json_encode(["Error" => "Failure ENTREE"]);
         }
     }
 
 
-    //Gestion de la sortie
-    foreach ($donnees['sortie'] as $i) {
-        if (!empty($i['ID_Sortie']) && !empty($i['Message']) && !empty($i['ID_Decision']) && !empty($i['x']) && !empty($i['y'])) {
-            $sortie->id = $i['ID_Sortie'];
-            $sortie->message = $i['Message'];
-            $sortie->id_decision = $i['ID_Decision'];
-            $sortie->x = $i['x'];
-            $sortie->y = $i['y'];
+//  //  Gestion de la sortie
+//    foreach ($donnees['sortie'] as $i) {
+//        if (!empty($i['ID_Sortie']) && !empty($i['Message']) && !empty($i['ID_Decision']) && !empty($i['x']) && !empty($i['y'])) {
+//            $sortie->id = $i['ID_Sortie'];
+//            $sortie->message = $i['Message'];
+//            $sortie->id_decision = $i['ID_Decision'];
+//            $sortie->x = $i['x'];
+//            $sortie->y = $i['y'];
+//
+//            if ($sortie->creer()) {
+//                echo json_encode(["Message" => "Success SORTIE"]);
+//            } else {
+//                echo json_encode(["Error" => "Failure SORTIE"]);
+//            }
+//        }
+//    }
 
-            if ($sortie->creer()) {
-                $sortieResults = [
-                    "id" => $sortie->id,
-                    "message" => $sortie->message,
-                    "id_decision" => $sortie->id_decision,
-                    "x" => $sortie->x,
-                    "y" => $sortie->y
-                ];
-                echo json_encode(["sortieResults" => $sortieResults]);
-                echo json_encode(["Message" => "Success"]);
-            } else {
-                echo json_encode(["Error" => "Failure"]);
-            }
+    if (!empty($donnees['sortie'][0])) {
+        $sortie->id = $donnees['sortie'][0]['ID_Sortie'];
+        $sortie->message = $donnees['sortie'][0]['Message'];
+        $sortie->id_decision = $donnees['sortie'][0]['ID_Decision'];
+        if ($sortie->creer()) {
+            echo json_encode(["Message" => "Success SORTIE"]);
+        } else {
+            echo json_encode(["Error" => "Failure SORTIE"]);
         }
     }
-
 }
