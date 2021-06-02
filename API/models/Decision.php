@@ -27,14 +27,6 @@ class Decision
      */
     public $id_critere_sortant;
     /**
-     * @var int position x
-     */
-    public $x;
-    /**
-     * @var int position y
-     */
-    public $y;
-    /**
      * @var PDO|null connexion to database
      */
     private $connexion;
@@ -71,22 +63,18 @@ class Decision
     {
 
         $sql = "INSERT INTO a_decision 
-                SET ID_Decision =:id_decision, Libelle=:libelle, ID_Critere_entrant=:id_critere_entrant, ID_Critere_sortant=:id_critere_sortant, x=:x, y=:y";
+                SET ID_Decision =:id_decision, Libelle=:libelle, ID_Critere_entrant=:id_critere_entrant, ID_Critere_sortant=:id_critere_sortant";
         $query = $this->connexion->prepare($sql);
 
         $this->id = htmlspecialchars(strip_tags($this->id));
         $this->libelle = htmlspecialchars(strip_tags($this->libelle));
         $this->id_critere_entrant = htmlspecialchars(strip_tags($this->id_critere_entrant));
         $this->id_critere_sortant = htmlspecialchars(strip_tags($this->id_critere_sortant));
-        $this->x = htmlspecialchars(strip_tags($this->x));
-        $this->y = htmlspecialchars(strip_tags($this->y));
 
         $query->bindParam(":id_decision", $this->id);
         $query->bindParam(":libelle", $this->libelle);
         $query->bindParam(":id_critere_entrant", $this->id_critere_entrant);
         $query->bindParam(":id_critere_sortant", $this->id_critere_sortant);
-        $query->bindParam(":x", $this->x);
-        $query->bindParam(":y", $this->y);
 
 
         if ($query->execute()) {
@@ -102,20 +90,16 @@ class Decision
     public function creerSansCritereSortant()
     {
         $sql = "INSERT INTO a_decision 
-                SET ID_Decision =:id_decision, Libelle=:libelle, ID_Critere_entrant=:id_critere_entrant, x=:x, y=:y";
+                SET ID_Decision =:id_decision, Libelle=:libelle, ID_Critere_entrant=:id_critere_entrant";
         $query = $this->connexion->prepare($sql);
 
         $this->id = htmlspecialchars(strip_tags($this->id));
         $this->libelle = htmlspecialchars(strip_tags($this->libelle));
         $this->id_critere_entrant = htmlspecialchars(strip_tags($this->id_critere_entrant));
-        $this->x = htmlspecialchars(strip_tags($this->x));
-        $this->y = htmlspecialchars(strip_tags($this->y));
 
         $query->bindParam(":id_decision", $this->id);
         $query->bindParam(":libelle", $this->libelle);
         $query->bindParam(":id_critere_entrant", $this->id_critere_entrant);
-        $query->bindParam(":x", $this->x);
-        $query->bindParam(":y", $this->y);
 
         if ($query->execute()) {
             return true;
