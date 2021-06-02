@@ -33,6 +33,8 @@ function Tree() {
     const [elements, setElements] = useState([]);
     const [remove, setRemove] = useState(false);
 
+    const [errorMessage, setErrorMessage] = useState(null);
+
     const reactFlowWrapper = useRef(null);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
     const onElementsRemove = (elementsToRemove) => setElements((els) => removeElements(elementsToRemove, els));
@@ -363,6 +365,12 @@ function Tree() {
 
     // RECONSTRUCTION DE L'ARBRE
 
+    useEffect(() => {
+        if(errorMessage){
+            alert(errorMessage);
+        }
+    }, [errorMessage]);
+
     /*
     types :
         - input (start node)
@@ -406,9 +414,12 @@ function Tree() {
                     break;
             }
         })
-        console.log(initialTree);
-        console.log(finalTree);
-        checkTree(finalTree);
+        // console.log(initialTree);
+        // console.log(finalTree);
+        let error = checkTree(finalTree);
+        if(!error){
+            alert("GO SAVE")
+        }
     }
 
     
@@ -445,9 +456,9 @@ function Tree() {
         let outDecision;
         if(element.target.includes("M")){
             outDecision = flow.elements.find(el => el.type === "smoothstep" && el.source === element.target);
-            if(!outDecision){
-                alert("pb outdecision")
-            }
+            // if(!outDecision){
+            //     setErrorMessage("pb outdecision");
+            // }
         }
 
         let decision = {
@@ -489,12 +500,27 @@ function Tree() {
             liens sortant des méthodes et le lien source du noeud d'entree
     */
     function checkTree(finalTree){
+        let error = false;
         if(finalTree.entree.length != 1){
-            alert("pb entree")
+            setErrorMessage("pb entree");
+            error = true;
         } else if (finalTree.sortie.length != 1){
-            alert("pb sortie")
+            setErrorMessage("pb sortie");
+            error = true;
         } 
-        checkFloatingNode(finalTree);
+        if(!error){
+            let floatingNode = checkFloatingNode(finalTree);
+            if(floatingNode){
+                error = true;
+            }
+        }
+        
+        switch(error){
+            case true:
+                return true;
+            case false:
+                return false;
+        }
     }
 
     function checkFloatingNode(finalTree){
@@ -511,16 +537,21 @@ function Tree() {
                 }
             }
 
-            console.log(inputEdge)
-            console.log(outputEdge)
-            console.log("===========")
-
             if(!inputEdge.length || !outputEdge.length){
                 condition = false;
             }
+
+            outputEdge.forEach(element =>{
+                if(element.ID_Critere_sortant.charAt(0) === "M"){
+                    condition = false;
+                }
+            })
         })
         if(!condition){
-            alert("noeud flottant, check si les edges ont un label et que chaque noeud est relié")
+            setErrorMessage("noeud flottant, check si les edges ont un label et que chaque noeud est relié");
+            return true;
+        } else {
+            return false;
         }
     }
 
