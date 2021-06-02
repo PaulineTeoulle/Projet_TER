@@ -38,7 +38,7 @@ export function login(credentials) {
     let host = window.location.hostname;
     let url = protocol + '//' + host;
     return axios
-        .post(url + '/Projet_TER/API/Controllers/connexion.php', credentials)
+        .post(url + '/reactTest/MATUI/API/Controllers/connexion.php', credentials)
         .then(response => response.data.token)
         .then(token => {
             addItem('token', token);

@@ -2,7 +2,15 @@ import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faFileUpload, faHome, faProjectDiagram, faQuestion, faUser, faUserCog, faSignOutAlt} from '@fortawesome/free-solid-svg-icons'
+import {
+    faFileUpload,
+    faHome,
+    faProjectDiagram,
+    faQuestion,
+    faUser,
+    faUserCog,
+    faSignOutAlt
+} from '@fortawesome/free-solid-svg-icons'
 import Auth from "../contexts/Auth";
 import {logout} from "../services/AuthApi";
 
@@ -15,7 +23,7 @@ const Nav = () => {
         setIsAuthenticated(false);
         setUserRole(null);
     };
-    return ( 
+    return (
         <div className="Navigation">
             <nav>
                 <ul>
@@ -31,10 +39,6 @@ const Nav = () => {
                             <li><FontAwesomeIcon className="icon" icon={faUser}/></li>
                         </Link>
                     </>)}
-
-                    {userRole === 'user' &&(<>  <Link to="/logout">
-                        <li onClick={handleLogout}><FontAwesomeIcon className="icon" icon={faSignOutAlt}/></li>
-                    </Link></>)}
 
                     {userRole === 'administrator' && (<> <Link to="/manageTree">
                         <li><FontAwesomeIcon className="icon" icon={faProjectDiagram}/></li>
@@ -55,9 +59,9 @@ const Nav = () => {
                             <li><FontAwesomeIcon className="icon" icon={faFileUpload}/></li>
                         </Link>
                     </>)}
-                    
+
                     {isAuthenticated && (<>
-                    <Link to="/logout">
+                        <Link to="/logout">
                             <li onClick={handleLogout}><FontAwesomeIcon className="icon" icon={faSignOutAlt}/></li>
                         </Link>
                     </>)}

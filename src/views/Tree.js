@@ -418,7 +418,7 @@ function Tree() {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-                axios.post(url + '/Projet_TER/API/Controllers/creerArbre.php', finalTree)
+                axios.post(url + '/reactTest/MATUI/API/Controllers/creerArbre.php', finalTree)
                 .then(response => {
                     console.log(response.data)
                 })
