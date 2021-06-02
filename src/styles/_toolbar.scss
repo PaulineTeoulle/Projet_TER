@@ -11,9 +11,14 @@
     }
 
     &>div{
-        padding: 15px 20px;
+        cursor: move;
+        margin: 30px 20px;
         text-align: center;
         font-size: 10px;
+
+        &:first-child{
+            margin-top: 15px
+        }
     }
 
     .input{

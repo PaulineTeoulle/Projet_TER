@@ -91,7 +91,6 @@ function Tree() {
             if(element.type != "smoothstep"){
                 let edges = elements.filter(item => item.type === "smoothstep");
                 let attachedEdges = edges.filter(item => item.source === element.id || item.target === element.id );
-                console.log(attachedEdges)
                 if(attachedEdges.length > 0){
                     alert("You must remove all edges from this element")
                 } else {
@@ -155,7 +154,10 @@ function Tree() {
                     id: "S0",
                     type,
                     position,
-                    data: {label: `${type} node`},
+                    data: {
+                        label: `${type} node`,
+                        message: (data.Message ? data.Message : null)
+                    },
                 };
                 break;
             case 'critereNode':
@@ -259,8 +261,6 @@ function Tree() {
     }
 
     function deleteElement(element){
-            console.log("delete => ")
-            console.log(element);
             let selectedElement = elements.find(el => el.id === element.id);
             let index = elements.indexOf(selectedElement);
             setElements(elements.filter(item => elements.indexOf(item) !== index))
@@ -282,6 +282,10 @@ function Tree() {
         let firstNode = initialTree.criteres.find(el => el.ID_Critere === initialTree.entree[0].ID_Critere);
         createNode('critereNode', {x: 0, y: 100}, firstNode);
         createEdge('D0' ,'0', firstNode.ID_Critere, null);
+
+        let endNode = initialTree.sortie[0];
+        createNode('output',  {x: parseInt(endNode.x), y: parseInt(endNode.y)}, endNode);
+
         initNodes(initialTree.entree[0].ID_Critere);
     }
 
@@ -304,6 +308,8 @@ function Tree() {
                 } else {
                     if(decision.ID_Critere_sortant){
                         createEdge("D" + decision.ID_Decision, decision.ID_Critere_entrant, decision.ID_Critere_sortant, decision.Libelle, color);
+                    } else {
+                        createEdge("D" + decision.ID_Decision, decision.ID_Critere_entrant, "S0", decision.Libelle, color);
                     }
                 }
             })                
@@ -364,7 +370,6 @@ function Tree() {
         - smoothstep (edge)
     */
     function printNodes() {
-        console.log(elements);
         let flow = reactFlowInstance.toObject();
         let finalTree = {
             entree: [],
@@ -400,7 +405,7 @@ function Tree() {
                     break;
             }
         })
-        console.log(initialTree)
+        console.log(initialTree);
         console.log(finalTree);
         checkTree(finalTree);
     }
@@ -439,6 +444,9 @@ function Tree() {
         let outDecision;
         if(element.target.includes("M")){
             outDecision = flow.elements.find(el => el.type === "smoothstep" && el.source === element.target);
+            if(!outDecision){
+                alert("pb outdecision")
+            }
         }
 
         let decision = {
@@ -489,9 +497,30 @@ function Tree() {
     }
 
     function checkFloatingNode(finalTree){
-        finalTree.criteres.forEach(element => {
-            console.log(element)
+        let condition = true;
+        finalTree.criteres.forEach(critere => {
+            let outputEdge = null;
+            let inputEdge = null;
+            outputEdge = finalTree.decisions.filter(decision => decision.ID_Critere_entrant === critere.ID_Critere);
+            inputEdge = finalTree.decisions.filter(decision => decision.ID_Critere_sortant === critere.ID_Critere);
+
+            if(!inputEdge.length){
+                if(finalTree.entree[0].ID_Critere === critere.ID_Critere){
+                    inputEdge.push(finalTree.entree[0]);
+                }
+            }
+
+            console.log(inputEdge)
+            console.log(outputEdge)
+            console.log("===========")
+
+            if(!inputEdge.length || !outputEdge.length){
+                condition = false;
+            }
         })
+        if(!condition){
+            alert("noeud flottant, check si les edges ont un label et que chaque noeud est relié")
+        }
     }
 
     
