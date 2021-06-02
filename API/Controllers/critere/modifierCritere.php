@@ -22,9 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                 $critereResults = [
                     "libelle" => $critere->libelle
                 ];
-                echo json_encode(["message" => "La modification a été effectué"]);
+                echo json_encode(["Message" => "Success"]);
             } else {
-                echo json_encode(["message" => "La modification n'a pas été effectué"]);
+                echo json_encode(["Error" => "Failure"]);
             }
         } else {
             $critere->informations = $donnees->informations;
@@ -35,12 +35,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                     "libelle" => $critere->libelle,
                     "informations" => $critere->informations
                 ];
-                echo json_encode(["message" => "La modification a été effectué"]);
+                echo json_encode(["Message" => "Success"]);
             } else {
-                echo json_encode(["message" => "La modification n'a pas été effectué"]);
+                echo json_encode(["Error" => "Failure"]);
             }
         }
     }
 } else {
-    echo json_encode(["message" => "La méthode n'est pas autorisée"]);
+    echo json_encode(["Message" => "Unauthorised method"]);
 }

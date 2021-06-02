@@ -30,9 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 
                 echo json_encode($decisionResults);
 
-                echo json_encode(["message" => "Modification effectuée"]);
+                echo json_encode(["Message" => "Success"]);
             } else {
-                echo json_encode(["message" => "Modification échouée"]);
+                echo json_encode(["Error" => "Failure"]);
             }
         } else {
             if ($decision->modifierSansIDSortant()) {
@@ -41,12 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                     "libelle" => $decision->libelle,
                     "id_critere_entrant" => $decision->id_critere_entrant,
                 ];
-                echo json_encode(["message" => "Modification effectuée"]);
+                echo json_encode(["Message" => "Success"]);
             } else {
-                echo json_encode(["message" => "Modification échouée"]);
+                echo json_encode(["Error" => "Failure"]);
             }
         }
     }
 } else {
-    echo json_encode(["message" => "La méthode n'est pas autorisée"]);
+    echo json_encode(["Message" => "Unauthorised method"]);
 }

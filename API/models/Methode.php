@@ -1,43 +1,99 @@
 <?php
 
+/**
+ * Class Methode
+ * @Goal : Read, Create, Delete methode
+ * @UsedByModule : Controllers/methode, creerArbre, lireArbre
+ * @ModuleUsed : None
+ * @VisibleVariables : $id,$libelle,$description,$effectif_preconise,$donnees_produites,$type_analyse,$type_methode,$exemple,$id_decision,$x,$y
+ * @VisibleProcedures : lire(), creer, supprimer()
+ */
 class Methode
 {
+    /**
+     * @var int id of methode
+     */
     public $id;
+    /**
+     * @var string libelle
+     */
     public $libelle;
+    /**
+     * @var string description
+     */
     public $description;
+    /**
+     * @var string number of people recommended
+     */
     public $effectif_preconise;
+    /**
+     * @var string data produced
+     */
     public $donnees_produites;
+    /**
+     * @var string type of analysis
+     */
     public $type_analyse;
+    /**
+     * @var string type of methode
+     */
     public $type_methode;
+    /**
+     * @var string example
+     */
     public $exemple;
+    /**
+     * @var int id of decision
+     */
     public $id_decision;
+    /**
+     * @var int position x
+     */
+    public $x;
+    /**
+     * @var int position y
+     */
+    public $y;
+    /**
+     * @var PDO|null connexion to database
+     */
     private $connexion;
-    private $table = "a_methode";
 
+    /**
+     * Methode constructor.
+     * @param $db
+     */
     public function __construct($db)
     {
         $this->connexion = $db;
     }
 
+    /**
+     * Read all methode
+     * @return array
+     */
     public function lire()
     {
-        $sql = "SELECT * FROM a_methode";
+        $sql = "SELECT * 
+                FROM a_methode";
         $query = $this->connexion->prepare($sql);
         $query->execute();
 
-        // On retourne le résultat
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    /**
+     * Create methode
+     * @return bool
+     */
     public function creer()
     {
-
         $sql = "INSERT INTO a_methode
-                SET Libelle=:libelle, Description=:description, Effectif_preconise=:effectif_preconise, Donnees_produites=:donnees_produites, Type_analyse=:type_analyse,
-                Type_methode=:type_methode,Exemple=:exemple, ID_Decision=:id_decision";
+                SET ID_Methode=:id_methode, Libelle=:libelle, Description=:description, Effectif_preconise=:effectif_preconise, Donnees_produites=:donnees_produites, Type_analyse=:type_analyse,
+                Type_methode=:type_methode,Exemple=:exemple, ID_Decision=:id_decision, x=:x, y=:y";
         $query = $this->connexion->prepare($sql);
 
+        $this->id = htmlspecialchars(strip_tags($this->id));
         $this->libelle = htmlspecialchars(strip_tags($this->libelle));
         $this->description = htmlspecialchars(strip_tags($this->description));
         $this->effectif_preconise = htmlspecialchars(strip_tags($this->effectif_preconise));
@@ -46,7 +102,10 @@ class Methode
         $this->type_methode = htmlspecialchars(strip_tags($this->type_methode));
         $this->exemple = htmlspecialchars(strip_tags($this->exemple));
         $this->id_decision = htmlspecialchars(strip_tags($this->id_decision));
+        $this->x = htmlspecialchars(strip_tags($this->x));
+        $this->y = htmlspecialchars(strip_tags($this->y));
 
+        $query->bindParam(":id_methode", $this->id);
         $query->bindParam(":libelle", $this->libelle);
         $query->bindParam(":description", $this->description);
         $query->bindParam(":effectif_preconise", $this->effectif_preconise);
@@ -55,6 +114,8 @@ class Methode
         $query->bindParam(":type_methode", $this->type_methode);
         $query->bindParam(":exemple", $this->exemple);
         $query->bindParam(":id_decision", $this->id_decision);
+        $query->bindParam(":x", $this->x);
+        $query->bindParam(":y", $this->y);
 
         if ($query->execute()) {
             return true;
@@ -62,12 +123,14 @@ class Methode
         return false;
     }
 
+    /**
+     * Delete all methode
+     * @return bool
+     */
     public function supprimer()
     {
-        $sql = " DELETE FROM a_methode WHERE ID_Methode=:id_methode";
+        $sql = " DELETE FROM a_methode ";
         $query = $this->connexion->prepare($sql);
-        $this->id = htmlspecialchars(strip_tags($this->id));
-        $query->bindParam(":id_methode", $this->id);
         if ($query->execute()) {
             return true;
         }

@@ -8,19 +8,25 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include_once '../../config/Database.php';
-    include_once '../../models/Accueil.php';
+    include_once '../../models/MethodeRessource.php';
 
     $database = new Database();
     $db = $database->getConnection();
-    $accueil = new Accueil($db);
-
+    $lienMethodeRessource = new MethodeRessource($db);
     $donnees = json_decode(file_get_contents("php://input"));
-    if (!empty($donnees->description)) {
-        $accueil->description = $donnees->description;
-        if ($accueil->creer()) {
-            $accueilResult = [
-                "description" => $accueil->description,
+
+    if (!empty($donnees->id_methode_ressource) && !empty($donnees->id_methode) && !empty($donnees->id_ressource)) {
+        $lienMethodeRessource->id = $donnees->id_methode_ressource;
+        $lienMethodeRessource->id_methode = $donnees->id_methode;
+        $lienMethodeRessource->id_ressource = $donnees->id_ressource;
+        if ($lienMethodeRessource->creer()) {
+            $lienResult = [
+                "id" => $lienMethodeRessource->id,
+                "id_methode" => $lienMethodeRessource->id_methode,
+                "id_ressource" => $lienMethodeRessource->id_ressource,
+
             ];
+            echo json_encode(["lienResult" => $lienResult]);
             echo json_encode(["Message" => "Success"]);
         } else {
             echo json_encode(["Error" => "Failure"]);

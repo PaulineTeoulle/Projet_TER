@@ -29,12 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
             "critere" => $entree->critere
         ];
         echo json_encode($entreeResults);
-        echo json_encode(["message" => "La modification a été effectué"]);
+        echo json_encode(["Message" => "Success"]);
     } else {
-        echo json_encode(["message" => "La modification n'a pas été effectué"]);
+        echo json_encode(["Error" => "Failure"]);
     }
 
 } else {
-    echo json_encode(["message" => "La méthode n'est pas autorisée"]);
+    echo json_encode(["Message" => "Unauthorised method"]);
 
 }

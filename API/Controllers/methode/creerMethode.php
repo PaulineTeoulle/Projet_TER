@@ -14,8 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $methode = new Methode($db);
 
     $donnees = json_decode(file_get_contents("php://input"));
-    if (!empty($donnees->libelle) && !empty($donnees->description) && !empty($donnees->effectif_preconise) && !empty($donnees->donnees_produites) &&
-        !empty($donnees->type_analyse) && !empty($donnees->type_methode) && !empty($donnees->exemple) && !empty($donnees->id_decision)) {
+    if (!empty($donnees->id_methode) && !empty($donnees->libelle) && !empty($donnees->description) && !empty($donnees->effectif_preconise) && !empty($donnees->donnees_produites) &&
+        !empty($donnees->type_analyse) && !empty($donnees->type_methode) && !empty($donnees->exemple) && !empty($donnees->id_decision) && !empty($donnees->x) && !empty($donnees->y)) {
+
+        $methode->id = $donnees->id_methode;
         $methode->libelle = $donnees->libelle;
         $methode->description = $donnees->description;
         $methode->effectif_preconise = $donnees->effectif_preconise;
@@ -24,9 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $methode->type_methode = $donnees->type_methode;
         $methode->exemple = $donnees->exemple;
         $methode->id_decision = $donnees->id_decision;
+        $methode->x = $donnees->x;
+        $methode->y = $donnees->y;
 
         if ($methode->creer()) {
             $methodeResults = [
+                "id" => $methode->id,
                 "libelle" => $methode->libelle,
                 "description" => $methode->description,
                 "effectif_preconise" => $methode->effectif_preconise,
@@ -34,13 +39,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 "type_analyse" => $methode->type_analyse,
                 "type_methode" => $methode->type_methode,
                 "exemple" => $methode->exemple,
-                "id_decision" => $methode->id_decision
+                "id_decision" => $methode->id_decision,
+                "x" => $methode->x,
+                "y" => $methode->y
             ];
-            echo json_encode(["message" => "L'ajout a été effectué"]);
+            echo json_encode(["methodeResults" => $methodeResults]);
+            echo json_encode(["Message" => "Success"]);
         } else {
-            echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
+            echo json_encode(["Error" => "Failure"]);
         }
     }
 } else {
-    echo json_encode(["message" => "La méthode n'est pas autorisée"]);
+    echo json_encode(["Message" => "Unauthorised method"]);
 }

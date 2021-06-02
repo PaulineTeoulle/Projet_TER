@@ -21,9 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $methodeRessource = $methodeRessource->lireRessourcesMethode();
         echo json_encode($methodeRessource);
 
-    } else echo json_encode(["Erreur" => "ID non set"]);
+    } else echo json_encode(["Error" => "Unset ID"]);
 
 } else {
-    http_response_code(405);
-    echo json_encode(["Erreur" => "La méthode n'est pas autorisée"]);
+    echo json_encode(["Message" => "Unauthorised method"]);
 }

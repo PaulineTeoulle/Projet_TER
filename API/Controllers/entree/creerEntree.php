@@ -14,26 +14,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $db = $database->getConnection();
     $entree = new Entree($db);
     $donnees = json_decode(file_get_contents("php://input"));
+    $entree->date = date("Y-m-d");
 
-    if (isset($donnees->date)) {
-        $entree->date = $donnees->date;
-    } else {
-        $entree->date = date("Y-m-d");
-    }
-
-    if (!empty($donnees->id_critere)) {
+    if (!empty($donnees->id_entree) && !empty($donnees->id_critere) && !empty($donnees->x) && !empty($donnees->y)) {
+        $entree->id = $donnees->id_entree;
         $entree->critere = $donnees->id_critere;
+        $entree->x = $donnees->x;
+        $entree->y = $donnees->y;
         if ($entree->creer()) {
             $entreeResults = [
+                "id" => $entree->id,
                 "date" => $entree->date,
-                "critere" => $entree->critere
+                "critere" => $entree->critere,
+                "x" => $entree->x,
+                "y" => $entree->y,
 
             ];
-            echo json_encode(["message" => "L'ajout a été effectué"]);
+            echo json_encode(["entreeResults" => $entreeResults]);
+            echo json_encode(["Message" => "Success"]);
         } else {
-            echo json_encode(["message" => "L'ajout n'a pas été effectué"]);
+            echo json_encode(["Error" => "Failure"]);
         }
     }
 } else {
-    echo json_encode(["message" => "La méthode n'est pas autorisée"]);
+    echo json_encode(["Message" => "Unauthorised method"]);
 }
