@@ -278,7 +278,8 @@ function Tree() {
 
     // initialise le noeud de debut et le premier critere pour commencer
     function initTree(){
-        createNode('input', {x: 0, y: 0});
+        let startNode = initialTree.entree[0];
+        createNode('input', {x: parseInt(startNode.x), y: parseInt(startNode.y)});
         let firstNode = initialTree.criteres.find(el => el.ID_Critere === initialTree.entree[0].ID_Critere);
         createNode('critereNode', {x: 0, y: 100}, firstNode);
         createEdge('D0' ,'0', firstNode.ID_Critere, null);
