@@ -47,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $critere->informations = $i['Informations'];
             $critere->x = $i['x'];
             $critere->y = $i['y'];
-
             if ($critere->informations == null) {
                 if ($critere->creerSansInformations()) {
                     $critereResults = [
@@ -81,17 +80,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-
     //Gestion des décisions
     foreach ($donnees['decisions'] as $i) {
-
-        if (!empty($i['ID_Decision']) && !empty($i['Libelle']) && !empty($i['ID_Critere_entrant']) && !empty($i['x']) && !empty($i['y'])) {
+        if (!empty($i['ID_Decision']) && !empty($i['Libelle']) && !empty($i['ID_Critere_entrant'])) {
             $decision->id = $i['ID_Decision'];
             $decision->libelle = $i['Libelle'];
             $decision->id_critere_entrant = $i['ID_Critere_entrant'];
             $decision->id_critere_sortant = $i['ID_Critere_sortant'];
-            $decision->x = $i['x'];
-            $decision->y = $i['y'];
             if ($decision->id_critere_sortant == null) {
                 if ($decision->creerSansCritereSortant()) {
                     $decisionResults = [
@@ -99,15 +94,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         "libelle" => $decision->libelle,
                         "id_critere_entrant" => $decision->id_critere_entrant,
                         "id_critere_sortant" => $decision->id_critere_sortant,
-                        "x" => $decision->x,
-                        "y" => $decision->y
                     ];
                     echo json_encode(["decisionResults" => $decisionResults]);
                     echo json_encode(["Message" => "Success"]);
                 } else {
                     echo json_encode(["Error" => "Failure"]);
                 }
-
             } else {
                 if ($decision->creerAvecCritereSortant()) {
                     $decisionResults = [
@@ -115,8 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         "libelle" => $decision->libelle,
                         "id_critere_entrant" => $decision->id_critere_entrant,
                         "id_critere_sortant" => $decision->id_critere_sortant,
-                        "x" => $decision->x,
-                        "y" => $decision->y
                     ];
                     echo json_encode(["decisionResults" => $decisionResults]);
                     echo json_encode(["Message" => "Success"]);
@@ -125,7 +115,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 }
             }
         }
-
     }
 
     //Gestion des méthodes
@@ -144,7 +133,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $methode->id_decision = $i['ID_Decision'];
             $methode->x = $i['x'];
             $methode->y = $i['y'];
-
             if ($methode->creer()) {
                 $methodeResults = [
                     "id" => $methode->id,

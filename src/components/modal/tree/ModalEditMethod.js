@@ -44,9 +44,6 @@ function ModalEditMethod(props) {
         }
     }, [method]);
 
-    console.log(props.resources)
-
-
     return (
         <div className="Modal ModalEditMethod">
             {title &&
