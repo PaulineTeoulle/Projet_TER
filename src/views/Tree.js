@@ -297,7 +297,7 @@ function Tree() {
                 createNode('critereNode',  {x: parseInt(node.x), y: parseInt(node.y)}, node)
             }
             // on récupère les décisions attaché au critère et on regarde si un méthode est attaché
-            let decisions = getDecisions(node.ID_Critere);
+            let     s = getDecisions(node.ID_Critere);
             decisions.forEach(decision => {
                 let method = getMethod(decision);
                 if(method){
@@ -413,6 +413,7 @@ function Tree() {
         
         let error = checkTree(finalTree);
         if(!error){
+            console.log(finalTree);
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
