@@ -344,7 +344,7 @@ function Tree() {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-                axios.get(url + '/Projet_TER/API/Controllers/lireArbre.php')
+                axios.get(url + '/reactTest/MATUI/API/Controllers/lireArbre.php')
                 .then(response => {
                     setInitialTree(response.data)
                 })
@@ -378,7 +378,6 @@ function Tree() {
     function printNodes() {
         let flow = reactFlowInstance.toObject();
         let finalTree = {
-
             criteres: [],
             methodes: [],
             decisions: [],
@@ -413,13 +412,14 @@ function Tree() {
             }
         })
         
+        // on regarde si il y'a des erreurs dans l'arbre (cas inaproprié)
         let error = checkTree(finalTree);
         if(!error){
             console.log(finalTree);
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-                axios.post(url + '/Projet_TER/API/Controllers/creerArbre.php', finalTree)
+                axios.post(url + '/reactTest/MATUI/API/Controllers/creerArbre.php', finalTree)
                 .then(response => {
                     console.log(response.data)
                 })
@@ -427,7 +427,9 @@ function Tree() {
         }
     }
 
-    
+    /*
+        Fonctions de transformation de l'arbre final
+    */
     function transformToCritere(element){
         let critere = {
             ID_Critere: element.id,
@@ -461,9 +463,6 @@ function Tree() {
         let outDecision;
         if(element.target.includes("M")){
             outDecision = flow.elements.find(el => el.type === "smoothstep" && el.source === element.target);
-            // if(!outDecision){
-            //     setErrorMessage("pb outdecision");
-            // }
         }
 
         let decision = {
@@ -477,10 +476,9 @@ function Tree() {
 
     function transformToEntree(element, flow){
         let outDecision = flow.elements.find(el => el.type === "smoothstep" && el.source === element.id);
-
         let startNode = {
             ID_Entree: element.id,
-            ID_Critere: outDecision.target,
+            ID_Critere: (outDecision ? outDecision.target : null),
             x: element.position.x,
             y: element.position.y
         }
@@ -506,13 +504,16 @@ function Tree() {
     */
     function checkTree(finalTree){
         let error = false;
+        // vérifie si il y'a bien un noeud d'entrée et de sortie
         if(finalTree.entree.length != 1){
-            setErrorMessage("pb entree");
+            setErrorMessage("Tree must have start node");
             error = true;
         } else if (finalTree.sortie.length != 1){
-            setErrorMessage("pb sortie");
+            setErrorMessage("Tree must have end node");
             error = true;
         } 
+
+        // si c'est le cas on vérifie si il n'y a pas de noeud flottant
         if(!error){
             let floatingNode = checkFloatingNode(finalTree);
             if(floatingNode){
@@ -530,30 +531,37 @@ function Tree() {
 
     function checkFloatingNode(finalTree){
         let condition = true;
+
+        // pour chaque critère on regarde les décisions entrante et sortante
         finalTree.criteres.forEach(critere => {
             let outputEdge = null;
             let inputEdge = null;
             outputEdge = finalTree.decisions.filter(decision => decision.ID_Critere_entrant === critere.ID_Critere);
             inputEdge = finalTree.decisions.filter(decision => decision.ID_Critere_sortant === critere.ID_Critere);
 
+            // on gère le cas ou c'est la décision suivant le noeud d'entrée
             if(!inputEdge.length){
                 if(finalTree.entree[0].ID_Critere === critere.ID_Critere){
                     inputEdge.push(finalTree.entree[0]);
                 }
             }
 
+            // si il n'ya pas de noeud sortant ou entrant la condition n'est pas respecté
             if(!inputEdge.length || !outputEdge.length){
                 condition = false;
             }
 
+            // si le noeud sortant contient un "M" ca veut dire qu'il manque un lien après la méthode
+            // la condition n'est pas respecté
             outputEdge.forEach(element =>{
                 if(element.ID_Critere_sortant.charAt(0) === "M"){
                     condition = false;
                 }
             })
         })
+        // si la condition n'est pas respecté on set un message d'erreur
         if(!condition){
-            setErrorMessage("noeud flottant, check si les edges ont un label et que chaque noeud est relié");
+            setErrorMessage("There is a floating node somewhere, check that each edge has a label (except output edge from the start node and methods) and that each critere is connected");
             return true;
         } else {
             return false;

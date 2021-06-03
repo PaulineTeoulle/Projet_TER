@@ -40,7 +40,7 @@ function ModalEditCritere(props) {
                     {critere &&
                         <form>
                             <input type="text" id="label" name="label" placeholder="label" defaultValue={critere.data.label}/>
-                            <input type="text" id="informations" name="informations" placeholder="informations" defaultValue={critere.data.informations}/>
+                            <textarea type="text" id="informations" name="informations" placeholder="additional informations" defaultValue={critere.data.informations}/>
                         </form>
                     }
                     <div className="action">

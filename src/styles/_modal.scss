@@ -39,4 +39,20 @@
             }
         }
     }
+
+    form{
+        display: flex;
+        flex-direction: column;
+        margin: 0 20px;
+
+        &>input, textarea{
+            border: 1px solid var(--main-grey);
+            margin-bottom: 20px;
+            padding: 5px;
+        }
+
+        &>textarea{
+            height: 5em;
+        }
+    }
 }
