@@ -33,6 +33,8 @@ function Tree() {
     const [elements, setElements] = useState([]);
     const [remove, setRemove] = useState(false);
 
+    const [errorMessage, setErrorMessage] = useState(null);
+
     const reactFlowWrapper = useRef(null);
     const [reactFlowInstance, setReactFlowInstance] = useState(null);
     const onElementsRemove = (elementsToRemove) => setElements((els) => removeElements(elementsToRemove, els));
@@ -91,7 +93,6 @@ function Tree() {
             if(element.type != "smoothstep"){
                 let edges = elements.filter(item => item.type === "smoothstep");
                 let attachedEdges = edges.filter(item => item.source === element.id || item.target === element.id );
-                console.log(attachedEdges)
                 if(attachedEdges.length > 0){
                     alert("You must remove all edges from this element")
                 } else {
@@ -155,7 +156,10 @@ function Tree() {
                     id: "S0",
                     type,
                     position,
-                    data: {label: `${type} node`},
+                    data: {
+                        label: `${type} node`,
+                        message: (data.Message ? data.Message : null)
+                    },
                 };
                 break;
             case 'critereNode':
@@ -259,8 +263,6 @@ function Tree() {
     }
 
     function deleteElement(element){
-            console.log("delete => ")
-            console.log(element);
             let selectedElement = elements.find(el => el.id === element.id);
             let index = elements.indexOf(selectedElement);
             setElements(elements.filter(item => elements.indexOf(item) !== index))
@@ -278,10 +280,15 @@ function Tree() {
 
     // initialise le noeud de debut et le premier critere pour commencer
     function initTree(){
-        createNode('input', {x: 0, y: 0});
+        let startNode = initialTree.entree[0];
+        createNode('input', {x: parseInt(startNode.x), y: parseInt(startNode.y)});
         let firstNode = initialTree.criteres.find(el => el.ID_Critere === initialTree.entree[0].ID_Critere);
         createNode('critereNode', {x: 0, y: 100}, firstNode);
         createEdge('D0' ,'0', firstNode.ID_Critere, null);
+
+        let endNode = initialTree.sortie[0];
+        createNode('output',  {x: parseInt(endNode.x), y: parseInt(endNode.y)}, endNode);
+
         initNodes(initialTree.entree[0].ID_Critere);
     }
 
@@ -304,6 +311,8 @@ function Tree() {
                 } else {
                     if(decision.ID_Critere_sortant){
                         createEdge("D" + decision.ID_Decision, decision.ID_Critere_entrant, decision.ID_Critere_sortant, decision.Libelle, color);
+                    } else {
+                        createEdge("D" + decision.ID_Decision, decision.ID_Critere_entrant, "S0", decision.Libelle, color);
                     }
                 }
             })                
@@ -356,6 +365,12 @@ function Tree() {
 
     // RECONSTRUCTION DE L'ARBRE
 
+    useEffect(() => {
+        if(errorMessage){
+            alert(errorMessage);
+        }
+    }, [errorMessage]);
+
     /*
     types :
         - input (start node)
@@ -364,7 +379,6 @@ function Tree() {
         - smoothstep (edge)
     */
     function printNodes() {
-        console.log(elements);
         let flow = reactFlowInstance.toObject();
         let finalTree = {
             entree: [],
@@ -400,9 +414,18 @@ function Tree() {
                     break;
             }
         })
-        console.log(initialTree)
-        console.log(finalTree);
-        checkTree(finalTree);
+        
+        let error = checkTree(finalTree);
+        if(!error){
+            let protocol = window.location.protocol;
+            let host = window.location.hostname;
+            let url = protocol + '//' + host;
+                axios.post(url + '/reactTest/MATUI/API/Controllers/creerArbre.php', finalTree)
+                .then(response => {
+                    console.log(response.data)
+                })
+                .catch(error => console.log(error))
+        }
     }
 
     
@@ -439,6 +462,9 @@ function Tree() {
         let outDecision;
         if(element.target.includes("M")){
             outDecision = flow.elements.find(el => el.type === "smoothstep" && el.source === element.target);
+            // if(!outDecision){
+            //     setErrorMessage("pb outdecision");
+            // }
         }
 
         let decision = {
@@ -480,18 +506,59 @@ function Tree() {
             liens sortant des méthodes et le lien source du noeud d'entree
     */
     function checkTree(finalTree){
+        let error = false;
         if(finalTree.entree.length != 1){
-            alert("pb entree")
+            setErrorMessage("pb entree");
+            error = true;
         } else if (finalTree.sortie.length != 1){
-            alert("pb sortie")
+            setErrorMessage("pb sortie");
+            error = true;
         } 
-        checkFloatingNode(finalTree);
+        if(!error){
+            let floatingNode = checkFloatingNode(finalTree);
+            if(floatingNode){
+                error = true;
+            }
+        }
+        
+        switch(error){
+            case true:
+                return true;
+            case false:
+                return false;
+        }
     }
 
     function checkFloatingNode(finalTree){
-        finalTree.criteres.forEach(element => {
-            console.log(element)
+        let condition = true;
+        finalTree.criteres.forEach(critere => {
+            let outputEdge = null;
+            let inputEdge = null;
+            outputEdge = finalTree.decisions.filter(decision => decision.ID_Critere_entrant === critere.ID_Critere);
+            inputEdge = finalTree.decisions.filter(decision => decision.ID_Critere_sortant === critere.ID_Critere);
+
+            if(!inputEdge.length){
+                if(finalTree.entree[0].ID_Critere === critere.ID_Critere){
+                    inputEdge.push(finalTree.entree[0]);
+                }
+            }
+
+            if(!inputEdge.length || !outputEdge.length){
+                condition = false;
+            }
+
+            outputEdge.forEach(element =>{
+                if(element.ID_Critere_sortant.charAt(0) === "M"){
+                    condition = false;
+                }
+            })
         })
+        if(!condition){
+            setErrorMessage("noeud flottant, check si les edges ont un label et que chaque noeud est relié");
+            return true;
+        } else {
+            return false;
+        }
     }
 
     

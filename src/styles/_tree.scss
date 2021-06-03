@@ -1,9 +1,8 @@
 .Tree{
-    margin: 30px; 
-
     .reactflow-wrapper{
         display: flex;
         position: relative;
+        margin: 30px;
 
         .delete{
             cursor: pointer;
@@ -20,7 +19,7 @@
             &:hover{
                 width: 28px;
                 height: 28px;
-                margin: 6px;
+                margin: 8px;
                 transition: .3s ease-in;
             }
         }
@@ -52,7 +51,7 @@
                 }
             }
 
-              .react-flow__node-output{
+            .react-flow__node-output{
                 color: transparent;
                 border: none;
                 padding: 0;
