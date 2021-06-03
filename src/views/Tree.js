@@ -279,7 +279,8 @@ function Tree() {
         let startNode = initialTree.entree[0];
         createNode('input', {x: parseInt(startNode.x), y: parseInt(startNode.y)});
         let firstNode = initialTree.criteres.find(el => el.ID_Critere === initialTree.entree[0].ID_Critere);
-        createNode('critereNode', {x: 0, y: 100}, firstNode);
+        //console.log(firstNode);
+        createNode('critereNode', {x: parseInt(firstNode.x), y: parseInt(firstNode.y)}, firstNode);
         createEdge('D0' ,'0', firstNode.ID_Critere, null);
 
         let endNode = initialTree.sortie[0];
@@ -343,7 +344,7 @@ function Tree() {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-                axios.get(url + '/reactTest/MATUI/API/Controllers/lireArbre.php')
+                axios.get(url + '/Projet_TER/API/Controllers/lireArbre.php')
                 .then(response => {
                     setInitialTree(response.data)
                 })
@@ -377,11 +378,12 @@ function Tree() {
     function printNodes() {
         let flow = reactFlowInstance.toObject();
         let finalTree = {
-            entree: [],
-            sortie: [],
+
             criteres: [],
             methodes: [],
-            decisions: []
+            decisions: [],
+            entree: [],
+            sortie: [],
         };
         flow.elements.forEach(element => {
             let transformedElement;
@@ -417,7 +419,7 @@ function Tree() {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-                axios.post(url + '/reactTest/MATUI/API/Controllers/creerArbre.php', finalTree)
+                axios.post(url + '/Projet_TER/API/Controllers/creerArbre.php', finalTree)
                 .then(response => {
                     console.log(response.data)
                 })
@@ -476,13 +478,13 @@ function Tree() {
     function transformToEntree(element, flow){
         let outDecision = flow.elements.find(el => el.type === "smoothstep" && el.source === element.id);
 
-        let critere = {
+        let startNode = {
             ID_Entree: element.id,
             ID_Critere: outDecision.target,
             x: element.position.x,
             y: element.position.y
         }
-        return critere;
+        return startNode;
     }
 
     function transformToSortie(element){

@@ -10,12 +10,12 @@ function Issues(props) {
     const [infoOpen, setIsOpen] = React.useState(false);
 
     function next() {
+        setIsOpen(false);
         let checkedBox = $('input:checked').val();
         let allChoices = [];
         $.each($("input"), function () {
             allChoices.push($(this).val());
         });
-
         if (checkedBox) {
             let decision = props.decisions.find(decision => decision.ID_Decision === checkedBox)
             props.changeData(decision.ID_Critere_sortant, decision, allChoices);
