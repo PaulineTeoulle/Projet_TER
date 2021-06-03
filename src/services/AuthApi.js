@@ -41,8 +41,11 @@ export function login(credentials) {
         .post(url + '/reactTest/MATUI/API/Controllers/connexion.php', credentials)
         .then(response => response.data.token)
         .then(token => {
-            addItem('token', token);
-            return true;
+            if(token !== undefined){
+                addItem('token', token);
+                return true;
+            }
+            else return false;
         });
 }
 //Supprime le token du localSTorage
