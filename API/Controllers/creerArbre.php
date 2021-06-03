@@ -39,9 +39,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $donnees = json_decode(file_get_contents("php://input"), true);
 
-    //echo json_encode($donnees);
+//    echo json_encode($donnees);
 
-    //Gestion des critères
+
     foreach ($donnees['criteres'] as $i) {
         if (!empty($i['ID_Critere']) && !empty($i['Libelle']) && !empty($i['x']) && !empty($i['y'])) {
             $critere->id = $i['ID_Critere'];
@@ -66,7 +66,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    //Gestion des décisions
     foreach ($donnees['decisions'] as $i) {
         if (!empty($i['ID_Decision']) && !empty($i['Libelle']) && !empty($i['ID_Critere_entrant'])) {
             $decision->id = $i['ID_Decision'];
@@ -89,32 +88,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    //Gestion des méthodes
     foreach ($donnees['methodes'] as $i) {
-        if (!empty($i['ID_Methode']) && !empty($i['Libelle']) && !empty($i['Description']) && !empty($i['Effectif_preconise']) && !empty($i['Donnees_produites']) &&
-            !empty($i['Type_analyse']) && !empty($i['Type_methode']) && !empty($i['Exemple']) && !empty($i['ID_Decision']) && !empty($i['x']) && !empty($i['y'])) {
-
-            $methode->id = $i['ID_Methode'];
-            $methode->libelle = $i['Libelle'];
-            $methode->description = $i['Description'];
-            $methode->effectif_preconise = $i['Effectif_preconise'];
-            $methode->donnees_produites = $i['Donnees_produites'];
-            $methode->type_analyse = $i['Type_analyse'];
-            $methode->type_methode = $i['Type_methode'];
-            $methode->exemple = $i['Exemple'];
-            $methode->id_decision = $i['ID_Decision'];
-            $methode->x = $i['x'];
-            $methode->y = $i['y'];
-            if ($methode->creer()) {
-                echo json_encode(["Message" => "Success METHODE"]);
-            } else {
-                echo json_encode(["Error" => "Failure METHODE"]);
-            }
+        $methode->id = $i['ID_Method'];
+        $methode->libelle = $i['Libelle'];
+        $methode->description = $i['Description'];
+        $methode->effectif_preconise = $i['Effectif_preconise'];
+        $methode->donnees_produites = $i['Donnees_produites'];
+        $methode->type_analyse = $i['Type_analyse'];
+        $methode->type_methode = $i['Type_methode'];
+        $methode->exemple = $i['Exemple'];
+        $methode->id_decision = $i['ID_Decision'];
+        $methode->x = $i['x'];
+        $methode->y = $i['y'];
+        if ($methode->creer()) {
+            echo json_encode(["Message" => "Success METHODE"]);
+        } else {
+            echo json_encode(["Error" => "Failure METHODE"]);
         }
     }
-
-
-    // Gestion de l'entrée
 
     if (!empty($donnees['entree'][0])) {
         $entree->id = $donnees['entree'][0]['ID_Entree'];
@@ -128,24 +119,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo json_encode(["Error" => "Failure ENTREE"]);
         }
     }
-
-//
-//  //  Gestion de la sortie
-//    foreach ($donnees['sortie'] as $i) {
-//        if (!empty($i['ID_Sortie']) && !empty($i['Message']) && !empty($i['ID_Decision']) && !empty($i['x']) && !empty($i['y'])) {
-//            $sortie->id = $i['ID_Sortie'];
-//            $sortie->message = $i['Message'];
-//            $sortie->id_decision = $i['ID_Decision'];
-//            $sortie->x = $i['x'];
-//            $sortie->y = $i['y'];
-//
-//            if ($sortie->creer()) {
-//                echo json_encode(["Message" => "Success SORTIE"]);
-//            } else {
-//                echo json_encode(["Error" => "Failure SORTIE"]);
-//            }
-//        }
-//    }
 
     if (!empty($donnees['sortie'][0])) {
         $sortie->id = $donnees['sortie'][0]['ID_Sortie'];
