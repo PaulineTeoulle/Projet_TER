@@ -39,7 +39,7 @@ function ModalEditMethod(props) {
     }, [props.open]);
 
     useEffect(() => {
-        if (method) {
+        if (method && props.resources) {
             setResources(props.resources[method.id.slice(1)])
         }
     }, [method]);

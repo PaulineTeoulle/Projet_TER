@@ -14,6 +14,7 @@ import ModalEditCritere from '../components/modal/tree/ModalEditCritere';
 import ModalEditEdge from '../components/modal/tree/ModalEditEdge';
 import ModalEditMethod from '../components/modal/tree/ModalEditMethod';
 import ModalEditEndNode from '../components/modal/tree/ModalEditEndNode';
+import ModalWarning from '../components/modal/ModalWarning';
 
 function Tree() {
     const nodeTypes = {
@@ -156,7 +157,7 @@ function Tree() {
                     position,
                     data: {
                         label: `${type} node`,
-                        message: (data.Message ? data.Message : null)
+                        message: (data ? data.Message : null)
                     },
                 };
                 break;
@@ -362,9 +363,16 @@ function Tree() {
 
     // RECONSTRUCTION DE L'ARBRE
 
+    const [modalWarningOpen, setModalWarningOpen] = useState(false);
+
+    function closeModalWarning(){
+        setErrorMessage(null);
+        setModalWarningOpen(false);
+    }
+
     useEffect(() => {
         if(errorMessage){
-            alert(errorMessage);
+            setModalWarningOpen(true);
         }
     }, [errorMessage]);
 
@@ -734,6 +742,12 @@ function Tree() {
                         close={closeModalEditEndNode}
                         mainAction={saveEndNode}
                         selectedEndNode={selectedEndNode}
+                    />
+
+                    <ModalWarning
+                        message={errorMessage}
+                        open={modalWarningOpen}  
+                        close={closeModalWarning}
                     />
                 </ReactFlowProvider>
             : <Loader/> 
