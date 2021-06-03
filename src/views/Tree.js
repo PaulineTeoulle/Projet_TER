@@ -297,7 +297,7 @@ function Tree() {
                 createNode('critereNode',  {x: parseInt(node.x), y: parseInt(node.y)}, node)
             }
             // on récupère les décisions attaché au critère et on regarde si un méthode est attaché
-            let     s = getDecisions(node.ID_Critere);
+            let decisions = getDecisions(node.ID_Critere);
             decisions.forEach(decision => {
                 let method = getMethod(decision);
                 if(method){
