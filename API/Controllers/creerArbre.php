@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $donnees = json_decode(file_get_contents("php://input"), true);
 
-    echo json_encode($donnees);
+    //echo json_encode($donnees);
 
     //Gestion des critères
     foreach ($donnees['criteres'] as $i) {
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $decision->libelle = $i['Libelle'];
             $decision->id_critere_entrant = $i['ID_Critere_entrant'];
             $decision->id_critere_sortant = $i['ID_Critere_sortant'];
-            if ($decision->id_critere_sortant == null) {
+            if ($decision->id_critere_sortant == "S0") {
                 if ($decision->creerSansCritereSortant()) {
                     echo json_encode(["Message" => "Success DECISION"]);
                 } else {
@@ -122,8 +122,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $entree->date = date("Y-m-d");
         $entree->x = $donnees['entree'][0]['x'];
         $entree->y = $donnees['entree'][0]['y'];
-        echo json_encode($entree);
-        echo json_encode($donnees['entree'][0]);
         if ($entree->creer()) {
             echo json_encode(["Message" => "Success ENTREE"]);
         } else {
@@ -131,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-
+//
 //  //  Gestion de la sortie
 //    foreach ($donnees['sortie'] as $i) {
 //        if (!empty($i['ID_Sortie']) && !empty($i['Message']) && !empty($i['ID_Decision']) && !empty($i['x']) && !empty($i['y'])) {
@@ -151,8 +149,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (!empty($donnees['sortie'][0])) {
         $sortie->id = $donnees['sortie'][0]['ID_Sortie'];
-        $sortie->message = $donnees['sortie'][0]['Message'];
-        $sortie->id_decision = $donnees['sortie'][0]['ID_Decision'];
+        $sortie->message = $donnees['sortie'][0]['message'];
+        $sortie->id_decision = $sortie->lireDecisionSortant();
+        $sortie->id_decision = $sortie->id_decision[0]['ID_Decision'];
+        $sortie->x = $donnees['sortie'][0]['x'];
+        $sortie->y = $donnees['sortie'][0]['y'];
+        //echo json_encode($sortie->id_decision[0]['ID_Decision']);
         if ($sortie->creer()) {
             echo json_encode(["Message" => "Success SORTIE"]);
         } else {

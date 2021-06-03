@@ -59,6 +59,15 @@ class Sortie
         return $result;
     }
 
+    public function  lireDecisionSortant(){
+        $sql = "SELECT ID_Decision
+                FROM a_decision WHERE ID_Critere_sortant is null ";
+        $query = $this->connexion->prepare($sql);
+        $query->execute();
+
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $result;
+    }
     /**
      * Create sortie
      * @return bool
