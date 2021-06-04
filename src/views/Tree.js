@@ -181,7 +181,7 @@ function Tree() {
                         id: getId(),
                         type,
                         position,
-                        data: {label: `${type} node`},
+                        data: {label: "default critere label"},
                     };
                     setNextId((parseInt(nextId) + 1).toString());
                 }
@@ -203,7 +203,7 @@ function Tree() {
                             exemple: data.Exemple
                         },
                     };
-                    if(parseInt(data.ID_Methode) > getMethodId().slice(1)){
+                    if(parseInt(data.ID_Methode) >= getMethodId().slice(1)){
                         setNextMethodId("M" + (parseInt(data.ID_Methode) + 1).toString());
                     }               
                 } else {
@@ -211,7 +211,7 @@ function Tree() {
                         id: getMethodId(),
                         type,
                         position,
-                        data: {label: `${type} node`},
+                        data: {label: "default method label"},
                     };
                     setNextMethodId("M" + (parseInt(getMethodId().slice(1)) + 1).toString());
                 }
@@ -233,11 +233,12 @@ function Tree() {
             style: { stroke: color },
         }
         setElements((es) => es.concat(newEdge));
-        if(id.substring(0, 2) != "DM"){
-            if(parseInt(id.slice(1)) > getEdgeId().slice(1)){
-                setNextEdgeId("D" + (parseInt(id.slice(1)) + 1).toString());
-            }
-        }    
+        // if(id.substring(0, 2) != "DM"){
+        //     if(parseInt(id.slice(1)) >= getEdgeId().slice(1)){
+        //         console.log(nextEdgeId)
+        //         setNextEdgeId("D" + (parseInt(id.slice(1)) + 1).toString());
+        //     }
+        // }    
     }
 
     // check if a node type already exists
@@ -267,9 +268,11 @@ function Tree() {
 
     useEffect(() => {
         if(remove){
-            $(".canvas").css("border", "2px solid #f54748");
+            $(".canvas").addClass( "removeMode" );
+            $(".removeModeMessage").css("opacity", "1");
         } else {
-            $(".canvas").css("border", "1px solid var(--light-grey)");
+            $(".canvas").removeClass( "removeMode" );
+            $(".removeModeMessage").css("opacity", "0");
         }
     },[remove]);
 
@@ -317,6 +320,16 @@ function Tree() {
         });
     }
 
+    function initEdgesId(){
+        let highest = 0;
+        initialTree.decisions.forEach(decision => {
+            if(decision.ID_Decision > highest){
+                highest = decision.ID_Decision;
+            }
+        })
+        setNextEdgeId("D" + (parseInt(highest) + 1).toString());
+    }
+
     // retourne les décisions d'un noeud
     function getDecisions(nodeId){
         let decisions =  initialTree.decisions.filter(decision => decision.ID_Critere_entrant === nodeId);
@@ -358,6 +371,7 @@ function Tree() {
         if(initialTree && initialTree.entree.length){
             initTree();
             initResources();
+            initEdgesId();
         }
     }, [initialTree]);
 
@@ -519,24 +533,24 @@ function Tree() {
         } else if (finalTree.sortie.length != 1){
             setErrorMessage("Tree must have end node");
             error = true;
+        } else if (!finalTree.criteres.length){
+            setErrorMessage("Tree must have node");
+            error = true;
         } 
 
         // si c'est le cas on vérifie si il n'y a pas de noeud flottant
         if(!error){
             let floatingNode = checkFloatingNode(finalTree);
-            if(floatingNode){
+            let floatingMethod = checkFloatingMethod(finalTree);
+            if(floatingNode || floatingMethod){
                 error = true;
             }
         }
         
-        switch(error){
-            case true:
-                return true;
-            case false:
-                return false;
-        }
+        return error;
     }
 
+    // vérifie si il y'a un noeud flottant
     function checkFloatingNode(finalTree){
         let condition = true;
 
@@ -576,6 +590,29 @@ function Tree() {
         }
     }
 
+    // vérifie si il y'a une méthode flottante
+    function checkFloatingMethod(finalTree){
+        let condition = true;
+
+        finalTree.methodes.forEach(element => {
+            if(!element.ID_Decision){
+                condition = false;
+            } else {
+                let decision = finalTree.decisions.find(item => item.ID_Decision === element.ID_Decision);
+                if(!decision){
+                    condition = false;
+                }
+            }
+        })
+
+        switch(condition){
+            case true:
+                return false;
+            case false:
+                setErrorMessage("There is a floating method somewhere")
+                return true;
+        }
+    }
     
     // MODAL MANAGEMENT
 
@@ -709,7 +746,9 @@ function Tree() {
                                 onPaneClick={onPaneClick}/>
                         </div>
                         <FontAwesomeIcon onClick={() => deleteMode()} className="icon delete" icon={faTrashAlt} />
+                        <p className="removeModeMessage">Warning, you activated the suppression mode</p>
                     </div>
+                    <button onClick={() => console.log(elements)}>debug</button>
 
                     <ModalEditCritere
                         title="Edit critere"
