@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
 
 function Toolbar(props) {
     const onDragStart = (event, nodeType) => {
@@ -21,7 +23,7 @@ function Toolbar(props) {
         Output Node
       </div>
 
-      <button className="save button filled" onClick={props.save}>Save</button>
+      <button className="save button filled" onClick={props.save}><FontAwesomeIcon className="icon" icon={faSave} /></button>
     </aside>
   );
 };

@@ -173,7 +173,7 @@ function Tree() {
                             informations: (data.Informations ? data.Informations : null)
                         },
                     };
-                    if(data.ID_Critere > getId()){
+                    if(data.ID_Critere >= getId()){
                         setNextId((parseInt(data.ID_Critere) + 1).toString());
                     }      
                 } else {
@@ -390,6 +390,12 @@ function Tree() {
         }
     }, [errorMessage]);
 
+    useEffect(() => {
+        if(nextId){
+            console.log(nextId);
+        }
+    }, [nextId]);
+
     /*
     types :
         - input (start node)
@@ -601,6 +607,11 @@ function Tree() {
                 let decision = finalTree.decisions.find(item => item.ID_Decision === element.ID_Decision);
                 if(!decision){
                     condition = false;
+                } else {
+                    // vérifie qu'un méthode n'est pas conencté au noeud de fin
+                    if(decision.ID_Critere_sortant == "S0"){
+                        condition = false;
+                    }
                 }
             }
         })
@@ -609,7 +620,9 @@ function Tree() {
             case true:
                 return false;
             case false:
-                setErrorMessage("There is a floating method somewhere, check that each edge has a label and that each method is connected");
+                if(!errorMessage){
+                    setErrorMessage("There is a floating method somewhere, check that each edge has a label and that each method is connected");
+                }
                 return true;
         }
     }
