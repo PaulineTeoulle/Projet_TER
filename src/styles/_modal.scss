@@ -56,3 +56,26 @@
         }
     }
 }
+
+// Warning modal
+.ModalWarning{
+    &>div{
+        border-top: 3px solid var(--warning);
+
+        strong{
+            margin: 0 20px;
+
+            &>.icon{
+                margin-right: 10px;
+                color: var(--warning);
+            }
+        }
+
+        &>.action{
+            &>.filled{
+                background-color: var(--warning);
+                border: 1px solid var(--warning);
+            }
+        }
+    }
+}

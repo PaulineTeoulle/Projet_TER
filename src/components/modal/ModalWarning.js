@@ -1,5 +1,7 @@
 import React, {useEffect} from "react";
 import $ from 'jquery';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 
 function ModalWarning(props) {  
 
@@ -24,11 +26,12 @@ function ModalWarning(props) {
         <div className="Modal ModalWarning">
             <div>
                 <h3>Warning !</h3>
+                <strong><FontAwesomeIcon className="icon" icon={faExclamationTriangle} />cannot save</strong>
                 {props.message &&
                     <p>{props.message}</p>
                 }
                 <div className="action">
-                    <button className="button outlined" onClick={closeModal}>Cancel</button>
+                    <button className="button filled" onClick={closeModal}>Cancel</button>
                 </div>
             </div>
         </div>

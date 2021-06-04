@@ -609,7 +609,7 @@ function Tree() {
             case true:
                 return false;
             case false:
-                setErrorMessage("There is a floating method somewhere")
+                setErrorMessage("There is a floating method somewhere, check that each edge has a label and that each method is connected");
                 return true;
         }
     }
