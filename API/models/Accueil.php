@@ -2,11 +2,11 @@
 
 /**
  * Class Accueil
- * @Goal : Read, Create, Update Accueil Content
+ * @Goal : Read acceuil, Create acceuil, Update accueil description
  * @UsedByModule : Controllers/accueil, creerArbre, lireArbre
  * @ModuleUsed : None
  * @VisibleVariables : $id, $description
- * @VisibleProcedures : lire(), modifier(), creer()
+ * @VisibleProcedures : read(), create(), updateDescription()
  */
 class Accueil
 {
@@ -36,7 +36,7 @@ class Accueil
      * Read description content of accueil
      * @return string
      */
-    public function lire()
+    public function read()
     {
         $sql = "SELECT * 
                 FROM a_accueil 
@@ -53,7 +53,7 @@ class Accueil
      * Create description content of accueil
      * @return bool
      */
-    public function creer()
+    public function create()
     {
         $sql = "INSERT INTO a_accueil 
                 SET Description=:description";
@@ -72,7 +72,7 @@ class Accueil
      * Update description of accueil
      * @return bool
      */
-    public function modifier()
+    public function updateDescription()
     {
         $sql = "UPDATE a_accueil 
                 SET Description =:description 

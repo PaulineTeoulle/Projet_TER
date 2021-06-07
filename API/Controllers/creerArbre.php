@@ -27,12 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sortie = new Sortie($db);
     $methodeRessource = new MethodeRessource($db);
 
-    $critere->supprimer();
-    $decision->supprimer();
-    $methode->supprimer();
-    $entree->supprimer();
-    $sortie->supprimer();
-    $methodeRessource->supprimer();
+    $critere->delete();
+    $decision->delete();
+    $methode->delete();
+    $entree->delete();
+    $sortie->delete();
+    $methodeRessource->delete();
 
     $donnees = json_decode(file_get_contents("php://input"), true);
 
@@ -44,14 +44,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $critere->x = $i['x'];
             $critere->y = $i['y'];
             if ($critere->informations == null) {
-                if ($critere->creerSansInformations()) {
+                if ($critere->createWithoutInformations()) {
                     echo json_encode(["Message" => "Success CRITERE"]);
                 } else {
                     echo json_encode(["Error" => "Failure CRITERE"]);
                 }
 
             } else {
-                if ($critere->creerAvecInformations()) {
+                if ($critere->createWithInformations()) {
                     echo json_encode(["Message" => "Success CRITERE"]);
                 } else {
                     echo json_encode(["Error" => "Failure CRITERE"]);
@@ -67,13 +67,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $decision->id_critere_entrant = $i['ID_Critere_entrant'];
             $decision->id_critere_sortant = $i['ID_Critere_sortant'];
             if ($decision->id_critere_sortant == "S0" || $decision->id_critere_sortant == "S0") {
-                if ($decision->creerSansCritereSortant()) {
+                if ($decision->createWithoutCritereSortant()) {
                     echo json_encode(["Message" => "Success DECISION"]);
                 } else {
                     echo json_encode(["Error" => "Failure DECISION"]);
                 }
             } else {
-                if ($decision->creerAvecCritereSortant()) {
+                if ($decision->createWithCritereSortant()) {
                     echo json_encode(["Message" => "Success DECISION"]);
                 } else {
                     echo json_encode(["Error" => "Failure DECISION"]);
@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $methode->id_decision = $i['ID_Decision'];
         $methode->x = $i['x'];
         $methode->y = $i['y'];
-        if ($methode->creer()) {
+        if ($methode->create()) {
             echo json_encode(["Message" => "Success METHODE"]);
         } else {
             echo json_encode(["Error" => "Failure METHODE"]);
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $methodeRessource->id = $i['ID_MethodeRessource'];
         $methodeRessource->id_methode = $i['ID_Methode'];
         $methodeRessource->id_ressource = $i['ID_Ressource'];
-        if ($methodeRessource->creer()) {
+        if ($methodeRessource->create()) {
             echo json_encode(["Message" => "Success METHODE RESSOURCE"]);
         } else {
             echo json_encode(["Error" => "Failure METHODE RESSOURCE"]);
@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $entree->date = date("Y-m-d");
         $entree->x = $donnees['entree'][0]['x'];
         $entree->y = $donnees['entree'][0]['y'];
-        if ($entree->creer()) {
+        if ($entree->create()) {
             echo json_encode(["Message" => "Success ENTREE"]);
         } else {
             echo json_encode(["Error" => "Failure ENTREE"]);
@@ -128,11 +128,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!empty($donnees['sortie'][0])) {
         $sortie->id = $donnees['sortie'][0]['ID_Sortie'];
         $sortie->message = $donnees['sortie'][0]['message'];
-        $sortie->id_decision = $sortie->lireDecisionSortant();
+        $sortie->id_decision = $sortie->readIdDecisionSortant();
         $sortie->id_decision = $sortie->id_decision[0]['ID_Decision'];
         $sortie->x = $donnees['sortie'][0]['x'];
         $sortie->y = $donnees['sortie'][0]['y'];
-        if ($sortie->creer()) {
+        if ($sortie->create()) {
             echo json_encode(["Message" => "Success SORTIE"]);
         } else {
             echo json_encode(["Error" => "Failure SORTIE"]);

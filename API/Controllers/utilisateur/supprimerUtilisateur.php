@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $donnees = json_decode(file_get_contents("php://input"));
     if (!empty($donnees->id)) {
         $utilisateur->id = $donnees->id;
-        if ($utilisateur->supprimer()) {
+        if ($utilisateur->delete()) {
             echo json_encode(["Message" => "Success"]);
         } else {
             echo json_encode(["Error" => "Failure"]);

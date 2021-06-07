@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $db = $database->getConnection();
 
     $accueil = new Accueil($db);
-    $accueil->lire();
+    $accueil->read();
 
     if ($accueil->description != null) {
         $accueilResult = [

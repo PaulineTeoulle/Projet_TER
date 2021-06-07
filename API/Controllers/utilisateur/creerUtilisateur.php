@@ -19,9 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $utilisateur->mail = $donnees->mail;
         $utilisateur->pseudo = $donnees->pseudo;
         $utilisateur->mot_de_passe = password_hash($donnees->mot_de_passe, PASSWORD_DEFAULT);
-        if($utilisateur->compterPseudo()['COUNT(*)'] == 0){
-            if($utilisateur->compterMail()['COUNT(*)'] == 0){
-                if ($utilisateur->creer()) {
+        if($utilisateur->countPseudo()['COUNT(*)'] == 0){
+            if($utilisateur->countMail()['COUNT(*)'] == 0){
+                if ($utilisateur->create()) {
                     $utilisateurResults = [
                         "mail" => $utilisateur->mail,
                         "pseudo" => $utilisateur->pseudo,

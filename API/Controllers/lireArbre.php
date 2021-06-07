@@ -27,13 +27,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $ressource = new Ressource($db);
     $sortie = new Sortie($db);
 
-    $entreeResults['entree'] = $entree->lire();
-    $critereResults['criteres'] = $critere->lire();
-    $decisionResults['decisions'] = $decision->lire();
-    $methodeResults['methodes'] = $methode->lire();
-    $methodeRessourceResults['methodesRessources'] = $methodeRessource->lire();
-    $ressourceResults['ressources'] = $ressource->lire();
-    $sortieResults['sortie'] = $sortie->lire();
+    $entreeResults['entree'] = $entree->read();
+    $critereResults['criteres'] = $critere->read();
+    $decisionResults['decisions'] = $decision->read();
+    $methodeResults['methodes'] = $methode->read();
+    $methodeRessourceResults['methodesRessources'] = $methodeRessource->read();
+    $ressourceResults['ressources'] = $ressource->read();
+    $sortieResults['sortie'] = $sortie->read();
 
     $arrayResults = array_merge($entreeResults, $critereResults, $decisionResults, $methodeResults, $methodeRessourceResults, $ressourceResults, $sortieResults);
     echo json_encode($arrayResults);

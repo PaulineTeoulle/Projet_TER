@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $donnees = json_decode(file_get_contents("php://input"));
     if (!empty($donnees->description)) {
         $accueil->description = $donnees->description;
-        if ($accueil->creer()) {
+        if ($accueil->create()) {
             $accueilResult = [
                 "description" => $accueil->description,
             ];

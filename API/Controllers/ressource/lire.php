@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $db = $database->getConnection();
 
     $ressource = new Ressource($db);
-    $ressources['ressources'] = $ressource->lire();
+    $ressources['ressources'] = $ressource->read();
     echo json_encode(["ressources" =>  $ressources['ressources']]);
 } else {
     echo json_encode(["Message" => "Unauthorised method"]);

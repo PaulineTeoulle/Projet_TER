@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     $utilisateur = new Utilisateur($db);
 
-    $utilisateur = $utilisateur->lire();
+    $utilisateur = $utilisateur->read();
     echo json_encode($utilisateur);
 
 } else {

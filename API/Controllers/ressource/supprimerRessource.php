@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $db = $database->getConnection();
     $ressource = new Ressource($db);
 
-    if ($ressource->supprimer()) {
+    if ($ressource->delete()) {
         echo json_encode(["message" => "La suppression a été effectué"]);
     } else {
         echo json_encode(["Error" => "Failure"]);

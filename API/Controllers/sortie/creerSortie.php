@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $sortie->x = $donnees->x;
         $sortie->y = $donnees->y;
 
-        if ($sortie->creer()) {
+        if ($sortie->create()) {
             $sortieResults = [
                 "id" => $sortie->id,
                 "message" => $sortie->message,

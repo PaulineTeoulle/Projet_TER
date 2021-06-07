@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $lienMethodeRessource->id = $donnees->id_methode_ressource;
         $lienMethodeRessource->id_methode = $donnees->id_methode;
         $lienMethodeRessource->id_ressource = $donnees->id_ressource;
-        if ($lienMethodeRessource->creer()) {
+        if ($lienMethodeRessource->create()) {
             $lienResult = [
                 "id" => $lienMethodeRessource->id,
                 "id_methode" => $lienMethodeRessource->id_methode,

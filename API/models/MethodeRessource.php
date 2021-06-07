@@ -1,12 +1,12 @@
 <?php
 
 /**
- * Class MethodeRessource
- * @Goal : Read, Create, Delete link between methode and ressource
+ * Class MethodeRessource (link between methode and ressource)
+ * @Goal : Read methodeRessource, Create methodeRessource, Delete methodeRessource
  * @UsedByModule : Controllers/methodeRessource, creerArbre, lireArbre
  * @ModuleUsed : None
  * @VisibleVariables : $id,$id_methode,$id_ressource
- * @VisibleProcedures : lire(), lireRessourcesMethode(), creer(), supprimer()
+ * @VisibleProcedures : read(), readRessourcesMethode(), create(), delete()
  */
 class MethodeRessource
 {
@@ -38,24 +38,23 @@ class MethodeRessource
 
     /**
      * Read all links between methode and ressource
-     * @return mixed
+     * @return array
      */
-    public function lire()
+    public function read()
     {
         $sql = "SELECT * 
                 FROM a_methoderessource";
         $query = $this->connexion->prepare($sql);
         $query->execute();
 
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * Read all ressources linked to a methode
-     * @return mixed
+     * @return array
      */
-    public function lireRessourcesMethode()
+    public function readRessourcesMethode()
     {
         $sql = "SELECT r.ID_Ressource, r.Nom, r.Fichier 
                 FROM a_ressource r INNER JOIN a_methoderessource mr ON r.ID_Ressource = mr.ID_Ressource 
@@ -67,15 +66,14 @@ class MethodeRessource
         $query->bindParam(":id_methode", $this->id_methode);
 
         $query->execute();
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * Create a link between methode and ressource
      * @return bool
      */
-    public function creer()
+    public function create()
     {
         $sql = "INSERT INTO a_methoderessource
                 SET ID_MethodeRessource=:id_methode_ressource, ID_Methode=:id_methode, ID_Ressource=:id_ressource ";
@@ -98,7 +96,7 @@ class MethodeRessource
      * Delete all links between methode and ressource
      * @return bool
      */
-    public function supprimer()
+    public function delete()
     {
         $sql = "DELETE FROM a_methoderessource ";
         $query = $this->connexion->prepare($sql);

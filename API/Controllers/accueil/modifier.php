@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 
     if (!empty($donnees->description)) {
         $accueil->description = $donnees->description;
-        if ($accueil->modifier()) {
+        if ($accueil->updateDescription()) {
             $accueilResult = [
                 "description" => $accueil->description,
             ];

@@ -2,11 +2,11 @@
 
 /**
  * Class Decision
- * @Goal : Read, Create, Delete Decision
+ * @Goal : Read decision, Create decision, Delete decision
  * @UsedByModule : Controllers/decision, creerArbre, lireArbre
  * @ModuleUsed : None
  * @VisibleVariables : $id, $libelle, $id_critere_entrant, $id_critere_sortant, $x, $y
- * @VisibleProcedures : lire(), creerAvecCritereSortant(), creerSansCritereSortant(), supprimer()
+ * @VisibleProcedures : read(), createWithCritereSortant(), createWithoutCritereSortant(), delete()
  */
 class Decision
 {
@@ -44,22 +44,21 @@ class Decision
      * Read all decision
      * @return array
      */
-    public function lire()
+    public function read()
     {
         $sql = "SELECT * 
                 FROM a_decision";
         $query = $this->connexion->prepare($sql);
         $query->execute();
 
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * Create decision with critere sortant
      * @return bool
      */
-    public function creerAvecCritereSortant()
+    public function createWithCritereSortant()
     {
 
         $sql = "INSERT INTO a_decision 
@@ -87,7 +86,7 @@ class Decision
      * Create decision without critere sortant
      * @return bool
      */
-    public function creerSansCritereSortant()
+    public function createWithoutCritereSortant()
     {
         $sql = "INSERT INTO a_decision 
                 SET ID_Decision =:id_decision, Libelle=:libelle, ID_Critere_entrant=:id_critere_entrant";
@@ -111,7 +110,7 @@ class Decision
      * Delete all decision
      * @return bool
      */
-    public function supprimer()
+    public function delete()
     {
         $sql = " DELETE FROM a_decision";
         $query = $this->connexion->prepare($sql);

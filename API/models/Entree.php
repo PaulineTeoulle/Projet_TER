@@ -2,11 +2,11 @@
 
 /**
  * Class Entree
- * @Goal : Read, Create, Delete Entree
+ * @Goal : Read entree, Create entree, Delete entree
  * @UsedByModule : Controllers/entree, creerArbre, lireArbre
  * @ModuleUsed : None
  * @VisibleVariables : $id, $date, $critere, $x, $y
- * @VisibleProcedures : lire(), creer, supprimer()
+ * @VisibleProcedures : read(), create(), delete()
  */
 class Entree
 {
@@ -48,22 +48,21 @@ class Entree
      * Read all entree
      * @return array
      */
-    public function lire()
+    public function read()
     {
         $sql = "SELECT * 
                 FROM a_entree";
         $query = $this->connexion->prepare($sql);
         $query->execute();
 
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * Create entree
      * @return bool
      */
-    public function creer()
+    public function create()
     {
         $sql = "INSERT INTO a_entree 
                 SET ID_Entree =:id, Date=:date, ID_Critere =:id_critere, x =:x, y=:y";
@@ -72,7 +71,7 @@ class Entree
         $this->id = htmlspecialchars(strip_tags($this->id));
         $this->date = htmlspecialchars(strip_tags($this->date));
         $this->critere = htmlspecialchars(strip_tags($this->critere));
-        $this->x = htmlspecialchars(strip_tags($this->x));;
+        $this->x = htmlspecialchars(strip_tags($this->x));
         $this->y = htmlspecialchars(strip_tags($this->y));
 
         $query->bindParam(":id", $this->id);
@@ -91,7 +90,7 @@ class Entree
      * Delete all entree
      * @return bool
      */
-    public function supprimer(){
+    public function delete(){
         $sql = "DELETE FROM a_entree";
         $query = $this->connexion->prepare($sql);
         if ($query->execute()) {

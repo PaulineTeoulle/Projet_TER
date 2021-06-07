@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($donnees->id_methode)) {
         $methodeRessource->id_methode = $donnees->id_methode;
-        $methodeRessource = $methodeRessource->lireRessourcesMethode();
+        $methodeRessource = $methodeRessource->readRessourcesMethode();
         echo json_encode($methodeRessource);
 
     } else echo json_encode(["Error" => "Unset ID"]);
