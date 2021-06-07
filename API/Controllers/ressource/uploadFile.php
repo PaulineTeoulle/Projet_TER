@@ -32,7 +32,7 @@ if ($_FILES['file']) {
                 if ($ressource->creer()) {
                     $id = $ressource->lireID();
                     $response = array(
-                        $id,
+                        "id" => $id['ID_Ressource'],
                         "status" => "success",
                         "message" => "File uploaded successfully"
                     );

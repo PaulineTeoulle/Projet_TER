@@ -27,7 +27,7 @@ function Tree() {
 'deeppink', 'gold', 'indgo', 'lightcoral'];
 
     const [initialTree, setInitialTree] = useState(null);
-    const [resources, setResources] = useState(null);
+    // const [resources, setResources] = useState(null);
     const [nextId, setNextId] = useState("1");
     const [nextEdgeId, setNextEdgeId] = useState("D1");
     const [nextMethodId, setNextMethodId] = useState("M1");
@@ -270,9 +270,11 @@ function Tree() {
         if(remove){
             $(".canvas").addClass( "removeMode" );
             $(".removeModeMessage").css("opacity", "1");
+            $(".Toolbar").css({"pointer-events": "none", "filter" : "grayscale(1)"});
         } else {
             $(".canvas").removeClass( "removeMode" );
             $(".removeModeMessage").css("opacity", "0");
+            $(".Toolbar").css({"pointer-events": "auto", "filter" : "none"});
         }
     },[remove]);
 
@@ -283,7 +285,6 @@ function Tree() {
         let startNode = initialTree.entree[0];
         createNode('input', {x: parseInt(startNode.x), y: parseInt(startNode.y)});
         let firstNode = initialTree.criteres.find(el => el.ID_Critere === initialTree.entree[0].ID_Critere);
-        //console.log(firstNode);
         createNode('critereNode', {x: parseInt(firstNode.x), y: parseInt(firstNode.y)}, firstNode);
         createEdge('D0' ,'0', firstNode.ID_Critere, null);
 
@@ -343,13 +344,13 @@ function Tree() {
     }
 
     function initResources(){
-        let resources = [];
-        initialTree.methodesRessources.forEach(element => {
-            let resource = initialTree.ressources.filter(item => item.ID_Ressource === element.ID_Ressource);
-            let method = initialTree.methodes.find(item => item.ID_Methode === element.ID_Methode);
-            resources[method.ID_Methode] ? resources[method.ID_Methode].push(resource[0]): resources[method.ID_Methode] = [resource[0]]; 
-        })
-        setResources(resources);
+        // let resources = [];
+        // initialTree.methodesRessources.forEach(element => {
+        //     let resource = initialTree.ressources.filter(item => item.ID_Ressource === element.ID_Ressource);
+        //     let method = initialTree.methodes.find(item => item.ID_Methode === element.ID_Methode);
+        //     resources[method.ID_Methode] ? resources[method.ID_Methode].push(resource[0]): resources[method.ID_Methode] = [resource[0]]; 
+        // })
+        // setResources(resources);
     }
 
     // récupère l'arbre a l'initialisation du composant
@@ -375,11 +376,11 @@ function Tree() {
         }
     }, [initialTree]);
 
-    useEffect(() => {
-        if(resources){
-            console.log(resources)
-        }
-    }, [resources]);
+    // useEffect(() => {
+    //     if(resources){
+    //         console.log(resources)
+    //     }
+    // }, [resources]);
 
     // RECONSTRUCTION DE L'ARBRE
 
@@ -695,7 +696,7 @@ function Tree() {
         setModalEditMethodOpen(false);
     }
 
-    function saveMethod(newData){
+    function saveMethod(newData, newResources){
         // change les data dans l'instance react flow
         selectedMethod.data.label = newData.label;
         selectedMethod.data.description = newData.description;
@@ -704,6 +705,27 @@ function Tree() {
         selectedMethod.data.method = newData.method;
         selectedMethod.data.analysis = newData.analysis;
         selectedMethod.data.exemple = newData.exemple;
+
+        // change les ressources
+        newResources.forEach(newItem =>{
+            let exist = false;
+            initialTree.methodesRessources.forEach(item => {
+                if(item.ID_Methode === selectedMethod.id.slice(1)){
+                    if(item.ID_Ressource === newItem.ID_Ressource){
+                        exist = true;
+                    } 
+                }
+            })
+            if(!exist){
+                console.log("existe aps");
+                console.log(newItem);
+                let newMethodResource = {
+                    ID_Methode: selectedMethod.id.slice(1),
+                    ID_Ressource: newItem.ID_Ressource
+                }
+                initialTree.methodesRessources.push(newMethodResource);
+            }
+        })    
 
         // force le rendu du noeud
         // l'instance ne se rerender pas si modification dans sous object donc on change position
@@ -743,6 +765,8 @@ function Tree() {
         setElements(cloneElements);     
     }
 
+    console.log(initialTree)
+
     return (
         <div className="Tree">
             {elements ?
@@ -757,7 +781,7 @@ function Tree() {
                                 nodeTypes={nodeTypes}
                                 onElementsRemove={onElementsRemove}
                                 onConnect={onConnect}
-                                deleteKeyCode={46}
+                                // deleteKeyCode={46}
                                 onLoad={setReactFlowInstance}
                                 onDrop={onDrop}
                                 onDragOver={onDragOver}
@@ -767,7 +791,7 @@ function Tree() {
                         <FontAwesomeIcon onClick={() => deleteMode()} className="icon delete" icon={faTrashAlt} />
                         <p className="removeModeMessage">Warning, you activated the suppression mode</p>
                     </div>
-                    <button onClick={() => console.log(elements)}>debug</button>
+                    <button onClick={() => console.log(initialTree)}>debug</button>
 
                     <ModalEditCritere
                         title="Edit critere"
@@ -791,7 +815,7 @@ function Tree() {
                         close={closeModalEditMethod}
                         mainAction={saveMethod}
                         selectedMethod={selectedMethod}
-                        resources={resources}
+                        initialTree={initialTree}
                     />
 
                     <ModalEditEndNode

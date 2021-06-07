@@ -5,8 +5,9 @@ import axios from 'axios';
 function ModalEditMethod(props) {
     const [method, setMethod] = useState(null);
     const [resources, setResources] = useState(null);
+    const [allResources, setAllResources] = useState(null);
     const [title, setTitle] = useState(null);
-    const [file, setFile] = useState(null);
+    // const [file, setFile] = useState(null);
 
     function customFunction(){
         let data = {
@@ -18,7 +19,7 @@ function ModalEditMethod(props) {
             analysis: $('#analysis').val(),
             exemple: $('#exemple').val()
         }
-        props.mainAction(data)
+        props.mainAction(data, resources)
         closeModal();
     }
 
@@ -32,26 +33,36 @@ function ModalEditMethod(props) {
         $('.ModalEditMethod').css("display", "block");
     }
 
-    function onSubmit(e) {
-        e.preventDefault()
-        uploadFile(file);
-    }
+    // function onSubmit(e) {
+    //     e.preventDefault()
+    //     uploadFile(file);
+    // }
 
-    function onChange(e) {
-        setFile(e.target.files[0]);
-    }
+    // function onChange(e) {
+    //     setFile(e.target.files[0]);
+    // }
 
-    function uploadFile(file) {
-        const formData = new FormData();
-        formData.append('file', file);
-        let protocol = window.location.protocol;
-        let host = window.location.hostname;
-        let url = protocol + '//' + host;
-        axios.post(url + '/reactTest/MATUI/API/Controllers/ressource/uploadFile.php', formData, {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        }).then(response => console.log(response.data));
+    // function uploadFile(file) {
+    //     const formData = new FormData();
+    //     formData.append('file', file);
+    //     let protocol = window.location.protocol;
+    //     let host = window.location.hostname;
+    //     let url = protocol + '//' + host;
+    //     axios.post(url + '/reactTest/MATUI/API/Controllers/ressource/uploadFile.php', formData, {
+    //         headers: {
+    //             'content-type': 'multipart/form-data'
+    //         }
+    //     }).then(response =>{
+    //         setResources(resources.concat(response.data.id))
+    //     });
+    // }
+
+    function addFile(){
+        let selectedFileId = $('select').val();
+        if(selectedFileId){
+            let selectedFile = props.initialTree.ressources.find(item => item.ID_Ressource === selectedFileId.toString());
+            setResources(resources.concat(selectedFile));
+        }
     }
 
     function openFile(name){
@@ -61,11 +72,26 @@ function ModalEditMethod(props) {
         window.open(url + '/reactTest/MATUI/src/public/documentsRessources/' + name);
     }
 
+    function initResources(resources, methodesRessources, method){
+        // ressources lié a notre methode
+        let methodeRessources = methodesRessources.filter(item => item.ID_Methode === method.id.slice(1));
+        // prépare le tableau des ressources
+        let ressources = []
+        methodeRessources.forEach(element => {
+            // push les ressources de la méthode a partir du tableau de liaison
+            let ressource = resources.find(item => item.ID_Ressource === element.ID_Ressource);
+            ressources.push(ressource)
+        })
+        setResources(ressources);
+    }
+
     useEffect(() => {
         if (props.open) {
             openModal();
             setMethod(props.selectedMethod)
             setTitle(props.title)
+            setAllResources(props.initialTree.ressources);
+            initResources(props.initialTree.ressources, props.initialTree.methodesRessources, props.selectedMethod)
         }
     }, [props.open]);
 
@@ -74,8 +100,6 @@ function ModalEditMethod(props) {
             setResources(props.resources[method.id.slice(1)])
         }
     }, [method]);
-
-    console.log(props.resources)
 
     return (
         <div className="Modal ModalEditMethod">
@@ -96,24 +120,34 @@ function ModalEditMethod(props) {
                             </form>
                         }
                         <div className="ressources">
-                            <select name="pets" id="pet-select">
-                                <option value="">--Please choose an option--</option>
-                            </select>
+                            {allResources &&
+                                <select name="pets" id="pet-select">
+                                    <option value="">--Please choose an option--</option>
+                                    {allResources.map((element, i) => {   
+                                        if(!resources.find(item => item.ID_Ressource === element.ID_Ressource)){
+                                            return (
+                                                <option key={i} value={element.ID_Ressource}>{element.Nom}</option>
+                                            ) 
+                                        }
+                                    })}    
+                                </select>
+                            }
+                            <button onClick={addFile}>ADD</button>
                             {resources &&
                                 <div>
-                                {resources.map((element, i) => {   
-                                    return (<div key={i} onClick={() => openFile(element.Nom)}>
-                                        <p>{element.Nom}</p>
+                                {Object.keys(resources).map(function(keyName, keyIndex) {
+                                    return (<div key={keyName} onClick={() => openFile(resources[keyName].Nom)}>
+                                        <p>{resources[keyName].Nom}</p>
                                         </div>
                                     ) 
                                 })}    
                                 </div>
                             }  
-                            <form onSubmit={onSubmit}>
+                            {/* <form onSubmit={onSubmit}>
                                 <h1>Upload File</h1>
                                 <input type="file" onChange={onChange}/>
                                 <button type="submit">Upload File</button>
-                            </form>  
+                            </form>   */}
                         </div>      
                     </div>   
                     <div className="action">
