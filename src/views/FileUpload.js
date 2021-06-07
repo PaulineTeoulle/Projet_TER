@@ -44,7 +44,7 @@ class FileUpload extends React.Component {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
-        return await axios.post(url + '/reactTest/MATUI/API/Controllers/ressource/uploadFile.php', formData, {
+        return await axios.post(url + '/Projet_TER/API/Controllers/ressource/uploadFile.php', formData, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
@@ -55,7 +55,7 @@ class FileUpload extends React.Component {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
-        window.open(url + '/reactTest/MATUI/src/public/documentsRessources/' + name);
+        window.open(url + '/Projet_TER/src/public/documentsRessources/' + name);
     }
 
 
@@ -65,7 +65,7 @@ class FileUpload extends React.Component {
         let url = protocol + '//' + host;
 
         const json = JSON.stringify({id_methode: Number(this.state.id_methode)});
-        axios.post(url + '/reactTest/MATUI/API/Controllers/ressource/lireRessourcesMethode.php', json)
+        axios.post(url + '/Projet_TER/API/Controllers/ressource/lireRessourcesMethode.php', json)
             .then(response => {
                 this.setState({datas: response.data});
             })

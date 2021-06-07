@@ -51,6 +51,19 @@ class Ressource
         return $result;
     }
 
+    public function lireID()
+    {
+        $sql = "SELECT ID_Ressource
+                FROM a_ressource WHERE Nom =:nom";
+        $query = $this->connexion->prepare($sql);
+
+        $this->nom = htmlspecialchars(strip_tags($this->nom));
+        $query->bindParam(":nom", $this->nom);
+        $query->execute();
+        $result = $query->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
+
     /**
      * Create a ressource
      * @return bool
