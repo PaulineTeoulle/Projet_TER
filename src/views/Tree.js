@@ -410,11 +410,12 @@ function Tree() {
         - default (node)
         - smoothstep (edge)
     */
-    function printNodes() {
+    function saveTree() {
         let flow = reactFlowInstance.toObject();
         let finalTree = {
             criteres: [],
             methodes: [],
+            methodesRessources: initialTree.methodesRessources,
             decisions: [],
             entree: [],
             sortie: [],
@@ -449,6 +450,8 @@ function Tree() {
         
         // on regarde si il y'a des erreurs dans l'arbre (cas inaproprié)
         let error = checkTree(finalTree);
+        console.log(initialTree)
+        console.log(finalTree)
         if(!error){
             console.log(finalTree);
             let protocol = window.location.protocol;
@@ -479,7 +482,7 @@ function Tree() {
     function transformToMethod(element, flow){
         let decision = flow.elements.find(el => el.type === "smoothstep" && el.target === element.id);
         let method = {
-            ID_Method: element.id.slice(1),
+            ID_Methode: element.id.slice(1),
             ID_Decision: (decision ? decision.id.slice(1) : null),
             Libelle: element.data.label,
             Description: element.data.description,
@@ -773,7 +776,7 @@ function Tree() {
                 <ReactFlowProvider>
                     <div className="reactflow-wrapper" ref={reactFlowWrapper}>
                         <Toolbar className="tools"
-                            save={printNodes}
+                            save={saveTree}
                         />
                         <div className="canvas">
                             <ReactFlow
