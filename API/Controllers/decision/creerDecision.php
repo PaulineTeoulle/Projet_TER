@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $decision->x = $donnees->x;
         $decision->y = $donnees->y;
         if ($decision->id_critere_sortant == null) {
-            if ($decision->creerSansCritereSortant()) {
+            if ($decision->createWithoutCritereSortant()) {
                 $decisionResults = [
                     "id" => $decision->id,
                     "libelle" => $decision->libelle,
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
 
         } else {
-            if ($decision->creerAvecCritereSortant()) {
+            if ($decision->createWithCritereSortant()) {
                 $decisionResults = [
                     "id" => $decision->id,
                     "libelle" => $decision->libelle,

@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $critere->x = $donnees->x;
         $critere->y = $donnees->y;
         if ($critere->informations == null) {
-            if ($critere->creerSansInformations()) {
+            if ($critere->createWithoutInformations()) {
                 $critereResults = [
                     "id" => $critere->id,
                     "libelle" => $critere->libelle,
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
 
         } else {
-            if ($critere->creerAvecInformations()) {
+            if ($critere->createWithInformations()) {
                 $critereResults = [
                     "id" => $critere->id,
                     "libelle" => $critere->libelle,

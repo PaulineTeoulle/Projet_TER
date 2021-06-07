@@ -2,11 +2,11 @@
 
 /**
  * Class Sortie
- * @Goal : Read, Create, Delete sortie
+ * @Goal : Read sortie, Create sortie, Delete sortie
  * @UsedByModule : Controllers/sortie, creerArbre, lireArbre
  * @ModuleUsed : None
  * @VisibleVariables : $id,$message,$id_decision
- * @VisibleProcedures : lire(), creer(), supprimer()
+ * @VisibleProcedures : read(), readIdDecisionSortant(), create(), delete()
  **/
 class Sortie
 {
@@ -48,31 +48,29 @@ class Sortie
      * Read all sortie
      * @return array
      */
-    public function lire()
+    public function read()
     {
         $sql = "SELECT * 
                 FROM a_sortie";
         $query = $this->connexion->prepare($sql);
         $query->execute();
 
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function  lireDecisionSortant(){
+    public function readIdDecisionSortant(){
         $sql = "SELECT ID_Decision
                 FROM a_decision WHERE ID_Critere_sortant is null ";
         $query = $this->connexion->prepare($sql);
         $query->execute();
 
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
     /**
      * Create sortie
      * @return bool
      */
-    public function creer()
+    public function create()
     {
         $sql = "INSERT INTO a_sortie 
                 SET ID_Sortie=:id_sortie, Message=:message, ID_Decision =:id_decision, x=:x, y=:y";
@@ -100,7 +98,7 @@ class Sortie
      * Delete all sortie
      * @return bool
      */
-    public function supprimer()
+    public function delete()
     {
         $sql = " DELETE FROM a_sortie";
         $query = $this->connexion->prepare($sql);

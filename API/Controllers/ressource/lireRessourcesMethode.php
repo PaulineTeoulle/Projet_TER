@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Controller to read all ressources linked to a methode
+ * @Goal : Read all ressources linked to a methode
+ * @UsedByModule : getRessources() in DropDownCard.js (/src/components/quiz/DropMethodCard.js), getRessources() in method.js (/src/components/quiz/method.js)
+ * @ModuleUsed : Database.php, Ressource.php
+ * @VisibleVariables :  $ressources['ressources'] , Message
+ * @VisibleProcedures : None
+ */
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
@@ -18,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (isset($donnees->id_methode)) {
         $methodeRessource->id_methode = $donnees->id_methode;
-        $methodeRessource = $methodeRessource->lireRessourcesMethode();
+        $methodeRessource = $methodeRessource->readRessourcesMethode();
         echo json_encode($methodeRessource);
 
     } else echo json_encode(["Error" => "Unset ID"]);

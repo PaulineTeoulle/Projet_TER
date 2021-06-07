@@ -2,11 +2,11 @@
 
 /**
  * Class Ressource
- * @Goal : Read, Create, Delete ressource
+ * @Goal : Read ressource, Create ressource, Delete ressource
  * @UsedByModule : Controllers/ressource, creerArbre, lireArbre
  * @ModuleUsed : None
  * @VisibleVariables : $id,$nom,$fichier
- * @VisibleProcedures : lire(), creer(), supprimer()
+ * @VisibleProcedures : read(), readIDFromName(), countNameFile(), create(), delete()
  */
 class Ressource
 {
@@ -40,22 +40,21 @@ class Ressource
      * Read all ressources
      * @return array
      */
-    public function lire()
+    public function read()
     {
         $sql = "SELECT * 
                 FROM a_ressource";
         $query = $this->connexion->prepare($sql);
         $query->execute();
 
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * Read id from a ressource name
      * @return array
      */
-    public function lireID()
+    public function readIDFromName()
     {
         $sql = "SELECT ID_Ressource
                 FROM a_ressource WHERE Nom =:nom";
@@ -64,15 +63,14 @@ class Ressource
         $this->nom = htmlspecialchars(strip_tags($this->nom));
         $query->bindParam(":nom", $this->nom);
         $query->execute();
-        $result = $query->fetch(PDO::FETCH_ASSOC);
-        return $result;
+        return $query->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
      * Count number of specific file
      * @return mixed
      */
-    public function compterFichier(){
+    public function countNameFile(){
         $sql = "SELECT COUNT(*)
                 FROM a_ressource 
                 WHERE Nom= :nom";
@@ -82,15 +80,14 @@ class Ressource
         $query->bindParam(":nom", $this->nom);
 
         $query->execute();
-        $result = $query->fetch(PDO::FETCH_ASSOC);
-        return $result;
+        return $query->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
      * Create a ressource
      * @return bool
      */
-    public function creer()
+    public function create()
     {
         $sql = "INSERT INTO a_ressource 
                 SET Nom=:nom, Fichier=:fichier";
@@ -112,7 +109,7 @@ class Ressource
      * Delete all ressources
      * @return bool
      */
-    public function supprimer()
+    public function delete()
     {
         $sql = " DELETE FROM a_ressource";
         $query = $this->connexion->prepare($sql);

@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * Controller connexion
+ * @Goal : Generate unique JWT Token if username and password are in database (if connexion succeed)
+ * @UsedByModule : login() in AuthApi.js (/src/services/AuthApi.js)
+ * @ModuleUsed : Database.php, Utilisateur.php
+ * @VisibleVariables : Token, ErrorPassword, Message
+ * @VisibleProcedures : None
+ */
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
@@ -21,9 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $utilisateur->pseudo = $donnees->username;
         $utilisateur->mot_de_passe =$donnees->mot_de_passe;
 
-        $hash = $utilisateur->lireMotDePasse();
+        $hash = $utilisateur->readPassword();
         if (password_verify($utilisateur->mot_de_passe, $hash["Mot_de_passe"])) {
-            $utilisateur = $utilisateur->lireUn();
+            $utilisateur = $utilisateur->readOne();
             $header = json_encode(['typ' => 'JWT', 'alg' => 'HS256']);
             $payload = json_encode(['user_id' => $utilisateur["ID_Utilisateur"], 'user_username' => $utilisateur["Pseudo"], 'user_role' => $utilisateur["Role"], 'user_mail' => $utilisateur["Mail"], 'exp' => time()+ 60 * 60]);
             $base64UrlHeader = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($header));

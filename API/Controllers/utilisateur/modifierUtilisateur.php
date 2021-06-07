@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Controller to update role of a specific user
+ * @Goal : Update role of a specific user
+ * @UsedByModule : edit() in Users.js (/src/views/Users.js)
+ * @ModuleUsed : Database.php, Utilisateur.php
+ * @VisibleVariables : Message, Error
+ * @VisibleProcedures : None
+ */
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: PUT");
@@ -19,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
         $utilisateur->id = $donnees->id_utilisateur;
         $utilisateur->role = $donnees->role;
 
-        if ($utilisateur->modifierRole()) {
-            $utilisateur = $utilisateur->lire();
+        if ($utilisateur->updateRole()) {
+            $utilisateur = $utilisateur->read();
             echo json_encode($utilisateur);
             echo json_encode(["Message" => "Success"]);
         } else {

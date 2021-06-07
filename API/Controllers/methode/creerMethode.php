@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $methode->x = $donnees->x;
         $methode->y = $donnees->y;
 
-        if ($methode->creer()) {
+        if ($methode->create()) {
             $methodeResults = [
                 "id" => $methode->id,
                 "libelle" => $methode->libelle,

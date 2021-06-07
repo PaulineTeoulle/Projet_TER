@@ -2,11 +2,11 @@
 
 /**
  * Class Critere
- * @Goal : Read, Create, Delete Critere
+ * @Goal : Read critere, Create critere, Delete critere
  * @UsedByModule : Controllers/critere, creerArbre, lireArbre
  * @ModuleUsed : None
  * @VisibleVariables : $id, $libelle, $informations, $x, $y
- * @VisibleProcedures : lire(), creerAvecInformations(), creerSansInformations(), supprimer()
+ * @VisibleProcedures : read(), createWithInformations(), createWithoutInformations(), delete()
  */
 class Critere
 {
@@ -48,22 +48,21 @@ class Critere
      * Read all critere
      * @return array
      */
-    public function lire()
+    public function read()
     {
         $sql = "SELECT * 
                 FROM a_critere";
         $query = $this->connexion->prepare($sql);
         $query->execute();
 
-        $result = $query->fetchAll(PDO::FETCH_ASSOC);
-        return $result;
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
      * Create critere with informations
      * @return bool
      */
-    public function creerAvecInformations()
+    public function createWithInformations()
     {
         $sql = "INSERT INTO a_critere 
                 SET ID_Critere=:id_critere, Libelle=:libelle, Informations=:informations, x=:x, y=:y ";
@@ -91,7 +90,7 @@ class Critere
      * Create critere without informations
      * @return bool
      */
-    public function creerSansInformations()
+    public function createWithoutInformations()
     {
         $sql = "INSERT INTO a_critere 
                 SET ID_Critere=:id_critere, Libelle=:libelle, x=:x, y=:y ";
@@ -117,7 +116,7 @@ class Critere
      * Delete all critere
      * @return bool
      */
-    public function supprimer()
+    public function delete()
     {
         $sql = "DELETE FROM a_critere";
         $query = $this->connexion->prepare($sql);

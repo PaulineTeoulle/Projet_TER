@@ -2,11 +2,11 @@
 
 /**
  * Class Methode
- * @Goal : Read, Create, Delete methode
+ * @Goal : Read methode, Create methode, Delete methode
  * @UsedByModule : Controllers/methode, creerArbre, lireArbre
  * @ModuleUsed : None
  * @VisibleVariables : $id,$libelle,$description,$effectif_preconise,$donnees_produites,$type_analyse,$type_methode,$exemple,$id_decision,$x,$y
- * @VisibleProcedures : lire(), creer, supprimer()
+ * @VisibleProcedures : read(), create(), delete()
  */
 class Methode
 {
@@ -72,7 +72,7 @@ class Methode
      * Read all methode
      * @return array
      */
-    public function lire()
+    public function read()
     {
         $sql = "SELECT * 
                 FROM a_methode";
@@ -86,7 +86,7 @@ class Methode
      * Create methode
      * @return bool
      */
-    public function creer()
+    public function create()
     {
         $sql = "INSERT INTO a_methode
                 SET ID_Methode=:id_methode, Libelle=:libelle, Description=:description, Effectif_preconise=:effectif_preconise, Donnees_produites=:donnees_produites, Type_analyse=:type_analyse,
@@ -127,7 +127,7 @@ class Methode
      * Delete all methode
      * @return bool
      */
-    public function supprimer()
+    public function delete()
     {
         $sql = " DELETE FROM a_methode ";
         $query = $this->connexion->prepare($sql);

@@ -1,4 +1,13 @@
 <?php
+/**
+ * Controller to update accueil description
+ * @Goal : Update accueil description
+ * @UsedByModule : edit() in Home.js (/src/views/Home.js)
+ * @ModuleUsed : Database.php, Accueil.php
+ * @VisibleVariables : $accueilResult, Message, Error
+ * @VisibleProcedures : None
+ */
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: PUT");
@@ -17,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 
     if (!empty($donnees->description)) {
         $accueil->description = $donnees->description;
-        if ($accueil->modifier()) {
+        if ($accueil->updateDescription()) {
             $accueilResult = [
                 "description" => $accueil->description,
             ];

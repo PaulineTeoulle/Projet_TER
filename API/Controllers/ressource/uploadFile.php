@@ -27,10 +27,10 @@ if ($_FILES['file']) {
         $upload_name = $upload_dir . $file_name;
         $ressource->nom = $file_name;
         $ressource->fichier = $upload_name;
-        if ($ressource->compterFichier()['COUNT(*)'] == 0) {
+        if ($ressource->countNameFile()['COUNT(*)'] == 0) {
             if (move_uploaded_file($file_tmp_name, $upload_name)) {
-                if ($ressource->creer()) {
-                    $id = $ressource->lireID();
+                if ($ressource->create()) {
+                    $id = $ressource->readIDFromName();
                     $response = array(
                         "id" => $id['ID_Ressource'],
                         "status" => "success",
@@ -56,6 +56,4 @@ if ($_FILES['file']) {
     );
 }
 echo json_encode($response);
-?>
-
 

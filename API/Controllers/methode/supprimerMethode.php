@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $db = $database->getConnection();
     $methode = new Methode($db);
 
-    if ($methode->supprimer()) {
+    if ($methode->delete()) {
         echo json_encode(["Message" => "Success"]);
     } else {
         echo json_encode(["Error" => "Failure"]);

@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Controller to read accueil
+ * @Goal : Read accueil description
+ * @UsedByModule : getHomeContent() in Home.js (/src/views/Home.js)
+ * @ModuleUsed : Database.php, Accueil.php
+ * @VisibleVariables : $accueilResult, Message
+ * @VisibleProcedures : None
+ */
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: GET");
@@ -13,16 +23,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $db = $database->getConnection();
 
     $accueil = new Accueil($db);
-    $accueil->lire();
+    $accueil->read();
 
     if ($accueil->description != null) {
         $accueilResult = [
             "id" => $accueil->id,
             "description" => $accueil->description,
         ];
-
         echo json_encode($accueilResult);
-
     } else {
         echo json_encode(array("Message" => "Description doesn't exist."));
     }

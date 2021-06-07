@@ -1,10 +1,11 @@
 <?php
+
 /**
- * Controller to read User
- * @Goal : Read all users in database
- * @UsedByModule : componentDidMount() in User.js (/src/views/User.js)
- * @ModuleUsed : Database.php, Utilisateur.php
- * @VisibleVariables : $utilisateur, Message
+ * Controller to read all ressources
+ * @Goal : Read all ressources
+ * @UsedByModule : Tree.js
+ * @ModuleUsed : Database.php, Ressource.php
+ * @VisibleVariables :  $ressources['ressources'] , Message
  * @VisibleProcedures : None
  */
 
@@ -16,16 +17,14 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     include_once '../../config/Database.php';
-    include_once '../../models/Utilisateur.php';
+    include_once '../../models/Ressource.php';
 
     $database = new Database();
     $db = $database->getConnection();
 
-    $utilisateur = new Utilisateur($db);
-
-    $utilisateur = $utilisateur->read();
-    echo json_encode($utilisateur);
-
+    $ressource = new Ressource($db);
+    $ressources['ressources'] = $ressource->read();
+    echo json_encode(["ressources" =>  $ressources['ressources']]);
 } else {
     echo json_encode(["Message" => "Unauthorised method"]);
 }

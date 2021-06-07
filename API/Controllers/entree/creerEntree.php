@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $entree->critere = $donnees->id_critere;
         $entree->x = $donnees->x;
         $entree->y = $donnees->y;
-        if ($entree->creer()) {
+        if ($entree->create()) {
             $entreeResults = [
                 "id" => $entree->id,
                 "date" => $entree->date,
