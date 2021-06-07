@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include_once '../models/Entree.php';
     include_once '../models/Methode.php';
     include_once '../models/MethodeRessource.php';
-    include_once '../models/Ressource.php';
     include_once '../models/Sortie.php';
 
 
@@ -26,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $methode = new Methode($db);
     $entree = new Entree($db);
     $sortie = new Sortie($db);
-    $ressource = new Ressource($db);
     $methodeRessource = new MethodeRessource($db);
 
     $critere->supprimer();
@@ -34,13 +32,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $methode->supprimer();
     $entree->supprimer();
     $sortie->supprimer();
-    $ressource->supprimer();
     $methodeRessource->supprimer();
 
     $donnees = json_decode(file_get_contents("php://input"), true);
-
-//    echo json_encode($donnees);
-
 
     foreach ($donnees['criteres'] as $i) {
         if (!empty($i['ID_Critere']) && !empty($i['Libelle']) && !empty($i['x']) && !empty($i['y'])) {
@@ -72,7 +66,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $decision->libelle = $i['Libelle'];
             $decision->id_critere_entrant = $i['ID_Critere_entrant'];
             $decision->id_critere_sortant = $i['ID_Critere_sortant'];
-            if ($decision->id_critere_sortant == "S0") {
+            if ($decision->id_critere_sortant == "S0" || $decision->id_critere_sortant == "S0") {
                 if ($decision->creerSansCritereSortant()) {
                     echo json_encode(["Message" => "Success DECISION"]);
                 } else {
@@ -89,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     foreach ($donnees['methodes'] as $i) {
-        $methode->id = $i['ID_Method'];
+        $methode->id = $i['ID_Methode'];
         $methode->libelle = $i['Libelle'];
         $methode->description = $i['Description'];
         $methode->effectif_preconise = $i['Effectif_preconise'];
@@ -104,6 +98,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo json_encode(["Message" => "Success METHODE"]);
         } else {
             echo json_encode(["Error" => "Failure METHODE"]);
+        }
+    }
+
+    foreach ($donnees['methodesRessources'] as $i) {
+        $methodeRessource->id = $i['ID_MethodeRessource'];
+        $methodeRessource->id_methode = $i['ID_Methode'];
+        $methodeRessource->id_ressource = $i['ID_Ressource'];
+        if ($methodeRessource->creer()) {
+            echo json_encode(["Message" => "Success METHODE RESSOURCE"]);
+        } else {
+            echo json_encode(["Error" => "Failure METHODE RESSOURCE"]);
         }
     }
 
@@ -127,7 +132,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $sortie->id_decision = $sortie->id_decision[0]['ID_Decision'];
         $sortie->x = $donnees['sortie'][0]['x'];
         $sortie->y = $donnees['sortie'][0]['y'];
-        //echo json_encode($sortie->id_decision[0]['ID_Decision']);
         if ($sortie->creer()) {
             echo json_encode(["Message" => "Success SORTIE"]);
         } else {
