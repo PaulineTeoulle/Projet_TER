@@ -67,6 +67,22 @@ class Ressource
     }
 
     /**
+     * Read id from a ressource name
+     * @return array
+     */
+    public function readNameFromID()
+    {
+        $sql = "SELECT Nom
+                FROM a_ressource WHERE ID_Ressource =:id_ressource";
+        $query = $this->connexion->prepare($sql);
+
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $query->bindParam(":id_ressource", $this->id);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Count number of specific file
      * @return mixed
      */

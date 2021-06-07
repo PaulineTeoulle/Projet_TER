@@ -23,12 +23,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $db = $database->getConnection();
     $ressource = new Ressource($db);
 
-    if ($ressource->delete()) {
-        echo json_encode(["message" => "La suppression a été effectué"]);
-    } else {
-        echo json_encode(["Error" => "Failure"]);
+    $donnees = json_decode(file_get_contents("php://input"));
+    if (!empty($donnees->id)) {
+        $ressource->id = $donnees->id;
+        $ressource->nom = $ressource->readNameFromID()['Nom'];
+        //echo $ressource->nom;
+        $file_pointer = "../../documentsRessources/" . $ressource->nom;
+        if (unlink($file_pointer)) {
+            echo json_encode(["Message" => "Success"]);
+        } else {
+            echo json_encode(["Message" => "Failure"]);
+        }
+        if ($ressource->deleteOne()) {
+            echo json_encode(["Message" => "Success"]);
+        } else {
+            echo json_encode(["Error" => "Failure"]);
+        }
     }
-
 } else {
     echo json_encode(["Message" => "Unauthorised method"]);
 }
