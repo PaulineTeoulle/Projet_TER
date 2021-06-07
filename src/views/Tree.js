@@ -375,6 +375,12 @@ function Tree() {
         }
     }, [initialTree]);
 
+    useEffect(() => {
+        if(resources){
+            console.log(resources)
+        }
+    }, [resources]);
+
     // RECONSTRUCTION DE L'ARBRE
 
     const [modalWarningOpen, setModalWarningOpen] = useState(false);
