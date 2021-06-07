@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Controller to delete a specific file
+ * @Goal : Delete a specific file
+ * @UsedByModule :
+ * @ModuleUsed : Database.php, Ressource.php
+ * @VisibleVariables : Message, Error
+ * @VisibleProcedures : None
+ */
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: DELETE");

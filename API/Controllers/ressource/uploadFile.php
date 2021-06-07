@@ -1,4 +1,13 @@
 <?php
+/**
+ * Controller to upload file in directory and database
+ * @Goal : Upload file in directory and database if it does'nt exist
+ * @UsedByModule :
+ * @ModuleUsed : Database.php, Ressource.php
+ * @VisibleVariables : $response, $id
+ * @VisibleProcedures : None
+ */
+
 header('Content-Type: application/json; charset=utf-8');
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: PUT, GET, POST");
