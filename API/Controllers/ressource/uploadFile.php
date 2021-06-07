@@ -25,21 +25,27 @@ if ($_FILES['file']) {
         );
     } else {
         $upload_name = $upload_dir . $file_name;
-        if (move_uploaded_file($file_tmp_name, $upload_name)) {
-            $ressource->nom = $file_name;
-            $ressource->fichier = $upload_name;
-            if ($ressource->creer()) {
+        $ressource->nom = $file_name;
+        $ressource->fichier = $upload_name;
+        if ($ressource->compterFichier()['COUNT(*)'] == 0) {
+            if (move_uploaded_file($file_tmp_name, $upload_name)) {
+                if ($ressource->creer()) {
+                    $id = $ressource->lireID();
+                    $response = array(
+                        $id,
+                        "status" => "success",
+                        "message" => "File uploaded successfully"
+                    );
+                }
+            } else {
                 $response = array(
-                    "status" => "success",
-                    "message" => "File uploaded successfully"
+                    "status" => "error",
+                    "message" => "Error uploading the file !"
                 );
-                $id = $ressource->lireID();
-                echo json_encode($id);
             }
         } else {
             $response = array(
-                "status" => "error",
-                "message" => "Error uploading the file !"
+                "message" => "File already added, choose another file."
             );
         }
     }
