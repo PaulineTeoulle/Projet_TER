@@ -75,15 +75,16 @@ class MethodeRessource
      */
     public function create()
     {
-        $sql = "INSERT INTO a_methoderessource
-                SET ID_MethodeRessource=:id_methode_ressource, ID_Methode=:id_methode, ID_Ressource=:id_ressource ";
+        $sql = "INSERT INTO a_methoderessource (ID_Methode, ID_Ressource)
+                VALUES (:id_methode, :id_ressource)";
+//
+//        "INSERT INTO a_methoderessource
+//                SET ID_Methode=:id_methode, ID_Ressource=:id_ressource ";
         $query = $this->connexion->prepare($sql);
 
-        $this->id = htmlspecialchars(strip_tags($this->id));
         $this->id_methode = htmlspecialchars(strip_tags($this->id_methode));
         $this->id_ressource = htmlspecialchars(strip_tags($this->id_ressource));
 
-        $query->bindParam(":id_methode_ressource", $this->id);
         $query->bindParam(":id_methode", $this->id_methode);
         $query->bindParam(":id_ressource", $this->id_ressource);
         if ($query->execute()) {

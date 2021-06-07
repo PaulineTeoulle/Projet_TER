@@ -1,4 +1,12 @@
 <?php
+/**
+ * Controller to read Tree
+ * @Goal : Return database from MATUI tree
+ * @UsedByModule : useEffect() in Tree.js (/src/view/Tree.js), componentDidMount() in Quiz.js (/src/view/Quiz.js)
+ * @ModuleUsed : Database.php, Critere.php, Decision.php, Entree.php, Methode.php, MethodeRessource.php, Ressource.php, Sortie.php
+ * @VisibleVariables : $arrayResults, Message
+ * @VisibleProcedures : None
+ */
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");

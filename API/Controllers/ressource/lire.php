@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Controller to read all ressources
+ * @Goal : Read all ressources
+ * @UsedByModule : Tree.js
+ * @ModuleUsed : Database.php, Ressource.php
+ * @VisibleVariables :  $ressources['ressources'] , Message
+ * @VisibleProcedures : None
+ */
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: GET");

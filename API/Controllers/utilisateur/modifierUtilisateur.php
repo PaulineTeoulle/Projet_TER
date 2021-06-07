@@ -1,4 +1,14 @@
 <?php
+
+/**
+ * Controller to update role of a specific user
+ * @Goal : Update role of a specific user
+ * @UsedByModule : edit() in Users.js (/src/views/Users.js)
+ * @ModuleUsed : Database.php, Utilisateur.php
+ * @VisibleVariables : Message, Error
+ * @VisibleProcedures : None
+ */
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: PUT");

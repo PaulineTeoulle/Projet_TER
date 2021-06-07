@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Controller to create Tree
+ * @Goal : Fill database with MATUI data
+ * @UsedByModule : printNodes() in Tree.js (/src/view/Tree.js)
+ * @ModuleUsed : Database.php, Critere.php, Decision.php, Entree.php, Methode.php, MethodeRessource.php, Sortie.php
+ * @VisibleVariables : Message, Error
+ * @VisibleProcedures : None
+ */
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
@@ -66,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $decision->libelle = $i['Libelle'];
             $decision->id_critere_entrant = $i['ID_Critere_entrant'];
             $decision->id_critere_sortant = $i['ID_Critere_sortant'];
-            if ($decision->id_critere_sortant == "S0" || $decision->id_critere_sortant == "S0") {
+            if ($decision->id_critere_sortant == "S0" || $decision->id_critere_sortant == null) {
                 if ($decision->createWithoutCritereSortant()) {
                     echo json_encode(["Message" => "Success DECISION"]);
                 } else {
@@ -102,7 +110,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     foreach ($donnees['methodesRessources'] as $i) {
-        $methodeRessource->id = $i['ID_MethodeRessource'];
         $methodeRessource->id_methode = $i['ID_Methode'];
         $methodeRessource->id_ressource = $i['ID_Ressource'];
         if ($methodeRessource->create()) {

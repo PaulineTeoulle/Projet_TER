@@ -1,4 +1,12 @@
 <?php
+/**
+ * Controller to read User
+ * @Goal : Read all users in database
+ * @UsedByModule : componentDidMount() in User.js (/src/views/User.js)
+ * @ModuleUsed : Database.php, Utilisateur.php
+ * @VisibleVariables : $utilisateur, Message
+ * @VisibleProcedures : None
+ */
 
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");

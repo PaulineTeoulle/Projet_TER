@@ -56,6 +56,4 @@ if ($_FILES['file']) {
     );
 }
 echo json_encode($response);
-?>
-
 

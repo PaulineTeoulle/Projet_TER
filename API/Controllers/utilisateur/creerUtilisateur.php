@@ -1,10 +1,19 @@
 <?php
+
+/**
+ * Controller to create User
+ * @Goal : Create user in database if unique pseudo and mail
+ * @UsedByModule : register() in Register.js (/src/views/Register.js)
+ * @ModuleUsed : Database.php, Utilisateur.php
+ * @VisibleVariables : Message, ErrorPseudo, ErrorMail, Error
+ * @VisibleProcedures : None
+ */
+
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
-
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include_once '../../config/Database.php';
