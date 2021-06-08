@@ -6,7 +6,7 @@
  * @UsedByModule : Controllers/ressource, creerArbre, lireArbre
  * @ModuleUsed : None
  * @VisibleVariables : $id,$nom,$fichier
- * @VisibleProcedures : read(), readIDFromName(), countNameFile(), create(), delete()
+ * @VisibleProcedures : read(), readIDFromName(), countNameFile(), create(), delete(), deleteOne()
  */
 class Ressource
 {
@@ -67,6 +67,22 @@ class Ressource
     }
 
     /**
+     * Read id from a ressource name
+     * @return array
+     */
+    public function readNameFromID()
+    {
+        $sql = "SELECT Nom
+                FROM a_ressource WHERE ID_Ressource =:id_ressource";
+        $query = $this->connexion->prepare($sql);
+
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $query->bindParam(":id_ressource", $this->id);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Count number of specific file
      * @return mixed
      */
@@ -113,6 +129,23 @@ class Ressource
     {
         $sql = " DELETE FROM a_ressource";
         $query = $this->connexion->prepare($sql);
+        if ($query->execute()) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Delete a specific ressource
+     * @return bool
+     */
+    public function deleteOne()
+    {
+        $sql = " DELETE FROM a_ressource WHERE ID_Ressource=:id_ressource";
+        $query = $this->connexion->prepare($sql);
+
+        $this->id = htmlspecialchars(strip_tags($this->id));
+        $query->bindParam(":id_ressource", $this->id);
         if ($query->execute()) {
             return true;
         }

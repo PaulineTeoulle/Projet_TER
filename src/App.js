@@ -1,7 +1,6 @@
 import './App.scss';
-import React, {useState, useEffect,useContext} from 'react';
+import React, {useState} from 'react';
 import {BrowserRouter as Router, Redirect, Route, Switch} from 'react-router-dom';
-
 import Home from './views/Home';
 import Quiz from './views/Quiz';
 import Tree from './views/Tree';
@@ -16,15 +15,29 @@ import Auth from "./contexts/Auth"
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import {hasAuthenticated, isUser} from "./services/AuthApi";
 
+/**
+ * @Goal : Router : change the browser URL and return the right component
+ * @UsedByModule : index.js
+ * @ModuleUsed : Home, Quiz, Summary, Login, Register, Tree, Users
+ * @VisibleVariables :
+ * @VisibleProcedures :
+ * @returns {JSX.Element} the right component depending on browser URL
+ */
 function App() {
 
-    //Setup des états selon les setters
+    /**
+     * Setup state for auth and role
+     */
     const [isAuthenticated, setIsAuthenticated] = useState(hasAuthenticated());
     const [userRole, setUserRole] = useState(isUser());
 
+    /**
+     * Render the right component according to state
+     */
     return (
-        //Provider pour distribuer les états à tous les niveaux
-        <Auth.Provider value={{isAuthenticated, setIsAuthenticated, userRole, setUserRole
+        //Provider to share state to all levels
+        <Auth.Provider value={{
+            isAuthenticated, setIsAuthenticated, userRole, setUserRole
         }}>
             <Router>
                 <div className="App">
