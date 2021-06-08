@@ -1,0 +1,94 @@
+.FileUpload{
+    font-size: 16px;
+
+    &>div:first-child{
+        margin: 0 30px;
+
+        form{
+            display: flex;
+            margin-bottom: 15px;
+            #file-upload{
+                display: none;
+            }
+
+            label{
+                cursor: pointer;
+                width: 100px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                padding: 10px;
+                width: 200px;
+                height: 1em;
+                display: block;
+                margin: 0 15px;
+                border-bottom: 1px solid var(--light-grey);
+                transition: .3s;
+
+                &:hover{
+                    transition: .3s;
+                    color: black !important;
+                    letter-spacing: .3px;
+                }
+            }
+
+            .submit-button{
+                padding: 10px 15px;
+                border-radius: 5px;
+            }
+
+            label, button{
+                font-size: .8em;
+            }
+        }
+
+        .item-list{
+            display: flex;
+            flex-wrap: wrap;
+
+            .item{
+                border: 1px solid transparent;
+                position: relative;
+                width: 100px;
+                padding: 10px;
+                margin: 5px;
+
+                img{
+                    cursor: pointer;
+                    width: 64px;
+                    height: auto;
+                    display: block;
+                    margin: auto;
+                }
+
+                p{
+                    cursor: pointer;
+                    margin-top: 5px;
+                    font-size: 12px;
+                    color: var(--secondary-color);
+                    text-decoration: underline;
+                    text-align: center;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                p:first-child{
+                    display: none;
+                    cursor: pointer;
+                    position: absolute;
+                    top: 0px;
+                    right: 5px;
+                    color: var(--danger);
+                }
+
+                &:hover{
+                    border: 1px solid lightgrey;
+                    border-radius: 5px;
+                    p:first-child{
+                        display: initial;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -7,12 +7,13 @@
     --light-grey: #E6E6E6;
     --pdf-file: #E2574C;
     --warning: #ff9f43;
+    --danger: #f54748;
 
     // styles
     --shadow: rgba(150, 150, 150, 0.24) 0px 3px 8px;
 }
 
-.Quiz, .Home, .Summary, .Tree, .Navigation>div:first-child {
+.Quiz, .Home, .Summary, .FileUpload, .Tree, .Navigation>div:first-child {
     max-width: 1200px;
     margin: auto;
 }
@@ -37,6 +38,7 @@ p {
 @import './styles/_summary.scss';
 @import './styles/_home.scss';
 @import './styles/_tree.scss';
+@import './styles/_fileUpload.scss';
 
 @import './styles/_switch.scss';
 @import './styles/_button.scss';
