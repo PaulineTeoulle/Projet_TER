@@ -15,6 +15,7 @@ import ModalEditEdge from '../components/modal/tree/ModalEditEdge';
 import ModalEditMethod from '../components/modal/tree/ModalEditMethod';
 import ModalEditEndNode from '../components/modal/tree/ModalEditEndNode';
 import ModalWarning from '../components/modal/ModalWarning';
+import ModalInformation from '../components/modal/ModalInformation';
 
 function Tree() {
     const nodeTypes = {
@@ -233,12 +234,6 @@ function Tree() {
             style: { stroke: color },
         }
         setElements((es) => es.concat(newEdge));
-        // if(id.substring(0, 2) != "DM"){
-        //     if(parseInt(id.slice(1)) >= getEdgeId().slice(1)){
-        //         console.log(nextEdgeId)
-        //         setNextEdgeId("D" + (parseInt(id.slice(1)) + 1).toString());
-        //     }
-        // }    
     }
 
     // check if a node type already exists
@@ -343,16 +338,6 @@ function Tree() {
         return method;
     }
 
-    function initResources(){
-        // let resources = [];
-        // initialTree.methodesRessources.forEach(element => {
-        //     let resource = initialTree.ressources.filter(item => item.ID_Ressource === element.ID_Ressource);
-        //     let method = initialTree.methodes.find(item => item.ID_Methode === element.ID_Methode);
-        //     resources[method.ID_Methode] ? resources[method.ID_Methode].push(resource[0]): resources[method.ID_Methode] = [resource[0]]; 
-        // })
-        // setResources(resources);
-    }
-
     // récupère l'arbre a l'initialisation du composant
     useEffect(() => {
         if(!initialTree){
@@ -371,37 +356,11 @@ function Tree() {
     useEffect(() => {
         if(initialTree && initialTree.entree.length){
             initTree();
-            initResources();
             initEdgesId();
         }
     }, [initialTree]);
 
-    // useEffect(() => {
-    //     if(resources){
-    //         console.log(resources)
-    //     }
-    // }, [resources]);
-
     // RECONSTRUCTION DE L'ARBRE
-
-    const [modalWarningOpen, setModalWarningOpen] = useState(false);
-
-    function closeModalWarning(){
-        setErrorMessage(null);
-        setModalWarningOpen(false);
-    }
-
-    useEffect(() => {
-        if(errorMessage){
-            setModalWarningOpen(true);
-        }
-    }, [errorMessage]);
-
-    useEffect(() => {
-        if(nextId){
-            console.log(nextId);
-        }
-    }, [nextId]);
 
     /*
     types :
@@ -450,16 +409,13 @@ function Tree() {
         
         // on regarde si il y'a des erreurs dans l'arbre (cas inaproprié)
         let error = checkTree(finalTree);
-        console.log(initialTree)
-        console.log(finalTree)
         if(!error){
-            console.log(finalTree);
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
                 axios.post(url + '/reactTest/MATUI/API/Controllers/creerArbre.php', finalTree)
                 .then(response => {
-                    console.log(response.data)
+                    setModalInformationOpen(true);
                 })
                 .catch(error => console.log(error))
         }
@@ -638,6 +594,30 @@ function Tree() {
     }
     
     // MODAL MANAGEMENT
+
+    // warning modal
+
+    const [modalWarningOpen, setModalWarningOpen] = useState(false);
+
+    function closeModalWarning(){
+        setErrorMessage(null);
+        setModalWarningOpen(false);
+    }
+
+    useEffect(() => {
+        if(errorMessage){
+            setModalWarningOpen(true);
+        }
+    }, [errorMessage]);
+
+    // information modal
+
+    const [modalInformationOpen, setModalInformationOpen] = useState(false);
+
+    function closeModalInformation(){
+        setModalInformationOpen(false);
+    }
+
 
     // edit critères
 
@@ -833,6 +813,11 @@ function Tree() {
                         message={errorMessage}
                         open={modalWarningOpen}  
                         close={closeModalWarning}
+                    />
+
+                    <ModalInformation
+                        open={modalInformationOpen}  
+                        close={closeModalInformation}
                     />
                 </ReactFlowProvider>
             : <Loader/> 
