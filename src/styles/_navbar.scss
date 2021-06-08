@@ -1,38 +1,51 @@
 .Navigation{
     box-shadow: var(--shadow);
     margin-bottom: 30px;
+    
+    &>div:first-child{
+        display: flex;
+        justify-content: space-between;
 
-    nav{
-        ul{
-            list-style-type: none;
-            display: flex;
-            justify-content: flex-end;
-            margin: 0;
-            padding: 10px 0;
-            margin-right: 30px;
-            
-            li{
-                background-color: var(--main-color);
-                border-radius: 50%;
-                width: 32px;
-                height: 32px;
-                margin: 5px;
+        img{
+            width: 50px;
+            height: 50px;
+            align-self: center;
+            margin-left: 30px;
+        }
+        
+
+        nav{
+            ul{
+                list-style-type: none;
                 display: flex;
-                justify-content: center;
-                align-items: center;
-                border: 1px solid transparent;
-
-                .icon{
-                    color: white;
-                    font-size: .8em;
-                }
-
-                &:hover{
-                    background-color: white;
-                    border: 1px solid var(--main-color);
+                justify-content: flex-end;
+                margin: 0;
+                padding: 10px 0;
+                margin-right: 30px;
+                
+                li{
+                    background-color: var(--main-color);
+                    border-radius: 50%;
+                    width: 32px;
+                    height: 32px;
+                    margin: 5px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 1px solid transparent;
 
                     .icon{
-                        color: var(--main-color);
+                        color: white;
+                        font-size: .8em;
+                    }
+
+                    &:hover{
+                        background-color: white;
+                        border: 1px solid var(--main-color);
+
+                        .icon{
+                            color: var(--main-color);
+                        }
                     }
                 }
             }
