@@ -12,7 +12,7 @@ const AuthenticatedRoute = ({path, component}) => {
                 return <Redirect to="/"/>
             case 'administrator':
                 // accès a l'arbre uniquement
-                if(path === '/manageTree'){
+                if(path === '/manageTree' || path === '/fileUpload'){
                     return <Route path={path} component={component}/> 
                 } else {
                     return <Redirect to="/"/>

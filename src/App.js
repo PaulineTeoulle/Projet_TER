@@ -37,7 +37,7 @@ function App() {
                         <Route path="/register" exact component={Register}/>
                         <AuthenticatedRoute path="/manageTree" component={Tree}/>
                         <AuthenticatedRoute path="/manageUsers" component={Users}/>
-                        <AuthenticatedRoute path="/fileUpload" exact component={FileUpload}/>
+                        <AuthenticatedRoute path="/fileUpload" component={FileUpload}/>
                         <Redirect to="/"/> {/* Redirect to home when invalid url */}
                     </Switch>
                 </div>
