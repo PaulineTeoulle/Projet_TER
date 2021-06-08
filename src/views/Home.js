@@ -8,13 +8,27 @@ import Auth from "../contexts/Auth";
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
 
+/**
+ * @Goal : Render home, open modal to edit description, call to api to edit
+ * @UsedByModule : App.js
+ * @ModuleUsed : Loader, ModalEditHome
+ * @VisibleVariables :
+ * @VisibleProcedures :
+ * @returns {JSX.Element}
+ */
 function Home() {
+    /**
+     * Setup state for role, description, newDescription, modalOpen
+     */
     const [description, setDescription] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
     const [newDescription, setNewDescription] = useState(null);
     const {isAdmin, isSuperAdmin} = useContext(Auth);
     const history = useHistory();
 
+    /**
+     * Call API to update description
+     */
     function getHomeContent() {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
@@ -29,23 +43,39 @@ function Home() {
         }
     }
 
+    /**
+     * Effect before render
+     */
     useEffect(() => {
         getHomeContent();
     });
 
 
+    /**
+     * Set boolean modalOpen to true
+     */
     function handleOpen() {
         setModalOpen(true);
     }
 
+    /**
+     * Set boolean modalOpen to false
+     */
     function handleClose() {
         setModalOpen(false);
     }
 
+    /**
+     * Update newDescription with param description
+     * @param description the new description
+     */
     function handleChange(description) {
         setNewDescription(description);
     }
 
+    /**
+     * Call to API to edit description
+     */
     function edit() {
         if (newDescription !== null) {
             let data = JSON.stringify({description: newDescription});
@@ -68,12 +98,20 @@ function Home() {
         handleClose();
     }
 
-
+    /**
+     * Redirect to quiz component
+     */
     const redirect = () => {
         history.push('/quiz')
     }
 
+    /**
+     * Return Loader if description is not set
+     */
     if (description === null) return (<Loader/>);
+    /**
+     * Return content if description is set, contains ModalEditHome
+     */
     else return (
         <div className="Home">
             <div className="logo">
@@ -103,4 +141,5 @@ function Home() {
             </div>
         </div>
     );
-}export default Home;
+}
+export default Home;
