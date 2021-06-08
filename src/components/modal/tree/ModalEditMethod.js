@@ -2,12 +2,14 @@ import React, {useEffect, useState} from "react";
 import $ from 'jquery';
 import axios from 'axios';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
 function ModalEditMethod(props) {
     const [method, setMethod] = useState(null);
     const [resources, setResources] = useState(null);
     const [allResources, setAllResources] = useState(null);
     const [title, setTitle] = useState(null);
-    // const [file, setFile] = useState(null);
 
     function customFunction(){
         let data = {
@@ -32,30 +34,6 @@ function ModalEditMethod(props) {
     function openModal() {
         $('.ModalEditMethod').css("display", "block");
     }
-
-    // function onSubmit(e) {
-    //     e.preventDefault()
-    //     uploadFile(file);
-    // }
-
-    // function onChange(e) {
-    //     setFile(e.target.files[0]);
-    // }
-
-    // function uploadFile(file) {
-    //     const formData = new FormData();
-    //     formData.append('file', file);
-    //     let protocol = window.location.protocol;
-    //     let host = window.location.hostname;
-    //     let url = protocol + '//' + host;
-    //     axios.post(url + '/reactTest/MATUI/API/Controllers/ressource/uploadFile.php', formData, {
-    //         headers: {
-    //             'content-type': 'multipart/form-data'
-    //         }
-    //     }).then(response =>{
-    //         setResources(resources.concat(response.data.id))
-    //     });
-    // }
 
     function addFile(){
         let selectedFileId = $('select').val();
@@ -120,23 +98,26 @@ function ModalEditMethod(props) {
                             </form>
                         }
                         <div className="ressources">
-                            {allResources &&
-                                <select name="pets" id="pet-select">
-                                    <option value="">--Please choose an option--</option>
-                                    {allResources.map((element, i) => {   
-                                        if(!resources.find(item => item.ID_Ressource === element.ID_Ressource)){
-                                            return (
-                                                <option key={i} value={element.ID_Ressource}>{element.Nom}</option>
-                                            ) 
-                                        }
-                                    })}    
-                                </select>
-                            }
-                            <button onClick={addFile}>ADD</button>
+                            <div className="selector">
+                                {allResources &&
+                                    <select name="pets" id="pet-select">
+                                        <option value="">Choose method</option>
+                                        {allResources.map((element, i) => {   
+                                            if(!resources.find(item => item.ID_Ressource === element.ID_Ressource)){
+                                                return (
+                                                    <option key={i} value={element.ID_Ressource}>{element.Nom}</option>
+                                                ) 
+                                            }
+                                        })}    
+                                    </select>
+                                }
+                                <button onClick={addFile}><FontAwesomeIcon className="icon" icon={faPlus} />
+</button>
+                            </div>
                             {resources &&
                                 <div>
                                 {Object.keys(resources).map(function(keyName, keyIndex) {
-                                    return (<div key={keyName} onClick={() => openFile(resources[keyName].Nom)}>
+                                    return (<div className="item" key={keyName} onClick={() => openFile(resources[keyName].Nom)}>
                                         <p>{resources[keyName].Nom}</p>
                                         </div>
                                     ) 
