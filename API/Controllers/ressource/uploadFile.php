@@ -28,10 +28,7 @@ if ($_FILES['file']) {
     $error = $_FILES["file"]["error"];
 
     if ($error > 0) {
-        $response = array(
-            "status" => "error",
-            "message" => "Error uploading the file !"
-        );
+        echo json_encode(["Error" => "Error uploading the file"]);
     } else {
         $upload_name = $upload_dir . $file_name;
         $ressource->nom = $file_name;
@@ -40,29 +37,16 @@ if ($_FILES['file']) {
             if (move_uploaded_file($file_tmp_name, $upload_name)) {
                 if ($ressource->create()) {
                     $id = $ressource->readIDFromName();
-                    $response = array(
-                        $id,
-                        "status" => "success",
-                        "message" => "File uploaded successfully"
-                    );
+                    echo json_encode([$id, "Message" => "File uploaded successfully."]);
                 }
             } else {
-                $response = array(
-                    "status" => "error",
-                    "message" => "Error uploading the file !"
-                );
+                echo json_encode(["Error" => "Error uploading the file."]);
             }
         } else {
-            $response = array(
-                "message" => "File already added, choose another file."
-            );
+            echo json_encode(["Error" => "File already added (same name), choose another file."]);
         }
     }
 } else {
-    $response = array(
-        "status" => "error",
-        "message" => "No file was sent!"
-    );
+    echo json_encode(["Error" => "No file was sent."]);
 }
-echo json_encode($response);
 
