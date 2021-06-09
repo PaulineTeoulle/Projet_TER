@@ -415,6 +415,7 @@ function Tree() {
             let url = protocol + '//' + host;
                 axios.post(url + '/reactTest/MATUI/API/Controllers/creerArbre.php', finalTree)
                 .then(response => {
+                    // console.log("go")
                     setModalInformationOpen(true);
                 })
                 .catch(error => console.log(error))

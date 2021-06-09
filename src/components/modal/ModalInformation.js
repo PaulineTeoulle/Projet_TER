@@ -4,12 +4,12 @@ import $ from 'jquery';
 function ModalInformation(props) {  
 
     function closeModal(){
-        $('.Modal').css("display", "none");
+        $('.ModalInformation').css("display", "none");
         props.close();
     }
 
     function openModal(){
-        $('.Modal').css("display", "block");
+        $('.ModalInformation').css("display", "block");
     }
 
 

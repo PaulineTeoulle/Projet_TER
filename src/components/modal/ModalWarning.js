@@ -6,12 +6,12 @@ import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 function ModalWarning(props) {  
 
     function closeModal(){
-        $('.Modal').css("display", "none");
+        $('.ModalWarning').css("display", "none");
         props.close();
     }
 
     function openModal(){
-        $('.Modal').css("display", "block");
+        $('.ModalWarning').css("display", "block");
     }
 
 
