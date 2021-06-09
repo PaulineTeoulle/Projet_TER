@@ -426,7 +426,6 @@ function Tree() {
             let url = protocol + '//' + host;
                 axios.post(url + '/reactTest/MATUI/API/Controllers/creerArbre.php', finalTree)
                 .then(response => {
-                    // console.log("go")
                     setModalInformationOpen(true);
                 })
                 .catch(error => console.log(error))
@@ -715,26 +714,29 @@ function Tree() {
         selectedMethod.data.analysis = newData.analysis;
         selectedMethod.data.exemple = newData.exemple;
 
-        // change les ressources
-        newResources.forEach(newItem =>{
-            let exist = false;
-            initialTree.methodesRessources.forEach(item => {
-                if(item.ID_Methode === selectedMethod.id.slice(1)){
-                    if(item.ID_Ressource === newItem.ID_Ressource){
-                        exist = true;
-                    } 
-                }
-            })
-            if(!exist){
-                console.log("existe aps");
-                console.log(newItem);
+        // liste des ressources actuellement associé à la méthode
+        let thisMethodResources = initialTree.methodesRessources.filter(item => item.ID_Methode === selectedMethod.id.slice(1));
+
+        // associe les ressources qui ne l'etait aps deja a la méthode        
+        newResources.forEach(newResource => {
+            let resource = thisMethodResources.filter(item => item.ID_Ressource === newResource.ID_Ressource);
+            if(!resource.length){
                 let newMethodResource = {
                     ID_Methode: selectedMethod.id.slice(1),
-                    ID_Ressource: newItem.ID_Ressource
+                    ID_Ressource: newResource.ID_Ressource
                 }
                 initialTree.methodesRessources.push(newMethodResource);
             }
-        })    
+        })
+
+        // supprime les ressources qui ne sont plus associé
+        initialTree.methodesRessources.forEach(oldResource => {
+            let resource = newResources.filter(item => item.ID_Ressource === oldResource.ID_Ressource);
+            if(!resource.length){
+                let index =  initialTree.methodesRessources.indexOf(oldResource);
+                initialTree.methodesRessources = initialTree.methodesRessources.filter(item => initialTree.methodesRessources.indexOf(item) !== index);
+            }   
+        })
 
         // force le rendu du noeud
         // l'instance ne se rerender pas si modification dans sous object donc on change position
@@ -773,8 +775,6 @@ function Tree() {
         let cloneElements = [...elements];
         setElements(cloneElements);     
     }
-
-    console.log(initialTree)
 
     return (
         <div className="Tree">

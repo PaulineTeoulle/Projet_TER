@@ -3,7 +3,7 @@ import $ from 'jquery';
 import axios from 'axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinusSquare } from '@fortawesome/free-solid-svg-icons';
 
 function ModalEditMethod(props) {
     const [method, setMethod] = useState(null);
@@ -40,6 +40,14 @@ function ModalEditMethod(props) {
         if(selectedFileId){
             let selectedFile = props.initialTree.ressources.find(item => item.ID_Ressource === selectedFileId.toString());
             setResources(resources.concat(selectedFile));
+        }
+    }
+
+    function removeFile(id){
+        if(id){
+            let selectedFile = resources.find(item => item.ID_Ressource === id.toString());
+            let index = resources.indexOf(selectedFile);
+            setResources(resources.filter(item => resources.indexOf(item) !== index))
         }
     }
 
@@ -88,13 +96,26 @@ function ModalEditMethod(props) {
                     <div className="content">
                         {method &&
                             <form>
-                                <input type="text" id="label" name="label" placeholder="label" defaultValue={method.data.label}/>
-                                <input type="text" id="description" name="description" placeholder="description" defaultValue={method.data.description}/>
-                                <input type="text" id="workforce" name="workforce" placeholder="workforce" defaultValue={method.data.workforce}/>
-                                <input type="text" id="productedData" name="productedData" placeholder="productedData" defaultValue={method.data.productedData}/>
-                                <input type="text" id="method" name="method" placeholder="method" defaultValue={method.data.method}/>
-                                <input type="text" id="analysis" name="analysis" placeholder="analysis" defaultValue={method.data.analysis}/>
-                                <input type="text" id="exemple" name="exemple" placeholder="exemple" defaultValue={method.data.exemple}/>     
+                                <label htmlFor="label">label</label>
+                                <input type="text" id="label" name="label" placeholder="" defaultValue={method.data.label}/>
+                                
+                                <label htmlFor="label">description</label>
+                                <input type="text" id="description" name="description" placeholder="" defaultValue={method.data.description}/>
+                                
+                                <label htmlFor="label">workforce</label>
+                                <input type="text" id="workforce" name="workforce" placeholder="" defaultValue={method.data.workforce}/>
+                                
+                                <label htmlFor="label">producted data</label>
+                                <input type="text" id="productedData" name="productedData" placeholder="" defaultValue={method.data.productedData}/>
+
+                                <label htmlFor="label">method</label>
+                                <input type="text" id="method" name="method" placeholder="" defaultValue={method.data.method}/>
+
+                                <label htmlFor="label">analysis</label>
+                                <input type="text" id="analysis" name="analysis" placeholder="" defaultValue={method.data.analysis}/>
+                                
+                                <label htmlFor="label">exemple</label>
+                                <input type="text" id="exemple" name="exemple" placeholder="" defaultValue={method.data.exemple}/>     
                             </form>
                         }
                         <div className="ressources">
@@ -111,14 +132,14 @@ function ModalEditMethod(props) {
                                         })}    
                                     </select>
                                 }
-                                <button onClick={addFile}><FontAwesomeIcon className="icon" icon={faPlus} />
-</button>
+                                <button onClick={addFile}><FontAwesomeIcon className="icon" icon={faPlus} /></button>
                             </div>
                             {resources &&
                                 <div>
                                 {Object.keys(resources).map(function(keyName, keyIndex) {
-                                    return (<div className="item" key={keyName} onClick={() => openFile(resources[keyName].Nom)}>
-                                        <p>{resources[keyName].Nom}</p>
+                                    return (<div className="item" key={keyName}>
+                                        <p onClick={() => openFile(resources[keyName].Nom)}>{resources[keyName].Nom}</p>
+                                        <FontAwesomeIcon onClick={() => removeFile(resources[keyName].ID_Ressource)} className="icon" icon={faMinusSquare} />
                                         </div>
                                     ) 
                                 })}    
