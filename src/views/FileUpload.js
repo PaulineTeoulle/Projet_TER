@@ -30,8 +30,11 @@ function FileUpload(props) {
                 'content-type': 'multipart/form-data'
             }
         }).then(response =>{
+            console.log(response);
             loadFiles();
             setFile(null);
+        }).catch(error =>{
+            console.log(error);
         });
     }
 

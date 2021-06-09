@@ -16,6 +16,7 @@ import ModalEditMethod from '../components/modal/tree/ModalEditMethod';
 import ModalEditEndNode from '../components/modal/tree/ModalEditEndNode';
 import ModalWarning from '../components/modal/ModalWarning';
 import ModalInformation from '../components/modal/ModalInformation';
+import ModalConfirmation from '../components/modal/ModalConfirmation';
 
 function Tree() {
     const nodeTypes = {
@@ -98,10 +99,12 @@ function Tree() {
                 if(attachedEdges.length > 0){
                     alert("You must remove all edges from this element")
                 } else {
-                    deleteElement(element); 
+                    openModalConfirmation(element)
+                    // deleteElement(element); 
                 }
             } else {
-                deleteElement(element); 
+                openModalConfirmation(element)
+                // deleteElement(element); 
             }
         }
     }
@@ -354,10 +357,18 @@ function Tree() {
 
     // quand l'arbre et chargé et si il possède une entree on lance la création de l'arbre visuel
     useEffect(() => {
-        if(initialTree && initialTree.entree.length){
-            initTree();
-            initEdgesId();
-        }
+        if(initialTree){
+            // si l'arbre possède un noeud d'entrée et de sortie on peut le construire
+            if(initialTree.entree.length && initialTree.sortie.length){
+                initTree();
+                initEdgesId();
+            }else{
+                // si ce n'est pas le cas on vérifie si il existe, si il y'a des résidu on prévient qu'il y'a un problème
+                if(initialTree.methodes.length || initialTree.criteres.length || initialTree.decisions.length){
+                    alert('Something went wrong, tree cannot be built');
+                }
+            }
+        } 
     }, [initialTree]);
 
     // RECONSTRUCTION DE L'ARBRE
@@ -619,6 +630,20 @@ function Tree() {
         setModalInformationOpen(false);
     }
 
+    // connfirmation modal
+    const [modalConfirmationOpen, setModalConfirmationOpen] = useState(false);
+    const [messageConfirmation, setMessageConfirmation] = useState(null);
+    const [selectedConfirmationElement, setSelectedConfirmationElement] = useState(null);
+
+    function openModalConfirmation(element) {
+        setModalConfirmationOpen(true);
+        setMessageConfirmation("Do you want to delete this element ?")
+        setSelectedConfirmationElement(element)
+    }
+
+    function closeConfirmationModal(){
+        setModalConfirmationOpen(false);
+    }
 
     // edit critères
 
@@ -819,6 +844,16 @@ function Tree() {
                     <ModalInformation
                         open={modalInformationOpen}  
                         close={closeModalInformation}
+                    />
+
+                    <ModalConfirmation
+                        title="Warning"
+                        message={messageConfirmation}
+                        open={modalConfirmationOpen}  
+                        close={closeConfirmationModal}
+                        mainAction={deleteElement}
+                        mainActionParameters={selectedConfirmationElement}
+                        mainActionName="Delete"
                     />
                 </ReactFlowProvider>
             : <Loader/> 
