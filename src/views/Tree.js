@@ -319,7 +319,7 @@ function Tree() {
     function initEdgesId(){
         let highest = 0;
         initialTree.decisions.forEach(decision => {
-            if(decision.ID_Decision > highest){
+            if(parseInt(decision.ID_Decision) >= highest){
                 highest = decision.ID_Decision;
             }
         })
@@ -775,7 +775,7 @@ function Tree() {
                         <FontAwesomeIcon onClick={() => deleteMode()} className="icon delete" icon={faTrashAlt} />
                         <p className="removeModeMessage">Warning, you activated the suppression mode</p>
                     </div>
-                    <button onClick={() => console.log(initialTree)}>debug</button>
+                    <button onClick={() => console.log(nextEdgeId)}>debug</button>
 
                     <ModalEditCritere
                         title="Edit critere"
