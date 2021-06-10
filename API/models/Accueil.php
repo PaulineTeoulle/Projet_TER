@@ -79,7 +79,7 @@ class Accueil
                 WHERE ID_Accueil = 1";
         $query = $this->connexion->prepare($sql);
 
-        $this->description = htmlspecialchars(strip_tags($this->description));
+        $this->description = htmlspecialchars(strip_tags($this->description), ENT_NOQUOTES);
         $query->bindParam(":description", $this->description);
 
         if ($query->execute()) {
