@@ -23,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $db = $database->getConnection();
 
     $sortie = new Sortie($db);
-    $sortie->read();
+    $sortie->readMessage();
 
     $sortieResult = [
-        "message" => $sortie,
+        "message" => $sortie->message,
     ];
     http_response_code(200);
     echo json_encode($sortieResult);
