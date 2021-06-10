@@ -737,6 +737,7 @@ function Tree() {
                 initialTree.methodesRessources = initialTree.methodesRessources.filter(item => initialTree.methodesRessources.indexOf(item) !== index);
             }   
         })
+        
 
         // force le rendu du noeud
         // l'instance ne se rerender pas si modification dans sous object donc on change position

@@ -20,14 +20,12 @@ export class Summary extends React.Component {
 
     componentDidMount(){
         if(this.props.location.state.retainedMethods.length){
-            console.log("methond retenu")
             this.setState({
                 retainedMethods: this.props.location.state.retainedMethods,
                 amount: this.props.location.state.retainedMethods.length
             });
         } else {
             this.setState({ amount: 0});
-            console.log("pas de methond retenu")
         }
     };
 

@@ -27,7 +27,7 @@ const Login = (props) => {
             if(response === false){
                 props.history.push({
                     pathname: '/login',
-                    state: { error: "Error" }
+                    state: { error: "Error, incorrect password or username" }
                 })
             }
             else {
@@ -64,15 +64,15 @@ const Login = (props) => {
                 <div className="InputItems">
                     <div>
                         <input className ="inputIcon" type="text" id="username" name="username" required placeholder="    Username"
-                               onChange={handleChange}/>
+                            onChange={handleChange}/>
                     </div>
 
                     <div>
                         <input className ="inputIcon" type="password" id="password" name="mot_de_passe" required placeholder={"    Password"}
-                               onChange={handleChange}/>
-                        {props.location.state &&(<p>{props.location.state.error}</p>)}
+                            onChange={handleChange}/>
                     </div>
                 </div>
+                {props.location.state &&(<p className="error">{props.location.state.error}</p>)}
 
                 <div className="action">
                     <button className="button filled" onClick={handleSubmit}>Sign in</button>

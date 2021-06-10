@@ -127,6 +127,7 @@ function Home() {
                 </div>
 
                 <p>{description}</p>
+                
                 <ModalEditHome
                     title="Modify description"
                     message="Please modify"

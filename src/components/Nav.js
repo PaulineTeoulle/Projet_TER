@@ -1,6 +1,7 @@
 import React, {useContext} from 'react';
 import {Link} from 'react-router-dom';
-import logo from "../public/logothedre.png";
+import quizIcon from "../public/quiz.svg";
+import logoTitle from "../public/LogoThedreTitle.png";
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {
@@ -27,44 +28,44 @@ const Nav = () => {
     return (
         <div className="Navigation">
             <div>
-                <img src={logo} alt={'Logo Thedre'}/>
+                <img src={logoTitle} alt={'Logo Thedre'}/>
                 <nav>
                     <ul>
-                        <Link to="/">
+                        <Link title="home" to="/">
                             <li><FontAwesomeIcon className="icon" icon={faHome}/></li>
                         </Link>
-                        <Link to="/quiz">
-                            <li><FontAwesomeIcon className="icon" icon={faQuestion}/></li>
+                        <Link title="quiz" to="/quiz">
+                            <li><img className="icon quizIcon" src={quizIcon} alt={'icon quiz'}/></li>
                         </Link>
 
                         {!isAuthenticated && (<>
-                            <Link to="/login">
+                            <Link title="login" to="/login">
                                 <li><FontAwesomeIcon className="icon" icon={faUser}/></li>
                             </Link>
                         </>)}
 
-                        {userRole === 'administrator' && (<> <Link to="/manageTree">
+                        {userRole === 'administrator' && (<> <Link title="tree management" to="/manageTree">
                             <li><FontAwesomeIcon className="icon" icon={faProjectDiagram}/></li>
                         </Link>
 
-                            <Link to="/fileUpload">
+                            <Link title="file uploading" to="/fileUpload">
                                 <li><FontAwesomeIcon className="icon" icon={faFileUpload}/></li>
                             </Link></>)}
 
                         {userRole === 'super-admin' && (<>
-                            <Link to="/manageTree">
+                            <Link title="tree management" to="/manageTree">
                                 <li><FontAwesomeIcon className="icon" icon={faProjectDiagram}/></li>
                             </Link>
-                            <Link to="/manageUsers">
+                            <Link title="users management" to="/manageUsers">
                                 <li><FontAwesomeIcon className="icon" icon={faUserCog}/></li>
                             </Link>
-                            <Link to="/fileUpload">
+                            <Link title="file uploading" to="/fileUpload">
                                 <li><FontAwesomeIcon className="icon" icon={faFileUpload}/></li>
                             </Link>
                         </>)}
 
                         {isAuthenticated && (<>
-                            <Link to="/logout">
+                            <Link title="logout" to="/logout">
                                 <li onClick={handleLogout}><FontAwesomeIcon className="icon" icon={faSignOutAlt}/></li>
                             </Link>
                         </>)}
