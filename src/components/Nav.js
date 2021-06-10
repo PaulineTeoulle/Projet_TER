@@ -8,7 +8,6 @@ import {
     faFileUpload,
     faHome,
     faProjectDiagram,
-    faQuestion,
     faUser,
     faUserCog,
     faSignOutAlt

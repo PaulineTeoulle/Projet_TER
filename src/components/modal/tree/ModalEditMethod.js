@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
 import $ from 'jquery';
-import axios from 'axios';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinusSquare } from '@fortawesome/free-solid-svg-icons';

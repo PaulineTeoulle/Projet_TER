@@ -39,8 +39,8 @@ function ModalEditRole(props) {
                         <option id="option" value="super-admin">Super-administrator</option>
                     </select>
                     <div className="action">
-                        <button className="button outlined" onClick={closeModal}>{props.closeButton}</button>
                         <button className="button filled" onClick={customFunction}>{props.actionButton}</button>
+                        <button className="button outlined" onClick={closeModal}>{props.closeButton}</button>
                     </div>
                 </div>
             </div>

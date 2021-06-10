@@ -186,3 +186,108 @@
         }
     }
 }
+
+.ModalDeleteUser {
+    & > div {
+        #select {
+            background-color: transparent;
+            padding: 0.5em 0.5em 0.5em 0.5em;
+            width: 20%;
+            height: 20%;
+            font-family: inherit;
+            font-size: inherit;
+
+            #option {
+            }
+        }
+    }
+}
+.ModalEditHome {
+    .container {
+        .text {
+            width: 100%;
+            height: auto;
+        }
+
+        .textinput {
+            width: 100%;
+            min-height: 75px;
+            outline: none;
+            resize: none;
+            border: 1px solid var(--main-color);
+        }
+    }
+}
+.ModalEditRole {
+
+    #select {
+        background-color: transparent;
+        padding: 0.5em 0.5em 0.5em 0.5em;
+        width: 50%;
+        height: 20%;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: inherit;
+
+    }
+}
+.ModalSignIn {
+    .InputItems {
+        margin: 0 auto 0 50px;
+
+        input {
+            font-size: 20px;
+            font-family: FontAwesome, serif;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-bottom: 1px solid black;
+        }
+    }
+
+    .action {
+        margin-top: 50px;
+        display: flex;
+
+        :first-child {
+            margin-right: 10px;
+        }
+
+        :nth-child(2) {
+            margin-left: 10px;
+        }
+    }
+}
+
+.ModalSignUp {
+    .InputItems {
+        margin: 0 auto 0 50px;
+
+        input {
+            font-size: 20px;
+            font-family: FontAwesome, serif;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-bottom: 1px solid black;
+        }
+    }
+
+    .action {
+        margin-top: 50px;
+        display: flex;
+
+        :first-child {
+            margin-right: 10px;
+        }
+
+        :nth-child(2) {
+            margin-left: 10px;
+        }
+    }
+}
+
+
+
+
+
