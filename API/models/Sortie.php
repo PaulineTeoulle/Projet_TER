@@ -58,6 +58,17 @@ class Sortie
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function readMessage(){
+        $sql = "SELECT Message
+                FROM a_sortie   
+                WHERE ID_Accueil=1";
+        $query = $this->connexion->prepare($sql);
+        $query->execute();
+
+        return $query->fetch(PDO::FETCH_ASSOC);
+
+    }
+
     public function readIdDecisionSortant(){
         $sql = "SELECT ID_Decision
                 FROM a_decision WHERE ID_Critere_sortant is null ";

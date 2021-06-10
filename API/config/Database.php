@@ -21,7 +21,7 @@ class Database
     /**
      * @var string database name
      */
-    private $db_name = "matui_vide";
+    private $db_name = "api_matui";
     /**
      * @var string database user
      */

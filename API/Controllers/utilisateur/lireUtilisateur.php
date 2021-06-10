@@ -24,8 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $utilisateur = new Utilisateur($db);
 
     $utilisateur = $utilisateur->read();
+    http_response_code(200);
     echo json_encode($utilisateur);
 
 } else {
+    http_response_code(405);
     echo json_encode(["Message" => "Unauthorised method"]);
 }

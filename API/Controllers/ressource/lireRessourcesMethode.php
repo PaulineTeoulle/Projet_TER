@@ -28,10 +28,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($donnees->id_methode)) {
         $methodeRessource->id_methode = $donnees->id_methode;
         $methodeRessource = $methodeRessource->readRessourcesMethode();
+        http_response_code(200);
         echo json_encode($methodeRessource);
 
-    } else echo json_encode(["Error" => "Unset ID"]);
+    } else {
+        http_response_code(204);
+        echo json_encode(["Error" => "Unset ID"]);
+    }
 
 } else {
+    http_response_code(405);
     echo json_encode(["Message" => "Unauthorised method"]);
 }

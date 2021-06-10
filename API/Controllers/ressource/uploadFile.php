@@ -42,16 +42,20 @@ if ($_FILES['file']) {
                         "status" => "success",
                         "message" => "File uploaded successfully"
                     );
+                    http_response_code(200);
                     echo json_encode([$id, "Message" => "File uploaded successfully."]);
                 }
             } else {
+                http_response_code(304);
                 echo json_encode(["Error" => "Error uploading the file."]);
             }
         } else {
+            http_response_code(304);
             echo json_encode(["Error" => "File already added (same name), choose another file."]);
         }
     }
 } else {
+    http_response_code(204);
     echo json_encode(["Error" => "No file was sent."]);
 }
 

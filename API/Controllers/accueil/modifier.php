@@ -31,11 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
                 "description" => $accueil->description,
             ];
             echo json_encode($accueilResult);
-            echo json_encode(["Message" => "Success"]);
+            http_response_code(200);
+           // echo json_encode(["Message" => "Success"]);
         } else {
+            http_response_code(304);
             echo json_encode(["Error" => "Failure"]);
         }
     }
 } else {
+    http_response_code(405);
     echo json_encode(["Message" => "Unauthorised method"]);
 }

@@ -24,7 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     $ressource = new Ressource($db);
     $ressources['ressources'] = $ressource->read();
+    http_response_code(200);
     echo json_encode(["ressources" =>  $ressources['ressources']]);
 } else {
+    http_response_code(405);
     echo json_encode(["Message" => "Unauthorised method"]);
 }

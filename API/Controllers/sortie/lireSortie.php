@@ -17,24 +17,20 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     include_once '../../config/Database.php';
-    include_once '../../models/Accueil.php';
+    include_once '../../models/Sortie.php';
 
     $database = new Database();
     $db = $database->getConnection();
 
-    $accueil = new Accueil($db);
-    $accueil->read();
+    $sortie = new Sortie($db);
+    $sortie->read();
 
-    if ($accueil->description != null) {
-        $accueilResult = [
-            "description" => $accueil->description,
-        ];
-        http_response_code(200);
-        echo json_encode($accueilResult);
-    } else {
-        http_response_code(204);
-        echo json_encode(array("Message" => "Description doesn't exist."));
-    }
+    $sortieResult = [
+        "message" => $sortie,
+    ];
+    http_response_code(200);
+    echo json_encode($sortieResult);
+
 } else {
     http_response_code(405);
     echo json_encode(["Message" => "Unauthorised method"]);
