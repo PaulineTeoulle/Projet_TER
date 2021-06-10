@@ -347,7 +347,7 @@ function Tree() {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-                axios.get(url + '/Projet_TER/API/Controllers/lireArbre.php')
+                axios.get(url + '/reactTest/MATUI/API/Controllers/lireArbre.php')
                 .then(response => {
                     setInitialTree(response.data)
                 })
@@ -424,7 +424,7 @@ function Tree() {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-                axios.post(url + '/Projet_TER/API/Controllers/creerArbre.php', finalTree)
+                axios.post(url + '/reactTest/MATUI/API/Controllers/creerArbre.php', finalTree)
                 .then(response => {
                     setModalInformationOpen(true);
                 })

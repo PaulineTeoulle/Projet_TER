@@ -25,7 +25,7 @@ function FileUpload(props) {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
-        axios.post(url + '/Projet_TER/API/Controllers/ressource/uploadFile.php', formData, {
+        axios.post(url + '/reactTest/MATUI/API/Controllers/ressource/uploadFile.php', formData, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
@@ -44,7 +44,7 @@ function FileUpload(props) {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
-        window.open(url + '/Projet_TER/src/public/documentsRessources/' + name);
+        window.open(url + '/reactTest/MATUI/src/public/documentsRessources/' + name);
     }
 
     function deleteFile(id){
@@ -55,7 +55,7 @@ function FileUpload(props) {
         console.log(data);
         axios({
             method: 'delete',
-            url: url+ '/Projet_TER/API/Controllers/ressource/supprimerRessource.php',
+            url: url+ '/reactTest/MATUI/API/Controllers/ressource/supprimerRessource.php',
             data: data
         }).then(response => loadFiles())
     }
@@ -64,7 +64,7 @@ function FileUpload(props) {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
-        axios.get(url + '/Projet_TER/API/Controllers/ressource/lire.php')
+        axios.get(url + '/reactTest/MATUI/API/Controllers/ressource/lire.php')
         .then(response =>{
             setAllFiles(response.data.ressources)
         });
