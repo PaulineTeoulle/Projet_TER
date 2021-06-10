@@ -27,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     if (!empty($donnees->id)) {
         $ressource->id = $donnees->id;
         $ressource->nom = $ressource->readNameFromID()['Nom'];
-        //echo $ressource->nom;
         $file_pointer = "../../documentsRessources/" . $ressource->nom;
         if (unlink($file_pointer)) {
             echo json_encode(["Message" => "Success"]);
@@ -35,11 +34,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
             echo json_encode(["Message" => "Failure"]);
         }
         if ($ressource->deleteOne()) {
+            http_response_code(200);
             echo json_encode(["Message" => "Success"]);
         } else {
+            http_response_code(304);
             echo json_encode(["Error" => "Failure"]);
         }
     }
 } else {
+    http_response_code(405);
     echo json_encode(["Message" => "Unauthorised method"]);
 }
