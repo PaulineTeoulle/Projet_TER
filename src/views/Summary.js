@@ -35,9 +35,7 @@ export class Summary extends React.Component {
             let url = protocol + '//' + host;
             axios.get(url + '/Projet_TER/API/Controllers/sortie/lireSortie.php')
                 .then(response => {
-                    console.log(response.data.message);
-                    this.setState({endMessage: response.data.message['message']})
-                    //setDescription(response.data['description']);
+                    this.setState({endMessage: response.data['message']})
                 })
                 .catch(error => console.log(error))
 
