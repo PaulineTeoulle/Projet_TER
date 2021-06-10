@@ -44,8 +44,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $sortieResults['sortie'] = $sortie->read();
 
     $arrayResults = array_merge($entreeResults, $critereResults, $decisionResults, $methodeResults, $methodeRessourceResults, $ressourceResults, $sortieResults);
+    http_response_code(200);
     echo json_encode($arrayResults);
 
 } else {
+    http_response_code(405);
     echo json_encode(["Message" => "Unauthorised method"]);
 }

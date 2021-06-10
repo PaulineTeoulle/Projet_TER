@@ -145,4 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo json_encode(["Error" => "Failure SORTIE"]);
         }
     }
+}else {
+    http_response_code(405);
+    echo json_encode(["Message" => "Unauthorised method"]);
 }

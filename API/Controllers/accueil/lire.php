@@ -27,13 +27,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
     if ($accueil->description != null) {
         $accueilResult = [
-            "id" => $accueil->id,
             "description" => $accueil->description,
         ];
+        http_response_code(200);
         echo json_encode($accueilResult);
     } else {
+        http_response_code(204);
         echo json_encode(array("Message" => "Description doesn't exist."));
     }
 } else {
+    http_response_code(405);
     echo json_encode(["Message" => "Unauthorised method"]);
 }

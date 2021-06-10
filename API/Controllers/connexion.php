@@ -41,14 +41,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $base64UrlSignature = str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($signature));
 
             $jwt = $base64UrlHeader . "." . $base64UrlPayload . "." . $base64UrlSignature;
+            http_response_code(200);
             echo json_encode(["token" => $jwt]);
         } else {
+            http_response_code(404);
             echo json_encode(["ErrorPassword" => "Invalid Password"]);
         }
 
     }
 
 } else {
+    http_response_code(405);
     echo json_encode(["Message" => "Unauthorised method"]);
 
 }
