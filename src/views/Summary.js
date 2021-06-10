@@ -1,5 +1,6 @@
 import React from 'react';
 import DropMethodCard from '../components/quiz/DropMethodCard';
+import axios from "axios";
 
 export class Summary extends React.Component {
 
@@ -8,53 +9,72 @@ export class Summary extends React.Component {
         this.state = {
             retainedMethods: null,
             resume: null,
-            amount: null
+            amount: null,
+            endMessage: null
         };
     }
 
     goToHome = () => {
         this.props.history.push({
             pathname: '/home'
-        })      
+        })
     }
 
-    componentDidMount(){
-        if(this.props.location.state.retainedMethods.length){
+    componentDidMount() {
+        if (this.props.location.state.retainedMethods.length) {
             this.setState({
                 retainedMethods: this.props.location.state.retainedMethods,
                 amount: this.props.location.state.retainedMethods.length
             });
         } else {
-            this.setState({ amount: 0});
+            this.setState({amount: 0});
+        }
+        if (this.state.endMessage === null) {
+            let protocol = window.location.protocol;
+            let host = window.location.hostname;
+            let url = protocol + '//' + host;
+            axios.get(url + '/Projet_TER/API/Controllers/sortie/lireSortie.php')
+                .then(response => {
+                    console.log(response.data.message);
+                    this.setState({endMessage: response.data.message['message']})
+                    //setDescription(response.data['description']);
+                })
+                .catch(error => console.log(error))
+
         }
     };
 
-    render(){
+    render() {
         return (
             <div className="Summary">
                 <div>
                     <h3>You have retained {this.state.amount} method{this.state.amount > 1 ? "s" : ""}</h3>
-                {this.state.retainedMethods ? 
-                    <ul>
-                        {this.state.retainedMethods.map((element, i) => {   
+                    {this.state.retainedMethods ?
+                        <ul>
+                            {this.state.retainedMethods.map((element, i) => {
                                 return (
                                     <li key={i}>
                                         <DropMethodCard method={element.method}
-                                        id={i + 1}
+                                                        id={i + 1}
                                         />
                                     </li>
-                                ) 
+                                )
                             })}
-                    </ul>
-                    :
-                    <p></p>
-                }
+                        </ul>
+                        :
+                        <p></p>
+                    }
                 </div>
                 <div>
-                    <div className="messageCard">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                    </div>
-                    <button onClick={this.goToHome} className="button filled">Finish</button>    
+                    {this.state.endMessage ?
+                        <div className="messageCard">
+                            <p>{this.state.endMessage}</p>
+                        </div>
+                        :
+                        <p></p>
+                    }
+
+                    <button onClick={this.goToHome} className="button filled">Finish</button>
                 </div>
             </div>
         );

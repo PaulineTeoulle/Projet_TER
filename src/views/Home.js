@@ -23,7 +23,7 @@ function Home() {
     const [description, setDescription] = useState(null);
     const [modalOpen, setModalOpen] = useState(false);
     const [newDescription, setNewDescription] = useState(null);
-    const {isAdmin, isSuperAdmin} = useContext(Auth);
+    const {userRole, setUserRole} = useContext(Auth);
     const history = useHistory();
 
     /**
@@ -35,7 +35,7 @@ function Home() {
         let url = protocol + '//' + host;
 
         if (description === null) {
-            axios.get(url + '/reactTest/MATUI/API/Controllers/accueil/lire.php')
+            axios.get(url + '/Projet_TER/API/Controllers/accueil/lire.php')
                 .then(response => {
                     setDescription(response.data['description']);
                 })
@@ -82,9 +82,9 @@ function Home() {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-            axios.put(url +'/reactTest/MATUI/API/Controllers/accueil/modifier.php',data)
+            axios.put(url +'/Projet_TER/API/Controllers/accueil/modifier.php',data)
                 .then(() => {
-                    axios.get(url+ '/reactTest/MATUI/API/Controllers/accueil/lire.php')
+                    axios.get(url+ '/Projet_TER/API/Controllers/accueil/lire.php')
                         .then(response => {
                             setDescription(response.data['description']);
                         })
@@ -122,8 +122,8 @@ function Home() {
                 <div className="title">
                     <h3>Contents</h3>
                     {/*<FontAwesomeIcon className="icon" icon={faPen} onClick={handleOpen}/>*/}
-                    {isAdmin  && ( <FontAwesomeIcon className="icon" icon={faPen} onClick={handleOpen}/>)}
-                    {isSuperAdmin && ( <FontAwesomeIcon className="icon" icon={faPen} onClick={handleOpen}/>)}
+                    {userRole==="super-admin"  && ( <FontAwesomeIcon className="icon" icon={faPen} onClick={handleOpen}/>)}
+                    {userRole==="administrator" && ( <FontAwesomeIcon className="icon" icon={faPen} onClick={handleOpen}/>)}
                 </div>
 
                 <p>{description}</p>
