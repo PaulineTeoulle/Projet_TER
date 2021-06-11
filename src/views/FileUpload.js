@@ -25,7 +25,7 @@ function FileUpload(props) {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
-        axios.post(url + '/reactTest/MATUI/API/Controllers/ressource/uploadFile.php', formData, {
+        axios.post(url + '/Projet_TER/API/Controllers/ressource/uploadFile.php', formData, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
@@ -44,7 +44,7 @@ function FileUpload(props) {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
-        window.open(url + '/reactTest/MATUI/src/public/documentsRessources/' + name);
+        window.open(url + '/Projet_TER/src/public/documentsRessources/' + name);
     }
 
     function deleteFile(id){
@@ -55,7 +55,7 @@ function FileUpload(props) {
         console.log(data);
         axios({
             method: 'delete',
-            url: url+ '/reactTest/MATUI/API/Controllers/ressource/supprimerRessource.php',
+            url: url+ '/Projet_TER/API/Controllers/ressource/supprimerRessource.php',
             data: data
         }).then(response => loadFiles())
     }
@@ -64,7 +64,7 @@ function FileUpload(props) {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
-        axios.get(url + '/reactTest/MATUI/API/Controllers/ressource/lire.php')
+        axios.get(url + '/Projet_TER/API/Controllers/ressource/lire.php')
         .then(response =>{
             setAllFiles(response.data.ressources)
         });
@@ -75,7 +75,7 @@ function FileUpload(props) {
             $("form>label").html(file.name);
             $("form>label").css("color", "black");
         } else {
-            $("form>label").html("Choose file...");
+            $("form>label").html("Import file...");
             $("form>label").css("color", "lightgray");
         }
     }, [file]);
@@ -108,9 +108,10 @@ function FileUpload(props) {
                     <button className="filled submit-button" type="submit">                        
                         <FontAwesomeIcon icon={faUpload} />
                     </button>
-                    <label htmlFor="file-upload">Choose file...</label>
+                    <label htmlFor="file-upload">Import file...</label>
                     <input id="file-upload" type="file" onChange={onChange}/>
-                </form>        
+                </form>
+                <h3> List of files already uploaded :</h3>
                 {allFiles &&
                     <div className="item-list">
                         {allFiles.map((element, i) => {   

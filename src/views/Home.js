@@ -35,7 +35,7 @@ function Home() {
         let url = protocol + '//' + host;
 
         if (description === null) {
-            axios.get(url + '/reactTest/MATUI/API/Controllers/accueil/lire.php')
+            axios.get(url + '/Projet_TER/API/Controllers/accueil/lire.php')
                 .then(response => {
                     setDescription(response.data['description']);
                 })
@@ -82,9 +82,9 @@ function Home() {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-            axios.put(url +'/reactTest/MATUI/API/Controllers/accueil/modifier.php',data)
+            axios.put(url +'/Projet_TER/API/Controllers/accueil/modifier.php',data)
                 .then(() => {
-                    axios.get(url+ '/reactTest/MATUI/API/Controllers/accueil/lire.php')
+                    axios.get(url+ '/Projet_TER/API/Controllers/accueil/lire.php')
                         .then(response => {
                             setDescription(response.data['description']);
                         })
