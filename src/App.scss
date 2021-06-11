@@ -13,7 +13,7 @@
     --shadow: rgba(150, 150, 150, 0.24) 0px 3px 8px;
 }
 
-.Quiz, .Home, .Summary, .FileUpload, .Tree, .Navigation>div:first-child {
+.Quiz, .Home>div:nth-child(2), .Home>div:first-child>div, .Summary, .FileUpload, .Tree, .Navigation>div:first-child {
     max-width: 1200px;
     margin: auto;
 }

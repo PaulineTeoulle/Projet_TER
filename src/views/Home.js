@@ -1,5 +1,6 @@
 import Loader from "../components/Loader";
 import logo from "../public/logothedre.png";
+import demo from "../public/HomeDemo.png";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen} from "@fortawesome/free-solid-svg-icons";
 import ModalEditHome from "../components/modal/ModalEditHome";
@@ -7,6 +8,8 @@ import React, {useContext, useEffect, useState} from "react";
 import Auth from "../contexts/Auth";
 import { useHistory } from 'react-router-dom';
 import axios from "axios";
+import $ from 'jquery';
+
 
 /**
  * @Goal : Render home, open modal to edit description, call to api to edit
@@ -49,7 +52,6 @@ function Home() {
     useEffect(() => {
         getHomeContent();
     });
-
 
     /**
      * Set boolean modalOpen to true
@@ -114,21 +116,36 @@ function Home() {
      */
     else return (
         <div className="Home">
-            <div className="logo">
-                <img src={logo} alt={'Logo Thedre'}/>
-                <button className="button filled" onClick={redirect}>Start</button>
+            <div>
+                <div>
+                <h1><strong>MATUI</strong>'s tree in digital version</h1>
+                    <div className="content">
+                        <div>
+                            <h3><strong>What is it ?</strong></h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                            <button className="button filled" onClick={redirect}>Start now</button>
+                        </div>
+                        <div>
+                            <img src={demo} alt={'Tool demo'}/>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div className="content">
-                <div className="title">
-                    <h3>Contents</h3>
-                    {/*<FontAwesomeIcon className="icon" icon={faPen} onClick={handleOpen}/>*/}
+
+            <div>
+                <h3>More explications
                     {userRole==="super-admin"  && ( <FontAwesomeIcon className="icon" icon={faPen} onClick={handleOpen}/>)}
                     {userRole==="administrator" && ( <FontAwesomeIcon className="icon" icon={faPen} onClick={handleOpen}/>)}
+                </h3>
+        
+                <div className="content">
+                    <div className="logo">
+                        <img src={logo} alt={'Logo Thedre'}/>
+                    </div>
+                    <p>{description}</p>
                 </div>
-
-                <p>{description}</p>
-                
-                <ModalEditHome
+            </div>
+            <ModalEditHome
                     title="Modify description"
                     message="Please modify"
                     oldDescription={description}
@@ -139,7 +156,6 @@ function Home() {
                     mainAction={edit}
                     changeAction={handleChange}
                 />
-            </div>
         </div>
     );
 }
