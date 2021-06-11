@@ -515,7 +515,7 @@ function Tree() {
 
     function transformToSortie(element){
         let endNode = {
-            ID_Sortie: element.id.slice(1),
+            ID_Sortie: 1, //element.id.slice(1),
             message: element.data.message,
             x: element.position.x,
             y: element.position.y
