@@ -28,7 +28,7 @@
                     border-radius: 50%;
                     width: 32px;
                     height: 32px;
-                    margin: 5px;
+                    margin: 7px;
                     display: flex;
                     justify-content: center;
                     align-items: center;
@@ -44,6 +44,7 @@
                     &:hover{
                         background-color: white;
                         border: 1px solid var(--main-color);
+                        transition: .3s;
 
                         .icon{
                             color: var(--main-color);
@@ -51,6 +52,20 @@
 
                         .quizIcon{
                             filter: invert(1);
+                        }
+                    }
+                }
+
+                .logout{
+                    &>li{
+                        background-color: transparent;
+
+                        &>.logoutIcon{
+                            color: var(--danger);
+                        }
+
+                        &:hover{
+                            border: 1px solid var(--danger);
                         }
                     }
                 }

@@ -16,7 +16,7 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+// if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     include_once '../config/Database.php';
     include_once '../models/Utilisateur.php';
 
@@ -50,8 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     }
 
-} else {
-    http_response_code(405);
-    echo json_encode(["Message" => "Unauthorised method"]);
+// } else {
+//     http_response_code(405);
+//     echo json_encode(["Message" => "Unauthorised method"]);
 
-}
+// }

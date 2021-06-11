@@ -41,6 +41,10 @@ const Login = (props) => {
 
         } catch ({response}) {
             console.log(response);
+            props.history.push({
+                pathname: '/login',
+                state: { error: "Error, incorrect password or username" }
+            })
         }
     }
 

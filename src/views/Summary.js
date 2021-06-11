@@ -72,7 +72,7 @@ export class Summary extends React.Component {
                         <p></p>
                     }
 
-                    <button onClick={this.goToHome} className="button filled">Finish</button>
+                    <button onClick={this.goToHome} className="button filled">Back home</button>
                 </div>
             </div>
         );

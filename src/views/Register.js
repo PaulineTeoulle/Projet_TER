@@ -51,11 +51,11 @@ function Register() {
                                onChange={e => setUsername(e.target.value)}/>
                     </div>
                     <div>
-                        <input type="mail" id="mail" name="mail" required placeholder="     Mail"
+                        <input type="mail" id="mail" name="mail" required placeholder="     Mail"
                                onChange={e => setMail(e.target.value)}/>
                     </div>
                     <div>
-                        <input type="password" id="password" name="password" required placeholder="     Password"
+                        <input type="password" id="password" name="password" required placeholder="     Password"
                                onChange={e => setPassword(e.target.value)}/>
                     </div>
 

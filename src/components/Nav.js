@@ -64,8 +64,8 @@ const Nav = () => {
                         </>)}
 
                         {isAuthenticated && (<>
-                            <Link title="logout" to="/logout">
-                                <li onClick={handleLogout}><FontAwesomeIcon className="icon" icon={faSignOutAlt}/></li>
+                            <Link className='logout' title="logout" to="/logout">
+                                <li onClick={handleLogout}><FontAwesomeIcon className="logoutIcon" icon={faSignOutAlt}/></li>
                             </Link>
                         </>)}
                     </ul>
