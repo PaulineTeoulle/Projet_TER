@@ -17,6 +17,7 @@ import ModalEditEndNode from '../components/modal/tree/ModalEditEndNode';
 import ModalWarning from '../components/modal/ModalWarning';
 import ModalInformation from '../components/modal/ModalInformation';
 import ModalConfirmation from '../components/modal/ModalConfirmation';
+import { faHubspot } from '@fortawesome/free-brands-svg-icons';
 
 function Tree() {
     const nodeTypes = {
@@ -66,8 +67,9 @@ function Tree() {
 
         const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
         let toolbarWidth = $('aside').width();
+        console.log(reactFlowBounds.left)
         const position = reactFlowInstance.project({
-            x: event.clientX - toolbarWidth,
+            x: event.clientX - (reactFlowBounds.left + toolbarWidth),
             y: event.clientY - reactFlowBounds.top,
         });
         createNode(type, position);
@@ -177,9 +179,6 @@ function Tree() {
                             informations: (data.Informations ? data.Informations : null)
                         },
                     };
-                    if(data.ID_Critere >= getId()){
-                        setNextId((parseInt(data.ID_Critere) + 1).toString());
-                    }      
                 } else {
                     newNode = {
                         id: getId(),
@@ -206,10 +205,7 @@ function Tree() {
                             analysis: data.Type_analyse,
                             exemple: data.Exemple
                         },
-                    };
-                    if(parseInt(data.ID_Methode) >= getMethodId().slice(1)){
-                        setNextMethodId("M" + (parseInt(data.ID_Methode) + 1).toString());
-                    }               
+                    };   
                 } else {
                     newNode = {
                         id: getMethodId(),
@@ -224,6 +220,12 @@ function Tree() {
         // insertion du noeud dans les elements react flow render
         setElements((es) => es.concat(newNode));
     }
+
+    useEffect(() => {
+        if(nextId){
+            console.log(nextId);
+        }
+    }, [nextId]);
     
     // crée un lien entre 2 noeuds
     function createEdge(id, id_source, id_target, label, color){
@@ -329,6 +331,25 @@ function Tree() {
         setNextEdgeId("D" + (parseInt(highest) + 1).toString());
     }
 
+    function initMethodId(){
+        let highest = 0;
+        initialTree.methodes.forEach(methode => {
+            if(parseInt(methode.ID_Methode) >= highest){
+                highest = methode.ID_Methode;
+            }
+        })
+        setNextMethodId("M" + (parseInt(highest) + 1).toString());
+    }
+
+    function initNodeId(){
+        let highest = 0;
+        initialTree.criteres.forEach(critere => {
+            if(parseInt(critere.ID_Critere) >= highest){
+                highest = critere.ID_Critere;
+            }
+        })
+        setNextId((parseInt(highest) + 1).toString());
+    }
     // retourne les décisions d'un noeud
     function getDecisions(nodeId){
         let decisions =  initialTree.decisions.filter(decision => decision.ID_Critere_entrant === nodeId);
@@ -362,6 +383,8 @@ function Tree() {
             if(initialTree.entree.length && initialTree.sortie.length){
                 initTree();
                 initEdgesId();
+                initMethodId();
+                initNodeId();
             }else{
                 // si ce n'est pas le cas on vérifie si il existe, si il y'a des résidu on prévient qu'il y'a un problème
                 if(initialTree.methodes.length || initialTree.criteres.length || initialTree.decisions.length){
