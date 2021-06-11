@@ -368,7 +368,7 @@ function Tree() {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-                axios.get(url + '/reactTest/MATUI/API/Controllers/lireArbre.php')
+                axios.get(url + '/Projet_TER/API/Controllers/lireArbre.php')
                 .then(response => {
                     setInitialTree(response.data)
                 })
@@ -447,7 +447,7 @@ function Tree() {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-                axios.post(url + '/reactTest/MATUI/API/Controllers/creerArbre.php', finalTree)
+                axios.post(url + '/Projet_TER/API/Controllers/creerArbre.php', finalTree)
                 .then(response => {
                     setModalInformationOpen(true);
                 })
@@ -515,7 +515,7 @@ function Tree() {
 
     function transformToSortie(element){
         let endNode = {
-            ID_Sortie: element.id.slice(1),
+            ID_Sortie: 1, //element.id.slice(1),
             message: element.data.message,
             x: element.position.x,
             y: element.position.y
