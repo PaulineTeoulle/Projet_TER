@@ -43,7 +43,7 @@ const Login = (props) => {
             console.log(response);
             props.history.push({
                 pathname: '/login',
-                state: { error: "Error, incorrect password or username" }
+                state: { error: "Error, incorrect password or username." }
             })
         }
     }
@@ -51,15 +51,6 @@ const Login = (props) => {
     const change = () => {
         props.history.push('/register')
     }
-
-    // useEffect(() => {
-    //    // Redirection si déjà loggé et sur la page login
-    //     if (isAuthenticated) {
-    //         history.replace('/home')
-    //     }
-    //
-    // }, [history, isAuthenticated]);
-
 
     return (
         <div className="LoginRegister">

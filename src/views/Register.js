@@ -7,6 +7,8 @@ function Register() {
     const [mail, setMail] = useState("");
     const [password, setPassword] = useState("");
     const [passwordConfirmation, setPasswordConfirmation] = useState("");
+    const [errorPseudo, setErrorPseudo] =useState(null);
+    const [errorMail, setErrorMail] =useState(null);
     const history = useHistory();
 
      function register() {
@@ -19,10 +21,17 @@ function Register() {
             axios.post(url + '/API/Controllers/utilisateur/creerUtilisateur.php', json)
                 // axios.post(url + '/API/Controllers/connexion.php', json)
                 .then(response => {
-                    console.log(response.data);
-                    history.push({
-                        pathname:  "/login",
-                    });
+                    if(response.data.ErrorPseudo){
+                        setErrorPseudo(response.data.ErrorPseudo);
+                    }
+                    else if(response.data.ErrorMail){
+                        setErrorMail(response.data.ErrorMail);
+                    }
+                    else {
+                        history.push({
+                            pathname:  "/login",
+                        });
+                    }
                 })
                 .catch(error => console.log(error))
         }
@@ -36,10 +45,12 @@ function Register() {
                     <div>
                         <input type="text" id="username" name="username" required placeholder="     Username"
                                onChange={e => setUsername(e.target.value)}/>
+                        {errorPseudo &&(<p className="error">{errorPseudo}</p>)}
                     </div>
                     <div>
                         <input type="mail" id="mail" name="mail" required placeholder="     Mail"
                                onChange={e => setMail(e.target.value)}/>
+                        { errorMail &&(<p className="error">{errorMail}</p>)}
                     </div>
                     <div>
                         <input type="password" id="password" name="password" required placeholder="     Password"
