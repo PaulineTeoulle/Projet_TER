@@ -40,7 +40,7 @@ function ModalEditHome(props) {
                 <p>{props.message}</p>
                 <div className="container">
                     <div className="text">
-                        <textarea className="textinput" rows="16" cols="132" maxLength="1978"
+                        <textarea className="textinput" rows="16" cols="132"
                                   value={description} onChange={changeValue}/>
                     </div>
                 </div>

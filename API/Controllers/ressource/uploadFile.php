@@ -13,8 +13,8 @@ header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: PUT, GET, POST");
 
 $response = array();
-$upload_dir = '../../../src/public/documentsRessources/';
-$server_url = 'http://127.0.0.1:8000';
+$upload_dir = $_SERVER['DOCUMENT_ROOT'] . 'API/documentsRessources/';
+$server_url = 'localhost';
 
 if ($_FILES['file']) {
     include_once '../../config/Database.php';

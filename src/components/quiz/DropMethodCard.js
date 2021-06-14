@@ -16,7 +16,7 @@ function DropMethodCard(props) {
         let url = protocol + '//' + host;
 
         const json = JSON.stringify({id_methode: Number(props.method.ID_Methode)});
-        axios.post(url + '/Projet_TER/API/Controllers/ressource/lireRessourcesMethode.php', json)
+        axios.post(url + '/API/Controllers/ressource/lireRessourcesMethode.php', json)
             .then(response => {
                 setRessources(response.data);
             })
@@ -32,7 +32,7 @@ function DropMethodCard(props) {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
-        window.open(url + '/Projet_TER/src/public/documentsRessources/' + name);
+        window.open(url+ '/API/documentsRessources/' + name);
     }
 
     function dropCard(e) {

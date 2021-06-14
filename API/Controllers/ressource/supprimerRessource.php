@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
         $ressource->id = $donnees->id;
         $ressource->nom = $ressource->readNameFromID()['Nom'];
         //echo $ressource->nom;
-        $file_pointer = "../../../src/public/documentsRessources/" . $ressource->nom;
+        $file_pointer = "/var/www/matui/API/documentsRessources/". $ressource->nom;
         if (unlink($file_pointer)) {
             echo json_encode(["Message" => "Success"]);
         } else {

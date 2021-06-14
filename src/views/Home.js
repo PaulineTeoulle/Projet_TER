@@ -38,7 +38,7 @@ function Home() {
         let url = protocol + '//' + host;
 
         if (description === null) {
-            axios.get(url + '/Projet_TER/API/Controllers/accueil/lire.php')
+            axios.get(url + '/API/Controllers/accueil/lire.php')
                 .then(response => {
                     setDescription(response.data['description']);
                 })
@@ -84,9 +84,9 @@ function Home() {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-            axios.put(url +'/Projet_TER/API/Controllers/accueil/modifier.php',data)
+            axios.put(url +'/API/Controllers/accueil/modifier.php',data)
                 .then(() => {
-                    axios.get(url+ '/Projet_TER/API/Controllers/accueil/lire.php')
+                    axios.get(url+ '/API/Controllers/accueil/lire.php')
                         .then(response => {
                             setDescription(response.data['description']);
                         })
@@ -122,8 +122,7 @@ function Home() {
                     <div className="content">
                         <div>
                             <h3><strong>What is it ?</strong></h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
-                            <button className="button filled" onClick={redirect}>Start now</button>
+                            <p>This application helps you to choose a data production method. It is presented in the form of a questionnaire, and your answers will guide you towards methods that you can choose or not. Each method has associated documents to help you apply it.</p><button className="button filled" onClick={redirect}>Start now</button>
                         </div>
                         <div>
                             <img src={demo} alt={'Tool demo'}/>
@@ -133,7 +132,7 @@ function Home() {
             </div>
 
             <div>
-                <h3>More explications
+                <h3>More explanation
                     {userRole==="super-admin"  && ( <FontAwesomeIcon className="icon" icon={faPen} onClick={handleOpen}/>)}
                     {userRole==="administrator" && ( <FontAwesomeIcon className="icon" icon={faPen} onClick={handleOpen}/>)}
                 </h3>

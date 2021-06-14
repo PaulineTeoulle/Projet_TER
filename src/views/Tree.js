@@ -368,7 +368,7 @@ function Tree() {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-                axios.get(url + '/Projet_TER/API/Controllers/lireArbre.php')
+                axios.get(url + '/API/Controllers/lireArbre.php')
                 .then(response => {
                     setInitialTree(response.data)
                 })
@@ -447,7 +447,7 @@ function Tree() {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-                axios.post(url + '/Projet_TER/API/Controllers/creerArbre.php', finalTree)
+                axios.post(url + '/API/Controllers/creerArbre.php', finalTree)
                 .then(response => {
                     setModalInformationOpen(true);
                 })
@@ -824,7 +824,7 @@ function Tree() {
                         <FontAwesomeIcon onClick={() => deleteMode()} className="icon delete" icon={faTrashAlt} />
                         <p className="removeModeMessage">Warning, you activated the suppression mode</p>
                     </div>
-                    <button onClick={() => console.log(nextEdgeId)}>debug</button>
+                    {/*<button onClick={() => console.log(nextEdgeId)}>debug</button>*/}
 
                     <ModalEditCritere
                         title="Edit critere"

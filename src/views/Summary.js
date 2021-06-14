@@ -33,7 +33,7 @@ export class Summary extends React.Component {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-            axios.get(url + '/Projet_TER/API/Controllers/sortie/lireSortie.php')
+            axios.get(url + '/API/Controllers/sortie/lireSortie.php')
                 .then(response => {
                     this.setState({endMessage: response.data['message']})
                 })

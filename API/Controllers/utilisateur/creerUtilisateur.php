@@ -36,10 +36,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         "pseudo" => $utilisateur->pseudo,
                         "mot_de_passe" => $utilisateur->mot_de_passe,
                     ];
-                    http_response_code(200);
+                   // http_response_code(200);
                     echo json_encode(["Message" => "Success"]);
                 } else {
-                    http_response_code( 304);
+                    //http_response_code( 304);
                     echo json_encode(["Error" => "Failure"]);
                 }
             }
@@ -50,6 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
 } else {
-    http_response_code(405);
+   // http_response_code(405);
     echo json_encode(["Message" => "Unauthorised method"]);
 }

@@ -21,15 +21,15 @@ class Database
     /**
      * @var string database name
      */
-    private $db_name = "test_matui";
+    private $db_name = "api_matui";
     /**
      * @var string database user
      */
-    private $username = "root"; //"adminMatui";
+    private $username = "adminMatui"; //"adminMatui";
     /**
      * @var string database password
      */
-    private $password = ""; //"Pm2Mv1MDRT!";
+    private $password = "Pm2Mv1MDRT!"; //"Pm2Mv1MDRT!";
 
 
     /**

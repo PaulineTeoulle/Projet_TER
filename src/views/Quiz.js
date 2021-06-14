@@ -246,8 +246,8 @@ export class Quiz extends React.Component {
         let url = protocol + '//' + host;
 
         if(!this.state.tree){
-            //axios.get(url + '/Projet_TER/API/Controllers/lireArbre.php')
-            axios.get(url + '/Projet_TER/API/Controllers/lireArbre.php')
+            //axios.get(url + '/API/Controllers/lireArbre.php')
+            axios.get(url + '/API/Controllers/lireArbre.php')
             .then(response => {
                 this.setState({tree: response.data});
                 this.changeData(response.data.entree[0].ID_Critere);
