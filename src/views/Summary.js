@@ -15,16 +15,17 @@ export class Summary extends React.Component {
     }
 
     goToHome = () => {
-        this.props.history.push({
-            pathname: '/home'
-        })
+        console.log("test");
+        // this.props.history.push({
+        //     pathname: '/home'
+        // })
     }
 
     componentDidMount() {
-        if (this.props.location.state.retainedMethods.length) {
+        if (this.props.retainedMethods.length) {
             this.setState({
-                retainedMethods: this.props.location.state.retainedMethods,
-                amount: this.props.location.state.retainedMethods.length
+                retainedMethods: this.props.retainedMethods,
+                amount: this.props.retainedMethods.length
             });
         } else {
             this.setState({amount: 0});
@@ -33,7 +34,7 @@ export class Summary extends React.Component {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-            axios.get(url + '/Projet_TER/API/Controllers/sortie/lireSortie.php')
+            axios.get(url + '/reactTest/MATUI/API/Controllers/sortie/lireSortie.php')
                 .then(response => {
                     this.setState({endMessage: response.data['message']})
                 })

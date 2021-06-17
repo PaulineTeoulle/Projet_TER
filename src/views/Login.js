@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import Auth from "../contexts/Auth";
 import {login, isUser} from "../services/AuthApi";
-import 'font-awesome/css/font-awesome.min.css';
+// import 'font-awesome/css/font-awesome.min.css';
 
 const Login = (props) => {
 
@@ -76,10 +76,10 @@ const Login = (props) => {
                             onChange={handleChange}/>
                     </div>
                 </div>
-                {props.location.state &&(<p className="error">{props.location.state.error}</p>)}
+                {/* {props.location.state &&(<p className="error">{props.location.state.error}</p>)} */}
 
                 <div className="action">
-                    <button className="button filled" onClick={handleSubmit}>Sign in</button>
+                    <button className="button filled" onClick={test}>Sign in</button>
                 </div>
 
                 <div className="signup">

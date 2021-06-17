@@ -30,7 +30,6 @@ function Issues(props) {
     if (props.issue && props.decisions) {
         return (
             <div className="Issues">
-
                 {props.issue.Informations != null ?
                     <h3><FontAwesomeIcon className="issueInfoIcon" icon={faInfoCircle}
                         onClick={(e) => togglePanel(e)}/> {props.issue.Libelle} </h3>

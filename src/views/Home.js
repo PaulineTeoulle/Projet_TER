@@ -1,6 +1,6 @@
 import Loader from "../components/Loader";
-import logo from "../public/logothedre.png";
-import demo from "../public/HomeDemo.png";
+// import logo from "../public/logothedre.png";
+// import demo from "../public/HomeDemo.png";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen} from "@fortawesome/free-solid-svg-icons";
 import ModalEditHome from "../components/modal/ModalEditHome";
@@ -23,7 +23,7 @@ function Home() {
     /**
      * Setup state for role, description, newDescription, modalOpen
      */
-    const [description, setDescription] = useState(null);
+    const [description, setDescription] = useState("null");
     const [modalOpen, setModalOpen] = useState(false);
     const [newDescription, setNewDescription] = useState(null);
     const {userRole, setUserRole} = useContext(Auth);
@@ -38,7 +38,7 @@ function Home() {
         let url = protocol + '//' + host;
 
         if (description === null) {
-            axios.get(url + '/Projet_TER/API/Controllers/accueil/lire.php')
+            axios.get(url + '/reactTest/MATUI/API/Controllers/accueil/lire.php')
                 .then(response => {
                     setDescription(response.data['description']);
                 })
@@ -84,9 +84,9 @@ function Home() {
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-            axios.put(url +'/Projet_TER/API/Controllers/accueil/modifier.php',data)
+            axios.put(url +'/reactTest/MATUI/API/Controllers/accueil/modifier.php',data)
                 .then(() => {
-                    axios.get(url+ '/Projet_TER/API/Controllers/accueil/lire.php')
+                    axios.get(url+ '/reactTest/MATUI/API/Controllers/accueil/lire.php')
                         .then(response => {
                             setDescription(response.data['description']);
                         })
@@ -125,9 +125,6 @@ function Home() {
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
                             <button className="button filled" onClick={redirect}>Start now</button>
                         </div>
-                        <div>
-                            <img src={demo} alt={'Tool demo'}/>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -139,9 +136,6 @@ function Home() {
                 </h3>
         
                 <div className="content">
-                    <div className="logo">
-                        <img src={logo} alt={'Logo Thedre'}/>
-                    </div>
                     <p>{description}</p>
                 </div>
             </div>

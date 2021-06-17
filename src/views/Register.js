@@ -15,8 +15,8 @@ function Register() {
 
         if (username !== "" && mail !== "" && password !== "" && passwordConfirmation !== "" && password === passwordConfirmation) {
             const json = JSON.stringify({mail: mail, pseudo: username, mot_de_passe: password});
-            axios.post(url + '/Projet_TER/API/Controllers/utilisateur/creerUtilisateur.php', json)
-                // axios.post(url + '/Projet_TER/API/Controllers/connexion.php', json)
+            axios.post(url + '/reactTest/MATUI/API/Controllers/utilisateur/creerUtilisateur.php', json)
+                // axios.post(url + '/reactTest/MATUI/API/Controllers/connexion.php', json)
                 .then(response => {
                     console.log(response.data);
                     window.location.href = '/login'
