@@ -13,11 +13,13 @@ const Login = (props) => {
         mot_de_passe: ""
     });
 
+    // set les informations récupérer des inputs dans une variable
     const handleChange = ({currentTarget}) => {
         const {name, value} = currentTarget;
         setUser({...user, [name]: value})
     }
 
+    // envoie les informations de connexion a la fonction login de AuthApi
     const handleSubmit = async event => {
         event.preventDefault();
 
@@ -48,6 +50,7 @@ const Login = (props) => {
         }
     }
 
+    // renvoie sur la page register
     const change = () => {
         props.history.push('/register')
     }

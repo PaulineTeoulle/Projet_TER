@@ -9,6 +9,7 @@ function Register() {
     const [errorPseudo, setErrorPseudo] =useState(null);
     const [errorMail, setErrorMail] =useState(null);
 
+    // enregistre un nouveau compte
     function register() {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
@@ -16,8 +17,8 @@ function Register() {
 
         if (username !== "" && mail !== "" && password !== "" && passwordConfirmation !== "" && password === passwordConfirmation) {
             const json = JSON.stringify({mail: mail, pseudo: username, mot_de_passe: password});
-            axios.post(url + '/Projet_TER/API/Controllers/utilisateur/creerUtilisateur.php', json)
-                // axios.post(url + '/Projet_TER/API/Controllers/connexion.php', json)
+            axios.post(url + '/reactTest/MATUI/API/Controllers/utilisateur/creerUtilisateur.php', json)
+                // axios.post(url + '/reactTest/MATUI/API/Controllers/connexion.php', json)
                 .then(response => {
                     if(response.data.ErrorPseudo){
                         setErrorPseudo(response.data.ErrorPseudo);
@@ -33,21 +34,6 @@ function Register() {
         }
 
     }
-
-    useEffect(() => {
-        console.log(username)
-    }, [username]);
-
-    useEffect(() => {
-        console.log(password)
-    }, [password]);
-
-    useEffect(() => {
-        console.log(passwordConfirmation)
-    }, [passwordConfirmation]);
-    useEffect(() => {
-        console.log(mail)
-    }, [mail]);
 
     return (
         <div className="LoginRegister">

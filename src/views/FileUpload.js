@@ -10,22 +10,25 @@ function FileUpload(props) {
     const [file, setFile] = useState(null);
     const [allFiles, setAllFiles] = useState(null);
 
+    // appel la fonction d'upload de fichier avec en parametre le fichier contenu dans file
     function onSubmit(e) {
         e.preventDefault()
         uploadFile(file);
     }
 
+    // stock le fichier dans la variable file
     function onChange(e) {
         setFile(e.target.files[0]);
     }
 
+    // requete d'upload du fichier
     function uploadFile(file) {
         const formData = new FormData();
         formData.append('file', file);
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
-        axios.post(url + '/Projet_TER/API/Controllers/ressource/uploadFile.php', formData, {
+        axios.post(url + '/reactTest/MATUI/API/Controllers/ressource/uploadFile.php', formData, {
             headers: {
                 'content-type': 'multipart/form-data'
             }
@@ -33,6 +36,7 @@ function FileUpload(props) {
             if(response.data.Error){
                 alert(response.data.Error);
             }   
+            // recharge les fichiers et reset la variable file
             loadFiles();
             setFile(null);
         }).catch(error =>{
@@ -40,13 +44,15 @@ function FileUpload(props) {
         });
     }
 
+    // ouvre un fichier stocké sur le serveur
     function openFile(name){
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
-        window.open(url + '/Projet_TER/src/public/documentsRessources/' + name);
+        window.open(url + '/reactTest/MATUI/src/public/documentsRessources/' + name);
     }
 
+    // supprime un fichier
     function deleteFile(id){
         let protocol = window.location.protocol;
         let host = window.location.hostname;
@@ -55,16 +61,17 @@ function FileUpload(props) {
         console.log(data);
         axios({
             method: 'delete',
-            url: url+ '/Projet_TER/API/Controllers/ressource/supprimerRessource.php',
+            url: url+ '/reactTest/MATUI/API/Controllers/ressource/supprimerRessource.php',
             data: data
         }).then(response => loadFiles())
     }
 
+    // charge les fichiers
     function loadFiles(){
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;
-        axios.get(url + '/Projet_TER/API/Controllers/ressource/lire.php')
+        axios.get(url + '/reactTest/MATUI/API/Controllers/ressource/lire.php')
         .then(response =>{
             setAllFiles(response.data.ressources)
         });

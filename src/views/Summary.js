@@ -14,12 +14,14 @@ export class Summary extends React.Component {
         };
     }
 
+    // renvoie sur la page d'accueil
     goToHome = () => {
         this.props.history.push({
             pathname: '/home'
         })
     }
 
+    // charge et vérifie les data passé en props
     componentDidMount() {
         if (this.props.location.state.retainedMethods.length) {
             this.setState({
@@ -30,10 +32,11 @@ export class Summary extends React.Component {
             this.setState({amount: 0});
         }
         if (this.state.endMessage === null) {
+            // récupère le message de fin
             let protocol = window.location.protocol;
             let host = window.location.hostname;
             let url = protocol + '//' + host;
-            axios.get(url + '/Projet_TER/API/Controllers/sortie/lireSortie.php')
+            axios.get(url + '/reactTest/MATUI/API/Controllers/sortie/lireSortie.php')
                 .then(response => {
                     this.setState({endMessage: response.data['message']})
                 })
