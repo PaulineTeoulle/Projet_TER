@@ -24,23 +24,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $ressource = new Ressource($db);
 
     $donnees = json_decode(file_get_contents("php://input"));
-    echo json_encode($donnees);
     if (!empty($donnees->id)) {
         $ressource->id = $donnees->id;
         $ressource->nom = $ressource->readNameFromID()['Nom'];
-        //echo $ressource->nom;
-        $file_pointer = "../../../src/public/documentsRessources/" . $ressource->nom;
-        if (unlink($file_pointer)) {
-            echo json_encode(["Message" => "Success"]);
-        } else {
-            echo json_encode(["Message" => "Failure"]);
+        $file_pointer = "../../documentsRessources/". $ressource->nom;
+        if(file_exists($file_pointer)){
+            if (unlink($file_pointer)) {
+                $deleteDIR = "Success DIRECTORY";
+                //echo json_encode(["Message" => "Success DIRECTORY"]);
+            } else {
+                $deleteDB = "Failure DIRECTORY";
+//            echo json_encode(["Message" => "Failure"]);
+            }
+            if ($ressource->deleteOne()) {
+                http_response_code(200);
+                $deleteDB = "Success DB";
+                //echo json_encode(["Message" => "Success"]);
+                $arrayResults = array_merge(["Directory" => $deleteDIR, "DataBase" => $deleteDB]);
+                echo json_encode($arrayResults);
+            } else {
+                http_response_code(304);
+                $deleteDB = "Failure DB";
+//            echo json_encode(["Error" => "Failure"]);
+                $arrayResults = array_merge(["Directory" => $deleteDIR, "DataBase" => $deleteDB]);
+                echo json_encode($arrayResults);
+            }
         }
-        if ($ressource->deleteOne()) {
-            http_response_code(200);
-            echo json_encode(["Message" => "Success"]);
-        } else {
-            http_response_code(304);
-            echo json_encode(["Error" => "Failure"]);
+
+        else {
+            http_response_code(404);
+            echo json_encode(["Error" =>"Error, file doesn't exist"]);
         }
     }
 } else {

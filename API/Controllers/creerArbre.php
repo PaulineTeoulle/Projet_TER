@@ -53,14 +53,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $critere->y = $i['y'];
             if ($critere->informations == null) {
                 if ($critere->createWithoutInformations()) {
-                    echo json_encode(["Message" => "Success CRITERE"]);
+                    $critereResult = "Success CRITERE";
+                    //echo json_encode(["Message" => "Success CRITERE"]);
                 } else {
                     echo json_encode(["Error" => "Failure CRITERE"]);
                 }
 
             } else {
                 if ($critere->createWithInformations()) {
-                    echo json_encode(["Message" => "Success CRITERE"]);
+                    $critereResult = "Success CRITERE";
+                    //echo json_encode(["Message" => "Success CRITERE"]);
                 } else {
                     echo json_encode(["Error" => "Failure CRITERE"]);
                 }
@@ -76,13 +78,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $decision->id_critere_sortant = $i['ID_Critere_sortant'];
             if ($decision->id_critere_sortant == "S0" || $decision->id_critere_sortant == null) {
                 if ($decision->createWithoutCritereSortant()) {
-                    echo json_encode(["Message" => "Success DECISION"]);
+                    $decisionResult =  "Success DECISION";
+                  //  echo json_encode(["Message" => "Success DECISION"]);
                 } else {
                     echo json_encode(["Error" => "Failure DECISION"]);
                 }
             } else {
                 if ($decision->createWithCritereSortant()) {
-                    echo json_encode(["Message" => "Success DECISION"]);
+                    $decisionResult = "Success DECISION";
+                    //echo json_encode(["Message" => "Success DECISION"]);
                 } else {
                     echo json_encode(["Error" => "Failure DECISION"]);
                 }
@@ -103,7 +107,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $methode->x = $i['x'];
         $methode->y = $i['y'];
         if ($methode->create()) {
-            echo json_encode(["Message" => "Success METHODE"]);
+            $methodeResult ="Success METHODE";
+            //echo json_encode(["Message" => "Success METHODE"]);
         } else {
             echo json_encode(["Error" => "Failure METHODE"]);
         }
@@ -113,7 +118,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $methodeRessource->id_methode = $i['ID_Methode'];
         $methodeRessource->id_ressource = $i['ID_Ressource'];
         if ($methodeRessource->create()) {
-            echo json_encode(["Message" => "Success METHODE RESSOURCE"]);
+            $methodeRessourceResult = "Success  METHODE RESSOURCE";
+            //echo json_encode(["Message" => "Success METHODE RESSOURCE"]);
         } else {
             echo json_encode(["Error" => "Failure METHODE RESSOURCE"]);
         }
@@ -126,7 +132,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $entree->x = $donnees['entree'][0]['x'];
         $entree->y = $donnees['entree'][0]['y'];
         if ($entree->create()) {
-            echo json_encode(["Message" => "Success ENTREE"]);
+            $entreeResult = "Success ENTREE";
+            //echo json_encode(["Message" => "Success ENTREE"]);
         } else {
             echo json_encode(["Error" => "Failure ENTREE"]);
         }
@@ -140,11 +147,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $sortie->x = $donnees['sortie'][0]['x'];
         $sortie->y = $donnees['sortie'][0]['y'];
         if ($sortie->create()) {
-            echo json_encode(["Message" => "Success SORTIE"]);
+            $sortieResult = "Success SORTIE";
+            //echo json_encode(["Message" => "Success SORTIE"]);
         } else {
             echo json_encode(["Error" => "Failure SORTIE"]);
         }
     }
+
+    $arrayResults = array_merge(["Criteres" => $critereResult, "Decisions" => $decisionResult, "Methodes" =>$methodeResult, "MethodesRessources" => $methodeRessourceResult, "Entree" =>$entreeResult,"Sortie" => $sortieResult]);
+    http_response_code(200);
+    echo json_encode($arrayResults);
 }else {
     // http_response_code(405);
     echo json_encode(["Message" => "Unauthorised method"]);

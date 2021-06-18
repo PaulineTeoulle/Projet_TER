@@ -31,9 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 
         if ($utilisateur->updateRole()) {
             $utilisateur = $utilisateur->read();
-            echo json_encode($utilisateur);
+            echo json_encode([$utilisateur,"Message"=>"Success"]);
             http_response_code(200);
-            echo json_encode(["Message" => "Success"]);
+            //echo json_encode(["Message" => "Success"]);
         } else {
             http_response_code( 304);
             echo json_encode(["Error" => "Failure"]);
