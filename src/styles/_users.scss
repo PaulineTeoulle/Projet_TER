@@ -1,7 +1,7 @@
 .Users {
 
   height: auto;
-  width: 90vh;
+  width: 110vh;
   margin-left: auto;
   margin-right: auto;
   box-shadow: var(--shadow);
@@ -14,7 +14,9 @@
     font-weight: bold;
     margin-bottom: 0.3%; //3px
     color: var(--main-color);
-
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     svg {
       margin: 0 4% 0 0; //10px
     }
@@ -25,7 +27,11 @@
     column-count: 4;
     text-align: center;
     color: var(--main-grey);
-
+    p{
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
     svg {
       margin: 0 20% 0 0;
 
@@ -37,6 +43,7 @@
 
     &:nth-child(odd) {
       background: var(--light-grey);
+
     }
 
     &:nth-child(even) {
