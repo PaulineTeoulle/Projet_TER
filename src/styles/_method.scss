@@ -73,7 +73,10 @@
                         font-size: 10px;
                         text-decoration: underline;
                         text-align: center;
-                        margin-top: 5px;
+                        margin: 5px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
                     }
                 }
             }
