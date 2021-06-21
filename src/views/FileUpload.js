@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import $ from 'jquery';
 import axios from 'axios';
 import pdf from '../public/pdf.svg'
+import doc from '../public/doc.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faTrash } from '@fortawesome/free-solid-svg-icons';
 import ModalConfirmation from '../components/modal/ModalConfirmation';
@@ -77,6 +78,18 @@ function FileUpload(props) {
         });
     }
 
+    function getIcon(filename){
+        let src = filename.slice(-3);
+        let test = false;
+        (src == "pdf" ? test = true : test = false);
+        switch(test){
+            case true:
+                return pdf;
+            case false:
+                return doc;
+        }
+    }
+
     useEffect(() => {
         if(file){
             $("form>label").html(file.name);
@@ -124,7 +137,7 @@ function FileUpload(props) {
                         {allFiles.map((element, i) => {   
                             return (<div className="item" title={element.Nom} key={i}>
                                 <p onClick={() => openModal(element)}><FontAwesomeIcon icon={faTrash} /></p>
-                                <img onClick={() => openFile(element.Nom)} src={pdf} alt="icon pdf"/>
+                                <img onClick={() => openFile(element.Nom)} src={getIcon(element.Nom)} alt="icon pdf"/>
                                 <p onClick={() => openFile(element.Nom)}>{element.Nom}</p>
                                 </div>
                             ) 

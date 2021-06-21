@@ -37,13 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
 //            echo json_encode(["Message" => "Failure"]);
             }
             if ($ressource->deleteOne()) {
-                http_response_code(200);
+                // http_response_code(200);
                 $deleteDB = "Success DB";
                 //echo json_encode(["Message" => "Success"]);
                 $arrayResults = array_merge(["Directory" => $deleteDIR, "DataBase" => $deleteDB]);
                 echo json_encode($arrayResults);
             } else {
-                http_response_code(304);
+                // http_response_code(304);
                 $deleteDB = "Failure DB";
 //            echo json_encode(["Error" => "Failure"]);
                 $arrayResults = array_merge(["Directory" => $deleteDIR, "DataBase" => $deleteDB]);
@@ -52,11 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
         }
 
         else {
-            http_response_code(404);
+            // http_response_code(404);
             echo json_encode(["Error" =>"Error, file doesn't exist"]);
         }
     }
 } else {
-    http_response_code(405);
+    // http_response_code(405);
     echo json_encode(["Message" => "Unauthorised method"]);
 }
