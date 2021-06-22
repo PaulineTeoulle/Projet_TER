@@ -17,7 +17,7 @@
       text-align: center;
       font-weight: bold;
       margin-bottom: 0.3%; //3px
-      color: var(--main-color);
+      color: var(--main-grey);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -31,7 +31,7 @@
       padding: 2.5%; //20px
       column-count: 4;
       text-align: center;
-      color: var(--main-grey);
+      color: var(--text-color);
 
       p {
         overflow: hidden;
@@ -41,7 +41,7 @@
 
       svg {
         margin: 0 20% 0 0;
-
+        color: var(--main-grey);
         &:hover {
           color: var(--secondary-color);
           cursor: pointer;
