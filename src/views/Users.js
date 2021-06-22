@@ -55,7 +55,7 @@ export class Users extends React.Component {
             let host = window.location.hostname;
             let url = protocol + '//' + host;
             axios.get(url + '/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
-            //axios.get(url + 'reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
+                //axios.get(url + 'reactTest/MATUI/API/Controllers/utilisateur/lireUtilisateur.php')
                 .then(response => {
                     this.setState({users: response.data});
                 })
@@ -76,8 +76,8 @@ export class Users extends React.Component {
                 data: data
             })
                 .then(response => {
-                    axios.get(url +'/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
-                    //axios.get(url +'/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
+                    axios.get(url + '/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
+                        //axios.get(url +'/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
                         .then(response => {
                             this.setState({users: response.data});
                         })
@@ -98,13 +98,13 @@ export class Users extends React.Component {
             let data = JSON.stringify({id: Number(id)});
             axios({
                 method: 'delete',
-                url: url+ '/Projet_TER/API/Controllers/utilisateur/supprimerUtilisateur.php',
+                url: url + '/Projet_TER/API/Controllers/utilisateur/supprimerUtilisateur.php',
                 //url: url+ '/Projet_TER/API/Controllers/utilisateur/supprimerUtilisateur.php',
                 data: data
             })
                 .then(response => {
-                    axios.get(url+ '/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
-                    //axios.get(url + '/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
+                    axios.get(url + '/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
+                        //axios.get(url + '/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php')
                         .then(response => {
                             this.setState({users: response.data});
                         })
@@ -124,9 +124,9 @@ export class Users extends React.Component {
             if (this.state.users.hasOwnProperty(i)) {
                 let child = [];
                 child.push(<div key={i} className="row">
-                    <p>{this.state.users[i]['Pseudo']}</p>
-                    <p>{this.state.users[i]['Mail']}</p>
-                    <p>{this.state.users[i]['Role']}</p>
+                    <p title={this.state.users[i]['Pseudo']}>{this.state.users[i]['Pseudo']}</p>
+                    <p title={this.state.users[i]['Mail']}>{this.state.users[i]['Mail']}</p>
+                    <p title={this.state.users[i]['Role']}>{this.state.users[i]['Role']}</p>
 
                     <FontAwesomeIcon icon={faPen}
                                      onClick={this.handleClickOpenEdit.bind(this, this.state.users[i]['ID_Utilisateur'], this.state.users[i]['Role'])}/>
@@ -169,12 +169,14 @@ export class Users extends React.Component {
         else {
             return (
                 <div className="Users">
-                    <div className="header">
-                        <p><FontAwesomeIcon icon={faUser}/>Username</p>
-                        <p><FontAwesomeIcon icon={faEnvelope}/>Mail</p>
-                        <p><FontAwesomeIcon icon={faUserTag}/>Role</p>
+                    <div className="container">
+                        <div className="header">
+                            <p><FontAwesomeIcon icon={faUser}/>Username</p>
+                            <p><FontAwesomeIcon icon={faEnvelope}/>Mail</p>
+                            <p><FontAwesomeIcon icon={faUserTag}/>Role</p>
+                        </div>
+                        {this.chargeData()}
                     </div>
-                    {this.chargeData()}
                 </div>
             );
         }

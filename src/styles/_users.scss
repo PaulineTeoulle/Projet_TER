@@ -1,53 +1,61 @@
 .Users {
+  //
+  //height: auto;
+  //width: 110vh;
+  //margin-left: auto;
+  //margin-right: auto;
 
-  height: auto;
-  width: 110vh;
-  margin-left: auto;
-  margin-right: auto;
-  box-shadow: var(--shadow);
 
-  .header {
+
+  .container {
+    margin: 0 30px;
     box-shadow: var(--shadow);
-    padding: 2.5%; //20px
-    column-count: 4;
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 0.3%; //3px
-    color: var(--main-color);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    svg {
-      margin: 0 4% 0 0; //10px
-    }
-  }
-
-  .row {
-    padding: 2.5%; //20px
-    column-count: 4;
-    text-align: center;
-    color: var(--main-grey);
-    p{
+    .header {
+      box-shadow: var(--shadow);
+      padding: 2.5%; //20px
+      column-count: 4;
+      text-align: center;
+      font-weight: bold;
+      margin-bottom: 0.3%; //3px
+      color: var(--main-color);
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-    }
-    svg {
-      margin: 0 20% 0 0;
 
-      &:hover {
-        color: var(--secondary-color);
-        cursor: pointer;
+      svg {
+        margin: 0 4% 0 0; //10px
       }
     }
 
-    &:nth-child(odd) {
-      background: var(--light-grey);
+    .row {
+      padding: 2.5%; //20px
+      column-count: 4;
+      text-align: center;
+      color: var(--main-grey);
 
-    }
+      p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
 
-    &:nth-child(even) {
-      background: #FFF
+      svg {
+        margin: 0 20% 0 0;
+
+        &:hover {
+          color: var(--secondary-color);
+          cursor: pointer;
+        }
+      }
+
+      &:nth-child(odd) {
+        background: var(--light-grey);
+
+      }
+
+      &:nth-child(even) {
+        background: #FFF
+      }
     }
   }
 }
