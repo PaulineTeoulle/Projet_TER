@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="ed605530-1cac-4700-8968-5dcd5dea0ae4" name="Default Changelist" comment="Last deploy" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="deployV3" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1tvjMhaQ0j8S5V7QUHOzQL74SfZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="false" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/API/documentsRessources" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\wamp64\www\Projet_TER\API\documentsRessources" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="ed605530-1cac-4700-8968-5dcd5dea0ae4" name="Default Changelist" comment="" />
+      <created>1623656418916</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1623656418916</updated>
+      <workItem from="1623656424255" duration="3016000" />
+      <workItem from="1623671260467" duration="3177000" />
+      <workItem from="1623676024293" duration="616000" />
+      <workItem from="1623678501391" duration="772000" />
+      <workItem from="1623743922537" duration="2776000" />
+      <workItem from="1623845561695" duration="7418000" />
+      <workItem from="1623913296018" duration="72000" />
+      <workItem from="1623917112657" duration="5660000" />
+      <workItem from="1624004263743" duration="4056000" />
+      <workItem from="1624260756844" duration="3815000" />
+      <workItem from="1624266923547" duration="473000" />
+      <workItem from="1624363679299" duration="1912000" />
+      <workItem from="1624445629603" duration="2067000" />
+      <workItem from="1624455042913" duration="304000" />
+    </task>
+    <task id="LOCAL-00001" summary="Some fix">
+      <created>1623673286500</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1623673286500</updated>
+    </task>
+    <task id="LOCAL-00002" summary="ErrorRegister">
+      <created>1623674897437</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1623674897437</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Fix some bugs">
+      <created>1624004522390</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1624004522390</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Fix some bugs">
+      <created>1624260946686</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1624260946687</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Fix css">
+      <created>1624267358533</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1624267358533</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Fix css">
+      <created>1624267390949</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1624267390950</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Fix css">
+      <created>1624364234933</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1624364234933</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Fix css">
+      <created>1624364726266</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1624364726266</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Some fix" />
+    <MESSAGE value="ErrorRegister" />
+    <MESSAGE value="Fix some bugs" />
+    <MESSAGE value="Fix css" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix css" />
+  </component>
+</project>
