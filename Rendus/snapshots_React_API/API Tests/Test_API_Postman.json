@@ -1,0 +1,2013 @@
+{
+	"info": {
+		"_postman_id": "10e32119-4a6b-4704-8f73-29f15f13bb2b",
+		"name": "Test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "lireArbre",
+			"item": [
+				{
+					"name": "GET_lireArbre",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json test\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JsonBody test\", function () {\r",
+									"    pm.response.to.have.jsonBody(\"entree\");\r",
+									"    pm.response.to.have.jsonBody(\"criteres\");\r",
+									"    pm.response.to.have.jsonBody(\"decisions\");\r",
+									"    pm.response.to.have.jsonBody(\"methodes\");\r",
+									"    pm.response.to.have.jsonBody(\"methodesRessources\");\r",
+									"    pm.response.to.have.jsonBody(\"ressources\");\r",
+									"    pm.response.to.have.jsonBody(\"sortie\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json response has properties test\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(Object.keys(pm.response.json()).length).to.eql(7);\r",
+									"    pm.expect(responseJson.entree).to.be.an('array');\r",
+									"    pm.expect(responseJson.criteres).to.be.an('array');\r",
+									"    pm.expect(responseJson.decisions).to.be.an('array');\r",
+									"    pm.expect(responseJson.methodes).to.be.an('array');\r",
+									"    pm.expect(responseJson.methodesRessources).to.be.an('array');\r",
+									"    pm.expect(responseJson.ressources).to.be.an('array');\r",
+									"    pm.expect(responseJson.sortie).to.be.an('array');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{domainname}}/Projet_TER/API/Controllers/lireArbre.php",
+							"protocol": "http",
+							"host": [
+								"{{domainname}}"
+							],
+							"path": [
+								"Projet_TER",
+								"API",
+								"Controllers",
+								"lireArbre.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST_lireArbre",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json test\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JsonBody test\", function () {\r",
+									"    pm.response.to.have.jsonBody(\"Message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json response content test\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.Message).contains('Unauthorised method')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" :\"9\"\r\n}"
+						},
+						"url": {
+							"raw": "http://{{domainname}}/Projet_TER/API/Controllers/lireArbre.php",
+							"protocol": "http",
+							"host": [
+								"{{domainname}}"
+							],
+							"path": [
+								"Projet_TER",
+								"API",
+								"Controllers",
+								"lireArbre.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT_lireArbre",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json test\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JsonBody test\", function () {\r",
+									"    pm.response.to.have.jsonBody(\"Message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json response content test\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.Message).contains('Unauthorised method')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" :\"9\"\r\n}"
+						},
+						"url": {
+							"raw": "http://{{domainname}}/Projet_TER/API/Controllers/lireArbre.php",
+							"protocol": "http",
+							"host": [
+								"{{domainname}}"
+							],
+							"path": [
+								"Projet_TER",
+								"API",
+								"Controllers",
+								"lireArbre.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DEL_lireArbre",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json test\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JsonBody test\", function () {\r",
+									"    pm.response.to.have.jsonBody(\"Message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json response content test\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.Message).contains('Unauthorised method')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" :\"9\"\r\n}"
+						},
+						"url": {
+							"raw": "http://{{domainname}}/Projet_TER/API/Controllers/lireArbre.php",
+							"protocol": "http",
+							"host": [
+								"{{domainname}}"
+							],
+							"path": [
+								"Projet_TER",
+								"API",
+								"Controllers",
+								"lireArbre.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ressource",
+			"item": [
+				{
+					"name": "lireRessource",
+					"item": [
+						{
+							"name": "GET_lire",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response has properties test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson.ressources).to.be.an('array');\r",
+											"    if(responseJson[0]){\r",
+											"         pm.expect(responseJson[0]).to.have.property(\"ID_Ressource\");\r",
+											"        pm.expect(responseJson[0]).to.have.property(\"Nom\");\r",
+											"        pm.expect(responseJson[0]).to.have.property(\"Fichier\");\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/ressource/lire.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"ressource",
+										"lire.php"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "lireRessourceMethode",
+					"item": [
+						{
+							"name": "GET_lireRessourceMethode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response has properties test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    if(responseJson[0]){\r",
+											"         pm.expect(responseJson[0]).to.have.property(\"ID_Ressource\");\r",
+											"        pm.expect(responseJson[0]).to.have.property(\"Nom\");\r",
+											"        pm.expect(responseJson[0]).to.have.property(\"Fichier\");\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id_methode\" : \"1\"\r\n}"
+								},
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/ressource/lireRessourcesMethode.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"ressource",
+										"lireRessourcesMethode.php"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "supprimerRessource",
+					"item": [
+						{
+							"name": "DEL_suppRessourceInvalide",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.response.to.have.jsonBody(\"Error\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response has properties test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(Object.keys(pm.response.json()).length).to.eql(1);\r",
+											"    pm.expect(responseJson.Error).to.be.an('string');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : \"3\"\r\n}"
+								},
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/ressource/supprimerRessource.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"ressource",
+										"supprimerRessource.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DEL_suppRessourceValide",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.response.to.have.jsonBody(\"Directory\");\r",
+											"    pm.response.to.have.jsonBody(\"DataBase\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response has properties test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(Object.keys(pm.response.json()).length).to.eql(2);\r",
+											"    pm.expect(responseJson.Directory).to.be.an('string');\r",
+											"    pm.expect(responseJson.DataBase).to.be.an('string');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : \"3\"\r\n}"
+								},
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/ressource/supprimerRessource.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"ressource",
+										"supprimerRessource.php"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Accueil",
+			"item": [
+				{
+					"name": "lireAccueil",
+					"item": [
+						{
+							"name": "GET_lireAccueil",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.response.to.have.jsonBody(\"description\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response has properties test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(Object.keys(pm.response.json()).length).to.eql(1);\r",
+											"    pm.expect(responseJson.description).to.be.an('string');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/accueil/lire.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"accueil",
+										"lire.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST_lireAccueil",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(405);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.response.to.have.jsonBody(\"Message\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response content test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson.Message).to.be.an('string');\r",
+											"    pm.expect(responseJson.Message).contains('Unauthorised method');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/accueil/lire.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"accueil",
+										"lire.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT_lireAccueil",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(405);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.response.to.have.jsonBody(\"Message\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response content test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson.Message).to.be.an('string');\r",
+											"    pm.expect(responseJson.Message).contains('Unauthorised method');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/accueil/lire.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"accueil",
+										"lire.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DEL_lireAccueil",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(405);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.response.to.have.jsonBody(\"Message\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response content test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson.Message).to.be.an('string');\r",
+											"    pm.expect(responseJson.Message).contains('Unauthorised method');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/accueil/lire.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"accueil",
+										"lire.php"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "modifierAccueil",
+					"item": [
+						{
+							"name": "GET_modifierAccueil",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(405);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.response.to.have.jsonBody(\"Message\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response content test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson.Message).to.be.an('string');\r",
+											"    pm.expect(responseJson.Message).contains('Unauthorised method');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/accueil/modifier.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"accueil",
+										"modifier.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST_modifierAccueil",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.response.to.have.jsonBody(\"description\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response content test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson.description).to.be.an('string');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\" : \"Test pour changer le contenu de l’accueil\"\r\n}\r\n"
+								},
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/accueil/modifier.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"accueil",
+										"modifier.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT_modifierAccueil",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"   pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.response.to.have.jsonBody(\"description\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response content test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson.description).to.be.an('string');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"description\" : \"LOL\"\r\n}"
+								},
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/accueil/modifier.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"accueil",
+										"modifier.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DEL_modifierAcceuil",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(405);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.response.to.have.jsonBody(\"Message\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response content test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson.Message).to.be.an('string');\r",
+											"    pm.expect(responseJson.Message).contains('Unauthorised method');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/accueil/modifier.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"accueil",
+										"modifier.php"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Utilisateur",
+			"item": [
+				{
+					"name": "creerUtilisateur",
+					"item": [
+						{
+							"name": "GET_creerUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(405);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.response.to.have.jsonBody(\"Message\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response content test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson.Message).to.be.an('string');\r",
+											"    pm.expect(responseJson.Message).contains('Unauthorised method');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/utilisateur/creerUtilisateur.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"utilisateur",
+										"creerUtilisateur.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST_creerUserValid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.response.to.have.jsonBody(\"Message\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response has properties test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(Object.keys(pm.response.json()).length).to.eql(1);\r",
+											"    pm.expect(responseJson.Message).to.be.an('string');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mail\":\"superAdmin@superAdmin.fra\",\r\n    \"pseudo\" : \"superAdmina\",\r\n    \"mot_de_passe\" : \"1234\"\r\n}"
+								},
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/utilisateur/creerUtilisateur.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"utilisateur",
+										"creerUtilisateur.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST_creerUserInvalid",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.response.to.have.jsonBody(\"ErrorPseudo\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response has properties test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(Object.keys(pm.response.json()).length).to.eql(1);\r",
+											"    pm.expect(responseJson.ErrorPseudo).to.be.an('string');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"mail\":\"superAdmin@superAdmin.fr\",\r\n    \"pseudo\" : \"superAdmin\",\r\n    \"mot_de_passe\" : \"1234\"\r\n}"
+								},
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/utilisateur/creerUtilisateur.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"utilisateur",
+										"creerUtilisateur.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT_creerUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(405);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.response.to.have.jsonBody(\"Message\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response content test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson.Message).to.be.an('string');\r",
+											"    pm.expect(responseJson.Message).contains('Unauthorised method');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/utilisateur/creerUtilisateur.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"utilisateur",
+										"creerUtilisateur.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DEL_creerUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(405);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.response.to.have.jsonBody(\"Message\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response content test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson.Message).to.be.an('string');\r",
+											"    pm.expect(responseJson.Message).contains('Unauthorised method');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/utilisateur/creerUtilisateur.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"utilisateur",
+										"creerUtilisateur.php"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "lireUtilisateur",
+					"item": [
+						{
+							"name": "GET_lireUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response has properties test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    if(responseJson[0]){\r",
+											"         pm.expect(responseJson[0]).to.have.property(\"ID_Utilisateur\");\r",
+											"        pm.expect(responseJson[0]).to.have.property(\"Mail\");\r",
+											"        pm.expect(responseJson[0]).to.have.property(\"Pseudo\");\r",
+											"        pm.expect(responseJson[0]).to.have.property(\"Role\");\r",
+											"    }\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/utilisateur/lireUtilisateur.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"utilisateur",
+										"lireUtilisateur.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST_lireUser",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "PUT_lireUser",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "DEL_lireUser",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "modifierUtilisateur",
+					"item": [
+						{
+							"name": "GET_modifierUser",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "POST_modifierUser",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "PUT_modifierUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.expect(Object.keys(pm.response.json()).length).to.eql(2);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response has properties test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(Object.keys(pm.response.json()).length).to.eql(2);\r",
+											"    if(responseJson[0]){\r",
+											"        pm.expect(responseJson[0][0]).to.have.property(\"ID_Utilisateur\");\r",
+											"        pm.expect(responseJson[0][0]).to.have.property(\"Mail\");\r",
+											"        pm.expect(responseJson[0][0]).to.have.property(\"Pseudo\");\r",
+											"        pm.expect(responseJson[0][0]).to.have.property(\"Role\");\r",
+											"    }\r",
+											"    pm.expect(responseJson).to.have.property(\"Message\");\r",
+											"\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id_utilisateur\": \"4\",\r\n    \"role\" : \"super-admin\"\r\n}"
+								},
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/utilisateur/modifierUtilisateur.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"utilisateur",
+										"modifierUtilisateur.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DEL_modifierUser",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json test\", function () {\r",
+											"    pm.response.to.be.json;\r",
+											"});\r",
+											"\r",
+											"pm.test(\"JsonBody test\", function () {\r",
+											"    pm.expect(Object.keys(pm.response.json()).length).to.eql(1);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json response has properties test\", function () {\r",
+											"    const responseJson = pm.response.json();\r",
+											"    pm.expect(responseJson).to.have.property(\"Message\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\" : 4\r\n}"
+								},
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/utilisateur/supprimerUtilisateur.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"utilisateur",
+										"supprimerUtilisateur.php"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "supprimerUtilisateur",
+					"item": [
+						{
+							"name": "GET_supprimerUser",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/utilisateur/supprimerUtilisateur.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"utilisateur",
+										"supprimerUtilisateur.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST_supprimerUser",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/utilisateur/supprimerUtilisateur.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"utilisateur",
+										"supprimerUtilisateur.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "PUT_supprimerUser",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://{{domainname}}/Projet_TER/API/Controllers/utilisateur/supprimerUtilisateur.php",
+									"protocol": "http",
+									"host": [
+										"{{domainname}}"
+									],
+									"path": [
+										"Projet_TER",
+										"API",
+										"Controllers",
+										"utilisateur",
+										"supprimerUtilisateur.php"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DEL_supprimerUser",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "connexion",
+			"item": [
+				{
+					"name": "GET_connexion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json test\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JsonBody test\", function () {\r",
+									"    pm.response.to.have.jsonBody(\"Message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json response content test\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.Message).contains('Unauthorised method')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{domainname}}/Projet_TER/API/Controllers/connexion.php",
+							"protocol": "http",
+							"host": [
+								"{{domainname}}"
+							],
+							"path": [
+								"Projet_TER",
+								"API",
+								"Controllers",
+								"connexion.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST_connexion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json test\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JsonBody test\", function () {\r",
+									"    pm.response.to.have.jsonBody(\"token\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json response has properties test\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(Object.keys(pm.response.json()).length).to.eql(1);\r",
+									"    pm.expect(responseJson.token).to.be.a('string');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"superAdmin\",\r\n    \"mot_de_passe\" : \"1234\"\r\n}"
+						},
+						"url": {
+							"raw": "http://{{domainname}}/Projet_TER/API/Controllers/connexion.php",
+							"protocol": "http",
+							"host": [
+								"{{domainname}}"
+							],
+							"path": [
+								"Projet_TER",
+								"API",
+								"Controllers",
+								"connexion.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST_connexionInvalid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json test\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JsonBody test\", function () {\r",
+									"    pm.response.to.have.jsonBody(\"ErrorPassword\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json response content test\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.ErrorPassword).contains('Invalid Password')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"superAdmin\",\r\n    \"mot_de_passe\" : \"A!\"\r\n}"
+						},
+						"url": {
+							"raw": "http://{{domainname}}/Projet_TER/API/Controllers/connexion.php",
+							"protocol": "http",
+							"host": [
+								"{{domainname}}"
+							],
+							"path": [
+								"Projet_TER",
+								"API",
+								"Controllers",
+								"connexion.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT_connexion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json test\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JsonBody test\", function () {\r",
+									"    pm.response.to.have.jsonBody(\"Message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json response content test\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.Message).contains('Unauthorised method')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{domainname}}/Projet_TER/API/Controllers/connexion.php",
+							"protocol": "http",
+							"host": [
+								"{{domainname}}"
+							],
+							"path": [
+								"Projet_TER",
+								"API",
+								"Controllers",
+								"connexion.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DEL_connexion",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json test\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JsonBody test\", function () {\r",
+									"    pm.response.to.have.jsonBody(\"Message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json response content test\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.Message).contains('Unauthorised method')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{domainname}}/Projet_TER/API/Controllers/connexion.php",
+							"protocol": "http",
+							"host": [
+								"{{domainname}}"
+							],
+							"path": [
+								"Projet_TER",
+								"API",
+								"Controllers",
+								"connexion.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "creerArbre",
+			"item": [
+				{
+					"name": "GET_creerArbre",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json test\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JsonBody test\", function () {\r",
+									"    pm.response.to.have.jsonBody(\"Message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json response content test\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.Message).contains('Unauthorised method')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{domainname}}/Projet_TER/API/Controllers/creerArbre.php",
+							"protocol": "http",
+							"host": [
+								"{{domainname}}"
+							],
+							"path": [
+								"Projet_TER",
+								"API",
+								"Controllers",
+								"creerArbre.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST_creerArbre",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json test\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JsonBody test\", function () {\r",
+									"    pm.expect(Object.keys(pm.response.json()).length).to.eql(6);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json response has properties test\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson).to.have.property(\"Criteres\");\r",
+									"    pm.expect(responseJson).to.have.property(\"Decisions\");\r",
+									"    pm.expect(responseJson).to.have.property(\"Methodes\");\r",
+									"    pm.expect(responseJson).to.have.property(\"MethodesRessources\");\r",
+									"    pm.expect(responseJson).to.have.property(\"Entree\");\r",
+									"    pm.expect(responseJson).to.have.property(\"Sortie\");\r",
+									"    \r",
+									"    pm.expect(responseJson.Criteres).to.be.an('string');\r",
+									"    pm.expect(responseJson.Decisions).to.be.an('string');\r",
+									"    pm.expect(responseJson.Methodes).to.be.an('string');\r",
+									"    pm.expect(responseJson.MethodesRessources).to.be.an('string');\r",
+									"    pm.expect(responseJson.Entree).to.be.an('string');\r",
+									"    pm.expect(responseJson.Sortie).to.be.an('string');\r",
+									"       \r",
+									"    \r",
+									"\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"entree\": [\r\n        {\r\n            \"ID_Entree\": \"1\",\r\n            \"Date\": \"2021-05-07\",\r\n            \"ID_Critere\": \"1\",\r\n\t    \"x\": 17,\r\n\t    \"y\" : 15\r\n        }\r\n    ],\r\n    \"criteres\": [\r\n        {\r\n            \"ID_Critere\": \"1\",\r\n            \"Libelle\": \"Does the activatable component exist ?\",\r\n            \"Informations\": null,\r\n\t    \"x\": 17,\r\n\t    \"y\" : 15\r\n        },\r\n        {\r\n            \"ID_Critere\": \"2\",\r\n            \"Libelle\": \"Is the activatable component dynamic or static ?\",\r\n            \"Informations\": \"Dynamic components product data whereas static component doesn't.\",\r\n\t    \"x\": 17,\r\n\t    \"y\" : 15\r\n        },\r\n        {\r\n            \"ID_Critere\": \"3\",\r\n            \"Libelle\": \"Do you want to exchange with a single user ?\",\r\n            \"Informations\": null,\r\n\t    \"x\": 17,\r\n\t    \"y\" : 15\r\n        }\r\n    ],\r\n    \"decisions\": [\r\n        {\r\n            \"ID_Decision\": \"1\",\r\n            \"Libelle\": \"Yes\",\r\n            \"ID_Critere_entrant\": \"1\",\r\n            \"ID_Critere_sortant\": \"2\"\r\n        },\r\n        {\r\n            \"ID_Decision\": \"2\",\r\n            \"Libelle\": \"No\",\r\n            \"ID_Critere_entrant\": \"2\",\r\n            \"ID_Critere_sortant\": \"3\"\r\n        }, \r\n\t{\r\n            \"ID_Decision\": \"3\",\r\n            \"Libelle\": \"No\",\r\n            \"ID_Critere_entrant\": \"2\",\r\n            \"ID_Critere_sortant\": \"3\"\r\n        },\r\n\t{\r\n            \"ID_Decision\": \"4\",\r\n            \"Libelle\": \"No\",\r\n            \"ID_Critere_entrant\": \"3\",\r\n            \"ID_Critere_sortant\": \"1\"\r\n        },\r\n\t{\r\n            \"ID_Decision\": \"5\",\r\n            \"Libelle\": \"No\",\r\n            \"ID_Critere_entrant\": \"1\",\r\n            \"ID_Critere_sortant\": \"3\"\r\n        },\r\n\t{\r\n            \"ID_Decision\": \"6\",\r\n            \"Libelle\": \"No\",\r\n            \"ID_Critere_entrant\": \"3\",\r\n            \"ID_Critere_sortant\": null\r\n        }\r\n    ],\r\n    \"methodes\": [\r\n        {\r\n            \"ID_Methode\": \"1\",\r\n            \"Libelle\": \"M1: Social Probes, technical probes\",\r\n            \"Description\": \"Description here\",\r\n            \"Effectif_preconise\": \"Between 6 and 20 people of different profiles\",\r\n            \"Donnees_produites\": \"Audio, video, field documents, logbook\",\r\n            \"Type_analyse\": \"Annotations, thematic analysis\",\r\n            \"Type_methode\": \"Mixed : quantitative and qualitative\",\r\n            \"Exemple\": \"Quantify whether the professional practices of gardeners are frequent or not\",\r\n            \"ID_Decision\": \"3\",\r\n\t    \"x\": 17,\r\n\t    \"y\" : 15\r\n        } \r\n    ],\r\n    \"methodesRessources\": [\r\n        {\r\n            \"ID_MethodeRessource\": \"1\",\r\n            \"ID_Methode\": \"1\",\r\n            \"ID_Ressource\": \"3\"\r\n        },\r\n        {\r\n            \"ID_MethodeRessource\": \"2\",\r\n            \"ID_Methode\": \"1\",\r\n            \"ID_Ressource\": \"4\"\r\n        }\r\n    ],\r\n    \"sortie\": [\r\n        {\r\n            \"ID_Sortie\": \"1\",\r\n            \"message\": \"Message de fin !\",\r\n            \"ID_Decision\": \"6\",\r\n\t    \"x\": 17,\r\n\t    \"y\" : 15\r\n        }\r\n    ]\r\n}"
+						},
+						"url": {
+							"raw": "http://{{domainname}}/Projet_TER/API/Controllers/creerArbre.php",
+							"protocol": "http",
+							"host": [
+								"{{domainname}}"
+							],
+							"path": [
+								"Projet_TER",
+								"API",
+								"Controllers",
+								"creerArbre.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT_creerArbre",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json test\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JsonBody test\", function () {\r",
+									"    pm.response.to.have.jsonBody(\"Message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json response content test\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.Message).contains('Unauthorised method')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://{{domainname}}/Projet_TER/API/Controllers/creerArbre.php",
+							"protocol": "http",
+							"host": [
+								"{{domainname}}"
+							],
+							"path": [
+								"Projet_TER",
+								"API",
+								"Controllers",
+								"creerArbre.php"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DEL_creerArbre",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json test\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JsonBody test\", function () {\r",
+									"    pm.response.to.have.jsonBody(\"Message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json response content test\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(responseJson.Message).contains('Unauthorised method')\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{domainname}}/Projet_TER/API/Controllers/creerArbre.php",
+							"protocol": "http",
+							"host": [
+								"{{domainname}}"
+							],
+							"path": [
+								"Projet_TER",
+								"API",
+								"Controllers",
+								"creerArbre.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sortie",
+			"item": [
+				{
+					"name": "GET_lireSortie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json test\", function () {\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"JsonBody test\", function () {\r",
+									"    pm.response.to.have.jsonBody(\"message\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json response has properties test\", function () {\r",
+									"    const responseJson = pm.response.json();\r",
+									"    pm.expect(Object.keys(pm.response.json()).length).to.eql(1);\r",
+									"    pm.expect(responseJson.message).to.be.an('string');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://{{domainname}}/Projet_TER/API/Controllers/sortie/lireSortie.php",
+							"protocol": "http",
+							"host": [
+								"{{domainname}}"
+							],
+							"path": [
+								"Projet_TER",
+								"API",
+								"Controllers",
+								"sortie",
+								"lireSortie.php"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "domainname",
+			"value": "localhost:80"
+		}
+	]
+}

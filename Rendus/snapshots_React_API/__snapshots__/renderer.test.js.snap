@@ -1,0 +1,341 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`view renderer should render correctly Home 1`] = `
+<div
+  className="Home"
+>
+  <div>
+    <div>
+      <h1>
+        <strong>
+          MATUI
+        </strong>
+        's tree in digital version
+      </h1>
+      <div
+        className="content"
+      >
+        <div>
+          <h3>
+            <strong>
+              What is it ?
+            </strong>
+          </h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum
+          </p>
+          <button
+            className="button filled"
+            onClick={[Function]}
+          >
+            Start now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <h3>
+      More explications
+    </h3>
+    <div
+      className="content"
+    >
+      <p>
+        null
+      </p>
+    </div>
+  </div>
+  <ModalEditHome
+    actionButton="Confirm"
+    changeAction={[Function]}
+    close={[Function]}
+    closeButton="Quit"
+    mainAction={[Function]}
+    message="Please modify"
+    oldDescription="null"
+    open={false}
+    title="Modify description"
+  />
+</div>
+`;
+
+exports[`view renderer should render correctly Issues 1`] = `
+<div
+  className="Issues"
+>
+  <h3>
+    <FontAwesomeIcon
+      border={false}
+      className="issueInfoIcon"
+      fixedWidth={false}
+      flip={null}
+      icon={
+        Object {
+          "icon": Array [
+            512,
+            512,
+            Array [],
+            "f05a",
+            "M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z",
+          ],
+          "iconName": "info-circle",
+          "prefix": "fas",
+        }
+      }
+      inverse={false}
+      listItem={false}
+      mask={null}
+      onClick={[Function]}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+     
+    Activable component ?
+     
+  </h3>
+  <p
+    className="step"
+  >
+    Question 
+    1
+  </p>
+  <form
+    action="#"
+  >
+    <div
+      key="1"
+    >
+      <input
+        name="radio-group"
+        type="radio"
+        value="1"
+      />
+      <label>
+        yes
+      </label>
+    </div>
+    <div
+      key="1"
+    >
+      <input
+        name="radio-group"
+        type="radio"
+        value="1"
+      />
+      <label>
+        no
+      </label>
+    </div>
+  </form>
+  <button
+    onClick={[Function]}
+  >
+    Next
+    <FontAwesomeIcon
+      border={false}
+      className="icon"
+      fixedWidth={false}
+      flip={null}
+      icon={
+        Object {
+          "icon": Array [
+            320,
+            512,
+            Array [],
+            "f054",
+            "M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z",
+          ],
+          "iconName": "chevron-right",
+          "prefix": "fas",
+        }
+      }
+      inverse={false}
+      listItem={false}
+      mask={null}
+      pull={null}
+      pulse={false}
+      rotation={null}
+      size={null}
+      spin={false}
+      swapOpacity={false}
+      symbol={false}
+      title=""
+      transform={null}
+    />
+  </button>
+</div>
+`;
+
+exports[`view renderer should render correctly Login 1`] = `
+<div
+  className="LoginRegister"
+>
+  <div>
+    <h3>
+      Sign in
+    </h3>
+    <div
+      className="InputItems"
+    >
+      <div>
+        <input
+          className="inputIcon"
+          id="username"
+          name="username"
+          onChange={[Function]}
+          placeholder="    Username"
+          required={true}
+          type="text"
+        />
+      </div>
+      <div>
+        <input
+          className="inputIcon"
+          id="password"
+          name="mot_de_passe"
+          onChange={[Function]}
+          placeholder="    Password"
+          required={true}
+          type="password"
+        />
+      </div>
+    </div>
+    <div
+      className="action"
+    >
+      <button
+        className="button filled"
+        onClick={[Function]}
+      >
+        Sign in
+      </button>
+    </div>
+    <div
+      className="signup"
+    >
+      <p>
+        Don't have an account ? 
+        <a
+          onClick={[Function]}
+        >
+          Create one now
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`view renderer should render correctly Register 1`] = `
+<div
+  className="LoginRegister"
+>
+  <div>
+    <h3>
+      Sign up
+    </h3>
+    <div
+      className="InputItems"
+    >
+      <div>
+        <input
+          id="username"
+          name="username"
+          onChange={[Function]}
+          placeholder="     Username"
+          required={true}
+          type="text"
+        />
+      </div>
+      <div>
+        <input
+          id="mail"
+          name="mail"
+          onChange={[Function]}
+          placeholder="     Mail"
+          required={true}
+          type="mail"
+        />
+      </div>
+      <div>
+        <input
+          id="password"
+          name="password"
+          onChange={[Function]}
+          placeholder="     Password"
+          required={true}
+          type="password"
+        />
+      </div>
+      <div>
+        <input
+          id="passwordConfirmation"
+          name="passwordConfirmation"
+          onChange={[Function]}
+          placeholder="     Confirm password"
+          required={true}
+          type="password"
+        />
+      </div>
+    </div>
+    <div
+      className="action"
+    >
+      <button
+        className="button filled"
+        onClick={[Function]}
+      >
+        Sign up
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`view renderer should render correctly Summary 1`] = `
+<div
+  className="Summary"
+>
+  <div>
+    <h3>
+      You have retained 
+      2
+       method
+      s
+    </h3>
+    <ul>
+      <li
+        key="0"
+      >
+        <DropMethodCard
+          id={1}
+        />
+      </li>
+      <li
+        key="1"
+      >
+        <DropMethodCard
+          id={2}
+        />
+      </li>
+    </ul>
+  </div>
+  <div>
+    <p />
+    <button
+      className="button filled"
+      onClick={[Function]}
+    >
+      Back home
+    </button>
+  </div>
+</div>
+`;
