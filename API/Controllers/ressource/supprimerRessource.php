@@ -24,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
     $ressource = new Ressource($db);
 
     $donnees = json_decode(file_get_contents("php://input"));
-    echo json_encode($donnees);
     if (!empty($donnees->id)) {
         $ressource->id = $donnees->id;
         $ressource->nom = $ressource->readNameFromID()['Nom'];
