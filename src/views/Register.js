@@ -11,7 +11,8 @@ function Register() {
     const [errorMail, setErrorMail] =useState(null);
     const history = useHistory();
 
-     function register() {
+    // enregistre un nouveau compte
+    function register() {
         let protocol = window.location.protocol;
         let host = window.location.hostname;
         let url = protocol + '//' + host;

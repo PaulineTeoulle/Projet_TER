@@ -20,17 +20,18 @@ import ModalConfirmation from '../components/modal/ModalConfirmation';
 import { faHubspot } from '@fortawesome/free-brands-svg-icons';
 
 function Tree() {
+    // noeud custom pour les critères
     const nodeTypes = {
         critereNode: CustomNode,
         debugNode: DebugNode
     };
 
+    // tableau de couleur (sera bindé par la suite lors de la construction de l'arbre)
     const colors = ['black', 'marron', 'blue', 'red', 'purple', 'fushia', 'green', 'lime', 'yellow',
 'navy', 'aqua', 'aquamarine', 'chocolate', 'coral', 'crimson', 'darkcyan', 'darkgreen', 'darkorange', 'darkseagreen',
 'deeppink', 'gold', 'indgo', 'lightcoral'];
 
     const [initialTree, setInitialTree] = useState(null);
-    // const [resources, setResources] = useState(null);
     const [nextId, setNextId] = useState("1");
     const [nextEdgeId, setNextEdgeId] = useState("D1");
     const [nextMethodId, setNextMethodId] = useState("M1");
@@ -54,6 +55,7 @@ function Tree() {
         event.dataTransfer.dropEffect = 'move';
     };
 
+    // créer l'objet au drop
     const onDrop = (event) => {
         event.preventDefault();
 
@@ -75,6 +77,7 @@ function Tree() {
         createNode(type, position);
     };
 
+    // au clique d'un élément on effectue une actions elon son type
     const onElementClick = (event, element) => {
         if(!remove){
             switch (element.type) {
@@ -95,6 +98,8 @@ function Tree() {
                     break;
             }
         } else {
+            // si le mode remove est activé on vérifie que l'élement n'est pas relié
+            // si l'élement n'est pas flottant on indique qu'il doit l'être pour être supprimé
             if(element.type != "smoothstep"){
                 let edges = elements.filter(item => item.type === "smoothstep");
                 let attachedEdges = edges.filter(item => item.source === element.id || item.target === element.id );
@@ -102,11 +107,9 @@ function Tree() {
                     alert("You must remove all edges from this element")
                 } else {
                     openModalConfirmation(element)
-                    // deleteElement(element); 
                 }
             } else {
                 openModalConfirmation(element)
-                // deleteElement(element); 
             }
         }
     }
@@ -114,7 +117,6 @@ function Tree() {
     const onPaneClick = (event) => {
         event.preventDefault();
     }
-
 
     // FUNCTIONS
 
@@ -220,12 +222,6 @@ function Tree() {
         // insertion du noeud dans les elements react flow render
         setElements((es) => es.concat(newNode));
     }
-
-    useEffect(() => {
-        if(nextId){
-            console.log(nextId);
-        }
-    }, [nextId]);
     
     // crée un lien entre 2 noeuds
     function createEdge(id, id_source, id_target, label, color){
@@ -241,7 +237,7 @@ function Tree() {
         setElements((es) => es.concat(newEdge));
     }
 
-    // check if a node type already exists
+    // check if a node type already exists (utilisé pour vérifier qu'on ne crée pas 2 noeuds input et output)
     function checkExist(type) {
         if(elements){
             for (let i = 0; i < elements.length; i++) {
@@ -260,12 +256,14 @@ function Tree() {
         remove ? setRemove(false) : setRemove(true);
     }
 
+    // supprimer un element
     function deleteElement(element){
             let selectedElement = elements.find(el => el.id === element.id);
             let index = elements.indexOf(selectedElement);
             setElements(elements.filter(item => elements.indexOf(item) !== index))
     }
 
+    // toggle de style quand on active le mode remove
     useEffect(() => {
         if(remove){
             $(".canvas").addClass( "removeMode" );
@@ -284,6 +282,7 @@ function Tree() {
     function initTree(){
         let startNode = initialTree.entree[0];
         createNode('input', {x: parseInt(startNode.x), y: parseInt(startNode.y)});
+
         let firstNode = initialTree.criteres.find(el => el.ID_Critere === initialTree.entree[0].ID_Critere);
         createNode('critereNode', {x: parseInt(firstNode.x), y: parseInt(firstNode.y)}, firstNode);
         createEdge('D0' ,'0', firstNode.ID_Critere, null);
@@ -291,23 +290,28 @@ function Tree() {
         let endNode = initialTree.sortie[0];
         createNode('output',  {x: parseInt(endNode.x), y: parseInt(endNode.y)}, endNode);
 
+        // initialise la fin de l'arbre
         initNodes(initialTree.entree[0].ID_Critere);
     }
 
     // initilialise critère, méthodes et décisiosn depuis le premier critère
     function initNodes(start){
         initialTree.criteres.forEach(node => {
+            // on récupère une couleur
             let color = colors[0]
             colors.splice(0, 1);
+
             if(node.ID_Critere !== start){
                 createNode('critereNode',  {x: parseInt(node.x), y: parseInt(node.y)}, node)
             }
             // on récupère les décisions attaché au critère et on regarde si un méthode est attaché
             let decisions = getDecisions(node.ID_Critere);
             decisions.forEach(decision => {
+                // si une méthode est associé a la décision on traite différement
                 let method = getMethod(decision);
                 if(method){
                     createNode('default',  {x: parseInt(method.x), y: parseInt(method.y)}, method);
+                    // on crée le lien d'entrée et de sortie de la méthode
                     createEdge("D" + decision.ID_Decision ,node.ID_Critere, "M" + method.ID_Methode, decision.Libelle, color);
                     createEdge("DM" + decision.ID_Decision, "M" + method.ID_Methode, decision.ID_Critere_sortant, null, color);
                 } else {
@@ -321,6 +325,7 @@ function Tree() {
         });
     }
 
+    // on set edgeId a l'id maximum
     function initEdgesId(){
         let highest = 0;
         initialTree.decisions.forEach(decision => {
@@ -331,6 +336,7 @@ function Tree() {
         setNextEdgeId("D" + (parseInt(highest) + 1).toString());
     }
 
+    // on set methodId a l'id maximum
     function initMethodId(){
         let highest = 0;
         initialTree.methodes.forEach(methode => {
@@ -341,6 +347,7 @@ function Tree() {
         setNextMethodId("M" + (parseInt(highest) + 1).toString());
     }
 
+    // on set nodeId a l'id maximum
     function initNodeId(){
         let highest = 0;
         initialTree.criteres.forEach(critere => {
@@ -350,6 +357,7 @@ function Tree() {
         })
         setNextId((parseInt(highest) + 1).toString());
     }
+
     // retourne les décisions d'un noeud
     function getDecisions(nodeId){
         let decisions =  initialTree.decisions.filter(decision => decision.ID_Critere_entrant === nodeId);
@@ -394,6 +402,7 @@ function Tree() {
         } 
     }, [initialTree]);
 
+
     // RECONSTRUCTION DE L'ARBRE
 
     /*
@@ -404,7 +413,9 @@ function Tree() {
         - smoothstep (edge)
     */
     function saveTree() {
+        // on récupère les élements de l'instance react flow
         let flow = reactFlowInstance.toObject();
+        // on set l'arbre que nous allons envoyé au serveur
         let finalTree = {
             criteres: [],
             methodes: [],
@@ -413,6 +424,8 @@ function Tree() {
             entree: [],
             sortie: [],
         };
+
+        // pour chaque élément on le transforme pour le serveur
         flow.elements.forEach(element => {
             let transformedElement;
             switch (element.type) {
@@ -458,6 +471,8 @@ function Tree() {
     /*
         Fonctions de transformation de l'arbre final
     */
+
+    // transforme un critère au bon objet
     function transformToCritere(element){
         let critere = {
             ID_Critere: element.id,
@@ -469,7 +484,9 @@ function Tree() {
         return critere;
     }
 
+    // transforme une méthode au bon objet
     function transformToMethod(element, flow){
+        // récupère l'id de décision pointant cette méthode
         let decision = flow.elements.find(el => el.type === "smoothstep" && el.target === element.id);
         let method = {
             ID_Methode: element.id.slice(1),
@@ -487,8 +504,10 @@ function Tree() {
         return method;
     }
 
+    // transforme une décision au bon objet
     function transformToDecision(element, flow){
         let outDecision;
+        // vérifie si la décision porte une méthode pour avoir le noeud de sortie de la décision
         if(element.target.includes("M")){
             outDecision = flow.elements.find(el => el.type === "smoothstep" && el.source === element.target);
         }
@@ -502,6 +521,7 @@ function Tree() {
         return decision;
     }
 
+    // transforme l'entree au bon objet
     function transformToEntree(element, flow){
         let outDecision = flow.elements.find(el => el.type === "smoothstep" && el.source === element.id);
         let startNode = {
@@ -513,6 +533,7 @@ function Tree() {
         return startNode;
     }
 
+    // transforme la sortie au bon objet
     function transformToSortie(element){
         let endNode = {
             ID_Sortie: 1, //element.id.slice(1),
@@ -630,7 +651,6 @@ function Tree() {
     // MODAL MANAGEMENT
 
     // warning modal
-
     const [modalWarningOpen, setModalWarningOpen] = useState(false);
 
     function closeModalWarning(){
@@ -644,13 +664,14 @@ function Tree() {
         }
     }, [errorMessage]);
 
-    // information modal
 
+    // information modal
     const [modalInformationOpen, setModalInformationOpen] = useState(false);
 
     function closeModalInformation(){
         setModalInformationOpen(false);
     }
+
 
     // connfirmation modal
     const [modalConfirmationOpen, setModalConfirmationOpen] = useState(false);
@@ -667,8 +688,8 @@ function Tree() {
         setModalConfirmationOpen(false);
     }
 
-    // edit critères
 
+    // edit critères modale
     const [modalEditCritereOpen, setModalEditCritereOpen] = useState(false);
     const [selectedCritere, setSelectedCritere] = useState(null);
 
@@ -693,7 +714,8 @@ function Tree() {
         rerenderFlow();
     }
 
-    // edit edges
+
+    // edit edges modal
     const [modalEditEdgeOpen, setModalEditEdgeOpen] = useState(false);
     const [selectedEdge, setSelectedEdge] = useState(null);
 
@@ -712,8 +734,8 @@ function Tree() {
         rerenderFlow();
     }
 
-    // edit method
 
+    // edit methode modale
     const [modalEditMethodOpen, setModalEditMethodOpen] = useState(false);
     const [selectedMethod, setSelectedMethod] = useState(null);
 
@@ -768,8 +790,8 @@ function Tree() {
         rerenderFlow();
     }
 
-    // edit noeud de fin
 
+    // edit noeud de fin modale
     const [modalEditEndNodeOpen, setModalEditEndNodeOpen] = useState(false);
     const [selectedEndNode, setSelectedEndNode] = useState(null);
 
@@ -793,8 +815,8 @@ function Tree() {
         rerenderFlow();
     }
 
-    // FORCE RERENDER
 
+    // FORCE RERENDER
     function rerenderFlow(){
         let cloneElements = [...elements];
         setElements(cloneElements);     

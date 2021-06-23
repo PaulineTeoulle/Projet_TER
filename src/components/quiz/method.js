@@ -86,7 +86,7 @@ function Method(props) {
                             {ressources.map((element, i) => {   
                                 return(<div onClick={() => openFile(element.Nom)} key={i} className="ressource">
                                     <FontAwesomeIcon className="icon" icon={faFilePdf} /> 
-                                    <p>{element.Nom}</p>
+                                    <p title={element.Nom}>{element.Nom}</p>
                                 </div>)
                             })}
                     </div>

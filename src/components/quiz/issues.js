@@ -51,8 +51,8 @@ function Issues(props) {
                         }
                         return (
                             <div key={decision.ID_Decision}>
-                                <input type="radio" name="radio-group" value={decision.ID_Decision}/>
-                                <label>{decision.Libelle}</label>
+                                <input type="radio" name="radio-group" id={decision.ID_Decision} value={decision.ID_Decision}/>
+                                <label htmlFor={decision.ID_Decision}>{decision.Libelle}</label>
                             </div>
                         )
                     })}

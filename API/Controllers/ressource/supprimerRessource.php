@@ -45,6 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'DELETE') {
         }
     }
 } else {
-    http_response_code(405);
+    // http_response_code(405);
     echo json_encode(["Message" => "Unauthorised method"]);
 }

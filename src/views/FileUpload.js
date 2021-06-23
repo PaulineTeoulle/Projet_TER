@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import $ from 'jquery';
 import axios from 'axios';
 import pdf from '../public/pdf.svg'
+import doc from '../public/doc.svg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload, faTrash } from '@fortawesome/free-solid-svg-icons';
 import ModalConfirmation from '../components/modal/ModalConfirmation';
@@ -10,15 +11,18 @@ function FileUpload(props) {
     const [file, setFile] = useState(null);
     const [allFiles, setAllFiles] = useState(null);
 
+    // appel la fonction d'upload de fichier avec en parametre le fichier contenu dans file
     function onSubmit(e) {
         e.preventDefault()
         uploadFile(file);
     }
 
+    // stock le fichier dans la variable file
     function onChange(e) {
         setFile(e.target.files[0]);
     }
 
+    // requete d'upload du fichier
     function uploadFile(file) {
         const formData = new FormData();
         formData.append('file', file);
@@ -33,6 +37,7 @@ function FileUpload(props) {
             if(response.data.Error){
                 alert(response.data.Error);
             }   
+            // recharge les fichiers et reset la variable file
             loadFiles();
             setFile(null);
         }).catch(error =>{
@@ -40,6 +45,7 @@ function FileUpload(props) {
         });
     }
 
+    // ouvre un fichier stocké sur le serveur
     function openFile(name){
         let protocol = window.location.protocol;
         let host = window.location.hostname;
@@ -47,6 +53,7 @@ function FileUpload(props) {
         window.open(url+ '/API/documentsRessources/' + name);
     }
 
+    // supprime un fichier
     function deleteFile(id){
         let protocol = window.location.protocol;
         let host = window.location.hostname;
@@ -60,6 +67,7 @@ function FileUpload(props) {
         }).then(response => loadFiles())
     }
 
+    // charge les fichiers
     function loadFiles(){
         let protocol = window.location.protocol;
         let host = window.location.hostname;
@@ -68,6 +76,18 @@ function FileUpload(props) {
         .then(response =>{
             setAllFiles(response.data.ressources)
         });
+    }
+
+    function getIcon(filename){
+        let src = filename.slice(-3);
+        let test = false;
+        (src == "pdf" ? test = true : test = false);
+        switch(test){
+            case true:
+                return pdf;
+            case false:
+                return doc;
+        }
     }
 
     useEffect(() => {
@@ -117,7 +137,7 @@ function FileUpload(props) {
                         {allFiles.map((element, i) => {   
                             return (<div className="item" title={element.Nom} key={i}>
                                 <p onClick={() => openModal(element)}><FontAwesomeIcon icon={faTrash} /></p>
-                                <img onClick={() => openFile(element.Nom)} src={pdf} alt="icon pdf"/>
+                                <img onClick={() => openFile(element.Nom)} src={getIcon(element.Nom)} alt="icon pdf"/>
                                 <p onClick={() => openFile(element.Nom)}>{element.Nom}</p>
                                 </div>
                             ) 
